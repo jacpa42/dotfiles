@@ -1,1 +1,0 @@
-return { "cmake-tools.nvim" }
