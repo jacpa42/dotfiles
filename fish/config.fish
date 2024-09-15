@@ -10,7 +10,6 @@ end
 
 
 set -gx PATH $HOME/.cargo/bin $PATH
-set -gx PATH $HOME/.surrealdb $PATH
 set -x STOW_DIR $HOME/.config/dotfiles
 
 fzf --fish | source
