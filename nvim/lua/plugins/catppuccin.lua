@@ -1,13 +1,13 @@
-return { 
-	"catppuccin/nvim", 
-	name = "catppuccin", 
+return {
+	"catppuccin/nvim",
+	name = "catppuccin",
 	priority = 1000,
 	opts = {
-	    flavour = "macchiato",
+	    flavour = "mocha",
 	    transparent_background = true,
 	    show_end_of_buffer = false,
 	    term_colors = false,
-	    styles = { 
+	    styles = {
 		comments = { "italic" },
 		conditionals = { "italic" },
 		loops = {},
