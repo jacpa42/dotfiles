@@ -1,9 +1,15 @@
 return {
   {
     "catppuccin/nvim",
-    lazy = false,
+    name = "catppuccin",
+    priority = 1000,
     opts = {
-      transparent_background = true, -- disables setting the background color.
+      transparent_background = true,
+      styles = {
+        comments = { "italic" },
+        numbers = { "bold" },
+        booleans = { "bold" },
+      },
     },
   },
   {

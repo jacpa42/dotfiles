@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.o.shiftwidth = 2
+vim.g.snacks_animate = false
