@@ -1,6 +1,6 @@
 *.log
 history/
 catppuccin/
-*lazyvim.json*
-*lazy-lock.json*
+nvim*/lazy-lock.json
+nvim*/lazyvim.json
 .tmux/

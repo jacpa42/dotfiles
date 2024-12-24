@@ -1,46 +1,102 @@
 return {
-  'saghen/blink.cmp',
-  dependencies = 'rafamadriz/friendly-snippets',
-  version = '*',
-  build = 'cargo build --release',
-  opts_extend = { "sources.default" },
+  "saghen/blink.cmp",
+  version = not vim.g.lazyvim_blink_main and "*",
+  build = vim.g.lazyvim_blink_main and "cargo build --release",
+  opts_extend = {
+    "sources.completion.enabled_providers",
+    "sources.compat",
+    "sources.default",
+ },
+
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+    -- add blink.compat to dependencies
+    {
+      "saghen/blink.compat",
+      optional = true, -- make optional so it's only enabled if any extras need it
+      opts = {},
+      version = not vim.g.lazyvim_blink_main and "*",
+    },
+  },
+  event = "InsertEnter",
 
   opts = {
-    keymap = {
-      -- set to 'none' to disable the 'default' preset
-      preset = 'default',
-
-      ['<Up>'] = { 'select_prev', 'fallback' },
-      ['<Down>'] = { 'select_next', 'fallback' },
-      ['<Cr>'] = { 'select_and_accept', 'fallback' },
-      ['<Esc>'] = { 'cancel', 'fallback' },
-      ['<S-k>'] = { 'show', 'show_documentation', 'hide_documentation' },
-      ['<Tab>'] = {
-        function(cmp)
-          if cmp.snippet_active() then return cmp.accept()
-          else return cmp.select_and_accept() end
-        end,
-        'snippet_forward',
-        'fallback'
-      },
-      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-    },
     appearance = {
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
+      nerd_font_variant = "normal",
+    },
+    completion = {
+      accept = {
+        -- experimental auto-brackets support
+        auto_brackets = {
+          enabled = true,
+        },
+      },
+      menu = {
+        draw = {
+          treesitter = { "lsp" },
+        },
+      },
+      documentation = {
+        auto_show = true,
+      },
+      ghost_text = {
+        enabled = vim.g.ai_cmp,
+      },
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets' },
-      providers = {
-        lsp = {
-          name = 'LSP',
-          module = 'blink.cmp.sources.lsp',
-          enabled = true, -- Whether or not to enable the provider
-          async = true, -- Whether we should wait for the provider to return before showing the completions
-          timeout_ms = 1000, -- How long to wait for the provider to return before showing completions and treating it as asynchronous
-          should_show_items = true, -- Whether or not to show the items
-        }
-      }
+      compat = {},
+      default = { "lsp", "path", "snippets", "buffer" },
+      cmdline = {},
     },
+		keymap = {
+			['<C-Space>'] = { 'select_and_accept' },
+			['<Up>'] = { 'select_prev', 'fallback' },
+			['<Down>'] = { 'select_next', 'fallback' },
+		},
   },
+  config = function(_, opts)
+    -- setup compat sources
+    local enabled = opts.sources.default
+    for _, source in ipairs(opts.sources.compat or {}) do
+      opts.sources.providers[source] = vim.tbl_deep_extend(
+        "force",
+        { name = source, module = "blink.compat.source" },
+        opts.sources.providers[source] or {}
+      )
+      if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
+        table.insert(enabled, source)
+      end
+    end
+
+    -- Unset custom prop to pass blink.cmp validation
+    opts.sources.compat = nil
+
+    -- check if we need to override symbol kinds
+    for _, provider in pairs(opts.sources.providers or {}) do
+      if provider.kind then
+        local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+        local kind_idx = #CompletionItemKind + 1
+
+        CompletionItemKind[kind_idx] = provider.kind
+        ---@diagnostic disable-next-line: no-unknown
+        CompletionItemKind[provider.kind] = kind_idx
+
+        local transform_items = provider.transform_items
+        provider.transform_items = function(ctx, items)
+          items = transform_items and transform_items(ctx, items) or items
+          for _, item in ipairs(items) do
+            item.kind = kind_idx or item.kind
+          end
+          return items
+        end
+
+        -- Unset custom prop to pass blink.cmp validation
+        provider.kind = nil
+      end
+    end
+
+    require("blink.cmp").setup(opts)
+  end,
 }
