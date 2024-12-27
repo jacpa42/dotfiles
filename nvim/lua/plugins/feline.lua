@@ -132,6 +132,10 @@ return {
 			},
 			diagnostic_info = {
 				provider = "diagnostic_info",
+				hl = {
+					fg = "sky",
+					bg = "base",
+				},
 			},
 			lsp_client_names = {
 				provider = "lsp_client_names",

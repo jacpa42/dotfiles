@@ -12,11 +12,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="$HOME/.cargo/bin $PATH"
+. "$HOME/.cargo/env"
 export STOW_DIR="$HOME/.config/dotfiles"
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT="-c"
+MANPAGER="sh -c 'col -bx | bat -l man -p'"
+MANROFFOPT="-c"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
@@ -28,11 +28,12 @@ source "$ZDOTDIR/autocomplete.zsh"
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$ZDOTDIR/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
 
-# do not duplicate history things
+HISTFILE="$ZDOTDIR/.zhistfile"
+HISTSIZE=10000
+SAVEHIST=10000
 setopt HIST_SAVE_NO_DUPS
-# Automatically highlight first element of completion menu
+setopt SHARE_HISTORY
 setopt MENU_COMPLETE
-# Automatically list choices on ambiguous completion.
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
