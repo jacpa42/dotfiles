@@ -4,3 +4,5 @@ catppuccin/
 nvim*/lazy-lock.json
 nvim*/lazyvim.json
 .tmux/
+zsh/.zhistory
+zsh/.zcompdump
