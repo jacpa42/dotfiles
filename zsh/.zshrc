@@ -15,6 +15,9 @@ fi
 export PATH="$HOME/.cargo/bin $PATH"
 export STOW_DIR="$HOME/.config/dotfiles"
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 eval "$(zoxide init --cmd cd zsh)"
@@ -24,9 +27,6 @@ source "$ZDOTDIR/autocomplete.zsh"
 ### THEME ###
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source "$ZDOTDIR/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
-
-### NICE MAN PAGE	###
-source "$ZDOTDIR/colour_man.zsh"
 
 # do not duplicate history things
 setopt HIST_SAVE_NO_DUPS
