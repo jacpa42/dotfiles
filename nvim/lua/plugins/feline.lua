@@ -33,10 +33,10 @@ return {
 						fg = require("feline.providers.vi_mode").get_mode_color(),
 						bg = "base",
 						style = "bold",
-						name = "NeovimModeHLColor",
+						-- name = "NeovimModeHLColor",
 					}
 				end,
-				left_sep = "block",
+				left_sep = "",
 				right_sep = "block",
 			},
 			gitBranch = {
