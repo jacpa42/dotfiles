@@ -50,7 +50,6 @@ tmux attach-session
 pgrep tmux
 pkill tmux
 cd nv
-cd 
 ll
 krag
 cd ser
@@ -64,7 +63,6 @@ spe
 source .zshrc
 cargo
 \:q
-tmux
 cd serv
 ssh jacob@kragsentrale.co.za
 date
@@ -79,14 +77,47 @@ cargo test
 btgop
 btop
 l
-nv
 cargot 
 cargo t
 cargo c
 cargo --release c
 cargo c --release
 cargo t --release
-: 1735336014:0;nv
-: 1735336154:0;cd 
-: 1735336157:0;cd dot
-: 1735336158:0;nv
+cd 
+cd dot
+nv
+sudo pacman -S p10k
+sudo pacman -S zsh-syntax-highlighting
+sudo pacman -Rns fish
+chsh -s /bin/zsh
+sudo chsh -s /bin/zsh
+man sudo chsh -s /bin/zsh
+man chsch
+man chsh
+homectl 
+tmxu
+tmux
+echo $SHELL
+sudo pacman -S hyprland-qutils
+sudo pacman -S hyprland-qtutils
+sudo pacman -Si aquamarine
+sudo pacman -Rns hyprutils-git 
+sudo pacman -Rns hyprutils-git hyprland
+sudo pacman -Rns hyprutils-git hyprland hyprlock
+sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper
+sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland 
+sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git
+sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git hypridle
+sudo pacman -S hyprutils hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang hypridle
+u
+ping kragsentrale.co.za
+: 1735577633:0;cd dot
+: 1735577634:0;nv
+: 1735577639:0;cd tmux
+: 1735577640:0;l
+: 1735577642:0;cd .conf
+: 1735577646:0;cd .config
+: 1735577648:0;cd  dotfiles
+: 1735577649:0;l
+: 1735577651:0;git diff
+: 1735577663:0;nv hypr/hyprpaper.conf
