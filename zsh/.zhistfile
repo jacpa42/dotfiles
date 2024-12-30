@@ -1,0 +1,92 @@
+tux
+touch .zhistfile
+cd dnv
+cd nvim
+echo $HISTFILE
+lll
+bat .zhistfile
+hv
+datge
+yay -S ascii-image-converter
+cd down
+cd Downloads
+yazi
+rm -rf firmware
+icat ascii\ G\(1\).gif
+rm ascii\ G.gif
+asciitopgm ascii\ G\(1\).gif
+file ascii\ G\(1\).gif
+cd dow
+ascii-image-converter -d 14 10 ascii\ G\(1\).gif
+open ascii\ G\(1\).gif
+xdg-open ascii\ G\(1\).gif
+magick ascii\ G\(1\).gif
+magick ascii\ G\(1\).gif g.png
+icat g.png
+rm ascii\ G\(1\).gif
+ascii-image-converter -d 14 10 g.png
+ascii-image-converter 
+ascii-image-converter g.png
+ascii-image-converter -d
+ascii-image-converter -d 14,10 g.png
+ascii-image-converter -C -d 14,10 g.png
+ascii-image-converter -c -d 14,10 g.png
+rm g.png
+cd pic
+cd Pictures
+icat 20240919_11h15m04s_grim.png
+rm 20240919_11h15m04s_grim.png
+icat 20241227_22h12m24s_grim.png
+icat 20241227_22h13m52s_grim.png
+ascii-image-converter -c -d 14,10 20241227_22h12m24s_grim.png
+ascii-image-converter -c  20241227_22h12m24s_grim.png
+ascii-image-converter -c  20241227_22h13m52s_grim.png
+rm 20241227_22h12m24s_grim.png
+	rm 20241227_22h13m52s_grim.png
+n
+cd lua/plugins
+rm bruh.lua
+tmux attach-session
+pgrep tmux
+pkill tmux
+cd nv
+cd 
+ll
+krag
+cd ser
+cd zsh
+bat .zshrc
+echo $PATH
+rustup
+which rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+spe
+source .zshrc
+cargo
+\:q
+tmux
+cd serv
+ssh jacob@kragsentrale.co.za
+date
+cd ..
+https://github.com/jacpa42/krag_door
+git clone
+git clone https://github.com/jacpa42/krag_door
+rm ~/Downloads/krag_door-main.zip
+cd krag_door
+ls
+cargo test
+btgop
+btop
+l
+nv
+cargot 
+cargo t
+cargo c
+cargo --release c
+cargo c --release
+cargo t --release
+: 1735336014:0;nv
+: 1735336154:0;cd 
+: 1735336157:0;cd dot
+: 1735336158:0;nv
