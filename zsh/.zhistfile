@@ -3,14 +3,12 @@ touch .zhistfile
 cd dnv
 cd nvim
 echo $HISTFILE
-lll
 bat .zhistfile
 hv
 datge
 yay -S ascii-image-converter
 cd down
 cd Downloads
-yazi
 rm -rf firmware
 icat ascii\ G\(1\).gif
 rm ascii\ G.gif
@@ -43,14 +41,10 @@ ascii-image-converter -c  20241227_22h12m24s_grim.png
 ascii-image-converter -c  20241227_22h13m52s_grim.png
 rm 20241227_22h12m24s_grim.png
 	rm 20241227_22h13m52s_grim.png
-n
 cd lua/plugins
 rm bruh.lua
-tmux attach-session
 pgrep tmux
-pkill tmux
 cd nv
-ll
 krag
 cd ser
 cd zsh
@@ -62,10 +56,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 spe
 source .zshrc
 cargo
-\:q
 cd serv
-ssh jacob@kragsentrale.co.za
-date
 cd ..
 https://github.com/jacpa42/krag_door
 git clone
@@ -75,17 +66,9 @@ cd krag_door
 ls
 cargo test
 btgop
-btop
-l
-cargot 
-cargo t
-cargo c
 cargo --release c
-cargo c --release
 cargo t --release
 cd 
-cd dot
-nv
 sudo pacman -S p10k
 sudo pacman -S zsh-syntax-highlighting
 sudo pacman -Rns fish
@@ -96,7 +79,6 @@ man chsch
 man chsh
 homectl 
 tmxu
-tmux
 echo $SHELL
 sudo pacman -S hyprland-qutils
 sudo pacman -S hyprland-qtutils
@@ -109,15 +91,95 @@ sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hy
 sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git
 sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git hypridle
 sudo pacman -S hyprutils hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang hypridle
-u
 ping kragsentrale.co.za
-: 1735577633:0;cd dot
-: 1735577634:0;nv
-: 1735577639:0;cd tmux
-: 1735577640:0;l
-: 1735577642:0;cd .conf
-: 1735577646:0;cd .config
-: 1735577648:0;cd  dotfiles
-: 1735577649:0;l
-: 1735577651:0;git diff
-: 1735577663:0;nv hypr/hyprpaper.conf
+cd tmux
+cd .conf
+cd .config
+cd  dotfiles
+git diff
+nv hypr/hyprpaper.conf
+cd kitty
+cd Projects
+cd ClimbingGym/krag_door
+git pull
+cd dot
+tmux attach-session
+pkill tmux
+tmux
+sudo ls
+lll
+bat .histfile
+rm .histfile
+cd conf
+rm fish
+l | grep fis
+ll
+bat systemmonitorrc
+rm systemmonitorrc
+sudo pacman -S viu
+viw
+man viu
+vie
+viu
+viu -h
+viu --h
+\:q
+rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.0
+./build_release.sh
+n
+yazi
+nv Cargo.toml
+cargo install binstall
+cargo install cargo-binstall
+btop
+cargo binstall --manifest-path=./Cargo.toml
+pyton
+python
+bat Cargo.toml
+git status
+cd db
+cd door
+cd ../kragdb
+cargo c
+cargo c --release
+carot 
+cargot 
+cargo add futures_util
+cargo tk
+cargo t
+cd shell
+cd ../krag_server/shell_scripts
+l
+bat bruh.json
+cargo t write_log
+./send_request.sh /log/fetch
+date
+nv
+ssh jacob@kragsentrale.co.za
+passwd
+sudo
+u
+exit
+: 1735593078:0;l
+: 1735593092:0;u && shutdown
+: 1735593096:0;u && shutdown now
+: 1735628348:0;cd zsh
+: 1735628348:0;l
+: 1735628351:0;cd dot
+: 1735628351:0;l
+: 1735628353:0;nv
+: 1735628420:0;source zsh/alias.sh
+: 1735628423:0;rmorphans
+: 1735628452:0;nv
+: 1735628468:0;source zsh/alias.sh
+: 1735628471:0;rmorphans
+: 1735628479:0;electron32
+: 1735628482:0;electron33
+: 1735628490:0;u
+: 1735628568:0;nv
+: 1735628578:0;l
+: 1735628579:0;ll
+: 1735628581:0;rm yarn.lock
+: 1735628588:0;rm -rf node_modules
+: 1735628588:0;l
+: 1735628590:0;nv
