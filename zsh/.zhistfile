@@ -1,7 +1,6 @@
 tux
 touch .zhistfile
 cd dnv
-cd nvim
 echo $HISTFILE
 bat .zhistfile
 hv
@@ -30,8 +29,6 @@ ascii-image-converter -d 14,10 g.png
 ascii-image-converter -C -d 14,10 g.png
 ascii-image-converter -c -d 14,10 g.png
 rm g.png
-cd pic
-cd Pictures
 icat 20240919_11h15m04s_grim.png
 rm 20240919_11h15m04s_grim.png
 icat 20241227_22h12m24s_grim.png
@@ -47,7 +44,6 @@ pgrep tmux
 cd nv
 krag
 cd ser
-cd zsh
 bat .zshrc
 echo $PATH
 rustup
@@ -56,8 +52,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 spe
 source .zshrc
 cargo
-cd serv
-cd ..
 https://github.com/jacpa42/krag_door
 git clone
 git clone https://github.com/jacpa42/krag_door
@@ -68,7 +62,6 @@ cargo test
 btgop
 cargo --release c
 cargo t --release
-cd 
 sudo pacman -S p10k
 sudo pacman -S zsh-syntax-highlighting
 sudo pacman -Rns fish
@@ -91,10 +84,8 @@ sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hy
 sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git
 sudo pacman -Rns hyprutils-git hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang-git hypridle
 sudo pacman -S hyprutils hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland hyprlang hypridle
-ping kragsentrale.co.za
 cd tmux
 cd .conf
-cd .config
 cd  dotfiles
 git diff
 nv hypr/hyprpaper.conf
@@ -102,18 +93,12 @@ cd kitty
 cd Projects
 cd ClimbingGym/krag_door
 git pull
-cd dot
-tmux attach-session
 pkill tmux
-tmux
 sudo ls
-lll
 bat .histfile
 rm .histfile
-cd conf
 rm fish
 l | grep fis
-ll
 bat systemmonitorrc
 rm systemmonitorrc
 sudo pacman -S viu
@@ -126,8 +111,6 @@ viu --h
 \:q
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.0
 ./build_release.sh
-n
-yazi
 nv Cargo.toml
 cargo install binstall
 cargo install cargo-binstall
@@ -136,50 +119,141 @@ cargo binstall --manifest-path=./Cargo.toml
 pyton
 python
 bat Cargo.toml
-git status
-cd db
-cd door
 cd ../kragdb
-cargo c
 cargo c --release
 carot 
 cargot 
 cargo add futures_util
 cargo tk
-cargo t
 cd shell
 cd ../krag_server/shell_scripts
-l
 bat bruh.json
 cargo t write_log
-./send_request.sh /log/fetch
 date
-nv
-ssh jacob@kragsentrale.co.za
 passwd
 sudo
-u
 exit
-: 1735593078:0;l
-: 1735593092:0;u && shutdown
-: 1735593096:0;u && shutdown now
-: 1735628348:0;cd zsh
-: 1735628348:0;l
-: 1735628351:0;cd dot
-: 1735628351:0;l
-: 1735628353:0;nv
-: 1735628420:0;source zsh/alias.sh
-: 1735628423:0;rmorphans
-: 1735628452:0;nv
-: 1735628468:0;source zsh/alias.sh
-: 1735628471:0;rmorphans
-: 1735628479:0;electron32
-: 1735628482:0;electron33
-: 1735628490:0;u
-: 1735628568:0;nv
-: 1735628578:0;l
-: 1735628579:0;ll
-: 1735628581:0;rm yarn.lock
-: 1735628588:0;rm -rf node_modules
-: 1735628588:0;l
-: 1735628590:0;nv
+u && shutdown
+u && shutdown now
+source zsh/alias.sh
+electron32
+electron33
+rm yarn.lock
+rm -rf node_modules
+llll
+bat .teensy
+bat .zshenv
+rm krag_door-aarch64-unknown-linux-gnu-v1.2.0.tgz
+git statuss
+git status
+bat .gitignore
+bat build_release.sh
+ping jacob@kragsentrale.co.za
+ping kragsentrale.co.za
+cd conf
+cd doto
+stow .
+rm dolphinrc
+cd bat/themes
+bat cache --build
+bat Catppuccin\ Macchiato.tmTheme
+bat man
+man
+cd zsh
+source ./zsh/.zshrc
+man man
+bat bat
+man bat
+man past
+man passt
+cd paper
+cd hypr
+bat hyprpaper.conf
+nv hyprpaper.conf
+cd pic
+cd 
+cd Pictures
+cd Wallpapers
+cd wall
+magick red_desert.jpg red_desert.png
+rm red_desert.jpg
+l *.jpg
+magick alps_lake.jpg alps_lake.png &&\
+	magick city_skyline.jpg city_skyline.png &&\
+	magick Clearnight.jpg Clearnight.png &&\
+	magick Cloudsday.jpg Cloudsday.png &&\
+	magick green_valley.jpg green_valley.png &&\
+	magick lake_mountain.jpg lake_mountain.png &&\
+	magick Rainnight.jpg Rainnight.png &&\
+	magick snowy_alps.jpg snowy_alps.png\
+
+rm *.jpg
+icat red_desert.png
+tmux attach-session
+lllllllllllllllllllll
+cd proj
+rm -rf learn-zig
+cd project_euler
+cargo r
+cd serc
+cd src
+cargo add num_traits
+cargo c
+cargo t 5
+cargo t
+shutdonw
+shutdown
+shutdown now
+cd serv
+cd shell_scripts
+./send_request.sh /signup bruh.json
+./send_request.sh /user/fetch
+cargo run -- -c ./config.toml -h
+cargo run -- -c ./config.toml print-pass
+nv bruh.json
+cd db
+nv 
+./send_request.sh /pass/create bruh.json
+./send_request.sh /log/fetch
+./send_request.sh /pass/fetch
+u
+ssh jacob@kragsentrale.co.za
+cd door
+carg o t parse
+cargo t parse
+sudo pacman -Rns neovim
+yay -S neovim
+yay -S neovim-git
+rmorphans
+npm instal -g neovim
+bat .bash_history
+bat .bash_profile
+rm .bash_history
+rm .bash_profile
+rm -rf .iris-installer
+cd .mono
+sudo pacman -Rns npm
+rm -rf .npm
+cd .config
+cd ..
+lll
+rm -rf .cache
+sudo rm -r .cache
+yazi
+cd nvim
+cd dot
+n
+file ~/Pictures/opm.png
+man chafa
+a
+tmux
+tmux list-buffers
+tmux list-sessions
+tmux kill-session -t 1
+cd
+ll
+l
+nv
+: 1735799218:0;nv
+: 1735799236:0;nv
+: 1735799326:0;nv
