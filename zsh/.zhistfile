@@ -6,7 +6,6 @@ bat .zhistfile
 hv
 datge
 yay -S ascii-image-converter
-cd down
 cd Downloads
 rm -rf firmware
 icat ascii\ G\(1\).gif
@@ -41,7 +40,6 @@ rm 20241227_22h12m24s_grim.png
 cd lua/plugins
 rm bruh.lua
 pgrep tmux
-cd nv
 krag
 cd ser
 bat .zshrc
@@ -108,28 +106,22 @@ vie
 viu
 viu -h
 viu --h
-\:q
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.0
-./build_release.sh
 nv Cargo.toml
 cargo install binstall
 cargo install cargo-binstall
 btop
 cargo binstall --manifest-path=./Cargo.toml
 pyton
-python
-bat Cargo.toml
 cd ../kragdb
 cargo c --release
 carot 
 cargot 
 cargo add futures_util
 cargo tk
-cd shell
 cd ../krag_server/shell_scripts
 bat bruh.json
 cargo t write_log
-date
 passwd
 sudo
 exit
@@ -170,8 +162,6 @@ cd paper
 cd hypr
 bat hyprpaper.conf
 nv hyprpaper.conf
-cd pic
-cd 
 cd Pictures
 cd Wallpapers
 cd wall
@@ -191,36 +181,21 @@ rm *.jpg
 icat red_desert.png
 tmux attach-session
 lllllllllllllllllllll
-cd proj
 rm -rf learn-zig
-cd project_euler
-cargo r
 cd serc
-cd src
 cargo add num_traits
-cargo c
 cargo t 5
-cargo t
 shutdonw
 shutdown
 shutdown now
-cd serv
 cd shell_scripts
 ./send_request.sh /signup bruh.json
-./send_request.sh /user/fetch
 cargo run -- -c ./config.toml -h
 cargo run -- -c ./config.toml print-pass
 nv bruh.json
-cd db
 nv 
 ./send_request.sh /pass/create bruh.json
-./send_request.sh /log/fetch
-./send_request.sh /pass/fetch
-u
-ssh jacob@kragsentrale.co.za
-cd door
 carg o t parse
-cargo t parse
 sudo pacman -Rns neovim
 yay -S neovim
 yay -S neovim-git
@@ -235,25 +210,171 @@ cd .mono
 sudo pacman -Rns npm
 rm -rf .npm
 cd .config
-cd ..
-lll
 rm -rf .cache
 sudo rm -r .cache
-yazi
-cd nvim
-cd dot
 n
 file ~/Pictures/opm.png
 man chafa
 a
-tmux
 tmux list-buffers
-tmux list-sessions
 tmux kill-session -t 1
-cd
+cargo t parse
+cargo c --
+cargo c -r
+cargo t silence_toggle
+rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.1.tgz
+./build_release.sh
+lll
+cargo t 6
+cd Project_Euler/solutions/007
+bat pe7.rs
+cd project_euler
+carg ot
+cargo add const-primes
+cargo t 7
+mv project_euler project_euler_bak
+git clone https://github.com/jacpa42/Project_Euler
+cd project_euler_bak
+cd ../Project_Euler
+rm *
+rm -r *
+mv ../project_euler_bak/* .
+rm -rf project_euler_bak
+cd Project_Euler
+rm -rf .git
+rm .gitignore
+carog t
+cargo t 8
+mv Project_Euler ../project_euler_old
+mv Project_Euler project_euler
+rm -rf advent_of_code_2024
+date
+cd down
+cd shell
+./send_request.sh log/fetch
+./send_request.sh user/fetch
+ssh jacob@kragsentrale.co.za
+bat send_request.sh
+nv send_request.sh
+./send_request.sh /pass/fetch
+./send_request.sh /user/fetch
+./send_request.sh /log/fetch
+cd pic
+file krag_logo/Logo3White.svg
+bat krag_logo/Logo3White.svg
+cd krag_logo
+magick Logo3White.svg Logo3White.png
+file Logo3White.png
+python
+tmux list-sessions
+tmux
+k
+aqu
+pgrep firefox
+aqua
+rm krag_door-aarch64-unknown-linux-gnu-v1.2.2.tgz
+cd src
+cd ../project_euler_old
+cdi
+\:
+fg
+cargo t
+cd project_
+mv ~/Downloads/html5up-verti.zip .
+cd actuator
+cd act
+cd proj
+c ClimbingGym
+cd ClimbingGym
+c
+cd adjustable_spray_wall
+rm rotary_encoder.pdf
+cd door
+bat README.md
+cd nvim
+sudo pacman -S npm
+npm i -g vscode-langservers-extracted
+sudo pacman -S vscode-html-languageserver
+cd nv
+cd dot
+cd nvim 
+cd d
+cd db
+cargo update
+bat Cargo.toml
+cargo add tower_http
+cargo add tower_http --features fs
+cargoc
+cargo c
+cargo r --r
+cargo r -r
+cd frontend/html5up-verti/images
+icat pic06.jpg
+icat pic01.jpg
+cp ~/Pictures/krag_logo/Logo3White.svg
+cp ~/Pictures/krag_logo/Logo3White.svg .
+cp ~/Pictures/krag_logo/Logo3Black.svg .
+mv Logo3Black.svg frontend/html5up-verti/images
+cd sev
+sudo 
+sudo pacman -S vscode-css-languageserver
+sudo pacman -S sass
+sass
+cd frontend/html5up-verti/assets/sass
+sass main.scss main.css
+bat main.css.cap
+bat main.css.map
+rm css/main.css
+mv sass/main.css css
+rm main.css
+rm main.css.map
+bat main.css
+sass ../sass/main.scss main.css
+rm main.css*
+cd sass
+mv main.scss bruh.scss
+mv bruh.scss main.scss
+cd html5up-verti/
+cd assets/sass
+mkdir css
+cd css
+cd frontend
+mv ~/Downloads/html5up-strongly-typed.zip .
+cd cache
+cd .cache
+bat event-sound-cache.tdb.789e3251c63641a8a4880ec74c0198ee.x86_64-pc-linux-gnu
+cd fontconfig
+cd ../mozilla
+cd firefox
 ll
+cd sbtrwz0q.default-release
+cd 
+cd .cache 
+rm -rf mozilla
+cd serv
+rm index.html.1
+wget https://www.theclimbinghangar.com/
+wget https://muenchen.element-boulders.de/start.html
+\:q
+mv start.html frontend/html5up-verti
+cd html
+rm index.html
+mv start.html index.html
+bat index.html
+cd .
+rm -rf html5up-verti
+cd ..
+cargo r
+yazi
+u
 l
 nv
-: 1735799218:0;nv
-: 1735799236:0;nv
-: 1735799326:0;nv
+cd
+: 1735848516:0;nv
+: 1735848521:0;l
+: 1735848522:0;nv
+: 1735848527:0;cd nv
+: 1735848527:0;l
+: 1735848528:0;nv
+: 1735848623:0;l
+: 1735848623:0;nv
