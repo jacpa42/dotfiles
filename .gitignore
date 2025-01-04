@@ -6,3 +6,4 @@ nvim*/lazyvim.json
 .tmux/
 */.zhistory
 */.zcompdump
+*/.zhistfile
