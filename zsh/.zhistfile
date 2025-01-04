@@ -1,13 +1,11 @@
 tux
 touch .zhistfile
 cd dnv
-cd nvim
 echo $HISTFILE
 bat .zhistfile
 hv
 datge
 yay -S ascii-image-converter
-cd down
 cd Downloads
 rm -rf firmware
 icat ascii\ G\(1\).gif
@@ -30,8 +28,6 @@ ascii-image-converter -d 14,10 g.png
 ascii-image-converter -C -d 14,10 g.png
 ascii-image-converter -c -d 14,10 g.png
 rm g.png
-cd pic
-cd Pictures
 icat 20240919_11h15m04s_grim.png
 rm 20240919_11h15m04s_grim.png
 icat 20241227_22h12m24s_grim.png
