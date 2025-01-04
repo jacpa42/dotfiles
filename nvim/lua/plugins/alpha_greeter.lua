@@ -4,7 +4,6 @@ return {
 	dependencies = { 'echasnovski/mini.icons', 'nvim-lua/plenary.nvim' },
 	config = function()
 		local dashboard = require("alpha.themes.theta")
-		print(dashboard)
 
 		dashboard.header.val = {
 			" ████╗     ████╗ ██████████═╗   ████████████╗ ██████████████╗",
@@ -18,17 +17,6 @@ return {
 			" ████║   ╚═████╗████║    ╚████╗████║     ████║██████████████║",
 			" ╚═══╝     ╚═══╝╚═══╝     ╚═══╝╚═══╝     ╚═══╝╚═════════════╝",
 		}
-
-		function centerText(text, width)
-			local totalPadding = width - #text
-			local leftPadding = math.floor(totalPadding / 2)
-			local rightPadding = totalPadding - leftPadding
-			return pad(text, leftPadding, rightPadding)
-		end
-
-		function pad(text, left, right)
-			return string.rep(" ", left) .. text .. string.rep(" ", right)
-		end
 
 		table.insert(dashboard.config.layout, { type = "padding", val = 2 })
 		local motivational_quote = {

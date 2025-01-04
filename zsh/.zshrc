@@ -15,8 +15,8 @@ fi
 . "$HOME/.cargo/env"
 export STOW_DIR="$HOME/.config/dotfiles"
 
-MANPAGER="sh -c 'col -bx | bat -l man -p'"
-MANROFFOPT="-c"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
