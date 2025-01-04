@@ -6,7 +6,6 @@ bat .zhistfile
 hv
 datge
 yay -S ascii-image-converter
-cd Downloads
 rm -rf firmware
 icat ascii\ G\(1\).gif
 rm ascii\ G.gif
@@ -59,7 +58,6 @@ ls
 cargo test
 btgop
 cargo --release c
-cargo t --release
 sudo pacman -S p10k
 sudo pacman -S zsh-syntax-highlighting
 sudo pacman -Rns fish
@@ -87,10 +85,8 @@ cd .conf
 cd  dotfiles
 git diff
 nv hypr/hyprpaper.conf
-cd kitty
 cd Projects
 cd ClimbingGym/krag_door
-git pull
 pkill tmux
 sudo ls
 bat .histfile
@@ -107,7 +103,6 @@ viu
 viu -h
 viu --h
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.0
-nv Cargo.toml
 cargo install binstall
 cargo install cargo-binstall
 btop
@@ -116,7 +111,6 @@ pyton
 cd ../kragdb
 cargo c --release
 carot 
-cargot 
 cargo add futures_util
 cargo tk
 cd ../krag_server/shell_scripts
@@ -138,8 +132,6 @@ bat .zshenv
 rm krag_door-aarch64-unknown-linux-gnu-v1.2.0.tgz
 git statuss
 git status
-bat .gitignore
-bat build_release.sh
 ping jacob@kragsentrale.co.za
 ping kragsentrale.co.za
 cd conf
@@ -159,7 +151,6 @@ man bat
 man past
 man passt
 cd paper
-cd hypr
 bat hyprpaper.conf
 nv hyprpaper.conf
 cd Pictures
@@ -179,7 +170,6 @@ magick alps_lake.jpg alps_lake.png &&\
 
 rm *.jpg
 icat red_desert.png
-tmux attach-session
 lllllllllllllllllllll
 rm -rf learn-zig
 cd serc
@@ -187,12 +177,9 @@ cargo add num_traits
 cargo t 5
 shutdonw
 shutdown
-shutdown now
-cd shell_scripts
 ./send_request.sh /signup bruh.json
 cargo run -- -c ./config.toml -h
 cargo run -- -c ./config.toml print-pass
-nv bruh.json
 nv 
 ./send_request.sh /pass/create bruh.json
 carg o t parse
@@ -215,16 +202,12 @@ sudo rm -r .cache
 n
 file ~/Pictures/opm.png
 man chafa
-a
 tmux list-buffers
 tmux kill-session -t 1
 cargo t parse
 cargo c --
-cargo c -r
 cargo t silence_toggle
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.1.tgz
-./build_release.sh
-lll
 cargo t 6
 cd Project_Euler/solutions/007
 bat pe7.rs
@@ -248,64 +231,43 @@ cargo t 8
 mv Project_Euler ../project_euler_old
 mv Project_Euler project_euler
 rm -rf advent_of_code_2024
-date
-cd down
-cd shell
 ./send_request.sh log/fetch
 ./send_request.sh user/fetch
-ssh jacob@kragsentrale.co.za
-bat send_request.sh
-nv send_request.sh
 ./send_request.sh /pass/fetch
-./send_request.sh /user/fetch
-./send_request.sh /log/fetch
 cd pic
 file krag_logo/Logo3White.svg
 bat krag_logo/Logo3White.svg
 cd krag_logo
 magick Logo3White.svg Logo3White.png
 file Logo3White.png
-python
 tmux list-sessions
-tmux
 k
 aqu
 pgrep firefox
-aqua
 rm krag_door-aarch64-unknown-linux-gnu-v1.2.2.tgz
-cd src
-cd ../project_euler_old
 cdi
 \:
 fg
-cargo t
 cd project_
 mv ~/Downloads/html5up-verti.zip .
 cd actuator
 cd act
-cd proj
 c ClimbingGym
 cd ClimbingGym
 c
 cd adjustable_spray_wall
 rm rotary_encoder.pdf
-cd door
 bat README.md
 cd nvim
 sudo pacman -S npm
 npm i -g vscode-langservers-extracted
 sudo pacman -S vscode-html-languageserver
-cd nv
-cd dot
 cd nvim 
 cd d
-cd db
-cargo update
 bat Cargo.toml
 cargo add tower_http
 cargo add tower_http --features fs
 cargoc
-cargo c
 cargo r --r
 cargo r -r
 cd frontend/html5up-verti/images
@@ -346,12 +308,9 @@ bat event-sound-cache.tdb.789e3251c63641a8a4880ec74c0198ee.x86_64-pc-linux-gnu
 cd fontconfig
 cd ../mozilla
 cd firefox
-ll
 cd sbtrwz0q.default-release
-cd 
 cd .cache 
 rm -rf mozilla
-cd serv
 rm index.html.1
 wget https://www.theclimbinghangar.com/
 wget https://muenchen.element-boulders.de/start.html
@@ -363,18 +322,150 @@ mv start.html index.html
 bat index.html
 cd .
 rm -rf html5up-verti
-cd ..
-cargo r
-yazi
-u
-l
-nv
+shutdown nwo
+cd hypr
+nv hyprland.conf
+sudo pacman -Si hyprland
+cd down
+cd 
+cd Downloads
+rn demo.gif
+rm demo.gif
+cd Japanese
+date
+bat send_request.sh
+ls Documents
+lll
+cd kity
+cd kit
+cd dot
+cd kitty
+cd nv
+aqua
+cd adj
+./send_to_device.sh
+./send_to_device.sh -p linear_actuator -b 9600
+nv send_request.sh
+cnv
+cd shell
+cd euler
+cd proj
+cd ../project_euler_old
+cd solutions
+cargo t 11
+cargo t 12
+rustc pe12.rs
+./pe12
+cargo t 13
+cargo t 14 --release
+cargo t 14
+a
+cargo add num_bigint
+cargo t 15
+python
+cargo t > bruh.txt
+rev 57556660652855822768205693898862698564180813869111543980011406516596719590703712874576930543808253740965577054595962456627234894983242445538583116601107245553184555080136525889813615206431991330120751458161307960738755106470330231563958976478739445027517051900087496385608663261462032437882497068051701
+rev
+bat bruh.txt
+rm bruh.txt
+cargo t 16
+cargo t --release
+bat src/solutions.txt
+cargo t 17
 cd
-: 1735848516:0;nv
-: 1735848521:0;l
-: 1735848522:0;nv
-: 1735848527:0;cd nv
-: 1735848527:0;l
-: 1735848528:0;nv
-: 1735848623:0;l
-: 1735848623:0;nv
+shutdown now
+nv bruh.json
+./send_request.sh /signup signin.json
+./send_request.sh /user/fetch
+mv bruh.json pass.json
+mv signin.json signup.json
+nv pass.json
+cargo new --lib krag_nfc
+cd krag_nfc
+cp ../krag_door/src/reader .
+cp -r ../krag_door/src/reader .
+mv reader src
+cargo add serialport
+cargo add thiserror
+cargo add log
+cargot 
+cargo add log --no-default-features
+cargo t --r
+cd src
+mv reader/* .
+yazi
+cargo t waiting
+git push HEAD:main
+git branch -M main
+git push
+bat .gitignore
+nv .gitignore
+rm -rf krag_nfc
+git clone https://github.com/jacpa42/krag_nfc
+cd krag_nfc/
+cd ..
+cargo add parking_lot
+cd nfc
+cargo r -c ./config.toml
+cargo r --config ./config.toml
+cargo r -c
+u
+mv .env env
+cross
+bat build_release.sh
+u && reboot
+rm -rf krag_door-aarch64-unknown-linux-gnu-v1.3.0
+cd door
+cargo r
+mv env .env
+bat env
+cargo r -- -c ./config.toml
+tmux
+tmux attach-session
+cargot
+cargo c --r
+cargo c --features env
+rm .env
+git pull
+ll
+nv config.toml
+nv build_release.sh
+cd serv
+bat .env
+nvim 
+cargo c
+cargo c -r
+rm *.tgz
+nv Cargo.toml
+lk
+cd database
+cargo t -r
+cd db
+cargo update
+rm -rf target
+nv
+cross t -r
+cargo t
+./build_release.sh
+rm krag_server-aarch64-unknown-linux-gnu-v0.2.3.tgz
+l
+ssh jacob@kragsentrale.co.zak
+ssh jacob@kragsentrale.co.za
+cd shell_scripts
+./send_request.sh /log/fetch
+: 1735982134:0;u
+: 1735982651:0;cd
+: 1735982652:0;aqua
+: 1735998967:0;cd door
+: 1735998968:0;git pull
+: 1735998975:0;cd serv
+: 1735998976:0;git pull
+: 1735998978:0;cd db
+: 1735998980:0;git pull
+: 1735998982:0;cd ..
+: 1735998982:0;l
+: 1735998989:0;cd nfc
+: 1735998990:0;git pull
+: 1735999000:0;cd dott
+: 1735999002:0;cd dot
+: 1735999002:0;nv
