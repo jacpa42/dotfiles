@@ -35,3 +35,5 @@ vim.keymap.set("n", "<C-j>", "<Cmd>wincmd j<Cr>", { noremap = true, silent = tru
 vim.keymap.set("n", "<C-k>", "<Cmd>wincmd k<Cr>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-h>", "<Cmd>wincmd h<Cr>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", "<Cmd>wincmd l<Cr>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-f>", "<Cmd>%bd|e#<Cr>", { noremap = true, silent = true })

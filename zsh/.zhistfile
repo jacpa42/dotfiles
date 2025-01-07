@@ -83,7 +83,6 @@ sudo pacman -S hyprutils hyprland hyprlock hyprpaper xdg-desktop-portal-hyprland
 cd tmux
 cd .conf
 cd  dotfiles
-git diff
 nv hypr/hyprpaper.conf
 cd Projects
 cd ClimbingGym/krag_door
@@ -105,7 +104,6 @@ viu --h
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.0
 cargo install binstall
 cargo install cargo-binstall
-btop
 cargo binstall --manifest-path=./Cargo.toml
 pyton
 cd ../kragdb
@@ -120,7 +118,6 @@ passwd
 sudo
 exit
 u && shutdown
-u && shutdown now
 source zsh/alias.sh
 electron32
 electron33
@@ -176,7 +173,6 @@ cd serc
 cargo add num_traits
 cargo t 5
 shutdonw
-shutdown
 ./send_request.sh /signup bruh.json
 cargo run -- -c ./config.toml -h
 cargo run -- -c ./config.toml print-pass
@@ -186,7 +182,6 @@ carg o t parse
 sudo pacman -Rns neovim
 yay -S neovim
 yay -S neovim-git
-rmorphans
 npm instal -g neovim
 bat .bash_history
 bat .bash_profile
@@ -199,7 +194,6 @@ rm -rf .npm
 cd .config
 rm -rf .cache
 sudo rm -r .cache
-n
 file ~/Pictures/opm.png
 man chafa
 tmux list-buffers
@@ -211,7 +205,6 @@ rm -rf krag_door-aarch64-unknown-linux-gnu-v1.2.1.tgz
 cargo t 6
 cd Project_Euler/solutions/007
 bat pe7.rs
-cd project_euler
 carg ot
 cargo add const-primes
 cargo t 7
@@ -233,7 +226,6 @@ mv Project_Euler project_euler
 rm -rf advent_of_code_2024
 ./send_request.sh log/fetch
 ./send_request.sh user/fetch
-./send_request.sh /pass/fetch
 cd pic
 file krag_logo/Logo3White.svg
 bat krag_logo/Logo3White.svg
@@ -245,7 +237,6 @@ k
 aqu
 pgrep firefox
 rm krag_door-aarch64-unknown-linux-gnu-v1.2.2.tgz
-cdi
 \:
 fg
 cd project_
@@ -264,7 +255,6 @@ npm i -g vscode-langservers-extracted
 sudo pacman -S vscode-html-languageserver
 cd nvim 
 cd d
-bat Cargo.toml
 cargo add tower_http
 cargo add tower_http --features fs
 cargoc
@@ -327,31 +317,20 @@ cd hypr
 nv hyprland.conf
 sudo pacman -Si hyprland
 cd down
-cd 
 cd Downloads
 rn demo.gif
 rm demo.gif
 cd Japanese
-date
 bat send_request.sh
 ls Documents
 lll
 cd kity
 cd kit
-cd dot
 cd kitty
-cd nv
-aqua
-cd adj
 ./send_to_device.sh
 ./send_to_device.sh -p linear_actuator -b 9600
-nv send_request.sh
 cnv
-cd shell
 cd euler
-cd proj
-cd ../project_euler_old
-cd solutions
 cargo t 11
 cargo t 12
 rustc pe12.rs
@@ -362,7 +341,6 @@ cargo t 14
 a
 cargo add num_bigint
 cargo t 15
-python
 cargo t > bruh.txt
 rev 57556660652855822768205693898862698564180813869111543980011406516596719590703712874576930543808253740965577054595962456627234894983242445538583116601107245553184555080136525889813615206431991330120751458161307960738755106470330231563958976478739445027517051900087496385608663261462032437882497068051701
 rev
@@ -372,11 +350,8 @@ cargo t 16
 cargo t --release
 bat src/solutions.txt
 cargo t 17
-cd
-shutdown now
 nv bruh.json
 ./send_request.sh /signup signin.json
-./send_request.sh /user/fetch
 mv bruh.json pass.json
 mv signin.json signup.json
 nv pass.json
@@ -386,14 +361,9 @@ cp ../krag_door/src/reader .
 cp -r ../krag_door/src/reader .
 mv reader src
 cargo add serialport
-cargo add thiserror
 cargo add log
-cargot 
 cargo add log --no-default-features
-cargo t --r
-cd src
 mv reader/* .
-yazi
 cargo t waiting
 git push HEAD:main
 git branch -M main
@@ -403,20 +373,15 @@ nv .gitignore
 rm -rf krag_nfc
 git clone https://github.com/jacpa42/krag_nfc
 cd krag_nfc/
-cd ..
 cargo add parking_lot
-cd nfc
 cargo r -c ./config.toml
 cargo r --config ./config.toml
 cargo r -c
-u
 mv .env env
 cross
 bat build_release.sh
 u && reboot
 rm -rf krag_door-aarch64-unknown-linux-gnu-v1.3.0
-cd door
-cargo r
 mv env .env
 bat env
 cargo r -- -c ./config.toml
@@ -426,46 +391,226 @@ cargot
 cargo c --r
 cargo c --features env
 rm .env
-git pull
-ll
 nv config.toml
 nv build_release.sh
-cd serv
 bat .env
 nvim 
-cargo c
 cargo c -r
 rm *.tgz
 nv Cargo.toml
-lk
 cd database
-cargo t -r
-cd db
-cargo update
-rm -rf target
-nv
 cross t -r
-cargo t
-./build_release.sh
 rm krag_server-aarch64-unknown-linux-gnu-v0.2.3.tgz
-l
 ssh jacob@kragsentrale.co.zak
-ssh jacob@kragsentrale.co.za
 cd shell_scripts
+cd dott
+cd dot
+nmv
+git clone https://github.com/jacpa42/krag
+cd krag/
+mv kragdb krag_db
+cargo add serde_json
+cargo add clap --features auto-colour
+cargo add clap --features auto-color
+cargo add clap
+cargo r -- -h
+cargo r -- print-pass
+cargo r -- identify -h
+cargo r -- identify -i u
+cargo add tokio --features macros rt
+cargo add tokio --features rt
+cargo add tokio --features rt-multi-thread
+cargor 
+cargo add reqwest --features json
+cargo r -- identify -i 1
+cargo r -- identify -i 3
+cargo r -- identify -i 2
+cargo add thiserror
+
+cd shel
+cargo add bat
+cargo add xq
+cargo remove x
+cargo remove xq
+jq "."
+cargo r -- identify -i 1256681702432144
+cd nfc
+cargo add serde
+cargo add serde --features derive --optional=true
+cargo add serde --features derive
+Znv
+cd ../krag_db
+yazik
+cargo r -r -- identify -i 1256681702432144
+./send_request.sh /user/fetch
+./send_request.sh /pass/fetch
+cargo r -r -- identify -i 1383147014462864
+bat src/main.rs
+cargo r -- fetch-pass
+cargo r -- fetch-user -i 6
+cargo r -- fetch-user -i 7
+cargo r -- fetch-user -i 1
+cargo r -- fetch-user
+cargo r -- fetch-user -i 8
+cargo r -- fetch-user -
+cargo r -- fetch-user -p
+cargo r -- fetch-user -p member
+cargo r -- fetch-user -p ROOT
+cargo install --features lsp --locked taplo-cli
+cargo t --r
+cd nv
+cargo dep > bat
+cargo dep 
+cargo install cargo-dep
+cargo dep | bat
+cargo dep
+cargo-dep
+cargo remove cargo-dep
+cargo uninstall cargo-dep
+n
+cargo tree
+cargo tree 
+cargo tree | bat
+cargo add smol
+cargo remove smol
+cargo add futures
+rm -r target
+cargo buld
+cargo update && rm -r target
+cargo r 
+cd dv
+cargo f
+cargo build
+cargo update && rm -r target & cargo build
+cargo r -- fetch-user -p MEMBER
+cargo add tokio --features macros
+cargo add tokio
+bat Cargo.toml
+cargo r fetch-user
+cargo r fetch-pass
+cargo r fetch-user -
+cargo r fetch-user -p
+cargo r fetch-user -f
+cargo r fetch-user -ph
+cargo r fetch-user -h
+cargo r fetch-user -n 27722105988
+u && shutdown nwo
+u && shutdown now
+cd krag
+cdi
+cargo t select_range
+cargo udpaate
+touch range.json
+rm krag_server-aarch64-unknown-linux-gnu-v0.2.4.tgz
+cargo t range
+nv send_request.sh
+lk
+cd db
+cd test
+cargo t --features full
+cargo t --features full range
+cd serv
+./build_release.sh
+ssh jacob@kragsentrale.co.za
+cd shell
+bat range.json
+./send_request.sh /log/fetch_range
+nv range.json
+./send_request.sh /log/fetch_range range.json
+./send_request.sh /log/fetch_range range.jsonll
+./send_request.sh /log/delete_range range.json
 ./send_request.sh /log/fetch
-: 1735982134:0;u
-: 1735982651:0;cd
-: 1735982652:0;aqua
-: 1735998967:0;cd door
-: 1735998968:0;git pull
-: 1735998975:0;cd serv
-: 1735998976:0;git pull
-: 1735998978:0;cd db
-: 1735998980:0;git pull
-: 1735998982:0;cd ..
-: 1735998982:0;l
-: 1735998989:0;cd nfc
-: 1735998990:0;git pull
-: 1735999000:0;cd dott
-: 1735999002:0;cd dot
-: 1735999002:0;nv
+rm krag_server-aarch64-unknown-linux-gnu-v0.2.5.tgz
+cd 
+cd project_euler
+cd ../project_euler_old
+cd
+carg oc
+cargo t 20
+cargo t 22
+cargo add itertools
+caro t
+cargo t 27
+cd dor
+cargo t 30
+cargo t gcd
+cargo t 33
+cargo t 33 -r
+cargo add smol_vec
+cargo add smolvec
+shutdown
+shutdown now
+cargo t 34 -r
+cargo t 34
+cargo 
+cd ..
+cargo t 36 
+cargot 
+cargo t 36
+cargo t 36 -r
+rustc --explain E0658
+rustup toolchain default nightly
+rustup toolchain nightly
+cargo +nightly t
+cargo +nightly t 39
+cd adj
+btop
+rustup toolchain uninstall 1.76
+rustup update
+cd door
+cargo update
+git diff main..ORIG_HEAD
+git pull
+rm linear_actuator/board_local.h
+rmorphans
+cd proj
+carg t
+cargo t 40
+cargo +nightly t 40
+date
+cargo +nightly t 40 -rk
+cargo +nightly t 40 -r
+cargo +nightly t -r 42
+cloc src
+cloc ./src
+cd src
+cloc
+cd solutions
+cloc .
+bat pe013.rs
+bat pe013.rs | grep k
+aqua
+cd old
+git diff
+cargo +nightly t -r
+cargo +nightly t -r 43
+cargo +nightly t -r 44
+cargo t isqrt
+cargo +nightly t -r isqrt
+rustup override set nightly\
+
+cargo r
+jj
+rustc pe44.rs
+./pe44
+python
+cargo t 44
+cargo t 44 -r
+rm -rf target
+cargo c
+l
+yazi
+cargo t
+cargo t -r
+ll
+u
+nv
+: 1736245412:0;tmux
+: 1736245414:0;l
+: 1736245414:0;ll
+: 1736245415:0;ll
+: 1736245415:0;ll
+: 1736245420:0;aqua
+: 1736245424:0;cd dot
+: 1736245425:0;nv
+: 1736245427:0;nv
