@@ -259,7 +259,6 @@ cargo add tower_http
 cargo add tower_http --features fs
 cargoc
 cargo r --r
-cargo r -r
 cd frontend/html5up-verti/images
 icat pic06.jpg
 icat pic01.jpg
@@ -312,7 +311,6 @@ mv start.html index.html
 bat index.html
 cd .
 rm -rf html5up-verti
-shutdown nwo
 cd hypr
 nv hyprland.conf
 sudo pacman -Si hyprland
@@ -385,7 +383,6 @@ rm -rf krag_door-aarch64-unknown-linux-gnu-v1.3.0
 mv env .env
 bat env
 cargo r -- -c ./config.toml
-tmux
 tmux attach-session
 cargot
 cargo c --r
@@ -404,7 +401,6 @@ rm krag_server-aarch64-unknown-linux-gnu-v0.2.3.tgz
 ssh jacob@kragsentrale.co.zak
 cd shell_scripts
 cd dott
-cd dot
 nmv
 git clone https://github.com/jacpa42/krag
 cd krag/
@@ -413,7 +409,6 @@ cargo add serde_json
 cargo add clap --features auto-colour
 cargo add clap --features auto-color
 cargo add clap
-cargo r -- -h
 cargo r -- print-pass
 cargo r -- identify -h
 cargo r -- identify -i u
@@ -458,7 +453,6 @@ cargo r -- fetch-user -p member
 cargo r -- fetch-user -p ROOT
 cargo install --features lsp --locked taplo-cli
 cargo t --r
-cd nv
 cargo dep > bat
 cargo dep 
 cargo install cargo-dep
@@ -496,8 +490,6 @@ cargo r fetch-user -h
 cargo r fetch-user -n 27722105988
 u && shutdown nwo
 u && shutdown now
-cd krag
-cdi
 cargo t select_range
 cargo udpaate
 touch range.json
@@ -524,7 +516,6 @@ rm krag_server-aarch64-unknown-linux-gnu-v0.2.5.tgz
 cd 
 cd project_euler
 cd ../project_euler_old
-cd
 carg oc
 cargo t 20
 cargo t 22
@@ -538,12 +529,9 @@ cargo t 33
 cargo t 33 -r
 cargo add smol_vec
 cargo add smolvec
-shutdown
-shutdown now
 cargo t 34 -r
 cargo t 34
 cargo 
-cd ..
 cargo t 36 
 cargot 
 cargo t 36
@@ -579,9 +567,7 @@ cd solutions
 cloc .
 bat pe013.rs
 bat pe013.rs | grep k
-aqua
 cd old
-git diff
 cargo +nightly t -r
 cargo +nightly t -r 43
 cargo +nightly t -r 44
@@ -589,7 +575,6 @@ cargo t isqrt
 cargo +nightly t -r isqrt
 rustup override set nightly\
 
-cargo r
 jj
 rustc pe44.rs
 ./pe44
@@ -598,23 +583,38 @@ cargo t 44
 cargo t 44 -r
 rm -rf target
 cargo c
-l
-yazi
 cargo t
 cargo t -r
+tmux
 ll
+cd dot
+rm -rf nvim_bak
+loginctl lock-session
+whydash
+git diff
+cd
+aqua
+cargo r -- -h
+gcd ..
+cd ..
+cargo install cargo-generate
+cargo generate ratatui/templates simple
+cd learn-ratatui
+yazi
+cargo r -r
+cargo add fast_chemail
+bat src/commands.rs
+cd ../krag
+bat src/config.rs
+cd krag
+cdi
+caro r
+cargo r
+shutdown
+shutdown nwo
+shutdown now
 u
+cd nv
+l
 nv
-: 1736245412:0;tmux
-: 1736245414:0;l
-: 1736245414:0;ll
-: 1736245415:0;ll
-: 1736245415:0;ll
-: 1736245420:0;aqua
-: 1736245424:0;cd dot
-: 1736245425:0;nv
-: 1736245427:0;nv
-: 1736245433:0;l
-: 1736245440:0;rm -rf nvim_bak
-: 1736245440:0;l
-: 1736245441:0;nv
+: 1736319270:0;nv
