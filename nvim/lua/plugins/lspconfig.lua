@@ -1,6 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
-	dependencies = { "saghen/blink.cmp" },
+	dependencies = { "saghen/blink.cmp", "folke/lazydev.nvim" },
 
 	opts = {
 		servers = {
@@ -9,6 +9,7 @@ return {
 			rust_analyzer = {},
 			html = {},
 			cssls = {},
+			taplo = {},
 		},
 	},
 

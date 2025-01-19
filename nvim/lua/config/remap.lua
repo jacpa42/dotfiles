@@ -30,3 +30,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-j>", "<Cmd>wincmd j<Cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-k>", "<Cmd>wincmd k<Cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-h>", "<Cmd>wincmd h<Cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", "<Cmd>wincmd l<Cr>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-f>", "<Cmd>%bd|e#<Cr>", { noremap = true, silent = true })
