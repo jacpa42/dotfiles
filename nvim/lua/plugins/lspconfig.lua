@@ -10,6 +10,7 @@ return {
 			html = {},
 			cssls = {},
 			taplo = {},
+			marksman = {},
 		},
 	},
 
