@@ -7,6 +7,7 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.o.clipboard = "unnamedplus"
 vim.opt.cmdheight = 0
+vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 
 -- 'allowrevins'	  'ari'     allow CTRL-_ in Insert mode
 -- 'ambiwidth'	  'ambw'    what to do with Unicode chars of ambiguous width
