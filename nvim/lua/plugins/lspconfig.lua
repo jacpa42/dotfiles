@@ -11,6 +11,7 @@ return {
 			cssls = {},
 			taplo = {},
 			marksman = {},
+			hyprls = {},
 		},
 	},
 

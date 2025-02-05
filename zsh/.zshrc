@@ -27,6 +27,7 @@ source "$ZDOTDIR/autocomplete.zsh"
 
 # eval "$(krag completions "$(basename "$SHELL")")"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(glow completion zsh)"
 
 ### THEME ###
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
