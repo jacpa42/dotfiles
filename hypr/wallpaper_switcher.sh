@@ -9,7 +9,7 @@
 # This controls (in seconds) when to switch to the next image
 INTERVAL=300
 
-swww img -t none ~/Pictures/Wallpapers/frograin.gif
+swww img -t none ~/Pictures/Wallpapers/yosemite.png
 sleep $INTERVAL
 
 if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
@@ -26,7 +26,7 @@ while true; do
 		done \
 		| sort -n | cut -d':' -f2- \
 		| while read -r img; do
-			swww img "$img"
+			swww img -t none "$img"
 			sleep $INTERVAL
 		done
 done
