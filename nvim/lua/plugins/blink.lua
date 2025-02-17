@@ -27,7 +27,6 @@ return {
 		},
 		completion = {
 			accept = {
-				-- experimental auto-brackets support
 				auto_brackets = {
 					enabled = true,
 				},
@@ -45,8 +44,8 @@ return {
 			},
 		},
 		sources = {
-			-- add lazydev to your completion providers
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
+
 			providers = {
 				lazydev = {
 					name = "LazyDev",
@@ -62,47 +61,4 @@ return {
 			["<Down>"] = { "select_next", "fallback" },
 		},
 	},
-	config = function(_, opts)
-		-- setup compat sources
-		local enabled = opts.sources.default
-		for _, source in ipairs(opts.sources.compat or {}) do
-			opts.sources.providers[source] = vim.tbl_deep_extend(
-				"force",
-				{ name = source, module = "blink.compat.source" },
-				opts.sources.providers[source] or {}
-			)
-			if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
-				table.insert(enabled, source)
-			end
-		end
-
-		-- Unset custom prop to pass blink.cmp validation
-		opts.sources.compat = nil
-
-		-- check if we need to override symbol kinds
-		for _, provider in pairs(opts.sources.providers or {}) do
-			if provider.kind then
-				local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-				local kind_idx = #CompletionItemKind + 1
-
-				CompletionItemKind[kind_idx] = provider.kind
-				---@diagnostic disable-next-line: no-unknown
-				CompletionItemKind[provider.kind] = kind_idx
-
-				local transform_items = provider.transform_items
-				provider.transform_items = function(ctx, items)
-					items = transform_items and transform_items(ctx, items) or items
-					for _, item in ipairs(items) do
-						item.kind = kind_idx or item.kind
-					end
-					return items
-				end
-
-				-- Unset custom prop to pass blink.cmp validation
-				provider.kind = nil
-			end
-		end
-
-		require("blink.cmp").setup(opts)
-	end,
 }
