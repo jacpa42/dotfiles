@@ -18,7 +18,7 @@ keybind = ctrl+shift+r=reload_config
 
 shell-integration = zsh
 
-background-opacity = 0.93
+background-opacity = 1
 background-blur = true
 
 fullscreen = true

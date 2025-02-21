@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>e", function()
+	Snacks.picker.explorer()
+end)
 vim.keymap.set("n", "<leader>l", "<Cmd>Lazy<Cr>")
 vim.keymap.set("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
