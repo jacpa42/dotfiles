@@ -7,6 +7,8 @@ return {
 			lua_ls = {},
 			zls = {},
 			rust_analyzer = {},
+			glsl_analyzer = {},
+			clangd = {},
 			basedpyright = {},
 			html = {},
 			cssls = {},

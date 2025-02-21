@@ -9,8 +9,10 @@ return {
 		sync_install = false,
 		ensure_installed = {
 			"c",
+			"cpp",
 			"lua",
 			"rust",
+			"glsl",
 			"python",
 			"hyprlang",
 		},

@@ -1,0 +1,29 @@
+font-family = FiraCode Nerd Font Mono
+font-size = 18
+font-feature = cv11
+font-feature = ss03
+font-feature = ss02
+
+cursor-style = block
+cursor-invert-fg-bg = true
+
+theme = catppuccin-macchiato
+
+desktop-notifications = false
+
+window-padding-x = 1
+window-padding-y = 0
+
+keybind = ctrl+shift+r=reload_config
+
+shell-integration = zsh
+
+background-opacity = 0.93
+background-blur = true
+
+fullscreen = true
+
+# linux_display_server wayland
+# shell /usr/bin/zsh
+# wayland_titlebar_color system
+# window_margin_width 0

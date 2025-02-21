@@ -1,5 +1,5 @@
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 	lazy = true,
 	opts = {
 		format_on_save = {
@@ -11,7 +11,9 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			rust = { "rustfmt", lsp_format = "fallback" },
-			python = { "black" }
+			cpp = { "clang-format", lsp_format = "fallback" },
+			glsl = { "clang-format" },
+			python = { "black" },
 		},
-	}
+	},
 }
