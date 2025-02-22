@@ -7,7 +7,7 @@
 # we use is not defined in posix
 
 # This controls (in seconds) when to switch to the next image
-INTERVAL=300
+INTERVAL=600
 
 swww img -t none ~/Pictures/Wallpapers/yosemite.png
 sleep $INTERVAL

@@ -18,12 +18,7 @@ keybind = ctrl+shift+r=reload_config
 
 shell-integration = zsh
 
-background-opacity = 1
+background-opacity = 0.9
 background-blur = true
 
 fullscreen = true
-
-# linux_display_server wayland
-# shell /usr/bin/zsh
-# wayland_titlebar_color system
-# window_margin_width 0
