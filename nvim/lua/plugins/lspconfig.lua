@@ -8,7 +8,11 @@ return {
 			zls = {},
 			rust_analyzer = {},
 			glsl_analyzer = {},
-			clangd = {},
+			clangd = {
+				capabilities = {
+					offsetEncoding = { "utf-8", "utf-16" },
+				},
+			},
 			basedpyright = {},
 			html = {},
 			cssls = {},

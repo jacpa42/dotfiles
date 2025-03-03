@@ -28,7 +28,7 @@ padding 0 0
 
 # set the x y margin size, the space around the outside of the clock from the
 # edge of the terminal
-margin 1 1
+margin 0 0
 # margin-x 0
 # margin-y 0
 
@@ -44,7 +44,7 @@ date-padding 1
 
 # set the string value used to fill the active, inactive, and colon blocks of
 # the clock, an empty string clears the value
-# fill ''
+fill ''
 # fill-active ''
 # fill-inactive ''
 # fill-colon ''
