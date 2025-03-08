@@ -22,7 +22,7 @@ source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
 
-source "$ZDOTDIR/alias.sh"
+source "$ZDOTDIR/alias.zsh"
 source "$ZDOTDIR/autocomplete.zsh"
 
 # eval "$(krag completions "$(basename "$SHELL")")"
