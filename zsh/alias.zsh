@@ -10,8 +10,8 @@ alias ff="fastfetch"
 alias rmorphans="sudo pacman -Rns \$(pacman -Qtdq)"
 alias pipes="pipes.sh -p 3 -r 3000 -f 40"
 alias open="xdg-open"
-alias peaclock="peaclock --config-dir ~/.config/peaclock"
-videolen() { ffmpeg -i "$1" 2>&1 | rg Duration }
+alias clock="peaclock --config-dir ~/.config/peaclock"
+videolen() { ffmpeg -i "$1" 2>&1 | rg --color=always Duration | sed 's/,.*//' }
 vidplayord() {
     if [[ -z "$1" ]]; then
         echo "Usage: mp4play [directory]"
