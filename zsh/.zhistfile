@@ -54,7 +54,6 @@ git clone
 git clone https://github.com/jacpa42/krag_door
 rm ~/Downloads/krag_door-main.zip
 cd krag_door
-ls
 cargo test
 btgop
 cargo --release c
@@ -136,7 +135,6 @@ cd doto
 stow .
 rm dolphinrc
 cd bat/themes
-bat cache --build
 bat Catppuccin\ Macchiato.tmTheme
 bat man
 man
@@ -226,7 +224,6 @@ mv Project_Euler project_euler
 rm -rf advent_of_code_2024
 ./send_request.sh log/fetch
 ./send_request.sh user/fetch
-cd pic
 file krag_logo/Logo3White.svg
 bat krag_logo/Logo3White.svg
 cd krag_logo
@@ -325,7 +322,6 @@ lll
 cd kity
 cd kit
 cd kitty
-./send_to_device.sh
 ./send_to_device.sh -p linear_actuator -b 9600
 cnv
 cd euler
@@ -388,41 +384,33 @@ cargot
 cargo c --r
 cargo c --features env
 rm .env
-nv config.toml
 nv build_release.sh
 bat .env
 nvim 
-cargo c -r
 rm *.tgz
 nv Cargo.toml
 cd database
 cross t -r
 rm krag_server-aarch64-unknown-linux-gnu-v0.2.3.tgz
 ssh jacob@kragsentrale.co.zak
-cd shell_scripts
 cd dott
 nmv
 git clone https://github.com/jacpa42/krag
 cd krag/
 mv kragdb krag_db
-cargo add serde_json
 cargo add clap --features auto-colour
 cargo add clap --features auto-color
 cargo add clap
-cargo r -- print-pass
 cargo r -- identify -h
 cargo r -- identify -i u
 cargo add tokio --features macros rt
 cargo add tokio --features rt
-cargo add tokio --features rt-multi-thread
 cargor 
 cargo add reqwest --features json
 cargo r -- identify -i 1
 cargo r -- identify -i 3
 cargo r -- identify -i 2
-cargo add thiserror
 
-cd shel
 cargo add bat
 cargo add xq
 cargo remove x
@@ -437,11 +425,8 @@ Znv
 cd ../krag_db
 yazik
 cargo r -r -- identify -i 1256681702432144
-./send_request.sh /user/fetch
-./send_request.sh /pass/fetch
 cargo r -r -- identify -i 1383147014462864
 bat src/main.rs
-cargo r -- fetch-pass
 cargo r -- fetch-user -i 6
 cargo r -- fetch-user -i 7
 cargo r -- fetch-user -i 1
@@ -468,7 +453,6 @@ cargo tree | bat
 cargo add smol
 cargo remove smol
 cargo add futures
-rm -r target
 cargo buld
 cargo update && rm -r target
 cargo r 
@@ -497,21 +481,12 @@ rm krag_server-aarch64-unknown-linux-gnu-v0.2.4.tgz
 cargo t range
 nv send_request.sh
 lk
-cd db
 cd test
-cargo t --features full
 cargo t --features full range
-cd serv
-./build_release.sh
-ssh jacob@kragsentrale.co.za
-cd shell
-bat range.json
 ./send_request.sh /log/fetch_range
-nv range.json
 ./send_request.sh /log/fetch_range range.json
 ./send_request.sh /log/fetch_range range.jsonll
 ./send_request.sh /log/delete_range range.json
-./send_request.sh /log/fetch
 rm krag_server-aarch64-unknown-linux-gnu-v0.2.5.tgz
 cd 
 cd project_euler
@@ -541,21 +516,16 @@ rustup toolchain default nightly
 rustup toolchain nightly
 cargo +nightly t
 cargo +nightly t 39
-cd adj
 btop
 rustup toolchain uninstall 1.76
 rustup update
-cd door
-cargo update
 git diff main..ORIG_HEAD
-git pull
 rm linear_actuator/board_local.h
 rmorphans
 cd proj
 carg t
 cargo t 40
 cargo +nightly t 40
-date
 cargo +nightly t 40 -rk
 cargo +nightly t 40 -r
 cargo +nightly t -r 42
@@ -578,23 +548,14 @@ rustup override set nightly\
 jj
 rustc pe44.rs
 ./pe44
-python
 cargo t 44
 cargo t 44 -r
 rm -rf target
-cargo c
-cargo t
-cargo t -r
-tmux
-ll
 cd dot
 rm -rf nvim_bak
 loginctl lock-session
 whydash
-git diff
-cd
 aqua
-cargo r -- -h
 gcd ..
 cd ..
 cargo install cargo-generate
@@ -606,15 +567,97 @@ cargo add fast_chemail
 bat src/commands.rs
 cd ../krag
 bat src/config.rs
-cd krag
-cdi
 caro r
-cargo r
 shutdown
 shutdown nwo
+cargo remove fzf
+cargo add tokio --features rt-multi-thread
+tmux
+cd krag
+cargo add thiserror
+cargo t --features full
+cargo t --doc
+cargo t
+cargo c -r
+cargo t -r
+cargo udpate
+cl
+cargo add serde_json
+cargo update
+rm -r target
+cargo add reqwest
+cargo add reqwest --features serde
+cd door
+./build_release.sh
+cd shell_scripts
+mv signup.json singin.json
+nv singin.json
+bat cache --clear
+bat cache --build
+./send_request.sh /signin singin.json
+dsate
+date
+h6
+./send_request.sh /log/fetch
+cd shel
+cd serv
+rm krag_server-aarch64-unknown-linux-gnu-v0.2.6.tgz
+touch update_user.rs
+mv update_user.rs update_user.json
+nv update_user.json
+rm update_user.json
+cd
+cd pic
+mv ~/Downloads/IMG_0128.jpg ./lethal_facecard.jpg
+icat lethal_facecard.jpg
+git pull
+cd nv
+python
+./send_to_device.sh
+./send_to_device.sh 
+./send_to_device.sh -p linear_actuator
+cd rat
+ll
+cargo c
+./send_request.sh /user/feth
+touch update_args.json
+nv update_args.json
+./send_request.sh /user/update update_args.json
+rm update_args.json
+cd adj
+ci
+nv config.toml
+bat config.toml
+cargo r -- fetch-pass
+cargo r -- fetch-pass -h
+ls
+l
+git diff
+cargo r
+cargo r -- fetch-pass -r
 shutdown now
 u
-cd nv
-l
+cd shell
+bat singin.json
+./send_request.sh /user/singup singin.json
+ssh jacob@kragsentrale.co.za
+./send_request.sh /signup singin.json
+./send_request.sh /user/fetch
+cdi
+cargo r -- -h
+cargo r -- print-pass
+cd db
 nv
-: 1736319270:0;nv
+bat pass.json
+bat range.json
+./send_request.sh /pass/update range.json
+./send_request.sh /pass/fetch
+cargo r -- identify
+nv range.json
+./send_request.sh /pass/fetch range.json
+: 1741708912:0;ll
+: 1741708913:0;u
+: 1741708910:0;cd dot
+: 1741708911:0;l
+: 1741708911:0;nv
+: 1741708915:0;lazygit

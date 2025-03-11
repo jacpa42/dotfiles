@@ -26,12 +26,6 @@ return {
 			nerd_font_variant = "normal",
 		},
 		completion = {
-			accept = {
-				-- experimental auto-brackets support
-				auto_brackets = {
-					enabled = true,
-				},
-			},
 			menu = {
 				draw = {
 					treesitter = { "lsp" },
@@ -39,13 +33,13 @@ return {
 			},
 			documentation = {
 				auto_show = true,
+				auto_show_delay_ms = 500,
 			},
 			ghost_text = {
 				enabled = vim.g.ai_cmp,
 			},
 		},
 		sources = {
-			-- add lazydev to your completion providers
 			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 			providers = {
 				lazydev = {
