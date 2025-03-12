@@ -22,4 +22,4 @@ shell-integration = zsh
 background-opacity = 0.9
 background-blur = true
 
-fullscreen = true
+fullscreen = false
