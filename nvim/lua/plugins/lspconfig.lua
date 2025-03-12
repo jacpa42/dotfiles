@@ -7,9 +7,18 @@ return {
 			lua_ls = {},
 			zls = {},
 			rust_analyzer = {},
+			glsl_analyzer = {},
+			clangd = {
+				capabilities = {
+					offsetEncoding = { "utf-8", "utf-16" },
+				},
+			},
+			basedpyright = {},
 			html = {},
 			cssls = {},
 			taplo = {},
+			marksman = {},
+			hyprls = {},
 		},
 	},
 

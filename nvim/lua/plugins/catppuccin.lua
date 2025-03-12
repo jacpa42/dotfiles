@@ -21,5 +21,5 @@ return {
 			types = {},
 			operators = {},
 		},
-	},
-}
+	}
+},

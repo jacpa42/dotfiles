@@ -26,6 +26,11 @@ return {
 			nerd_font_variant = "normal",
 		},
 		completion = {
+			accept = {
+				auto_brackets = {
+					enabled = true,
+				},
+			},
 			menu = {
 				draw = {
 					treesitter = { "lsp" },
@@ -40,7 +45,8 @@ return {
 			},
 		},
 		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+			default = { "lazydev", "lsp", "path", "snippets", "buffer", "cmdline", "omni" },
+
 			providers = {
 				lazydev = {
 					name = "LazyDev",

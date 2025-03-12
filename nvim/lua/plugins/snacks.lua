@@ -4,6 +4,13 @@ return {
 	lazy = false,
 	opts = {
 		bigfile = { enabled = true },
+		image = { enabled = true },
+		picker = {
+			enabled = true,
+			sources = {
+				explorer = {},
+			},
+		},
 		dashboard = {
 			enabled = true,
 			width = 60,

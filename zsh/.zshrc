@@ -20,9 +20,14 @@ export MANROFFOPT="-c"
 
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-eval "$(zoxide init --cmd cd zsh)"
-source "$ZDOTDIR/alias.sh"
+
+
+source "$ZDOTDIR/alias.zsh"
 source "$ZDOTDIR/autocomplete.zsh"
+
+# eval "$(krag completions "$(basename "$SHELL")")"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(glow completion zsh)"
 
 ### THEME ###
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
