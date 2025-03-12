@@ -14,6 +14,7 @@ fi
 
 . "$HOME/.cargo/env"
 export STOW_DIR="$HOME/.config/dotfiles"
+export PATH="$PATH:$HOME/go/bin"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
