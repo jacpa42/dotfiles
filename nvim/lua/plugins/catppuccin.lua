@@ -3,7 +3,7 @@ return {
 	name = "catppuccin",
 	priority = 1000,
 	opts = {
-		transparent_background = true, -- disables setting the background color.
+		transparent_background = true,
 		flavour = "macchiato",
 		show_end_of_buffer = false,
 		term_colors = false,
@@ -22,4 +22,4 @@ return {
 			operators = {},
 		},
 	}
-}
+},
