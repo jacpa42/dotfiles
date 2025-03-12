@@ -9,6 +9,7 @@ cursor-invert-fg-bg = true
 
 theme = catppuccin-macchiato
 
+app-notifications = false
 desktop-notifications = false
 
 window-padding-x = 1
