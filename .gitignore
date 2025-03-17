@@ -4,5 +4,7 @@ nvim*/lazy-lock.json
 nvim*/lazyvim.json
 .tmux/
 zsh/.zhistfile
-*/.zcompdump
+zsh/.zcom
+zsh/.zcompdump
+zsh/.zcompcache
 */.zhistfile
