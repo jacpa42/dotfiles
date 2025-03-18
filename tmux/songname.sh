@@ -6,26 +6,22 @@ spotify_status="$(/usr/bin/playerctl -s --player=spotify status)"
 firefox_song_name="$(/usr/bin/playerctl -s --player=firefox metadata | /usr/bin/rg title | /usr/bin/sd '.*title\s+' '')"
 firefox_status="$(/usr/bin/playerctl -s --player=firefox status)"
 
-# Prefer spotify
-if [[ ! -z $spotify_song_name ]]; then 
-	if [[ $spotify_status == "Playing" ]] then
-		echo "#[fg=colour10]$spotify_song_name #[fg=colour0] |"
-		exit 0
-	else
-		echo "#[fg=colour8]$spotify_song_name #[fg=colour0] |"
-		exit 0
-	fi
-fi
-
-# If no spotify then use firefox
-if [[ ! -z $firefox_song_name ]]; then 
-	if [[ $firefox_status == "Playing" ]] then
-		echo "#[fg=colour10]$firefox_song_name 󰈹#[fg=colour0] |"
-		exit 0
-	else
-		echo "#[fg=colour8]$firefox_song_name 󰈹#[fg=colour0] |"
-		exit 0
-	fi
+	#	If spotify is playing, display it.
+if [[ ! -z $spotify_song_name && $spotify_status == "Playing" ]]; then 
+	echo "#[fg=colour10]$spotify_song_name #[fg=colour0] |"
+	exit 0
+#	Else if firefox is playing display it
+elif [[ ! -z $firefox_song_name && $firefox_status == "Playing" ]]; then
+	echo "#[fg=colour208]$firefox_song_name 󰈹#[fg=colour0] |"
+	exit 0
+#	Else if spotify is paused display it.
+elif [[ ! -z $spotify_song_name ]]; then
+	echo "#[fg=colour8]$spotify_song_name #[fg=colour0] |"
+	exit 0
+#	Else if firefox is paused display it.
+elif [[ ! -z $firefox_song_name ]]; then
+	echo "#[fg=colour8]$firefox_song_name 󰈹#[fg=colour0] |"
+	exit 0
 fi
 
 exit 0
