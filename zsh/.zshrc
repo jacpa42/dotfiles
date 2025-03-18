@@ -22,6 +22,9 @@ export LC_ALL=en_ZA.UTF-8
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 
+# Set escape mode to 10ms
+export KEYTIMEOUT=1
+
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 

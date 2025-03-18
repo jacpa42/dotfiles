@@ -1,4 +1,5 @@
 alias netspeed="speedtest++"
+alias clean_trash="rm -rf .config/local/share/Trash/ && rm -rf .local/share/Trash/"
 alias aqua="asciiquarium --transparent"
 alias sl="sl -5 -a -e -d -G -l"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=kitty --passthrough=tmux"

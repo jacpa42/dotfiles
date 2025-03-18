@@ -15,7 +15,7 @@ vim.keymap.set("n", "<Esc>", function()
 	end
 end, { expr = true, noremap = true, silent = true })
 
-vim.keymap.set({ "n", "v" }, "<leader>s", "<Cmd>wa<Cr>")
+vim.keymap.set({ "n", "v" }, "<leader>s", "<Cmd>w<Cr>")
 
 vim.keymap.set("n", "<leader><leader>", "<Cmd>FzfLua files<Cr>")
 vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua live_grep_glob<Cr>")
