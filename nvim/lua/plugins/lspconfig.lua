@@ -6,13 +6,13 @@ return {
 		servers = {
 			lua_ls = {},
 			zls = {},
-			rust_analyzer = {},
 			glsl_analyzer = {},
 			clangd = {
 				capabilities = {
 					offsetEncoding = { "utf-8", "utf-16" },
 				},
 			},
+			bashls = {},
 			basedpyright = {},
 			html = {},
 			cssls = {},

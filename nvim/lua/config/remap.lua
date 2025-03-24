@@ -1,34 +1,39 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+
 vim.keymap.set("n", "<leader>e", function()
 	Snacks.picker.explorer()
 end)
-vim.keymap.set("n", "<leader>l", "<Cmd>Lazy<Cr>")
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<Esc>", function()
-	if vim.v.hlsearch == 1 then
-		vim.cmd("noh")
-		return ""
-	else
-		return "<Esc>"
-	end
-end, { expr = true, noremap = true, silent = true })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
-vim.keymap.set({ "n", "v" }, "<leader>s", "<Cmd>w<Cr>")
+vim.keymap.set({ "n", "v" }, "<leader>s", "<cmd>w<cr>")
 
-vim.keymap.set("n", "<leader><leader>", "<Cmd>FzfLua files<Cr>")
-vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua live_grep_glob<Cr>")
-vim.keymap.set({ "n", "v" }, "<leader>ca", "<Cmd>FzfLua lsp_code_actions<Cr>")
-vim.keymap.set("n", "<leader>fc", "<Cmd>FzfLua grep_curbuf<Cr>")
+vim.keymap.set("n", "<leader><leader>", "<cmd>FzfLua files<cr>")
+vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>")
+vim.keymap.set("n", "<leader>fd", "<cmd>FzfLua buffers<cr>", { desc = "Grep buffers" })
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
 
-vim.keymap.set("n", "<C-j>", "<Cmd>wincmd j<Cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-k>", "<Cmd>wincmd k<Cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-h>", "<Cmd>wincmd h<Cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-l>", "<Cmd>wincmd l<Cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<cr>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<C-f>", "<Cmd>%bd|e#<Cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
+
+vim.keymap.set({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank({ timeout = 100 })
+	end,
+})
+
+vim.keymap.set("n", "<leader>td", "<cmd>TodoQuickFix<cr>")

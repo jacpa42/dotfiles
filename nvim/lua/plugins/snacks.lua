@@ -11,6 +11,17 @@ return {
 				explorer = {},
 			},
 		},
+
+		lazygit = {
+			configure = true,
+			config = {
+				os = { editPreset = "nvim-remote" },
+				gui = {
+					nerdFontsVersion = "3",
+				},
+			},
+		},
+
 		dashboard = {
 			enabled = true,
 			width = 60,

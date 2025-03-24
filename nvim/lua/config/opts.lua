@@ -1,10 +1,36 @@
 vim.cmd.colorscheme("catppuccin")
 
 local width = 2
-vim.opt.tabstop = width
-vim.opt.shiftwidth = width
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.o.clipboard = "unnamedplus"
-vim.opt.cmdheight = 0
+vim.o.tabstop = width
+vim.o.shiftwidth = width
+vim.o.number = true
+vim.o.relativenumber = true
+
+vim.o.undodir = vim.fn.expand("~/.cache/undodir/")
+vim.o.undofile = true
+
+vim.o.mouse = ""
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.signcolumn = "yes"
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+
+vim.o.splitbelow = true
+vim.o.splitright = true
+
+vim.opt.list = true
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+
+vim.schedule(function()
+	vim.o.clipboard = "unnamedplus"
+end)
+
+vim.o.breakindent = true
+vim.opt.cursorline = true
+vim.o.scrolloff = (vim.o.lines / 2) - 10
+vim.o.confirm = true
+
+vim.o.showmode = false
+vim.o.cmdheight = 0
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
