@@ -9,9 +9,6 @@
 # This controls (in seconds) when to switch to the next image
 INTERVAL=600
 
-swww img -t none ~/Pictures/Wallpapers/alps_lake.png
-sleep $INTERVAL
-
 if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
 	echo "Usage:
 	$0 <dir containing images>"

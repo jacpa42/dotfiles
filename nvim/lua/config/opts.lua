@@ -28,7 +28,7 @@ end)
 
 vim.o.breakindent = true
 vim.opt.cursorline = true
-vim.o.scrolloff = (vim.o.lines / 2) - 10
+vim.o.scrolloff = 25
 vim.o.confirm = true
 
 vim.o.showmode = false
