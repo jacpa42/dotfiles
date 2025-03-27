@@ -1,4 +1,5 @@
 alias netspeed="speedtest++"
+alias motherboard="sudo dmidecode | rg \"Base Board Information\" -A 12"
 alias clean_trash="rm -rf .config/local/share/Trash/ && rm -rf .local/share/Trash/"
 alias aqua="asciiquarium --transparent"
 alias sl="sl -5 -a -e -d -G -l"
