@@ -3,4 +3,4 @@ require("config.lazy")
 require("config.opts")
 require("config.autocmd")
 
-vim.lsp.enable({ "clangd", "luals" })
+vim.lsp.enable({ "clangd", "luals", "rust_analyzer", "hyprls" })

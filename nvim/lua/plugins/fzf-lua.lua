@@ -1,6 +1,7 @@
 return {
-  "ibhagwan/fzf-lua",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+	"ibhagwan/fzf-lua",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	event = "VeryLazy",
 	opts = function(_, opts)
 		local config = require("fzf-lua.config")
 		local actions = require("fzf-lua.actions")
@@ -14,7 +15,6 @@ return {
 		config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
 		config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
 		config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-
 
 		local img_previewer ---@type string[]?
 		for _, v in ipairs({
@@ -87,5 +87,5 @@ return {
 				},
 			},
 		}
-		end
-	}
+	end,
+}

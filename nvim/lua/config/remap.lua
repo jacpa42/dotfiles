@@ -15,7 +15,9 @@ vim.keymap.set("n", "<leader><leader>", "<cmd>FzfLua files<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>")
 vim.keymap.set("n", "<leader>fd", "<cmd>FzfLua buffers<cr>", { desc = "Grep buffers" })
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Grep lsp impls" })
+
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
 
