@@ -2,90 +2,69 @@ return {
 	"ibhagwan/fzf-lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	event = "VeryLazy",
-	opts = function(_, opts)
-		local config = require("fzf-lua.config")
-		local actions = require("fzf-lua.actions")
-
-		-- Quickfix
-		config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
-		config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
-		config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
-		config.defaults.keymap.fzf["ctrl-x"] = "jump"
-		config.defaults.keymap.fzf["ctrl-f"] = "preview-page-down"
-		config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
-		config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
-		config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-
-		local img_previewer ---@type string[]?
-		for _, v in ipairs({
-			{ cmd = "ueberzug", args = {} },
-			{ cmd = "chafa", args = { "{file}", "--format=symbols" } },
-			{ cmd = "viu", args = { "-b" } },
-		}) do
-			if vim.fn.executable(v.cmd) == 1 then
-				img_previewer = vim.list_extend({ v.cmd }, v.args)
-				break
-			end
-		end
-
-		return {
-			"default-title",
-			fzf_colors = true,
-			fzf_opts = {
-				["--no-scrollbar"] = true,
+	opts = {
+		fzf_colors = true,
+		previewers = {
+			cat = {
+				cmd = "cat",
+				args = "-n",
 			},
-			defaults = {
-				-- formatter = "path.filename_first",
-				formatter = "path.dirname_first",
+			bat = {
+				cmd = "bat",
+				args = "--color=always --style=numbers,changes",
 			},
-			previewers = {
-				builtin = {
-					extensions = {
-						["png"] = img_previewer,
-						["jpg"] = img_previewer,
-						["jpeg"] = img_previewer,
-						["gif"] = img_previewer,
-						["webp"] = img_previewer,
-					},
-					ueberzug_scaler = "fit_contain",
+			head = {
+				cmd = "head",
+				args = nil,
+			},
+			git_diff = {
+				cmd_deleted = "git diff --color HEAD --",
+				cmd_modified = "git diff --color HEAD",
+				cmd_untracked = "git diff --color --no-index /dev/null",
+			},
+			man = {
+				cmd = "man -c %s | col -bx",
+			},
+			builtin = {
+				syntax = true, -- preview syntax highlight?
+				syntax_limit_l = 0, -- syntax limit (lines), 0=nolimit
+				syntax_limit_b = 1024 * 1024, -- syntax limit (bytes), 0=nolimit
+				limit_b = 1024 * 1024 * 10, -- preview limit (bytes), 0=nolimit
+				treesitter = {
+					enabled = true,
+					disabled = {},
+					-- nvim-treesitter-context config options
+					context = { max_lines = 1, trim_scope = "inner" },
+				},
+				extensions = {
+					-- neovim terminal only supports `viu` block output
+					["png"] = { "chafa" },
+					["svg"] = { "chafa" },
+					["jpg"] = { "chafa" },
 				},
 			},
-			winopts = {
-				width = 0.8,
-				height = 0.8,
-				row = 0.5,
-				col = 0.5,
-				preview = {
-					scrollchars = { "┃", "" },
-				},
+			-- Code Action previewers, default is "codeaction" (set via `lsp.code_actions.previewer`)
+			-- "codeaction_native" uses fzf's native previewer, recommended when combined with git-delta
+			codeaction = {
+				-- options for vim.diff(): https://neovim.io/doc/user/lua.html#vim.diff()
+				diff_opts = { ctxlen = 3 },
 			},
-			files = {
-				cwd_prompt = false,
-				actions = {
-					["ctrl-i"] = { actions.toggle_ignore },
-					["ctrl-h"] = { actions.toggle_hidden },
-				},
+			codeaction_native = {
+				diff_opts = { ctxlen = 3 },
+				-- git-delta is automatically detected as pager, set `pager=false`
+				-- to disable, can also be set under 'lsp.code_actions.preview_pager'
+				-- recommended styling for delta
+				--pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
 			},
-			grep = {
-				actions = {
-					["ctrl-i"] = { actions.toggle_ignore },
-					["ctrl-h"] = { actions.toggle_hidden },
-				},
+		},
+		winopts = {
+			width = 0.9,
+			height = 0.9,
+			row = 0.5,
+			col = 0.5,
+			preview = {
+				scrollchars = { "┃", "" },
 			},
-			lsp = {
-				symbols = {
-					symbol_hl = function(s)
-						return "TroubleIcon" .. s
-					end,
-					symbol_fmt = function(s)
-						return s:lower() .. "\t"
-					end,
-					child_prefix = false,
-				},
-				code_actions = {
-					previewer = vim.fn.executable("delta") == 1 and "codeaction_native" or nil,
-				},
-			},
-		}
-	end,
+		},
+	},
 }

@@ -34,3 +34,10 @@ vim.o.confirm = true
 vim.o.showmode = false
 vim.o.cmdheight = 0
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
+vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
+
+vim.diagnostic.config({ virtual_text = { current_line = false } })
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true

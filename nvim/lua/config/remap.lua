@@ -1,11 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.keymap.set("n", "<leader>e", function()
-	Snacks.picker.explorer()
-end)
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
