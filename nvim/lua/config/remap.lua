@@ -3,7 +3,11 @@ vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
 vim.keymap.set("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", function()
+	local full_path = vim.api.nvim_buf_get_name(0)
+	local wd = vim.fn.fnamemodify(full_path, ":h")
+	vim.cmd("NvimTreeToggle " .. wd)
+end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
 
