@@ -14,7 +14,6 @@ fi
 
 . "$HOME/.cargo/env"
 export STOW_DIR="$HOME/.config/dotfiles"
-export PATH="$PATH:$HOME/go/bin"
 
 export LANG=en_ZA.UTF-8
 export LC_ALL=en_ZA.UTF-8
@@ -32,9 +31,7 @@ source /usr/share/fzf/key-bindings.zsh
 source "$ZDOTDIR/alias.zsh"
 source "$ZDOTDIR/autocomplete.zsh"
 
-# eval "$(krag completions "$(basename "$SHELL")")"
-eval "$(zoxide init --cmd cd zsh)"
-eval "$(glow completion zsh)"
+eval "$(zoxide init --cmd j zsh)"
 
 ### THEME ###
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
