@@ -7,7 +7,7 @@
 # we use is not defined in posix
 
 # This controls (in seconds) when to switch to the next image
-INTERVAL=600
+INTERVAL=240
 
 if [[ $# -lt 1 ]] || [[ ! -d $1 ]]; then
 	echo "Usage:
