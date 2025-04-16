@@ -15,6 +15,7 @@ return {
 			lua = { "stylua" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			cpp = { "clang-format", lsp_format = "fallback" },
+			c = { "clang-format -style=gnu", lsp_format = "fallback" },
 			glsl = { "clang-format" },
 		},
 	},
