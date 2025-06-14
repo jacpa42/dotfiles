@@ -1,0 +1,8 @@
+*.log
+history/
+nvim*/lazy-lock.json
+nvim*/lazyvim.json
+.tmux/
+*/.zhistory
+*/.zcompdump
+*/.zhistfile
