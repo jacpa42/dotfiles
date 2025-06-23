@@ -1,0 +1,28 @@
+font-family = JetBrainsMono Nerd Font
+font-feature = cv11
+font-feature = ss03
+font-feature = ss02
+
+font-size = 20
+window-decoration=none
+
+cursor-style = block
+cursor-invert-fg-bg = true
+
+theme = catppuccin-mocha
+
+app-notifications = no-clipboard-copy
+desktop-notifications = false
+
+window-padding-x = 0
+window-padding-y = 0
+
+keybind = ctrl+shift+r=reload_config
+
+keybind = ctrl+shift+4=increase_font_size:1
+keybind = ctrl+shift+5=decrease_font_size:1
+
+shell-integration = zsh
+
+background-opacity = 0.90
+background-blur = false

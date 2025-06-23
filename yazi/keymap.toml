@@ -1,0 +1,11 @@
+[[mgr.prepend_keymap]]
+on = "w"
+run = 'shell --orphan -- swww img -t none "$@"'
+desc = "Change this image to the current wallpaper"
+for = "linux"
+
+[[manager.prepend_keymap]]
+on = "w"
+run = 'shell --orphan -- osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$0\""'
+desc = "Change this image to the current wallpaper (macOS)"
+for = "macos"
