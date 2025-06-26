@@ -18,7 +18,6 @@ source "$HOME/.cargo/env" 2>/dev/null
 # Set up fzf key bindings and fuzzy completion. Must be after brew
 source <(fzf --zsh)
 
-
 ### theme ###
 prefix=$([ "$SYSTEM" = "Darwin" ] && echo "$(brew --prefix)/share" || echo "/usr/share/zsh/plugins")
 source "$prefix/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -42,7 +41,8 @@ source "$prefix/powerlevel10k.zsh-theme"
 
 ## alias ##
 
-alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "THE CAKE IS A LIE"'
+alias duai='dua interactive'
+alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
 alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "guvcview" )"
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
