@@ -42,6 +42,7 @@ source "$prefix/powerlevel10k.zsh-theme"
 
 ## alias ##
 
+alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "THE CAKE IS A LIE"'
 alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "guvcview" )"
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
