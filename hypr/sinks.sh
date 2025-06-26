@@ -1,7 +1,5 @@
 #!/usr/bin/sh
 
-pidof wofi >/dev/null && pkill wofi && exit
-
 options=""
 declare -A sinks
 declare -A ports
