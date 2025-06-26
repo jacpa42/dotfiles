@@ -11,8 +11,8 @@ fi
 # Linux : SYSTEM = Linux
 
 source "$HOME/.cargo/env" 2>/dev/null
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
+[ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 [ $SYSTEM = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set up fzf key bindings and fuzzy completion. Must be after brew
