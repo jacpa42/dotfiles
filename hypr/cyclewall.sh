@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && { echo "This command is already running. Effort should not be duplicated."; exit 1; }
+pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && { notify-send "Cycle wall is already running"; exit 1; }
 
 dir="$HOME/Projects/muur_papier/"
 default_wallpaper=""
