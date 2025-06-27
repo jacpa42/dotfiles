@@ -3,18 +3,15 @@
 
 if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Usage: $0 <workspace> <command>"
-    echo "Example: $0 1 /usr/bin/qutebrowser"
+    echo "Example: $0 1 /usr/bin/qutebrowser www.archlinux.org"
     exit 1
 fi
 
-workspace="$1"
-cmd="$2"
-
-if hyprctl workspaces | awk '/workspace ID/ { id=$3 } /windows:/ && $2 > 0 { print id }' | grep -qx "$workspace"; then
+if hyprctl workspaces | awk '/workspace ID/ { id=$3 } /windows:/ && $2 > 0 { print id }' | grep -qx "$1"; then
 	# There is some window here. Focus it.
-	hyprctl dispatch workspace "$workspace"
+	hyprctl dispatch workspace "$1"
 else
 	# There is no window here. Open one here with the cmd
-	hyprctl dispatch workspace "$workspace"
-	exec "$cmd"
+	hyprctl dispatch workspace "$1"
+	exec "${@:2}"
 fi
