@@ -4,6 +4,7 @@ if [ $SYSTEM = "Darwin" ]; then
 	export HOMEBREW_NO_EMOJI=1
 	export HOMEBREW_NO_ENV_HINTS=1
 else
+	export RADV_PERFTEST="video_decode,video_encode"
 	export CLUTTER_BACKEND="wayland"
 	export GDK_BACKEND="wayland,x11,*"
 	export GTK2_RC_FILES="/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"

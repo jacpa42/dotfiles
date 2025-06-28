@@ -1,4 +1,4 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Enable Powerlevel10k instant pjjompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -14,16 +14,6 @@ source "$HOME/.cargo/env" 2>/dev/null
 
 [ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 [ $SYSTEM = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Set up fzf key bindings and fuzzy completion. Must be after brew
-source <(fzf --zsh)
-
-### theme ###
-prefix=$([ "$SYSTEM" = "Darwin" ] && echo "$(brew --prefix)/share" || echo "/usr/share/zsh/plugins")
-source "$prefix/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$ZDOTDIR/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
-
-#############
 
 HISTFILE="$ZDOTDIR/.zhistfile"
 HISTSIZE=10000
@@ -43,7 +33,7 @@ source "$prefix/powerlevel10k.zsh-theme"
 
 alias duai='dua interactive'
 alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
-alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "guvcview" )"
+alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "ffplay /dev/video0" )"
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=kitty --passthrough=tmux"
@@ -79,6 +69,20 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+# skim-rs integration
+function sk-history() {
+  local selected
+  selected=$(fc -rl 1 | sk --prompt="❯ " | sed 's/^[ ]*[0-9]\+[ ]*//')
+  if [[ -n $selected ]]; then
+    BUFFER=$selected
+    CURSOR=$#BUFFER
+    zle -R -c
+  fi
+}
+zle -N sk-history
+bindkey '^R' sk-history
+
 ###########
 
 ## autocomplete ##
@@ -138,6 +142,13 @@ zstyle ':completion:*' group-name ''
 
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
 
-eval "$(zoxide init --cmd j zsh)"
-eval "$(krag_cli completions)"
+source <(zoxide init --cmd j zsh)
+source <(krag_cli completions)
+source <(sk --shell zsh)
+
 ##################
+
+### theme ###
+prefix=$([ "$SYSTEM" = "Darwin" ] && echo "$(brew --prefix)/share" || echo "/usr/share/zsh/plugins")
+source "$prefix/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$ZDOTDIR/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"

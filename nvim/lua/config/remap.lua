@@ -53,5 +53,3 @@ m("n", "<M-l>", "<cmd>lua require('tmux').move_right()<cr>", { noremap = true, s
 m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 
 m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
-
-m("n", "<leader>td", "<cmd>TodoQuickFix<cr>")

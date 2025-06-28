@@ -13,6 +13,7 @@ return {
 	},
 	cmd = "FzfLua",
 	opts = {
+		fzf_bin = "sk",
 		fzf_colors = true,
 		zoxide = {
 			actions = {

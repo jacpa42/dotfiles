@@ -17,6 +17,10 @@ desktop-notifications = false
 window-padding-x = 0
 window-padding-y = 0
 
+# Unbind whatever this is
+keybind = ctrl+shift+o=unbind
+keybind = ctrl+enter=unbind
+
 keybind = ctrl+shift+r=reload_config
 
 keybind = ctrl+shift+4=increase_font_size:1
