@@ -36,7 +36,7 @@ export VISUAL="nvim"
 export KEYTIMEOUT="1"
 export LANG="en_ZA.UTF-8"
 export LC_ALL="en_ZA.UTF-8"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
 
 # NOTE:	I have this in my .zprofile. It launches hyprland if I'm in tty1 and no display session is running.
