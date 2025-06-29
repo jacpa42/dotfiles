@@ -34,7 +34,6 @@ source "$prefix/powerlevel10k.zsh-theme"
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
 ## alias ##
-
 alias duai='dua interactive'
 alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
 alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "ffplay /dev/video0" )"
@@ -58,7 +57,7 @@ alias ur="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgr
 alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; git pull'"
-alias t="exec tmux new-session -A -s jacpa"
+alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
 function offday() {
 	days="${1:-+0}"

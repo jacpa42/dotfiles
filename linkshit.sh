@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-DOTDIR="$HOME/.config/dotfiles"
+DOTDIR="${DOTDIR:-$HOME/Projects/dotfiles}"
 CNFDIR="$HOME/.config"
 
 ln -vsfn $DOTDIR/bat $CNFDIR/bat
 ln -vsfn $DOTDIR/dunst $CNFDIR/dunst
 ln -vsfn $DOTDIR/ghostty $CNFDIR/ghostty
 ln -vsfn $DOTDIR/hypr $CNFDIR/hypr
-ln -vsfn $DOTDIR/ncspot $CNFDIR/ncspot
 ln -vsfn $DOTDIR/nvim $CNFDIR/nvim
 ln -vsfn $DOTDIR/tmux $CNFDIR/tmux
 ln -vsfn $DOTDIR/yazi $CNFDIR/yazi
