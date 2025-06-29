@@ -3,7 +3,7 @@
 case "$1" in
 git)
 	# Opens lazy git here in new pane
-	exec gitui --theme catppuccin.ron
+	exec lazygit
 	;;
 *)
 	TARGET_DIR="$(echo -e "$HOME\n$(fd --exec="dirname" -Htd --glob .git "$HOME/.config")\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")" | sk --preview-window="right:60%" --preview="$HOME/.config/tmux/project_viewer.sh {}")"
