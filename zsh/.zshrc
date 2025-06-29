@@ -12,6 +12,10 @@ fi
 
 source "$HOME/.cargo/env" 2>/dev/null
 
+export SKIM_DEFAULT_OPTIONS='
+--prompt="❯ " --cmd-prompt="❯ " --color=bg:#00000000,matched:#F37799,matched_bg:#00000000,current_match:#F37799,current_match_bg:#00000000,spinner:#F5C2E7,info:#89B4FA,cursor:#F5C2E7
+'
+
 [ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 [ $SYSTEM = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -73,7 +77,7 @@ function y() {
 # skim-rs integration
 function sk-history() {
   local selected
-  selected=$(fc -rl 1 | sk --prompt="❯ " | sed 's/^[ ]*[0-9]\+[ ]*//')
+  selected=$(fc -rl 1 | sk | sed 's/^[ ]*[0-9]\+[ ]*//')
   if [[ -n $selected ]]; then
     BUFFER=$selected
     CURSOR=$#BUFFER
