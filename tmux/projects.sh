@@ -1,16 +1,21 @@
 #!/usr/bin/env zsh
 
+TARGET_DIR=""
+SESSION_NAME=""
+OPERATION=""
+
 case "$1" in
 git)
 	exec lazygit
 	;;
 *)
-	TARGET_DIR="$(echo -e "$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")" | sk --preview-window="right:60%" --preview="$HOME/.config/tmux/project_viewer.sh {}")"
+	project_dirs="$HOME\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
+	prev="$HOME/.config/tmux/project_viewer.sh {}"
+	TARGET_DIR="$(echo -e "$project_dirs" | sk --preview-window="right:70%" --preview="$prev")"
+	[ -z "$TARGET_DIR" ] && exit 0
+	SESSION_NAME=$(basename "$TARGET_DIR")
 	;;
 esac
-
-[ -z "$TARGET_DIR" ] && exit 1
-SESSION_NAME=$(basename "$TARGET_DIR")
 
 # Otherwise just switch tmux sessions
 FOUND_SESSION=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | while read -r s; do
@@ -24,6 +29,6 @@ done)
 if [ -n "$FOUND_SESSION" ]; then
 	tmux switch-client -t "$FOUND_SESSION"
 else
-	tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR"
+	tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "nvim" 'nvim +"lua require(\"fzf-lua\").files()" ; exec $SHELL'
 	tmux switch-client -t "$SESSION_NAME"
 fi

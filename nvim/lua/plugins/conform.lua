@@ -13,7 +13,7 @@ return {
 		formatters = {
 			["clang-format-custom"] = {
 				command = "clang-format",
-				args = { "-style=llvm" },
+				args = { "--style=LLVM" },
 				stdin = true,
 			},
 		},
