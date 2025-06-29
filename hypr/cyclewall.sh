@@ -107,10 +107,9 @@ else
 	pids=$(pidof wbg)
 
 	[ $notify -eq 1 ] && notif "$img"
-	wbg "$img" &
-
-	sleep 0.4
 
 	# Kill them as we don't need them
 	[ -n "$pids" ] && kill $pids
+
+	wbg "$img" &
 fi
