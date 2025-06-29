@@ -1,12 +1,9 @@
 #!/usr/bin/env zsh
 
-LAZYGIT=0
-
 case "$1" in
 git)
 	# Opens lazy git here in new pane
-	LAZYGIT=1
-	TARGET_DIR="$(pwd)"
+	exec gitui --theme catppuccin.ron
 	;;
 *)
 	TARGET_DIR="$(echo -e "$HOME\n$(fd --exec="dirname" -Htd --glob .git "$HOME/.config")\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")" | sk --preview-window="right:60%" --preview="$HOME/.config/tmux/project_viewer.sh {}")"
@@ -15,12 +12,6 @@ esac
 
 [ -z "$TARGET_DIR" ] && exit 1
 SESSION_NAME=$(basename "$TARGET_DIR")
-
-# If we want lazygit:
-if [ $LAZYGIT -eq 1 ]; then
-	cd "$TARGET_DIR"
-	exec lazygit
-fi
 
 # Otherwise just switch tmux sessions
 FOUND_SESSION=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | while read -r s; do
