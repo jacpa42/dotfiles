@@ -36,6 +36,7 @@ alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic
 alias camera="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a 'Photo Booth'" || echo "ffplay /dev/video0" )"
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
+alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=kitty --passthrough=tmux"
 alias l="eza --sort=type --long --icons always --no-time --no-user --header"
 alias ll="eza --sort=type --long --icons always --git --all"
 alias lll="eza --sort=type --long --icons always --git --all --total-size"
