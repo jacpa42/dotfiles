@@ -12,6 +12,38 @@ m("n", "<leader>e", function()
 	end
 end)
 
+-- Converts a decimal to hex and back again
+m("n", "<c-n>", function()
+	local cword = vim.fn.expand("<cword>")
+	if tonumber(cword) == nil then
+		return
+	end
+
+	local prefix = nil
+	local fmt = nil
+	if cword:sub(1, 2) == "0x" then
+		prefix = "0b"
+		fmt = ":b"
+	elseif cword:sub(1, 2) == "0b" then
+		prefix = ""
+		fmt = ""
+	else
+		prefix = "0x"
+		fmt = ":x"
+	end
+
+	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python'
+	local out = vim.fn.system(cmd)
+	vim.cmd("normal! ciw" .. out)
+end)
+
+-- 688057963
+-- 0b11111111111111111111111111111111111111111111111111111
+-- 9007199254740991
+-- 10
+-- 507
+-- 0x3f
+
 m("n", "<leader>v", "<cmd>vsplit<cr>")
 m("n", "<leader>h", "<cmd>split<cr>")
 
