@@ -76,7 +76,7 @@ function y() {
 # skim-rs integration
 function sk-history() {
   local selected
-  selected=$(fc -rl 1 | sk | sed 's/^[ ]*[0-9]\+[ ]*//')
+  selected=$(fc -rl 1 | sk | sed 's/^ *[0-9]* *//')
   if [[ -n $selected ]]; then
     BUFFER=$selected
     CURSOR=$#BUFFER
