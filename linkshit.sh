@@ -25,3 +25,6 @@ ln -vsfn $DOTDIR/lazygit "$(lazygit --print-config-dir)"
 
 [ "$SYSTEM" = "Darwin" ] &&
 	ln -vsfn $DOTDIR/sketchybar $CNFDIR/sketchybar
+
+[ "$SYSTEM" = "Darwin" ] &&
+	ln -vsfn $DOTDIR/aerospace $CNFDIR/aerospace
