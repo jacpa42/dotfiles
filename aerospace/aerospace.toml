@@ -39,6 +39,7 @@ automatically-unhide-macos-hidden-apps = false
     cmd-alt-k = 'move-node-to-workspace --focus-follows-window 5'
     cmd-alt-l = 'move-node-to-workspace --focus-follows-window 6'
 
+		cmd-d = 'close'
 		cmd-f = 'fullscreen'
 		cmd-t = 'layout tiling floating'
 
