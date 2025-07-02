@@ -102,24 +102,24 @@ automatically-unhide-macos-hidden-apps = false
     cmd-l = 'workspace 6'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    cmd-alt-u = 'move-node-to-workspace 1'
-    cmd-alt-i = 'move-node-to-workspace 2'
-    cmd-alt-o = 'move-node-to-workspace 3'
-    cmd-alt-j = 'move-node-to-workspace 4'
-    cmd-alt-k = 'move-node-to-workspace 5'
-    cmd-alt-l = 'move-node-to-workspace 6'
+    cmd-alt-u = 'move-node-to-workspace --focus-follows-window 1'
+    cmd-alt-i = 'move-node-to-workspace --focus-follows-window 2'
+    cmd-alt-o = 'move-node-to-workspace --focus-follows-window 3'
+    cmd-alt-j = 'move-node-to-workspace --focus-follows-window 4'
+    cmd-alt-k = 'move-node-to-workspace --focus-follows-window 5'
+    cmd-alt-l = 'move-node-to-workspace --focus-follows-window 6'
 
 		cmd-f = 'fullscreen'
 		cmd-t = 'layout tiling floating'
 
 [[on-window-detected]]
     if.app-id = 'Spotify'
-    run = 'move-node-to-workspace 2'
+    run = 'move-node-to-workspace --focus-follows-window 2'
 
 [[on-window-detected]]
     if.app-id = 'org.qutebrowser.qutebrowser'
-    run = 'move-node-to-workspace 1'
+    run = 'move-node-to-workspace --focus-follows-window 1'
 
 [[on-window-detected]]
-    if.app-id = 'com.mitchellh.ghostty'
-    run = 'move-node-to-workspace 4'
+    if.app-id = 'net.whatsapp.WhatsApp'
+    run = 'move-node-to-workspace --focus-follows-window 6'
