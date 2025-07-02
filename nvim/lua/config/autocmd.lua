@@ -17,6 +17,9 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "help", "man", "checkhealth", "lspinfo" },
 	callback = function(args)
 		local buf = args.buf
+		-- opens vertically
+		-- vertical help!!
+		vim.cmd("wincmd L")
 		vim.keymap.set("n", "q", ":q<cr>", {
 			buffer = buf,
 			noremap = true,
