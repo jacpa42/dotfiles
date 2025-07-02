@@ -3,8 +3,9 @@
 [ -z "$1" ] && exit 1
 
 local dirname=$(basename "$1")
+local mime=$([ "$SYSTEM" = "Linux" ] && echo "$(xdg-mime query filetype "$1")" || echo "$(file --mime-type -b "$1")")
 
-case "$(xdg-mime query filetype "$1")" in
+case "$mime" in
 inode/directory)
 	if tmux has-session -t "$dirname" 2>/dev/null; then
 		tmux capture-pane -et "$dirname" -p
