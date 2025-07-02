@@ -27,6 +27,11 @@ config.bind("E1", "open -t https://mail.google.com/mail/u/1/?hl=en#inbox")
 config.bind("e2", "open https://outlook.office.com/mail/")
 # Open inbox 2 in separate tab
 config.bind("E2", "open -t https://outlook.office.com/mail/")
+# Open inbox 3 in current tab
+config.bind("e3", "open https://mail.proton.me/u/2/inbox")
+# Open inbox 3 in separate tab
+config.bind("E3", "open -t https://mail.proton.me/u/2/inbox")
+
 
 # Open teams in current tab
 config.bind("tt", "open https://teams.microsoft.com/v2/")
