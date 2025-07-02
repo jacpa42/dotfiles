@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 DOTDIR="${DOTDIR:-$HOME/Projects/dotfiles}"
 CNFDIR="$HOME/.config"
