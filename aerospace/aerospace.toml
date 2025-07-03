@@ -44,12 +44,16 @@ automatically-unhide-macos-hidden-apps = false
 		cmd-t = 'layout tiling floating'
 
 [[on-window-detected]]
-    if.app-id = 'Spotify'
+    if.app-id = 'org.qutebrowser.qutebrowser'
+    run = 'move-node-to-workspace --focus-follows-window 1'
+
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
     run = 'move-node-to-workspace --focus-follows-window 2'
 
 [[on-window-detected]]
-    if.app-id = 'org.qutebrowser.qutebrowser'
-    run = 'move-node-to-workspace --focus-follows-window 1'
+    if.app-id = 'com.mitchellh.ghostty'
+    run = 'move-node-to-workspace --focus-follows-window 4'
 
 [[on-window-detected]]
     if.app-id = 'net.whatsapp.WhatsApp'

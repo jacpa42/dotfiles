@@ -32,17 +32,11 @@ m("n", "<c-n>", function()
 		fmt = ":x"
 	end
 
-	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python'
+	-- I use python here as they have bigint by default
+	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python3'
 	local out = vim.fn.system(cmd)
 	vim.cmd("normal! ciw" .. out)
 end)
-
--- 688057963
--- 0b11111111111111111111111111111111111111111111111111111
--- 9007199254740991
--- 10
--- 507
--- 0x3f
 
 m("n", "<leader>v", "<cmd>vsplit<cr>")
 m("n", "<leader>h", "<cmd>split<cr>")
@@ -70,7 +64,9 @@ m("n", "<leader>fee", "<cmd>Emoji insert<cr>", { desc = "Fuzzy search emojis" })
 m("n", "<leader>fek", "<cmd>Emoji kaomoji<cr>", { desc = "Fuzzy search kaomojis" })
 
 m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
+m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
 m("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Get lsp impls" })
+-- TODO: m("n", "gs", "<cmd>FzfLua<cr>", { desc = "Get lsp something" })
 m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
 m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get trouble for document" })
 
