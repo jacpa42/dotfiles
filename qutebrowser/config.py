@@ -32,7 +32,6 @@ config.bind("e3", "open https://mail.proton.me/u/2/inbox")
 # Open inbox 3 in separate tab
 config.bind("E3", "open -t https://mail.proton.me/u/2/inbox")
 
-
 # Open teams in current tab
 config.bind("tt", "open https://teams.microsoft.com/v2/")
 # Open teams in separate tab
