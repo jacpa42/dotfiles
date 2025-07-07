@@ -8,6 +8,7 @@ vim.o.relativenumber = true
 
 vim.o.undodir = vim.fn.expand("~/.cache/undodir/")
 vim.o.undofile = true
+vim.o.swapfile = false
 
 vim.o.mouse = ""
 vim.o.ignorecase = true
