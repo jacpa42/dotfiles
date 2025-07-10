@@ -1,146 +1,145 @@
 #!/usr/bin/env zsh
 
-ROSEWATER="f5e0dc"    #F5E0DC
-FLAMINGO="f2cdcd"     #F2CDCD
-PINK="f5c2e7"         #F5C2E7
-MAUVE="cba6f7"        #CBA6F7
-RED="f38ba8"          #F38BA8
-MAROON="eba0ac"       #EBA0AC
-PEACH="fab387"        #FAB387
-YELLOW="f9e2af"       #F9E2AF
-GREEN="a6e3a1"        #A6E3A1
-TEAL="94e2d5"         #94E2D5
-SKY="89dceb"          #89DCEB
-SAPPHIRE="74c7ec"     #74C7EC
-BLUE="89b4fa"         #89B4FA
-LAVENDER="b4befe"     #B4BEFE
-TEXT="cdd6f4"         #CDD6F4
-SUBTEXT1="bac2de"     #BAC2DE
-SUBTEXT0="a6adc8"     #A6ADC8
-OVERLAY2="9399b2"     #9399B2
-OVERLAY1="7f849c"     #7F849C
-OVERLAY0="6c7086"     #6C7086
-SURFACE2="585b70"     #585B70
-SURFACE1="45475a"     #45475A
-SURFACE0="313244"     #313244
-BASE="1e1e2e"         #1E1E2E
-MANTLE="181825"       #181825
-CRUST="11111b"        #11111B
-CLEAR="000000"        #000000
-
+ROSEWATER="f5e0dc" #f5e0dc
+FLAMINGO="f2cdcd"  #f2cdcd
+PINK="f5c2e7"      #f5c2e7
+MAUVE="cba6f7"     #cba6f7
+RED="f38ba8"       #f38ba8
+MAROON="eba0ac"    #eba0ac
+PEACH="fab387"     #fab387
+YELLOW="f9e2af"    #f9e2af
+GREEN="a6e3a1"     #a6e3a1
+TEAL="94e2d5"      #94e2d5
+SKY="89dceb"       #89dceb
+SAPPHIRE="74c7ec"  #74c7ec
+BLUE="89b4fa"      #89b4fa
+LAVENDER="b4befe"  #b4befe
+TEXT="cdd6f4"      #cdd6f4
+SUBTEXT1="bac2de"  #bac2de
+SUBTEXT0="a6adc8"  #a6adc8
+OVERLAY2="9399b2"  #9399b2
+OVERLAY1="7f849c"  #7f849c
+OVERLAY0="6c7086"  #6c7086
+SURFACE2="585b70"  #585b70
+SURFACE1="45475a"  #45475a
+SURFACE0="313244"  #313244
+BASE="1e1e2e"      #1e1e2e
+MANTLE="181825"    #181825
+CRUST="11111b"     #11111b
+CLEAR="000000"     #000000
 
 FONT_FACE="JetBrainsMono Nerd Font"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
 
 sketchybar --bar \
-    height=32 \
-    color="0x00$CLEAR" \
-    margin=0 \
-    sticky=on \
-    padding_left=20 \
-    padding_right=20 \
-    notch_width=189 \
-    display=main
+	height=32 \
+	color="0x00$CLEAR" \
+	margin=0 \
+	sticky=on \
+	padding_left=20 \
+	padding_right=20 \
+	notch_width=189 \
+	display=main
 
 sketchybar --default \
-    background.color="0x66$SURFACE0" \
-    background.corner_radius=5 \
-    background.padding_right=5 \
-    background.height=26 \
-    icon.font="$FONT_FACE:Medium:15.0" \
-    icon.padding_left=5 \
-    icon.padding_right=5 \
-    label.font="$FONT_FACE:Medium:15.0" \
-    label.color="0xff$LAVENDER" \
-    label.y_offset=0 \
-    label.padding_left=0 \
-    label.padding_right=5
+	background.color="0x66$SURFACE0" \
+	background.corner_radius=5 \
+	background.padding_right=5 \
+	background.height=26 \
+	icon.font="$FONT_FACE:Medium:15.0" \
+	icon.padding_left=5 \
+	icon.padding_right=5 \
+	label.font="$FONT_FACE:Medium:15.0" \
+	label.color="0xff$LAVENDER" \
+	label.y_offset=0 \
+	label.padding_left=0 \
+	label.padding_right=5
 
 sketchybar --add event spotify_change $SPOTIFY_EVENT \
-		--add item spotify e \
-    --set spotify \
-    icon= \
-    icon.y_offset=1 \
-    icon.font="$FONT_FACE:Bold:20.0" \
-    label.drawing=off \
-    label.padding_left=3 \
-    script="$PLUGIN_DIR/spotify.sh" \
-    --subscribe spotify spotify_change mouse.clicked
+	--add item spotify e \
+	--set spotify \
+	icon= \
+	icon.y_offset=1 \
+	icon.font="$FONT_FACE:Bold:20.0" \
+	label.drawing=off \
+	label.padding_left=3 \
+	script="$PLUGIN_DIR/spotify.sh" \
+	--subscribe spotify spotify_change mouse.clicked
 
 sketchybar --add item current_space left \
-    --set current_space \
-    background.color="0xff$PEACH" \
-    icon.color="0xff$SURFACE0" \
-    label.drawing=off \
-    script="$PLUGIN_DIR/current_space.sh" \
-    --subscribe current_space space_change mouse.clicked
+	--set current_space \
+	background.color="0xff$PEACH" \
+	icon.color="0xff$SURFACE0" \
+	label.drawing=off \
+	script="$PLUGIN_DIR/current_space.sh" \
+	--subscribe current_space space_change mouse.clicked
 
 sketchybar --add item front_app left \
-    --set front_app \
-    background.color="0xff$GREEN" \
-    background.padding_left=0 \
-    background.padding_right=0 \
-    icon.y_offset=1 \
-    icon.color="0xff$SURFACE0" \
-    label.drawing=no \
-    script="$PLUGIN_DIR/front_app.sh" \
-    --add item front_app.separator left \
-    --set front_app.separator \
-    background.color=0x00000000 \
-    background.padding_left=-3 \
-    icon=" " \
-    icon.color="0xff$GREEN" \
-    icon.font="$FONT_FACE:Bold:20.0" \
-    icon.padding_left=0 \
-    icon.padding_right=0 \
-    icon.y_offset=1 \
-    label.drawing=no \
-    --add item front_app.name left \
-    --set front_app.name \
-    background.color="0x00$CLEAR" \
-    background.padding_right=0 \
-    icon.drawing=off \
-    label.font="$FONT_FACE:Bold:15.0" \
-    label.drawing=yes
+	--set front_app \
+	background.color="0xff$GREEN" \
+	background.padding_left=0 \
+	background.padding_right=0 \
+	icon.y_offset=1 \
+	icon.color="0xff$SURFACE0" \
+	label.drawing=no \
+	script="$PLUGIN_DIR/front_app.sh" \
+	--add item front_app.separator left \
+	--set front_app.separator \
+	background.color=0x00000000 \
+	background.padding_left=-3 \
+	icon=" " \
+	icon.color="0xff$GREEN" \
+	icon.font="$FONT_FACE:Bold:20.0" \
+	icon.padding_left=0 \
+	icon.padding_right=0 \
+	icon.y_offset=1 \
+	label.drawing=no \
+	--add item front_app.name left \
+	--set front_app.name \
+	background.color="0x00$CLEAR" \
+	background.padding_right=0 \
+	icon.drawing=off \
+	label.font="$FONT_FACE:Bold:15.0" \
+	label.drawing=yes
 
 sketchybar --add item weather q \
-    --set weather \
-    background.padding_right=-1 \
-    icon="" \
-    icon.color="0xff$MAUVE" \
-    icon.font="$FONT_FACE:Bold:20.0" \
-    icon.padding_left=4 \
-    icon.padding_right=3 \
-    label.drawing=off \
-    --subscribe weather mouse.clicked
+	--set weather \
+	background.padding_right=-1 \
+	icon="" \
+	icon.color="0xff$MAUVE" \
+	icon.font="$FONT_FACE:Bold:20.0" \
+	icon.padding_left=4 \
+	icon.padding_right=3 \
+	label.drawing=off \
+	--subscribe weather mouse.clicked
 
 sketchybar --add bracket front_app_bracket \
-    front_app \
-    front_app.separator \
-    front_app.name \
-    --subscribe front_app front_app_switched
+	front_app \
+	front_app.separator \
+	front_app.name \
+	--subscribe front_app front_app_switched
 
 sketchybar --add item clock right \
-    --set clock \
-    icon="󰃰"\
-    icon.color="0xff$RED" \
-    update_freq=20 \
-    script="$PLUGIN_DIR/clock.sh"
+	--set clock \
+	icon="󰃰" \
+	icon.color="0xff$RED" \
+	update_freq=20 \
+	script="$PLUGIN_DIR/clock.sh"
 
 sketchybar --add item battery right \
-    --set battery \
-    update_freq=20 \
-    script="$PLUGIN_DIR/battery.sh"
+	--set battery \
+	update_freq=20 \
+	script="$PLUGIN_DIR/battery.sh"
 
 volume=$(osascript -e 'output volume of (get volume settings)')
 echo "$volume"
 sketchybar --add item volume right \
-    --set volume \
-    icon.color="0xff$BLUE" \
-    label.drawing=true \
-    script="$PLUGIN_DIR/volume.sh" \
-    --subscribe volume volume_change
+	--set volume \
+	icon.color="0xff$BLUE" \
+	label.drawing=true \
+	script="$PLUGIN_DIR/volume.sh" \
+	--subscribe volume volume_change
 
 ##### Finalizing Setup #####
 sketchybar --update
