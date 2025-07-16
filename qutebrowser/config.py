@@ -47,6 +47,8 @@ c.fileselect.folder.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.single_file.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.multiple_files.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 
+c.url.default_page = "file:///home/jacob/Projects/dotfiles/qutebrowser/metal.png"
+
 c.tabs.position = "bottom"
 
 c.window.hide_decoration = True
@@ -69,7 +71,7 @@ c.fonts.contextmenu = c.fonts.default_family
 c.fonts.prompts = c.fonts.default_family
 c.fonts.tooltip = c.fonts.default_family
 
-############# SCHEME #############
+############# COLOUR SCHEME #############
 
 flavours = {
     "latte": {

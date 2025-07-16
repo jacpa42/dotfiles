@@ -23,6 +23,7 @@ HISTFILE="$ZDOTDIR/.zhistfile"
 HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
 setopt SHARE_HISTORY
 setopt MENU_COMPLETE
 setopt AUTO_LIST
@@ -56,7 +57,7 @@ alias u="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgra
 alias ur="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && sudo reboot"
 alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"
 
-alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; git pull'"
+alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
 function offday() {
