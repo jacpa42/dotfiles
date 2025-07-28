@@ -5,7 +5,6 @@ vim.o.tabstop = width
 vim.o.shiftwidth = width
 vim.o.number = true
 vim.o.relativenumber = true
-
 vim.o.undodir = vim.fn.expand("~/.cache/undodir/")
 vim.o.undofile = true
 vim.o.swapfile = false
@@ -16,7 +15,6 @@ vim.o.smartcase = true
 vim.o.signcolumn = "yes"
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
-
 vim.o.splitbelow = true
 vim.o.splitright = true
 

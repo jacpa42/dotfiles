@@ -24,6 +24,7 @@ return {
 			bash = { "shfmt" },
 			zsh = { "shfmt" },
 			tmux = { "shfmt" },
+			json = { "jq" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			cpp = { "clang-format", lsp_format = "fallback" },
 			c = {

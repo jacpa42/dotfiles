@@ -111,5 +111,5 @@ else
 	# Kill them as we don't need them
 	[ -n "$pids" ] && kill $pids
 
-	wbg "$img" &
+	wbg -s "$img" &
 fi

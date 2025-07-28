@@ -8,6 +8,9 @@ case "$1" in
 git)
 	exec lazygit
 	;;
+btop)
+	exec btop
+	;;
 *)
 	project_dirs="$HOME\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
 	prev="$HOME/.config/tmux/project_viewer.sh {}"

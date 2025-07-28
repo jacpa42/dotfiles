@@ -23,7 +23,9 @@ HISTFILE="$ZDOTDIR/.zhistfile"
 HISTSIZE=10000
 SAVEHIST=10000
 setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
 setopt SHARE_HISTORY
 setopt MENU_COMPLETE
 setopt AUTO_LIST
@@ -44,7 +46,7 @@ alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=kitty --pass
 alias l="eza --sort=type --long --icons always --no-time --no-user --header"
 alias ll="eza --sort=type --long --icons always --git --all"
 alias lll="eza --sort=type --long --icons always --git --all --total-size"
-alias nv="clear && nvim"
+alias v="clear && nvim"
 alias o="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a" || echo "xdg-open" )"
 alias pipes="pipes-rs -p 20 -f 30 -t 0.4 -r 0.99"
 alias rmcache="$([ "$SYSTEM" = "Darwin" ] && echo "brew cleanup --prune=all" || echo "paru -Scv --noconfirm")"
@@ -77,7 +79,7 @@ function y() {
 # skim-rs integration
 function sk-history() {
   local selected
-  selected=$(fc -rl 1 | sk | sed 's/^ *[0-9]* *//')
+  selected=$(fc -rnl 1 | uniq | sk)
   if [[ -n $selected ]]; then
     BUFFER=$selected
     CURSOR=$#BUFFER
