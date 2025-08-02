@@ -1,4 +1,3 @@
-local VERTICAL_OFFSET = 2 -- Number of lines to push the art up by (centered looks a little too low)
 local krag = [[
 	████╗     ████╗ ██████████═╗   ████████████╗  █████████████╗
 	████║   █████╔╝████████████║   ████████████║  █████████████║
@@ -43,8 +42,11 @@ local M = {}
 
 local ascii = vim.split(bloody_krag, "\n")
 local vers = vim.version()
-local commit = vers.build ~= vim.NIL and ("+" .. vers.build) or ""
-local nvim_version = "NVIM v" .. vers.major .. "." .. vers.minor .. "." .. vers.patch .. "-" .. "0" .. commit
+
+local startup_time_ms = require("lazy").stats().times.LazyDone
+local startup_time = string.format("%.2f", startup_time_ms)
+
+local nvim_version = "nvim v" .. vers.major .. "." .. vers.minor .. "." .. vers.patch .. " | " .. startup_time .. "ms"
 
 local function pad_str(padding, string)
 	return string.rep(" ", padding) .. string
@@ -75,7 +77,6 @@ local function set_options(buf)
 	vim.api.nvim_buf_set_option(buf, "buflisted", false)
 	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-	vim.api.nvim_buf_set_option(buf, "swapfile", false)
 	vim.api.nvim_buf_set_option(buf, "colorcolumn", "")
 	vim.api.nvim_buf_set_option(buf, "relativenumber", false)
 	vim.api.nvim_buf_set_option(buf, "number", false)
@@ -125,9 +126,9 @@ function M.draw(buf)
 	-- height
 	local screen_height = vim.api.nvim_get_option("lines")
 	local draw_height = #ascii + 1 -- Including version line
-	local pad_height = math.floor((screen_height - draw_height) / 2) - VERTICAL_OFFSET
+	local pad_height = math.floor((screen_height - draw_height) / 2)
 
-	if not (screen_width >= draw_width + 2 and screen_height >= draw_height + 2 + VERTICAL_OFFSET) then
+	if not (screen_width >= draw_width + 2 and screen_height >= draw_height + 2) then
 		-- Only display if there is enough space
 		return
 	end
