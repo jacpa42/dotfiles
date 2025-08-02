@@ -104,6 +104,9 @@ local function lsp()
 end
 
 local function filetype()
+	if vim.bo.filetype == "alpha" then
+		return ""
+	end
 	return "%#Normal#" .. string.format(" %s", vim.bo.filetype)
 end
 
