@@ -9,7 +9,7 @@ window-decoration=none
 cursor-style = block
 cursor-invert-fg-bg = true
 
-theme = catppuccin-mocha
+theme = Kanagawa Wave
 
 app-notifications = no-clipboard-copy
 desktop-notifications = false
@@ -28,5 +28,5 @@ keybind = ctrl+shift+5=decrease_font_size:1
 
 shell-integration = zsh
 
-background-opacity = 0.90
+background-opacity = 1.00
 background-blur = false

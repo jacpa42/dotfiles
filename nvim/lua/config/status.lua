@@ -63,7 +63,7 @@ end
 local function macro()
 	local register = vim.fn.reg_recording()
 	if register ~= "" then
-		return "%#ErrorMsg#@" .. register .. "%#Normal#"
+		return "%#ErrorMsg#@" .. register .. "%#StatusLine#"
 	else
 		return "  "
 	end
@@ -88,26 +88,26 @@ local function lsp()
 	local info = ""
 
 	if count["errors"] ~= 0 then
-		errors = " %#LspDiagnosticsError# " .. count["errors"]
+		errors = " %#DiagnosticError# " .. count["errors"]
 	end
 	if count["warnings"] ~= 0 then
-		warnings = " %#LspDiagnosticsWarning# " .. count["warnings"]
+		warnings = " %#DiagnosticWarn# " .. count["warnings"]
 	end
 	if count["hints"] ~= 0 then
-		hints = " %#LspDiagnosticsHint#󰦥 " .. count["hints"]
+		hints = " %#DiagnosticHint#󰦥 " .. count["hints"]
 	end
 	if count["info"] ~= 0 then
-		info = " %#LspDiagnosticsInformation# " .. count["info"]
+		info = " %#DiagnosticInformation# " .. count["info"]
 	end
 
-	return errors .. warnings .. hints .. info .. "%#Normal#"
+	return errors .. warnings .. hints .. info .. "%#StatusLine#"
 end
 
 local function filetype()
 	if vim.bo.filetype == "alpha" then
 		return ""
 	end
-	return "%#Normal#" .. string.format(" %s", vim.bo.filetype)
+	return "%#StatusLine#" .. string.format(" %s", vim.bo.filetype)
 end
 
 local function lineinfo()
@@ -124,10 +124,10 @@ Statusline.active = function()
 		"%#Statusline#",
 		update_mode_colors(),
 		mode(),
-		"%#Normal#",
+		"%#StatusLine#",
 		filepath(),
 		filename(),
-		"%#Normal#",
+		"%#StatusLine#",
 		macro(),
 		lsp(),
 		"%=%#StatusLineExtra#",

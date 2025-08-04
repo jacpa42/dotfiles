@@ -1,4 +1,4 @@
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("kanagawa-wave")
 
 local width = 2
 vim.o.tabstop = width

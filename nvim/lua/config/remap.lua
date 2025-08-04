@@ -62,8 +62,6 @@ m("n", "<leader>fj", "<cmd>FzfLua zoxide<cr>", { desc = "zoxide projects" })
 m("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Search recent files" })
 m("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Search keymaps" })
 m("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Search marks" })
-m("n", "<leader>fee", "<cmd>Emoji insert<cr>", { desc = "Fuzzy search emojis" })
-m("n", "<leader>fek", "<cmd>Emoji kaomoji<cr>", { desc = "Fuzzy search kaomojis" })
 
 m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
 m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
