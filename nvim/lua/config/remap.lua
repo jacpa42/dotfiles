@@ -3,15 +3,6 @@ local m = vim.keymap.set
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-m("n", "<leader>e", function()
-	local buf_path = vim.fn.expand("%:p:h")
-	if buf_path ~= "" then
-		vim.cmd("edit " .. buf_path)
-	else
-		vim.cmd("edit .")
-	end
-end)
-
 -- Converts a decimal to hex and back again
 m("n", "<c-n>", function()
 	local cword = vim.fn.expand("<cword>")
@@ -72,11 +63,6 @@ m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get troub
 
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 m("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
-
-m("n", "<M-j>", "<cmd>lua require('tmux').move_bottom()<cr>", { noremap = true, silent = true })
-m("n", "<M-k>", "<cmd>lua require('tmux').move_top()<cr>", { noremap = true, silent = true })
-m("n", "<M-h>", "<cmd>lua require('tmux').move_left()<cr>", { noremap = true, silent = true })
-m("n", "<M-l>", "<cmd>lua require('tmux').move_right()<cr>", { noremap = true, silent = true })
 
 m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 

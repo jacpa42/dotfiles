@@ -17,4 +17,12 @@ return {
 			lsp_doc_border = true, -- add a border to hover docs and signature help
 		},
 	},
+	config = function(_, opts)
+		require("noice").setup(opts)
+
+		vim.cmd("hi DiagnosticSignInfo  guibg=None<cr>")
+		vim.cmd("hi DiagnosticSignWarn  guibg=None<cr>")
+		vim.cmd("hi DiagnosticSignError guibg=None<cr>")
+		vim.cmd("hi DiagnosticSignHint  guibg=None<cr>")
+	end,
 }

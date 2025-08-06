@@ -1,7 +1,21 @@
 return {
 	"stevearc/oil.nvim",
+	cmd = { "Oil" },
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	lazy = false,
+	keys = {
+		{
+			"<leader>e",
+			function()
+				local buf_path = vim.fn.expand("%:p:h")
+				if buf_path ~= "" then
+					vim.cmd("edit " .. buf_path)
+				else
+					vim.cmd("edit .")
+				end
+			end,
+			desc = "File explorer",
+		},
+	},
 
 	opts = {
 		-- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
