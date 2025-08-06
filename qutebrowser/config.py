@@ -47,6 +47,12 @@ c.fileselect.folder.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.single_file.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.multiple_files.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 
+c.url.default_page = "file:///home/jacob/Projects/dotfiles/qutebrowser/metal.png"
+c.url.searchengines = {
+    # "DEFAULT": "https://duckduckgo.com/?q={}"
+    "DEFAULT": "https://www.google.com/search?q={}"
+}
+
 c.tabs.position = "bottom"
 
 c.window.hide_decoration = True
@@ -56,7 +62,7 @@ c.content.prefers_reduced_motion = True
 c.content.pdfjs = True
 
 # COLOURS #
-c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.policy.images = "never"
 c.colors.webpage.preferred_color_scheme = "dark"
 
@@ -69,7 +75,7 @@ c.fonts.contextmenu = c.fonts.default_family
 c.fonts.prompts = c.fonts.default_family
 c.fonts.tooltip = c.fonts.default_family
 
-############# SCHEME #############
+############# COLOUR SCHEME #############
 
 flavours = {
     "latte": {

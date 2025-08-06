@@ -1,16 +1,5 @@
 return {
 	"ibhagwan/fzf-lua",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-		{
-			"allaman/emoji.nvim",
-			cmd = "Emoji",
-			config = function(_, opts)
-				require("emoji").setup(opts)
-				require("fzf-lua").register_ui_select()
-			end,
-		},
-	},
 	cmd = "FzfLua",
 	opts = {
 		fzf_bin = "sk",
@@ -34,4 +23,9 @@ return {
 			},
 		},
 	},
+
+	config = function(_, opts)
+		require("fzf-lua").setup(opts)
+		require("fzf-lua").register_ui_select()
+	end,
 }

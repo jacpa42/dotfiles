@@ -14,14 +14,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "help", "man", "checkhealth", "lspinfo" },
+	pattern = { "help", "man" },
 	callback = function(args)
-		local buf = args.buf
-		-- opens vertically
-		-- vertical help!!
 		vim.cmd("wincmd L")
 		vim.keymap.set("n", "q", ":q<cr>", {
-			buffer = buf,
+			buffer = args.buf,
 			noremap = true,
 			silent = true,
 			desc = "Exit buffer",

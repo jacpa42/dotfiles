@@ -1,6 +1,39 @@
 return {
 	"aserowy/tmux.nvim",
-	event = "VeryLazy",
+	keys = {
+		{
+			"<M-j>",
+			function()
+				require("tmux").move_bottom()
+			end,
+			{ noremap = true, silent = true },
+			desc = "move down",
+		},
+		{
+			"<M-k>",
+			function()
+				require("tmux").move_top()
+			end,
+			{ noremap = true, silent = true },
+			desc = "move up",
+		},
+		{
+			"<M-h>",
+			function()
+				require("tmux").move_left()
+			end,
+			{ noremap = true, silent = true },
+			desc = "move left",
+		},
+		{
+			"<M-l>",
+			function()
+				require("tmux").move_right()
+			end,
+			{ noremap = true, silent = true },
+			desc = "move right",
+		},
+	},
 	opts = {
 		copy_sync = {
 			-- enables copy sync. by default, all registers are synchronized.
