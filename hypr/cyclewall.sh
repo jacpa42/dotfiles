@@ -5,6 +5,7 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && { notify-send "Cycle wall i
 dir="$HOME/Projects/muur_papier/"
 default_wallpaper=""
 set_default_wallpaper=false
+random=false
 reverse=false
 notify=0
 
@@ -34,12 +35,17 @@ while [[ $# -gt 0 ]]; do
 			reverse=true
 			shift
 			;;
+		--random|-R)
+			random=true
+			shift
+			;;
 		--help|-h)
 			echo "Usage: $0 --wallpaper-dir|-w <wallpaper directory> [--help|-h] [--default-wallpaper|-d <wallpaper>] [--reverse|-r]"
 			echo
 			echo "	--wallpaper-dir     -w | Specify the directory to search for images."
 			echo "	--default-wallpaper -d | Specify the default wallpaper to use (must be in wallpaper-dir)."
 			echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
+			echo "	--random            -R | Choose a random wallpaper."
 			echo "	--notify            -n | Send a notification when the wallpaper is changed."
 			exit 0
 			;;
@@ -56,6 +62,7 @@ img=""
 wbg_pid=""
 
 if $set_default_wallpaper; then
+	echo "$(basename "$default_wallpaper")"
 	img="$(fd -1atfile "$(basename "$default_wallpaper")" "$dir")"
 	wbg_pid="$(pgrep -of "^wbg $img")"
 else
@@ -68,17 +75,22 @@ else
 		F=$(mktemp /tmp/hyprwall.XXX)
 	fi
 
-	if [[ ! -s $F ]]; then
-		echo 0 > "$F"
-		INDEX=0
-	else
-		read -r INDEX < "$F"
-		if $reverse; then
-			INDEX=$(((INDEX + num_images - 1) % num_images))
-		else
-			INDEX=$(((INDEX + 1) % num_images))
-		fi
+	if $random; then
+		INDEX=$(($RANDOM % num_images))
 		echo "$INDEX">"$F"
+	else
+		if [[ ! -s $F ]]; then
+			echo 0 > "$F"
+			INDEX=0
+		else
+			read -r INDEX < "$F"
+			if $reverse; then
+				INDEX=$(((INDEX + num_images - 1) % num_images))
+			else
+				INDEX=$(((INDEX + 1) % num_images))
+			fi
+			echo "$INDEX">"$F"
+		fi
 	fi
 
 	rand_img() {
