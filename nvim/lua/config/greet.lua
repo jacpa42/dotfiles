@@ -1,4 +1,5 @@
-local krag = [[
+local ascii_art = {
+	[[
 	████╗     ████╗ ██████████═╗   ████████████╗  █████████████╗
 	████║   █████╔╝████████████║   ████████████║  █████████████║
 	████║ █████╔═╝ ████╔═══████║  ████╔═════████╗█████╔═══█████║
@@ -9,38 +10,37 @@ local krag = [[
 	████║ ╚═█████╗ ████║   ╚████╗ ████║     ████║║█████████████║
 	████║   ╚═████╗████║    ╚████╗████║     ████║║████████████╔╝
 	╚═══╝     ╚═══╝╚═══╝     ╚═══╝╚═══╝     ╚═══╝╚════════════╝
-]]
-
-local other_krag = [[
-      ___           ___           ___           ___     
-     /\__\         /\  \         /\  \         /\  \    
-    /:/  /        /::\  \       /::\  \       /::\  \   
-   /:/__/        /:/\:\  \     /:/\:\  \     /:/\:\  \  
-  /::\__\____   /::\~\:\  \   /::\~\:\  \   /:/  \:\  \ 
+]],
+	[[
+      ___           ___           ___           ___
+     /\__\         /\  \         /\  \         /\  \
+    /:/  /        /::\  \       /::\  \       /::\  \
+   /:/__/        /:/\:\  \     /:/\:\  \     /:/\:\  \
+  /::\__\____   /::\~\:\  \   /::\~\:\  \   /:/  \:\  \
  /:/\:::::\__\ /:/\:\ \:\__\ /:/\:\ \:\__\ /:/__/_\:\__\
  \/_|:|~~|~    \/_|::\/:/  / \/__\:\/:/  / \:\  /\ \/__/
-    |:|  |        |:|::/  /       \::/  /   \:\ \:\__\  
-    |:|  |        |:|\/__/        /:/  /     \:\/:/  /  
-    |:|  |        |:|  |         /:/  /       \::/  /   
-     \|__|         \|__|         \/__/         \/__/    
-]]
-
-local bloody_krag = [[
- ██ ▄█▀ ██▀███   ▄▄▄        ▄████ 
+    |:|  |        |:|::/  /       \::/  /   \:\ \:\__\
+    |:|  |        |:|\/__/        /:/  /     \:\/:/  /
+    |:|  |        |:|  |         /:/  /       \::/  /
+     \|__|         \|__|         \/__/         \/__/
+]],
+	[[
+ ██ ▄█▀ ██▀███   ▄▄▄        ▄████
  ██▄█▒ ▓██ ▒ ██▒▒████▄     ██▒ ▀█▒
 ▓███▄░ ▓██ ░▄█ ▒▒██  ▀█▄  ▒██░▄▄▄░
 ▓██ █▄ ▒██▀▀█▄  ░██▄▄▄▄██ ░▓█  ██▓
 ▒██▒ █▄░██▓ ▒██▒ ▓█   ▓██▒░▒▓███▀▒
-▒ ▒▒ ▓▒░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ░▒   ▒ 
-░ ░▒ ▒░  ░▒ ░ ▒░  ▒   ▒▒ ░  ░   ░ 
-░ ░░ ░   ░░   ░   ░   ▒   ░ ░   ░ 
-░  ░      ░           ░  ░      ░ 
-]]
+▒ ▒▒ ▓▒░ ▒▓ ░▒▓░ ▒▒   ▓▒█░ ░▒   ▒
+░ ░▒ ▒░  ░▒ ░ ▒░  ▒   ▒▒ ░  ░   ░
+░ ░░ ░   ░░   ░   ░   ▒   ░ ░   ░
+░  ░      ░           ░  ░      ░
+]],
+}
 
 -- Module
 local M = {}
 
-local ascii = vim.split(bloody_krag, "\n")
+local ascii = vim.split(ascii_art[3], "\n")
 local vers = vim.version()
 
 local startup_time_ms = require("lazy").stats().times.LazyDone
@@ -148,8 +148,8 @@ function M.create_new_buffer_for_insert(greeter_buf)
 	local win = vim.api.nvim_get_current_win()
 	vim.api.nvim_win_set_buf(win, new_buf)
 
-	-- Start insert mode in the new buffer
-	vim.api.nvim_command("startinsert")
+	-- -- Start insert mode in the new buffer
+	-- vim.api.nvim_command("startinsert")
 
 	if vim.api.nvim_buf_is_valid(greeter_buf) then
 		-- Delete the greeter buffer if it's no longer needed
@@ -179,13 +179,13 @@ function M.display()
 		desc = "Quit nvim",
 	})
 
-	vim.api.nvim_create_autocmd("InsertEnter", {
+	vim.keymap.set("n", "n", function()
+		M.create_new_buffer_for_insert(buf)
+	end, {
 		buffer = buf,
-		desc = "If entering insert mode, change greeter to a normal buffer",
-		group = NamespaceGroup,
-		callback = function()
-			M.create_new_buffer_for_insert(buf)
-		end,
+		noremap = true,
+		silent = true,
+		desc = "New file",
 	})
 end
 

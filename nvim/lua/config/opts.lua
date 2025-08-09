@@ -1,5 +1,10 @@
 vim.cmd.colorscheme("kanagawa-wave")
 
+vim.cmd("hi FloatBorder guibg=NONE<cr>")
+vim.cmd("hi NormalFloat guibg=NONE<cr>")
+vim.cmd("hi FloatTitle guibg=NONE<cr>")
+vim.cmd("hi LineNr guibg=NONE<cr>")
+
 local width = 2
 vim.o.tabstop = width
 vim.o.winborder = "rounded"
@@ -45,8 +50,3 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 vim.g.netrw_browsex_viewer = "qutebrowser"
-
-vim.cmd("hi FloatBorder guibg=NONE<cr>")
-vim.cmd("hi NormalFloat guibg=NONE<cr>")
-vim.cmd("hi FloatTitle guibg=NONE<cr>")
-vim.cmd("hi LineNr guibg=NONE<cr>")

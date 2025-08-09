@@ -13,6 +13,7 @@ return {
 				end,
 			},
 		},
+
 		winopts = {
 			width = 0.9,
 			height = 0.9,
@@ -20,8 +21,16 @@ return {
 			col = 0.5,
 			preview = {
 				scrollchars = { "┃", "" },
+				default = "bat",
+				treesitter = false,
 			},
 		},
+
+		manpages = { previewer = "man_native" },
+		helptags = { previewer = "help_native" },
+		lsp = { code_actions = { previewer = "codeaction_native" } },
+		tags = { previewer = "bat" },
+		btags = { previewer = "bat" },
 	},
 
 	config = function(_, opts)

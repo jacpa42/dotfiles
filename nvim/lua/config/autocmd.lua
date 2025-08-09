@@ -12,16 +12,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank({ timeout = 80 })
 	end,
 })
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "help", "man" },
-	callback = function(args)
-		vim.cmd("wincmd L")
-		vim.keymap.set("n", "q", ":q<cr>", {
-			buffer = args.buf,
-			noremap = true,
-			silent = true,
-			desc = "Exit buffer",
-		})
-	end,
-})

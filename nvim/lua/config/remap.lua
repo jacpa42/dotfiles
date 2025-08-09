@@ -3,6 +3,31 @@ local m = vim.keymap.set
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+m("n", "<leader>fh", function()
+	local cword = vim.fn.expand("<cword>")
+	if tonumber(cword) == nil then
+		return
+	end
+
+	local prefix = nil
+	local fmt = nil
+	if cword:sub(1, 2) == "0x" then
+		prefix = "0b"
+		fmt = ":b"
+	elseif cword:sub(1, 2) == "0b" then
+		prefix = ""
+		fmt = ""
+	else
+		prefix = "0x"
+		fmt = ":x"
+	end
+
+	-- I use python here as they have bigint by default
+	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python3'
+	local out = vim.fn.system(cmd)
+	vim.cmd("normal! ciw" .. out)
+end)
+
 -- Converts a decimal to hex and back again
 m("n", "<c-n>", function()
 	local cword = vim.fn.expand("<cword>")
@@ -68,5 +93,42 @@ m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 
 m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
 
--- cmd history
-m({ "n" }, "<leader>fh", "<cmd>FzfLua command_history<cr>")
+local popup = nil
+m("n", "<leader>fh", function()
+	require("fzf-lua").help_tags({
+		actions = {
+			["default"] = function(items)
+				local topic = items[1]:match("^[^%s]+")
+
+				if popup and popup.winid and vim.api.nvim_win_is_valid(popup.winid) then
+					vim.api.nvim_buf_call(popup.bufnr, function()
+						vim.cmd("help " .. topic)
+					end)
+					return
+				end
+
+				popup = require("nui.popup")({
+					enter = true,
+					focusable = true,
+					border = { style = "rounded" },
+					position = "50%",
+					size = { width = 0.9, height = 0.8 },
+					buf_options = { buftype = "help", swapfile = false },
+				})
+
+				popup:mount()
+
+				vim.api.nvim_buf_call(popup.bufnr, function()
+					vim.cmd("help " .. topic)
+				end)
+
+				popup:map("n", "q", function()
+					popup:unmount()
+				end)
+				popup:on("BufLeave", function()
+					popup:unmount()
+				end, { once = true })
+			end,
+		},
+	})
+end, { desc = "Grep neovim help tags into float window" })
