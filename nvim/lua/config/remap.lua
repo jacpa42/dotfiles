@@ -93,26 +93,25 @@ m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 
 m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
 
-local popup = nil
 m("n", "<leader>fh", function()
 	require("fzf-lua").help_tags({
 		actions = {
 			["default"] = function(items)
 				local topic = items[1]:match("^[^%s]+")
 
-				if popup and popup.winid and vim.api.nvim_win_is_valid(popup.winid) then
-					vim.api.nvim_buf_call(popup.bufnr, function()
-						vim.cmd("help " .. topic)
-					end)
-					return
+				-- close any help buffers if they exist?
+				for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+					if vim.bo[buf].filetype == "help" then
+						vim.api.nvim_buf_delete(buf, {})
+					end
 				end
 
-				popup = require("nui.popup")({
+				local popup = require("nui.popup")({
 					enter = true,
 					focusable = true,
 					border = { style = "rounded" },
 					position = "50%",
-					size = { width = 0.9, height = 0.8 },
+					size = { width = "50%", height = "100%" },
 					buf_options = { buftype = "help", swapfile = false },
 				})
 
