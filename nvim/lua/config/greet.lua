@@ -136,6 +136,8 @@ function M.draw(buf)
 	local centered_ascii = calc_ascii(screen_width, pad_height, pad_width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
 	apply_highlights(buf, pad_height)
+
+	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
 function M.create_new_buffer_for_insert(greeter_buf)
@@ -161,7 +163,7 @@ function M.display()
 	M.draw(buf)
 
 	local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
-	vim.api.nvim_create_autocmd({ "VimResized" }, {
+	vim.api.nvim_create_autocmd("VimResized", {
 		buffer = buf,
 		desc = "Recalc and redraw greeter when window is resized",
 		group = NamespaceGroup,
@@ -177,7 +179,7 @@ function M.display()
 		desc = "Quit nvim",
 	})
 
-	vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+	vim.api.nvim_create_autocmd("InsertEnter", {
 		buffer = buf,
 		desc = "If entering insert mode, change greeter to a normal buffer",
 		group = NamespaceGroup,
