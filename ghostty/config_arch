@@ -29,4 +29,3 @@ keybind = ctrl+shift+5=decrease_font_size:1
 shell-integration = zsh
 
 background-opacity = 0.80
-background-blur = true

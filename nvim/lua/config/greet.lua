@@ -73,6 +73,7 @@ local function count_utf_chars(str)
 end
 
 local function set_options(buf)
+	vim.api.nvim_buf_set_option(buf, "filetype", "greeter")
 	vim.api.nvim_buf_set_option(buf, "modified", false)
 	vim.api.nvim_buf_set_option(buf, "buflisted", false)
 	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
@@ -177,15 +178,6 @@ function M.display()
 		noremap = true,
 		silent = true,
 		desc = "Quit nvim",
-	})
-
-	vim.keymap.set("n", "n", function()
-		M.create_new_buffer_for_insert(buf)
-	end, {
-		buffer = buf,
-		noremap = true,
-		silent = true,
-		desc = "New file",
 	})
 end
 

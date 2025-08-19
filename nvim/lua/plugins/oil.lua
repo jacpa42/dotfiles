@@ -1,7 +1,7 @@
 return {
 	"stevearc/oil.nvim",
-	cmd = { "Oil" },
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	lazy = true,
 	keys = {
 		{
 			"<leader>e",
@@ -17,6 +17,13 @@ return {
 		},
 	},
 
+	init = function()
+		if vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+			require("lazy").load({ plugins = { "oil.nvim" } })
+			vim.cmd("Oil " .. vim.fn.argv(0))
+		end
+	end,
+
 	opts = {
 		-- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
 		-- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
@@ -26,7 +33,7 @@ return {
 		columns = {
 			"icon",
 			-- "permissions",
-			-- "size",
+			"size",
 			-- "mtime",
 		},
 		-- Buffer-local options to use for oil buffers
