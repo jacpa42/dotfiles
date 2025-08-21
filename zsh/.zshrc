@@ -12,9 +12,7 @@ fi
 
 source "$HOME/.cargo/env" 2>/dev/null
 
-export SKIM_DEFAULT_OPTIONS='
---prompt="❯ " --cmd-prompt="❯ " --color=bg:#00000000,matched:#F37799,matched_bg:#00000000,current_match:#F37799,current_match_bg:#00000000,spinner:#F5C2E7,info:#89B4FA,cursor:#F5C2E7
-'
+export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
 
 [ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 [ $SYSTEM = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"

@@ -73,16 +73,17 @@ local function count_utf_chars(str)
 end
 
 local function set_options(buf)
-	vim.api.nvim_buf_set_option(buf, "filetype", "greeter")
-	vim.api.nvim_buf_set_option(buf, "modified", false)
-	vim.api.nvim_buf_set_option(buf, "buflisted", false)
-	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
-	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-	vim.api.nvim_buf_set_option(buf, "colorcolumn", "")
-	vim.api.nvim_buf_set_option(buf, "relativenumber", false)
-	vim.api.nvim_buf_set_option(buf, "number", false)
-	vim.api.nvim_buf_set_option(buf, "list", false)
-	vim.api.nvim_buf_set_option(buf, "signcolumn", "no")
+	local opts = { scope = "local" }
+	vim.api.nvim_set_option_value("filetype", "greeter", opts)
+	vim.api.nvim_set_option_value("modified", false, opts)
+	vim.api.nvim_set_option_value("buflisted", false, opts)
+	vim.api.nvim_set_option_value("bufhidden", "wipe", opts)
+	vim.api.nvim_set_option_value("buftype", "nofile", opts)
+	vim.api.nvim_set_option_value("colorcolumn", "", opts)
+	vim.api.nvim_set_option_value("relativenumber", false, opts)
+	vim.api.nvim_set_option_value("number", false, opts)
+	vim.api.nvim_set_option_value("list", false, opts)
+	vim.api.nvim_set_option_value("signcolumn", "no", opts)
 	vim.api.nvim_set_current_buf(buf)
 end
 

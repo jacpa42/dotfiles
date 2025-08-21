@@ -4,15 +4,6 @@ return {
 	opts = {
 		fzf_bin = "sk",
 		fzf_colors = true,
-		zoxide = {
-			actions = {
-				enter = function(selected)
-					local dir = selected[1]:match("\t(.*)")
-					vim.cmd.cd(dir)
-					return require("fzf-lua").files({ cwd = dir })
-				end,
-			},
-		},
 
 		winopts = {
 			width = 0.9,
@@ -26,7 +17,15 @@ return {
 			},
 		},
 
-		manpages = { previewer = "man_native" },
+		zoxide = {
+			actions = {
+				enter = function(selected)
+					local dir = selected[1]:match("\t(.*)")
+					vim.cmd.cd(dir)
+					return require("fzf-lua").files({ cwd = dir })
+				end,
+			},
+		},
 		helptags = {
 			previewer = "help_native",
 			actions = {
@@ -45,7 +44,7 @@ return {
 						focusable = true,
 						border = { style = "rounded" },
 						position = "50%",
-						size = { width = "50%", height = "100%" },
+						size = { width = "60%", height = "80%" },
 						buf_options = { buftype = "help", swapfile = false },
 					})
 
@@ -64,6 +63,7 @@ return {
 				end,
 			},
 		},
+		manpages = { previewer = "man_native" },
 		lsp = { code_actions = { previewer = "codeaction_native" } },
 		tags = { previewer = "bat" },
 		btags = { previewer = "bat" },
