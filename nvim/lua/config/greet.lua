@@ -75,7 +75,6 @@ end
 local function set_options(buf)
 	local opts = { scope = "local" }
 	vim.api.nvim_set_option_value("filetype", "greeter", opts)
-	vim.api.nvim_set_option_value("modified", false, opts)
 	vim.api.nvim_set_option_value("buflisted", false, opts)
 	vim.api.nvim_set_option_value("bufhidden", "wipe", opts)
 	vim.api.nvim_set_option_value("buftype", "nofile", opts)
