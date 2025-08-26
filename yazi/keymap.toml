@@ -4,7 +4,7 @@ run = 'shell --orphan -- $HOME/.config/hypr/cyclewall.sh -d "$@"'
 desc = "Change this image to the current wallpaper"
 for = "linux"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "w"
 run = 'shell --orphan -- osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$0\""'
 desc = "Change this image to the current wallpaper (macOS)"
