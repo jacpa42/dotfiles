@@ -104,17 +104,19 @@ local function lsp()
 end
 
 local function filetype()
-	if vim.bo.filetype == "alpha" then
+	local ft = vim.bo.filetype
+	if ft == "alpha" or ft == "greeter" then
 		return ""
 	end
 	return "%#StatusLine#" .. string.format(" %s", vim.bo.filetype)
 end
 
 local function lineinfo()
-	if vim.bo.filetype == "alpha" then
+	local ft = vim.bo.filetype
+	if ft == "alpha" or ft == "greeter" then
 		return ""
 	end
-	return " %P %l:%c "
+	return " %p %l:%c "
 end
 
 Statusline = {}
@@ -140,18 +142,13 @@ function Statusline.inactive()
 	return " %F"
 end
 
-function Statusline.short()
-	return "%#Directory#   files"
-end
-
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 	[[
   augroup Statusline
   au!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
   au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
-  au WinEnter,BufEnter,FileType oil setlocal statusline=%!v:lua.Statusline.short()
   augroup END
 ]],
-	false
+	{ output = false }
 )
