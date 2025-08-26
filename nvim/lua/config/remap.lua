@@ -66,7 +66,7 @@ m({ "n", "v" }, "<leader>s", function()
 	if name == "" then
 		pcall(vim.cmd, "saveas " .. vim.fn.input("Save as: ", "", "file"))
 	else
-		vim.cmd("w")
+		vim.cmd("update")
 	end
 end, { desc = "Smart write" })
 

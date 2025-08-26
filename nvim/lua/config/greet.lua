@@ -75,7 +75,6 @@ end
 local function set_options(buf)
 	local opts = { scope = "local" }
 	vim.api.nvim_set_option_value("filetype", "greeter", opts)
-	vim.api.nvim_set_option_value("modified", false, opts)
 	vim.api.nvim_set_option_value("buflisted", false, opts)
 	vim.api.nvim_set_option_value("bufhidden", "wipe", opts)
 	vim.api.nvim_set_option_value("buftype", "nofile", opts)
@@ -89,12 +88,15 @@ end
 
 local function apply_highlights(buf, vertical_pad)
 	-- Apply highlight to each line of ASCII art
-	for i = vertical_pad + 1, vertical_pad + #ascii do
-		vim.api.nvim_buf_add_highlight(buf, -1, "ErrorMsg", i - 1, 0, -1)
-	end
+	local ns = vim.api.nvim_create_namespace("my_ns")
+	vim.hl.range(buf, ns, "ErrorMsg", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
 
 	-- Highlight version line
-	vim.api.nvim_buf_add_highlight(buf, -1, "NonText", vertical_pad + #ascii, 0, -1)
+	-- vim.api.nvim_buf_add_highlight(buf, -1, "NonText", vertical_pad + #ascii, 0, -1)
+
+	local text_line = vertical_pad + #ascii
+
+	vim.hl.range(buf, ns, "Conceal", { text_line, 0 }, { text_line, -1 })
 end
 
 local function calc_ascii(width, vertical_pad, pad_cols)
@@ -138,8 +140,6 @@ function M.draw(buf)
 	local centered_ascii = calc_ascii(screen_width, pad_height, pad_width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
 	apply_highlights(buf, pad_height)
-
-	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
 
 function M.create_new_buffer_for_insert(greeter_buf)

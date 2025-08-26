@@ -52,7 +52,7 @@ alias rmorphans="$([ "$SYSTEM" = "Darwin" ] && echo "brew autoremove" || echo "p
 alias rmtrash="rm -rf $HOME/.local/share/Trash/*"
 alias sl="sl -5 -a -e -d -G -l"
 alias sn="$( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"
-alias snv="clear && sudo -E nvim"
+alias sv="clear && sudo -E nvim"
 alias u="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a"
 alias ur="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && sudo reboot"
 alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"

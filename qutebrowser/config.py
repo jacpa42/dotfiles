@@ -15,27 +15,10 @@ config.bind("ch", "open https://chatgpt.com/")
 # Open github in current tab
 config.bind("gh", "open https://github.com/")
 
-# Open inbox 0 in current tab
-config.bind("e0", "open https://mail.google.com/mail/u/0/?hl=en#inbox")
-# Open inbox 0 in separate tab
-config.bind("E0", "open -t https://mail.google.com/mail/u/0/?hl=en#inbox")
-# Open inbox 1 in current tab
-config.bind("e1", "open https://mail.google.com/mail/u/1/?hl=en#inbox")
-# Open inbox 1 in separate tab
-config.bind("E1", "open -t https://mail.google.com/mail/u/1/?hl=en#inbox")
-# Open inbox 2 in current tab
-config.bind("e2", "open https://outlook.office.com/mail/")
-# Open inbox 2 in separate tab
-config.bind("E2", "open -t https://outlook.office.com/mail/")
-# Open inbox 3 in current tab
-config.bind("e3", "open https://mail.proton.me/u/2/inbox")
-# Open inbox 3 in separate tab
-config.bind("E3", "open -t https://mail.proton.me/u/2/inbox")
-
-# Open teams in current tab
-config.bind("tt", "open https://teams.microsoft.com/v2/")
-# Open teams in separate tab
-config.bind("tT", "open -t https://teams.microsoft.com/v2/")
+# Open inbox
+config.bind("e", "open https://mail.proton.me/u/2/inbox")
+# Open inbox in separate tab
+config.bind("E", "open -t https://mail.proton.me/u/2/inbox")
 
 # Clear download notifications
 config.bind("<Ctrl-f>", "download-clear ;; clear-messages")

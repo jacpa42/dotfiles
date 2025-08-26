@@ -1,5 +1,8 @@
 return {
 	"chentoast/marks.nvim",
-	event = "VeryLazy",
+	keys = {
+		{ "m", mode = "n" },
+		{ '"', mode = "n" },
+	},
 	opts = {},
 }
