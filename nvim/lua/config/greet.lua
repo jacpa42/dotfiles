@@ -124,11 +124,11 @@ end
 function M.draw(buf)
 	set_options(buf)
 	-- width
-	local screen_width = vim.api.nvim_get_option("columns")
+	local screen_width = vim.api.nvim_get_option_value("columns", {})
 	local draw_width = math.max(count_utf_chars(ascii[1]), #nvim_version)
 	local pad_width = math.floor((screen_width - draw_width) / 2)
 	-- height
-	local screen_height = vim.api.nvim_get_option("lines")
+	local screen_height = vim.api.nvim_get_option_value("lines", {})
 	local draw_height = #ascii + 1 -- Including version line
 	local pad_height = math.floor((screen_height - draw_height) / 2)
 
