@@ -71,11 +71,12 @@ end
 
 local function lsp()
 	local count = {}
+
 	local levels = {
-		errors = "Error",
-		warnings = "Warn",
-		info = "Info",
-		hints = "Hint",
+		errors = vim.diagnostic.severity.ERROR,
+		warnings = vim.diagnostic.severity.WARN,
+		info = vim.diagnostic.severity.INFO,
+		hints = vim.diagnostic.severity.HINT,
 	}
 
 	for k, level in pairs(levels) do
@@ -104,43 +105,42 @@ local function lsp()
 end
 
 local function filetype()
-	local ft = vim.bo.filetype
-	if ft == "alpha" or ft == "greeter" then
-		return ""
-	end
 	return "%#StatusLine#" .. string.format(" %s", vim.bo.filetype)
 end
 
 local function lineinfo()
-	local ft = vim.bo.filetype
-	if ft == "alpha" or ft == "greeter" then
-		return ""
-	end
-	return " %p %l:%c "
+	local num_lines = vim.api.nvim_buf_line_count(0)
+	local spacing = math.ceil(math.log10(num_lines))
+
+	return " %3p%% %" .. spacing .. "l:%c "
 end
 
-Statusline = {}
+Statusline = {
+	active = function()
+		return table.concat({
+			"%#Statusline#",
+			update_mode_colors(),
+			mode(),
+			"%#StatusLine#",
+			filepath(),
+			filename(),
+			"%#StatusLine#",
+			macro(),
+			lsp(),
+			"%=%#StatusLineExtra#",
+			filetype(),
+			lineinfo(),
+		})
+	end,
 
-Statusline.active = function()
-	return table.concat({
-		"%#Statusline#",
-		update_mode_colors(),
-		mode(),
-		"%#StatusLine#",
-		filepath(),
-		filename(),
-		"%#StatusLine#",
-		macro(),
-		lsp(),
-		"%=%#StatusLineExtra#",
-		filetype(),
-		lineinfo(),
-	})
-end
+	inactive = function()
+		return " %F"
+	end,
 
-function Statusline.inactive()
-	return " %F"
-end
+	-- short = function()
+	-- 	return "%#Directory#   files"
+	-- end,
+}
 
 vim.api.nvim_exec2(
 	[[
