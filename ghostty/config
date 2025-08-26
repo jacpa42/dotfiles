@@ -1,0 +1,43 @@
+font-family = JetBrainsMono Nerd Font
+font-feature = cv11
+font-feature = ss03
+font-feature = ss02
+
+font-size = 16
+window-decoration=none
+
+cursor-style = block
+cursor-invert-fg-bg = true
+
+theme = Kanagawa Wave
+
+app-notifications = no-clipboard-copy
+desktop-notifications = false
+
+window-padding-x = 0
+window-padding-y = 0
+
+# I don't want the tmux behaviour its annoying
+keybind = super+d=unbind
+# change the paste
+keybind = super+v=unbind
+keybind = ctrl+shift+v=paste_from_clipboard
+# change the copy
+keybind = super+c=unbind
+keybind = ctrl+shift+c=copy_to_clipboard
+
+keybind = ctrl+shift+r=reload_config
+
+keybind = ctrl+shift+4=increase_font_size:1
+keybind = ctrl+shift+5=decrease_font_size:1
+
+shell-integration = zsh
+
+background-opacity = 0.80
+background-blur = true
+
+macos-non-native-fullscreen = visible-menu
+
+macos-option-as-alt = true
+macos-window-shadow = true
+mouse-hide-while-typing = true
