@@ -24,10 +24,6 @@ ln -vsfn $DOTDIR/lazygit "$(lazygit --print-config-dir)"
 	ln -vsfn $DOTDIR/qutebrowser $CNFDIR/qutebrowser
 
 [ "$SYSTEM" = "Darwin" ] &&
-	ln -vsfn $DOTDIR/ghostty/config_macos $DOTDIR/ghostty/config ||
-	ln -vsfn $DOTDIR/ghostty/config_arch $DOTDIR/ghostty/config
-
-[ "$SYSTEM" = "Darwin" ] &&
 	ln -vsfn $DOTDIR/sketchybar $CNFDIR/sketchybar
 
 [ "$SYSTEM" = "Darwin" ] &&
