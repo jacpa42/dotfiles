@@ -16,6 +16,9 @@ ln -vsfn $DOTDIR/mpv $CNFDIR/mpv
 ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
 ln -vsfn $DOTDIR/lazygit "$(lazygit --print-config-dir)"
 
+[ "$SYSTEM" = "Linux" ] &&
+	ln -vsfn $DOTDIR/foot $CNFDIR/foot
+
 [ "$SYSTEM" = "Darwin" ] &&
 	ln -vsfn $DOTDIR/qutebrowser $HOME/.qutebrowser ||
 	ln -vsfn $DOTDIR/qutebrowser $CNFDIR/qutebrowser
