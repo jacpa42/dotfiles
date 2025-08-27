@@ -140,6 +140,8 @@ function M.draw(buf)
 	local centered_ascii = calc_ascii(screen_width, pad_height, pad_width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
 	apply_highlights(buf, pad_height)
+
+	vim.api.nvim_set_option_value("modifiable", false, { scope = "local" })
 end
 
 function M.create_new_buffer_for_insert(greeter_buf)
@@ -166,7 +168,7 @@ function M.display()
 
 	local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
 	vim.api.nvim_create_autocmd("VimResized", {
-		buffer = buf,
+		pattern = "greeter",
 		desc = "Recalc and redraw greeter when window is resized",
 		group = NamespaceGroup,
 		callback = function()
