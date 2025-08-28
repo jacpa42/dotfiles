@@ -1,1 +1,1 @@
-tmux new-session -A -s jacob
+exec tmux new-session -A -s jacob

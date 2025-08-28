@@ -29,7 +29,8 @@ done <<EOF
 $(pactl list sinks | grep -E '^\s*(Name:|Description:|analog-output|hdmi-output|usb-audio)')
 EOF
 
-choice=$(echo -e "${options%??}" | $HOME/.config/hypr/wofi.sh --dmenu -i -p "Select audio device")
+skim_opts="--no-info --no-multi --no-mouse -tlength --color=none"
+choice=$(echo -e "${options%??}" | sk $skim_opts)
 
 if [ -n "$choice" ]; then
     selected_sink="${sinks[$choice]}"

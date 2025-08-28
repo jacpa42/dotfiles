@@ -37,16 +37,22 @@ local ascii_art = {
 ]],
 }
 
+if #vim.v.argv > 2 then
+	return {}
+end
+
 -- Module
 local M = {}
 
 local ascii = vim.split(ascii_art[3], "\n")
 local vers = vim.version()
 
-local startup_time_ms = require("lazy").stats().times.LazyDone
-local startup_time = string.format("%.2f", startup_time_ms)
+local function nvim_version()
+	local startup_time_ms = require("lazy").stats().times.LazyDone
+	local startup_time = string.format("%.2f", startup_time_ms)
 
-local nvim_version = "nvim v" .. vers.major .. "." .. vers.minor .. "." .. vers.patch .. " | " .. startup_time .. "ms"
+	return "nvim v" .. vers.major .. "." .. vers.minor .. "." .. vers.patch .. " | " .. startup_time .. "ms"
+end
 
 local function pad_str(padding, string)
 	return string.rep(" ", padding) .. string
@@ -114,7 +120,7 @@ local function calc_ascii(width, vertical_pad, pad_cols)
 	end
 
 	-- Add version line centered
-	local version_line = nvim_version
+	local version_line = nvim_version()
 	local version_pad = math.floor((width - #version_line) / 2)
 	table.insert(centered_ascii, pad_str(version_pad, version_line))
 
@@ -125,7 +131,7 @@ function M.draw(buf)
 	set_options(buf)
 	-- width
 	local screen_width = vim.api.nvim_get_option_value("columns", {})
-	local draw_width = math.max(count_utf_chars(ascii[1]), #nvim_version)
+	local draw_width = math.max(count_utf_chars(ascii[1]), #nvim_version())
 	local pad_width = math.floor((screen_width - draw_width) / 2)
 	-- height
 	local screen_height = vim.api.nvim_get_option_value("lines", {})
@@ -140,8 +146,6 @@ function M.draw(buf)
 	local centered_ascii = calc_ascii(screen_width, pad_height, pad_width)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
 	apply_highlights(buf, pad_height)
-
-	vim.api.nvim_set_option_value("modifiable", false, { scope = "local" })
 end
 
 function M.create_new_buffer_for_insert(greeter_buf)
@@ -168,7 +172,7 @@ function M.display()
 
 	local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
 	vim.api.nvim_create_autocmd("VimResized", {
-		pattern = "greeter",
+		buffer = buf,
 		desc = "Recalc and redraw greeter when window is resized",
 		group = NamespaceGroup,
 		callback = function()
@@ -184,13 +188,6 @@ function M.display()
 	})
 end
 
-function M.display_conditionally()
-	-- Check if there were args (i.e. opened file), non-empty buffer, or started in insert mode
-	if vim.fn.argc() == 0 or vim.fn.line2byte("$") ~= -1 and not vim.opt.insertmode then
-		M.display()
-	end
-end
-
-M.display_conditionally()
+M.display()
 
 return M
