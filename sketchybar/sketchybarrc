@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# Catpuccin
 ROSEWATER="f5e0dc" #f5e0dc
 FLAMINGO="f2cdcd"  #f2cdcd
 PINK="f5c2e7"      #f5c2e7
@@ -27,6 +28,7 @@ BASE="1e1e2e"      #1e1e2e
 MANTLE="181825"    #181825
 CRUST="11111b"     #11111b
 CLEAR="000000"     #000000
+
 
 FONT_FACE="JetBrainsMono Nerd Font"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"

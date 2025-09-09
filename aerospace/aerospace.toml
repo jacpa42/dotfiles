@@ -1,4 +1,4 @@
-after-login-command = []
+
 after-startup-command = []
 
 start-at-login = true
@@ -25,22 +25,22 @@ automatically-unhide-macos-hidden-apps = false
     cmd-e = 'focus left'
     cmd-r = 'focus right'
 
-    cmd-u = 'workspace 1'
-    cmd-i = 'workspace 2'
-    cmd-o = 'workspace 3'
+    cmd-s = 'workspace 3'
+    cmd-d = 'workspace 2'
+    cmd-f = 'workspace 1'
     cmd-j = 'workspace 4'
     cmd-k = 'workspace 5'
     cmd-l = 'workspace 6'
 
-    cmd-alt-u = 'move-node-to-workspace --focus-follows-window 1'
-    cmd-alt-i = 'move-node-to-workspace --focus-follows-window 2'
-    cmd-alt-o = 'move-node-to-workspace --focus-follows-window 3'
+    cmd-alt-s = 'move-node-to-workspace --focus-follows-window 1'
+    cmd-alt-d = 'move-node-to-workspace --focus-follows-window 2'
+    cmd-alt-f = 'move-node-to-workspace --focus-follows-window 3'
     cmd-alt-j = 'move-node-to-workspace --focus-follows-window 4'
     cmd-alt-k = 'move-node-to-workspace --focus-follows-window 5'
     cmd-alt-l = 'move-node-to-workspace --focus-follows-window 6'
 
-		cmd-d = 'close --quit-if-last-window'
-		cmd-f = 'fullscreen'
+		cmd-w = 'close --quit-if-last-window'
+		cmd-enter = 'fullscreen'
 		cmd-t = 'layout tiling floating'
 
 [[on-window-detected]]
@@ -50,6 +50,10 @@ automatically-unhide-macos-hidden-apps = false
 [[on-window-detected]]
     if.app-id = 'com.spotify.client'
     run = 'move-node-to-workspace --focus-follows-window 2'
+
+[[on-window-detected]]
+    if.app-id = 'ch.protonmail.desktop'
+    run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
     if.app-id = 'com.mitchellh.ghostty'

@@ -30,10 +30,12 @@ c.fileselect.folder.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.single_file.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 c.fileselect.multiple_files.command = ["ghostty", "-e", "yazi --chooser-file={}"]
 
-c.url.default_page = "file:///home/jacob/Projects/dotfiles/qutebrowser/metal.png"
+import os
+
+c.url.default_page = f"file:///{os.path.expanduser("~")}/Projects/dotfiles/qutebrowser/metal.png"
 c.url.searchengines = {
-    # "DEFAULT": "https://duckduckgo.com/?q={}"
-    "DEFAULT": "https://www.google.com/search?q={}"
+    "DEFAULT": "https://duckduckgo.com/?q={}"
+    # "DEFAULT": "https://www.google.com/search?q={}"
 }
 
 c.tabs.position = "bottom"
