@@ -10,6 +10,8 @@ fi
 # MacOS : SYSTEM = Darwin
 # Linux : SYSTEM = Linux
 
+export SYSTEM="$(uname)"
+
 source "$HOME/.cargo/env" 2>/dev/null
 
 export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
