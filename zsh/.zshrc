@@ -38,7 +38,7 @@ source "$prefix/powerlevel10k.zsh-theme"
 
 ## alias ##
 alias duai='dua interactive'
-alias matrix='neo --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
+alias matrix='neo-matrix --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
