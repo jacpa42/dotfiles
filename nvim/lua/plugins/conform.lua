@@ -31,7 +31,6 @@ return {
 				"clang-format-custom",
 				lsp_format = "fallback",
 			},
-			glsl = { "clang-format", lsp_format = "fallback" },
 		},
 	},
 }

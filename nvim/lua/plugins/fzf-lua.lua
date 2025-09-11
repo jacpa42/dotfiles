@@ -26,6 +26,7 @@ return {
 				end,
 			},
 		},
+
 		helptags = {
 			previewer = "help_native",
 			actions = {
@@ -41,6 +42,7 @@ return {
 
 					local popup = require("nui.popup")({
 						enter = true,
+						relative = "editor",
 						focusable = true,
 						border = { style = "rounded" },
 						position = "50%",
@@ -63,6 +65,7 @@ return {
 				end,
 			},
 		},
+
 		manpages = { previewer = "man_native" },
 		lsp = { code_actions = { previewer = "codeaction_native" } },
 		tags = { previewer = "bat" },
