@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 options=""
 declare -A sinks
@@ -29,8 +29,8 @@ done <<EOF
 $(pactl list sinks | grep -E '^\s*(Name:|Description:|analog-output|hdmi-output|usb-audio)')
 EOF
 
-skim_opts="--no-info --no-multi --no-mouse -tlength --color=none"
-choice=$(echo -e "${options%??}" | sk $skim_opts)
+SKIM_OPTS="--no-info --no-multi --no-mouse -tlength --color=none"
+choice=$(echo -e "${options%??}" | sk $SKIM_OPTS)
 
 if [ -n "$choice" ]; then
     selected_sink="${sinks[$choice]}"

@@ -1,10 +1,12 @@
 #!/bin/sh
 
 PASSWORD_DIRECTORY=/home/jacob/.password-store
-skim_opts="--no-info --no-multi --no-mouse -tlength --color=none"
+SKIM_OPTS="--no-info --no-multi --no-mouse -tlength --color=none"
 
 cd "$PASSWORD_DIRECTORY" || exit 1
 
-selected="$(fd -tfile --format="{.}" | sk $skim_opts)"
+selected="$(fd -tfile --format="{.}" | sk $SKIM_OPTS)"
 
-[ ! -z "$selected" ] && notify-send "$(pass -c "$selected")"
+MSG="$(pass --clip "$selected")"
+
+[ ! -z "$selected" ] && notify-send "$MSG"
