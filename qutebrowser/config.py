@@ -26,9 +26,9 @@ config.bind("<Ctrl-f>", "download-clear ;; clear-messages")
 config.bind("<Shift-r>", "config-source")
 
 c.fileselect.handler = "external"
-c.fileselect.folder.command = ["ghostty", "-e", "yazi --chooser-file={}"]
-c.fileselect.single_file.command = ["ghostty", "-e", "yazi --chooser-file={}"]
-c.fileselect.multiple_files.command = ["ghostty", "-e", "yazi --chooser-file={}"]
+c.fileselect.folder.command = ["footclient", "yazi --chooser-file={}"]
+c.fileselect.single_file.command = ["footclient", "yazi --chooser-file={}"]
+c.fileselect.multiple_files.command = ["footclient", "yazi --chooser-file={}"]
 
 import os
 
