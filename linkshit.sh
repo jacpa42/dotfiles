@@ -12,6 +12,7 @@ ln -vsfn $DOTDIR/tmux $CNFDIR/tmux
 ln -vsfn $DOTDIR/yazi $CNFDIR/yazi
 ln -vsfn $DOTDIR/zsh $CNFDIR/zsh
 ln -vsfn $DOTDIR/mpv $CNFDIR/mpv
+ln -vsfn $DOTDIR/imv $CNFDIR/imv
 
 ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
 ln -vsfn $DOTDIR/lazygit "$(lazygit --print-config-dir)"

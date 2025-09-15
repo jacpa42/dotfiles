@@ -1,0 +1,9 @@
+[options]
+overlay_font = JetBrainsMonoNerdFont:18
+overlay = true
+overlay_background_alpha = 00
+
+[binds]
+w = exec $HOME/Projects/dotfiles/hypr/cyclewall.sh -d $imv_current_file
+<Meta+l> = next
+<Meta+h> = prev
