@@ -12,7 +12,7 @@ btop)
 	exec btop
 	;;
 *)
-	project_dirs="$HOME\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
+	project_dirs="$HOME\n$HOME/Projects/server/\n$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
 	prev="$HOME/.config/tmux/project_viewer.sh {}"
 	TARGET_DIR="$(echo -e "$project_dirs" | sk --preview-window="right:70%" --preview="$prev")"
 	[ -z "$TARGET_DIR" ] && exit 0
