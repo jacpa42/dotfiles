@@ -25,10 +25,10 @@ else
 	export XDG_SESSION_TYPE="wayland"
 fi
 
-export DOTDIR="$HOME/Projects/dotfiles/"
+export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
-export XDG_CACHE_HOME="$HOME/.cache/"
-export XDG_CONFIG_HOME="$HOME/.config/"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
 export GOPATH="$HOME/.local/share/go"
 
 export EDITOR="nvim"
