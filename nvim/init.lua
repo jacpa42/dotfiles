@@ -265,24 +265,8 @@ local plugins = {
 				"size",
 				-- "mtime",
 			},
-			-- Buffer-local options to use for oil buffers
-			buf_options = {
-				buflisted = false,
-				bufhidden = "hide",
-			},
-			-- Window-local options to use for oil buffers
-			win_options = {
-				wrap = false,
-				signcolumn = "no",
-				cursorcolumn = false,
-				foldcolumn = "0",
-				spell = false,
-				list = false,
-				conceallevel = 3,
-				concealcursor = "nvic",
-			},
 			-- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-			delete_to_trash = false,
+			delete_to_trash = true,
 			-- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
 			skip_confirm_for_simple_edits = true,
 			-- Selecting a new/moved/renamed file or directory will prompt you to save changes first
@@ -689,6 +673,8 @@ vim.diagnostic.config({
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 vim.opt.termguicolors = true
 
 vim.g.netrw_browsex_viewer = "qutebrowser"
@@ -696,9 +682,6 @@ vim.g.netrw_browsex_viewer = "qutebrowser"
 
 ---------------------- REMAP ----------------------
 local m = vim.keymap.set
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 m("n", "<leader>fh", function()
 	local cword = vim.fn.expand("<cword>")
@@ -751,13 +734,6 @@ m("n", "<c-n>", function()
 	vim.cmd("normal! ciw" .. out)
 end)
 
-m("n", "<leader>v", "<cmd>vsplit<cr>")
-m("n", "<leader>h", "<cmd>split<cr>")
-
-m("n", "<leader>l", "<cmd>Lazy<cr>")
-m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
-m("n", "<Esc>", "<cmd>nohlsearch<cr>")
-
 m({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
 	if name == "" then
@@ -767,6 +743,11 @@ m({ "n", "v" }, "<leader>s", function()
 	end
 end, { desc = "Smart write" })
 
+m("n", "<leader>v", "<cmd>vsplit<cr>")
+m("n", "<leader>h", "<cmd>split<cr>")
+m("n", "<leader>l", "<cmd>Lazy<cr>")
+m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
+m("n", "<Esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
 m("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>", { desc = "Ripgrep cwd" })
 m("n", "<leader>fo", "<cmd>FzfLua buffers<cr>", { desc = "Search open buffers" })
@@ -775,22 +756,17 @@ m("n", "<leader>fj", "<cmd>FzfLua zoxide<cr>", { desc = "zoxide projects" })
 m("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Search recent files" })
 m("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Search keymaps" })
 m("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Search marks" })
-
 m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
 m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
 m("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Get lsp impls" })
--- TODO: m("n", "gs", "<cmd>FzfLua<cr>", { desc = "Get lsp something" })
 m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
 m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get trouble for document" })
-
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 m("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
-
 m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
-
 m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
-
 m("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", { desc = "Grep neovim help tags into float window" })
+
 ---------------------- REMAP ----------------------
 
 ---------------------- AUTOCMD ----------------------
@@ -963,7 +939,65 @@ vim.api.nvim_exec2(
 )
 ---------------------- STATUS ----------------------
 
+---------------------- LSP ----------------------
+vim.lsp.config["clangd"] = {
+	cmd = { "clangd", "--background-index" },
+	root_markers = { "compile_commands.json", "compile_flags.txt" },
+	filetypes = { "c", "cpp" },
+}
+
+vim.lsp.config["luals"] = {
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			diagnostics = { globals = "vim" },
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false, -- don't prompt about love2d/etc
+			},
+			telemetry = { enable = false },
+		},
+	},
+}
+
+vim.lsp.config["rust_analyzer"] = {
+	cmd = { "rust-analyzer" },
+	filetypes = { "rust" },
+	single_file_support = true,
+	capabilities = {
+		experimental = {
+			serverStatusNotification = true,
+		},
+	},
+	before_init = function(init_params, config)
+		-- See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
+		if config.settings and config.settings["rust-analyzer"] then
+			init_params.initializationOptions = config.settings["rust-analyzer"]
+		end
+	end,
+}
+
+vim.lsp.config["hyprls"] = {
+	cmd = { "hyprls" },
+	filetypes = { "hyprlang" },
+}
+
+vim.lsp.config["zls"] = {
+	cmd = { "zls" },
+	filetypes = { "zig", "zir" },
+	root_markers = { "zls.json", "build.zig", ".git" },
+	workspace_required = false,
+}
+
+vim.lsp.enable({ "clangd", "luals", "rust_analyzer", "hyprls", "zls" })
+---------------------- LSP ----------------------
+
 ---------------------- GREET ----------------------
+if #vim.v.argv > 2 then
+	return
+end
 local ascii_art = {
 	[[
 	████╗     ████╗ ██████████═╗   ████████████╗  █████████████╗
@@ -1003,10 +1037,6 @@ local ascii_art = {
 ]],
 }
 
-if #vim.v.argv > 2 then
-	return {}
-end
-
 local ascii = vim.split(ascii_art[3], "\n")
 local vers = vim.version()
 
@@ -1043,15 +1073,22 @@ end
 
 local function set_options(buf)
 	local opts = { scope = "local" }
-	vim.api.nvim_set_option_value("filetype", "greeter", opts)
-	vim.api.nvim_set_option_value("buflisted", false, opts)
-	vim.api.nvim_set_option_value("bufhidden", "wipe", opts)
-	vim.api.nvim_set_option_value("buftype", "nofile", opts)
-	vim.api.nvim_set_option_value("colorcolumn", "", opts)
-	vim.api.nvim_set_option_value("relativenumber", false, opts)
-	vim.api.nvim_set_option_value("number", false, opts)
-	vim.api.nvim_set_option_value("list", false, opts)
-	vim.api.nvim_set_option_value("signcolumn", "no", opts)
+	local opt_values = {
+		["filetype"] = "greeter",
+		["buflisted"] = false,
+		["bufhidden"] = "wipe",
+		["buftype"] = "nofile",
+		["colorcolumn"] = "",
+		["relativenumber"] = false,
+		["number"] = false,
+		["list"] = false,
+		["signcolumn"] = "no",
+	}
+
+	for o, v in pairs(opt_values) do
+		vim.api.nvim_set_option_value(o, v, opts)
+	end
+
 	vim.api.nvim_set_current_buf(buf)
 end
 
@@ -1111,83 +1148,24 @@ local function greeter_draw(buf)
 	apply_highlights(buf, pad_height)
 end
 
-local function greeter_display()
-	vim.cmd("enew")
-	local buf = vim.api.nvim_get_current_buf()
-	greeter_draw(buf)
+vim.cmd("enew")
+local buf = vim.api.nvim_get_current_buf()
+greeter_draw(buf)
 
-	local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
-	vim.api.nvim_create_autocmd("VimResized", {
-		buffer = buf,
-		desc = "Recalc and redraw greeter when window is resized",
-		group = NamespaceGroup,
-		callback = function()
-			greeter_draw(buf)
-		end,
-	})
-
-	vim.keymap.set("n", "q", ":q<cr>", {
-		buffer = buf,
-		noremap = true,
-		silent = true,
-		desc = "Quit nvim",
-	})
-end
-
-greeter_display()
----------------------- GREET ----------------------
-
----------------------- LSP ----------------------
-vim.lsp.config["clangd"] = {
-	cmd = { "clangd", "--background-index" },
-	root_markers = { "compile_commands.json", "compile_flags.txt" },
-	filetypes = { "c", "cpp" },
-}
-
-vim.lsp.config["luals"] = {
-	cmd = { "lua-language-server" },
-	filetypes = { "lua" },
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT" },
-			diagnostics = { globals = "vim" },
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				checkThirdParty = false, -- don't prompt about love2d/etc
-			},
-			telemetry = { enable = false },
-		},
-	},
-}
-
-vim.lsp.config["rust_analyzer"] = {
-	cmd = { "rust-analyzer" },
-	filetypes = { "rust" },
-	single_file_support = true,
-	capabilities = {
-		experimental = {
-			serverStatusNotification = true,
-		},
-	},
-	before_init = function(init_params, config)
-		-- See https://github.com/rust-lang/rust-analyzer/blob/eb5da56d839ae0a9e9f50774fa3eb78eb0964550/docs/dev/lsp-extensions.md?plain=1#L26
-		if config.settings and config.settings["rust-analyzer"] then
-			init_params.initializationOptions = config.settings["rust-analyzer"]
-		end
+local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
+vim.api.nvim_create_autocmd("VimResized", {
+	buffer = buf,
+	desc = "Recalc and redraw greeter when window is resized",
+	group = NamespaceGroup,
+	callback = function()
+		greeter_draw(buf)
 	end,
-}
+})
 
-vim.lsp.config["hyprls"] = {
-	cmd = { "hyprls" },
-	filetypes = { "hyprlang" },
-}
-
-vim.lsp.config["zls"] = {
-	cmd = { "zls" },
-	filetypes = { "zig", "zir" },
-	root_markers = { "zls.json", "build.zig", ".git" },
-	workspace_required = false,
-}
-
-vim.lsp.enable({ "clangd", "luals", "rust_analyzer", "hyprls", "zls" })
----------------------- LSP ----------------------
+vim.keymap.set("n", "q", ":q<cr>", {
+	buffer = buf,
+	noremap = true,
+	silent = true,
+	desc = "Quit nvim",
+})
+---------------------- GREET ----------------------
