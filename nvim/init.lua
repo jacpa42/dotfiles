@@ -48,13 +48,6 @@ local plugins = {
 		opts = { user_default_options = { names = false } },
 	},
 	{
-		"chentoast/marks.nvim",
-		keys = {
-			{ "m", mode = "n" },
-			{ '"', mode = "n" },
-		},
-	},
-	{
 		"aserowy/tmux.nvim",
 		keys = {
 			{
@@ -490,8 +483,8 @@ m({ "n", "v" }, "<leader>s", function()
 	end
 end, { desc = "Smart write" })
 
-m("n", "<C-f>", "<cmd>on<cr>", { noremap = true, silent = true })
-m("n", "<Esc>", "<cmd>nohlsearch<cr>")
+m("n", "<c-f>", "<cmd>on<cr>")
+m("n", "<esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
@@ -521,6 +514,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
 		require("conform").format({ bufnr = args.buf })
+	end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	callback = function()
+		vim.opt.number = false
+		vim.opt.relativenumber = false
+		vim.cmd.norm("i")
 	end,
 })
 
@@ -556,6 +558,7 @@ local function mode()
 		["r?"] = "CONFIRM",
 		["!"] = "SHELL",
 		["t"] = "TERMINAL",
+		["nt"] = "NORMTERM",
 	}
 
 	local current_mode = vim.api.nvim_get_mode().mode
