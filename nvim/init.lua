@@ -406,8 +406,6 @@ vim.cmd([[
 ]])
 
 vim.diagnostic.config({ virtual_text = { current_line = false } })
-
-vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 
 vim.g.loaded_netrw = 1
@@ -741,7 +739,7 @@ vim.lsp.config["zls"] = {
 	workspace_required = false,
 }
 
-vim.lsp.enable({ "clangd", "luals", "rust_analyzer", "hyprls", "zls" })
+vim.lsp.enable({ "luals", "rust_analyzer", "hyprls", "zls" })
 ---------------------- LSP ----------------------
 
 ---------------------- GREET ----------------------
