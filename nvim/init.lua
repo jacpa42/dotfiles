@@ -320,16 +320,13 @@ local plugins = {
 		cmd = "ConformInfo",
 		opts = {
 			formatters = {
-				["clang-format-custom"] = {
-					command = "clang-format",
-					args = { "--style=LLVM" },
-					stdin = true,
-				},
+				["clang-format-custom"] = { command = "clang-format", args = { "--style=LLVM" }, stdin = true },
 			},
 
 			formatters_by_ft = {
 				lua = { "stylua" },
 				sh = { "shfmt" },
+				zig = { "zigfmt" },
 				bash = { "shfmt" },
 				zsh = { "shfmt" },
 				tmux = { "shfmt" },
