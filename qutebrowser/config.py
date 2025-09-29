@@ -235,22 +235,22 @@ def kanagawa():
     # Template author: theova and Daniel Mulford
     # Commentary: Tinted Theming: (https://github.com/tinted-theming)
 
-    base00 = "#1f1f28"
-    base01 = "#16161d"
+    base00 = "#1F1F28"
+    base01 = "#16161D"
     base02 = "#223249"
-    base03 = "#54546d"
+    base03 = "#54546D"
     base04 = "#727169"
-    base05 = "#dcd7ba"
-    base06 = "#c8c093"
-    base07 = "#717c7c"
-    base08 = "#c34043"
-    base09 = "#ffa066"
-    base0A = "#c0a36e"
-    base0B = "#76946a"
-    base0C = "#6a9589"
-    base0D = "#7e9cd8"
-    base0E = "#957fb8"
-    base0F = "#d27e99"
+    base05 = "#DCD7BA"
+    base06 = "#C8C093"
+    base07 = "#717C7C"
+    base08 = "#C34043"
+    base09 = "#FFA066"
+    base0A = "#C0A36E"
+    base0B = "#76946A"
+    base0C = "#6A9589"
+    base0D = "#7E9CD8"
+    base0E = "#957FB8"
+    base0F = "#D27E99"
 
     # set qutebrowser colors
 
