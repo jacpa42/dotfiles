@@ -584,7 +584,7 @@ local function filepath()
 end
 
 local function filename()
-	local fname = vim.fn.expand("%:t")
+	local fname = vim.fn.expand("%:t") .. (vim.bo.modified and " +" or "  ")
 	if fname == "" then
 		return ""
 	end
@@ -656,8 +656,8 @@ Statusline = {
 			filepath(),
 			filename(),
 			"%#StatusLine#",
-			macro(),
 			lsp(),
+			macro(),
 			"%=%#StatusLineExtra#",
 			filetype(),
 			lineinfo(),
