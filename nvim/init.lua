@@ -594,7 +594,7 @@ end
 local function macro()
 	local register = vim.fn.reg_recording()
 	if register ~= "" then
-		return "%#ErrorMsg#@" .. register .. "%#StatusLine#"
+		return " %#ErrorMsg#@" .. register .. "%#StatusLine#"
 	else
 		return "  "
 	end
