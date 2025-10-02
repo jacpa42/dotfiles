@@ -26,9 +26,10 @@ config.bind("<Ctrl-f>", "download-clear ;; clear-messages")
 config.bind("<Shift-r>", "config-source")
 
 c.fileselect.handler = "external"
-c.fileselect.folder.command = ["footclient", "yazi", "--chooser-file={}"]
-c.fileselect.single_file.command = ["footclient", "yazi", "--chooser-file={}"]
-c.fileselect.multiple_files.command = ["footclient", "yazi", "--chooser-file={}"]
+fileselector = ["hyprctl","dispatch","exec","[float;noanim;center 1;pin;size 60% 60%;stayfocused;bordersize 1;workspace unset] foot yazi --chooser-file={}"]
+c.fileselect.folder.command = fileselector
+c.fileselect.single_file.command = fileselector
+c.fileselect.multiple_files.command = fileselector
 
 import os
 
@@ -53,6 +54,7 @@ c.colors.webpage.preferred_color_scheme = "dark"
 
 c.zoom.default = "175%"
 
+# FONTS #
 c.hints.chars = "jfkdlspaieurow"
 c.fonts.default_size = "16pt"
 c.fonts.default_family = "JetBrainsMono Nerd Font"
