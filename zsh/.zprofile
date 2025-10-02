@@ -4,6 +4,7 @@ if [ $SYSTEM = "Darwin" ]; then
 	export HOMEBREW_NO_EMOJI=1
 	export HOMEBREW_NO_ENV_HINTS=1
 else
+	export wmenu_opts='-i -l5 -f"JetBrainsMonoNerdFont Regular 14.5 @wght=200" -M090618ff -N090618ff -sDCD7BA -m7E9CD8ff -nDCD7BAff -S957FB8ff'
 	export RADV_PERFTEST="video_decode,video_encode"
 	export CLUTTER_BACKEND="wayland"
 	export GDK_BACKEND="wayland,x11,*"

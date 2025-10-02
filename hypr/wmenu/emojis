@@ -1,6 +1,4 @@
-#!/bin/sh
-
-EMOJIS="grinning face                                   😀
+grinning face                                   😀
 smiling face with open mouth                    😃
 smiling face with open mouth & smiling eyes     😄
 grinning face with smiling eyes                 😁
@@ -1431,9 +1429,4 @@ Wallis & Futuna                                🇼🇫
 Western Sahara                                 🇪🇭
 Yemen                                          🇾🇪
 Zambia                                         🇿🇲
-Zimbabwe                                       🇿🇼"
-
-skim_opts="--no-info --no-multi --no-mouse -tlength --color=none"
-
-# echo "$EMOJIS" | sk $skim_opts | awk '{print $NF}' | wl-copy
-echo "$EMOJIS" | sk $skim_opts | awk '{printf "%s", $NF}' | wl-copy
+Zimbabwe                                       🇿🇼
