@@ -19,17 +19,17 @@ while [[ $# -gt 0 ]]; do
 	case "$1" in
 		--wallpaper-dir|-w)
 			dir="$2"
-			shift 2
+			shift 2 || exit 0
 			;;
 		--notify|-n)
 			notify=1
-			shift 1
+			shift
 			;;
 		--default-wallpaper|-d)
 			echo "default $2"
 			default_wallpaper="$2"
 			set_default_wallpaper=true
-			shift 2
+			shift 2 || exit 0
 			;;
 		--reverse|-r)
 			reverse=true
@@ -64,7 +64,7 @@ wbg_pid=""
 if $set_default_wallpaper; then
 	echo "$(basename "$default_wallpaper")"
 	img="$(fd -1atfile "$(basename "$default_wallpaper")" "$dir")"
-	wbg_pid="$(pgrep -of "^wbg $img")"
+	wbg_pid="$(pgrep -of "^wbg.*$default_wallpaper")"
 else
 	images=($(fd -at f -e jpg . "$dir"))
 	num_images=${#images[@]}
