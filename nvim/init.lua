@@ -466,7 +466,7 @@ m("n", "<c-n>", function()
 	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python3'
 	local out = vim.fn.system(cmd)
 	vim.cmd("normal! ciw" .. out)
-end, { desc = "Convert an int to hex->bin->dec->hex." })
+end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 
 m({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
@@ -584,7 +584,7 @@ local function filepath()
 end
 
 local function filename()
-	local fname = vim.fn.expand("%:t") .. (vim.bo.modified and " +" or "  ")
+	local fname = vim.fn.expand("%:t") .. (vim.bo.modified and " [+]" or "    ")
 	if fname == "" then
 		return ""
 	end
