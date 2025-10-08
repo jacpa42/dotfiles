@@ -1,34 +1,44 @@
 #!/usr/bin/env zsh
 
-# Catpuccin
-ROSEWATER="f5e0dc" #f5e0dc
-FLAMINGO="f2cdcd"  #f2cdcd
-PINK="f5c2e7"      #f5c2e7
-MAUVE="cba6f7"     #cba6f7
-RED="f38ba8"       #f38ba8
-MAROON="eba0ac"    #eba0ac
-PEACH="fab387"     #fab387
-YELLOW="f9e2af"    #f9e2af
-GREEN="a6e3a1"     #a6e3a1
-TEAL="94e2d5"      #94e2d5
-SKY="89dceb"       #89dceb
-SAPPHIRE="74c7ec"  #74c7ec
-BLUE="89b4fa"      #89b4fa
-LAVENDER="b4befe"  #b4befe
-TEXT="cdd6f4"      #cdd6f4
-SUBTEXT1="bac2de"  #bac2de
-SUBTEXT0="a6adc8"  #a6adc8
-OVERLAY2="9399b2"  #9399b2
-OVERLAY1="7f849c"  #7f849c
-OVERLAY0="6c7086"  #6c7086
-SURFACE2="585b70"  #585b70
-SURFACE1="45475a"  #45475a
-SURFACE0="313244"  #313244
-BASE="1e1e2e"      #1e1e2e
-MANTLE="181825"    #181825
-CRUST="11111b"     #11111b
-CLEAR="000000"     #000000
+# # catpuccin
+# regular0="45475a"  #45475a
+# regular1="f38ba8"  #f38ba8
+# regular2="a6e3a1"  #a6e3a1
+# regular3="f9e2af"  #f9e2af
+# regular4="89b4fa"  #89b4fa
+# regular5="f5c2e7"  #f5c2e7
+# regular6="94e2d5"  #94e2d5
+# regular7="a6adc8"  #a6adc8
+# regular8="585b70"  #585b70
+# regular9="f37799"  #f37799
+# regular10="89d88b" #89d88b
+# regular11="ebd391" #ebd391
+# regular12="74a8fc" #74a8fc
+# regular13="f2aede" #f2aede
+# regular14="6bd7ca" #6bd7ca
+# regular15="bac2de" #bac2de
+# color16="1e1e2e"   #1e1e2e
+# color17="cdd6f4"   #cdd6f4
 
+# kanagawa
+regular0="090618" #090618
+regular1="c34043" #c34043
+regular2="76946a" #76946a
+regular3="c0a36e" #c0a36e
+regular4="7e9cd8" #7e9cd8
+regular5="957fb8" #957fb8
+regular6="6a9589" #6a9589
+regular7="c8c093" #c8c093
+bright0="727169"  #727169
+bright1="e82424"  #e82424
+bright2="98bb6c"  #98bb6c
+bright3="e6c384"  #e6c384
+bright4="7fb4ca"  #7fb4ca
+bright5="938aa9"  #938aa9
+bright6="7aa89f"  #7aa89f
+bright7="dcd7ba"  #dcd7ba
+color16="ffa066"  #ffa066
+color17="ff5d62"  #ff5d62
 
 FONT_FACE="JetBrainsMono Nerd Font"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
@@ -36,16 +46,16 @@ SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
 
 sketchybar --bar \
 	height=32 \
-	color="0x00$CLEAR" \
+	color="0x00$regular0" \
 	margin=0 \
 	sticky=on \
 	padding_left=20 \
 	padding_right=20 \
-	notch_width=189 \
+	notch_width=240 \
 	display=main
 
 sketchybar --default \
-	background.color="0x66$SURFACE0" \
+	background.color="0x66$regular0" \
 	background.corner_radius=5 \
 	background.padding_right=5 \
 	background.height=26 \
@@ -53,7 +63,7 @@ sketchybar --default \
 	icon.padding_left=5 \
 	icon.padding_right=5 \
 	label.font="$FONT_FACE:Medium:15.0" \
-	label.color="0xff$LAVENDER" \
+	label.color="0xff$bright5" \
 	label.y_offset=0 \
 	label.padding_left=0 \
 	label.padding_right=5
@@ -71,19 +81,19 @@ sketchybar --add event spotify_change $SPOTIFY_EVENT \
 
 sketchybar --add item current_space left \
 	--set current_space \
-	background.color="0xff$PEACH" \
-	icon.color="0xff$SURFACE0" \
+	background.color="0xff$regular1" \
+	icon.color="0xff$regular0" \
 	label.drawing=off \
 	script="$PLUGIN_DIR/current_space.sh" \
 	--subscribe current_space space_change mouse.clicked
 
 sketchybar --add item front_app left \
 	--set front_app \
-	background.color="0xff$GREEN" \
+	background.color="0xff$bright2" \
 	background.padding_left=0 \
 	background.padding_right=0 \
 	icon.y_offset=1 \
-	icon.color="0xff$SURFACE0" \
+	icon.color="0xff$regular0" \
 	label.drawing=no \
 	script="$PLUGIN_DIR/front_app.sh" \
 	--add item front_app.separator left \
@@ -91,7 +101,7 @@ sketchybar --add item front_app left \
 	background.color=0x00000000 \
 	background.padding_left=-3 \
 	icon=" " \
-	icon.color="0xff$GREEN" \
+	icon.color="0xff$regular2" \
 	icon.font="$FONT_FACE:Bold:20.0" \
 	icon.padding_left=0 \
 	icon.padding_right=0 \
@@ -109,7 +119,7 @@ sketchybar --add item weather q \
 	--set weather \
 	background.padding_right=-1 \
 	icon="" \
-	icon.color="0xff$MAUVE" \
+	icon.color="0xff$regular5" \
 	icon.font="$FONT_FACE:Bold:20.0" \
 	icon.padding_left=4 \
 	icon.padding_right=3 \
@@ -125,7 +135,7 @@ sketchybar --add bracket front_app_bracket \
 sketchybar --add item clock right \
 	--set clock \
 	icon="󰃰" \
-	icon.color="0xff$RED" \
+	icon.color="0xff$regular1" \
 	update_freq=20 \
 	script="$PLUGIN_DIR/clock.sh"
 
@@ -138,7 +148,7 @@ volume=$(osascript -e 'output volume of (get volume settings)')
 echo "$volume"
 sketchybar --add item volume right \
 	--set volume \
-	icon.color="0xff$BLUE" \
+	icon.color="0xff$regular4" \
 	label.drawing=true \
 	script="$PLUGIN_DIR/volume.sh" \
 	--subscribe volume volume_change
