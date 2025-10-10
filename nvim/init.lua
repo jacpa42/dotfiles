@@ -237,8 +237,9 @@ local plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
 			"nvim-tree/nvim-web-devicons",
+			"nvim-telescope/telescope-ui-select.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		-- I need to use space here as leader is not set yet.
 		keys = {
@@ -253,8 +254,31 @@ local plugins = {
 			{ mode = "n", "<space>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
 			{ mode = "n", "gD", "<cmd>Telescope lsp_references<cr>", desc = "find symbol declaration" },
 			{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
-			{ mode = { "n", "v" }, "<space>a", "<cmd>Telescope lsp_code_actions<cr>", desc = "lsp code actions" },
+			{
+				mode = "n",
+				"<space>a",
+				function()
+					vim.lsp.buf.code_action({})
+				end,
+				desc = "code actions",
+			},
 		},
+
+		config = function()
+			require("telescope").setup({
+				extensions = {
+					["ui-select"] = require("telescope.themes").get_dropdown({}),
+					["fzf"] = {
+						fuzzy = true, -- false will only do exact matching
+						override_generic_sorter = true, -- override the generic sorter
+						override_file_sorter = true, -- override the file sorter
+						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+					},
+				},
+			})
+			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("ui-select")
+		end,
 	},
 	{
 		"stevearc/conform.nvim",
@@ -422,6 +446,8 @@ m("n", "<c-f>", "<cmd>on<cr>")
 m("n", "<esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
+-- { mode = { "n", "v" }, "<space>a", "<cmd>Telescope lsp_code_actions<cr>", desc = "lsp code actions" },
+
 -- m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
 -- m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
 -- m("n", "<leader>fc", "<cmd>FzfLua colorschemes<cr>", { desc = "Ripgrep colorschemes" })
@@ -454,7 +480,7 @@ m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
-m("n", "gd", vim.lsp.buf.type_definition, { desc = "Find symbol definition" })
+m("n", "gd", vim.lsp.buf.definition, { desc = "Find symbol definition" })
 m("n", "<leader>v", "<cmd>vsplit<cr>")
 ---------------------- REMAP ----------------------
 
