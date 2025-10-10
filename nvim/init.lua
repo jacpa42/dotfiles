@@ -235,83 +235,26 @@ local plugins = {
 		},
 	},
 	{
-		"ibhagwan/fzf-lua",
-		cmd = "FzfLua",
-		opts = {
-			fzf_bin = "sk",
-			fzf_colors = true,
-
-			winopts = {
-				width = 0.9,
-				height = 0.9,
-				row = 0.5,
-				col = 0.5,
-				preview = {
-					scrollchars = { "┃", "" },
-					default = "bat",
-					treesitter = false,
-				},
-			},
-
-			zoxide = {
-				actions = {
-					enter = function(selected)
-						local dir = selected[1]:match("\t(.*)")
-						vim.cmd.cd(dir)
-						return require("fzf-lua").files({ cwd = dir })
-					end,
-				},
-			},
-
-			helptags = {
-				previewer = "help_native",
-				actions = {
-					enter = function(items)
-						local topic = items[1]:match("^[^%s]+")
-
-						-- Close any help buffers if they exist?
-						for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-							if vim.bo[buf].filetype == "help" then
-								vim.api.nvim_buf_delete(buf, {})
-							end
-						end
-
-						local popup = require("nui.popup")({
-							enter = true,
-							relative = "editor",
-							focusable = true,
-							border = { style = "rounded" },
-							position = "50%",
-							size = { width = "70%", height = "80%" },
-							buf_options = { buftype = "help", swapfile = false },
-						})
-
-						popup:mount()
-
-						vim.api.nvim_buf_call(popup.bufnr, function()
-							vim.cmd("help " .. topic)
-						end)
-
-						popup:map("n", "q", function()
-							popup:unmount()
-						end)
-						popup:on("BufLeave", function()
-							popup:unmount()
-						end, { once = true })
-					end,
-				},
-			},
-
-			manpages = { previewer = "man_native" },
-			lsp = { code_actions = { previewer = "codeaction_native" } },
-			tags = { previewer = "bat" },
-			btags = { previewer = "bat" },
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-tree/nvim-web-devicons",
 		},
-
-		config = function(_, opts)
-			require("fzf-lua").setup(opts)
-			require("fzf-lua").register_ui_select()
-		end,
+		-- I need to use space here as leader is not set yet.
+		keys = {
+			{ mode = "n", "<space><space>", "<cmd>Telescope find_files<cr>", desc = "ripgrep cwd" },
+			{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "ripgrep colorschemes" },
+			{ mode = "n", "<space>ff", "<cmd>Telescope live_grep<cr>", desc = "ripgrep cwd" },
+			{ mode = "n", "<space>fh", "<cmd>Telescope help_tags<cr>", desc = "grep help tags into float window" },
+			{ mode = "n", "<space>fk", "<cmd>Telescope keymaps<cr>", desc = "search keymaps" },
+			{ mode = "n", "<space>fm", "<cmd>Telescope marks<cr>", desc = "search marks" },
+			{ mode = "n", "<space>fo", "<cmd>Telescope buffers<cr>", desc = "search open buffers" },
+			{ mode = "n", "<space>fr", "<cmd>Telescope oldfiles<cr>", desc = "search recent files" },
+			{ mode = "n", "<space>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
+			{ mode = "n", "gD", "<cmd>Telescope lsp_references<cr>", desc = "find symbol declaration" },
+			{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
+			{ mode = { "n", "v" }, "<space>a", "<cmd>Telescope lsp_code_actions<cr>", desc = "lsp code actions" },
+		},
 	},
 	{
 		"stevearc/conform.nvim",
@@ -386,7 +329,6 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 ---------------------- LAZY ----------------------
-
 ---------------------- OPTS ----------------------
 vim.cmd.colorscheme("kanagawa-wave")
 
@@ -438,7 +380,6 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.opt.termguicolors = true
 ---------------------- OPTS ----------------------
-
 ---------------------- REMAP ----------------------
 local m = vim.keymap.set
 
@@ -479,28 +420,42 @@ end, { desc = "Smart write" })
 
 m("n", "<c-f>", "<cmd>on<cr>")
 m("n", "<esc>", "<cmd>nohlsearch<cr>")
-m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
-m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
-m("n", "<leader>fc", "<cmd>FzfLua colorschemes<cr>", { desc = "Ripgrep colorschemes" })
-m("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>", { desc = "Ripgrep cwd" })
-m("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", { desc = "Grep neovim help tags into float window" })
-m("n", "<leader>fj", "<cmd>FzfLua zoxide<cr>", { desc = "zoxide projects" })
-m("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Search keymaps" })
-m("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Search marks" })
-m("n", "<leader>fo", "<cmd>FzfLua buffers<cr>", { desc = "Search open buffers" })
-m("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Search recent files" })
-m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get trouble for document" })
+
+-- m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
+-- m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
+-- m("n", "<leader>fc", "<cmd>FzfLua colorschemes<cr>", { desc = "Ripgrep colorschemes" })
+-- m("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>", { desc = "Ripgrep cwd" })
+-- m("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", { desc = "Grep neovim help tags into float window" })
+-- m("n", "<leader>fj", "<cmd>FzfLua zoxide<cr>", { desc = "zoxide projects" })
+-- m("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Search keymaps" })
+-- m("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Search marks" })
+-- m("n", "<leader>fo", "<cmd>FzfLua buffers<cr>", { desc = "Search open buffers" })
+-- m("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Search recent files" })
+-- m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get trouble for document" })
+-- m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
+-- m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
+-- m("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Get lsp impls" })
+-- m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
+
+-- m("n", "<leader><leader>", "<cmd>Telescope find_files<cr>", { desc = "Ripgrep cwd" })
+-- m("n", "<leader>fc", "<cmd>Telescope colorschemes<cr>", { desc = "Ripgrep colorschemes" })
+-- m("n", "<leader>ff", "<cmd>Telescope live_grep<cr>", { desc = "Ripgrep cwd" })
+-- m("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Grep help tags into float window" })
+-- m("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Search keymaps" })
+-- m("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Search marks" })
+-- m("n", "<leader>fo", "<cmd>Telescope buffers<cr>", { desc = "Search open buffers" })
+-- m("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Search recent files" })
+-- m("n", "<leader>ft", "<cmd>Telescope diagnostics<cr>", { desc = "Get trouble for document" })
+-- m("n", "gD", "<cmd>Telescope lsp_references<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
+-- m("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Get lsp impls" })
+-- m({ "n", "v" }, "<leader>a", "<cmd>Telescope lsp_code_actions<cr>")
+
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
-m("n", "<leader>t", vim.lsp.buf.type_definition, { noremap = true, silent = true })
+m("n", "gd", vim.lsp.buf.type_definition, { desc = "Find symbol definition" })
 m("n", "<leader>v", "<cmd>vsplit<cr>")
-m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
-m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
-m("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Get lsp impls" })
-m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
-
 ---------------------- REMAP ----------------------
 
 ---------------------- AUTOCMD ----------------------
