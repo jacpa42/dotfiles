@@ -241,7 +241,6 @@ local plugins = {
 			"nvim-telescope/telescope-ui-select.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
-		-- I need to use space here as leader is not set yet.
 		keys = {
 			{ mode = "n", "<space><space>", "<cmd>Telescope find_files<cr>", desc = "ripgrep cwd" },
 			{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "ripgrep colorschemes" },
@@ -357,6 +356,7 @@ require("lazy").setup({
 vim.cmd.colorscheme("kanagawa-wave")
 
 vim.cmd([[
+	hi TelescopeBorder guibg=NONE
   hi FloatBorder guibg=NONE
   hi NormalFloat guibg=NONE
   hi FloatTitle guibg=NONE
