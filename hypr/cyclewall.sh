@@ -100,10 +100,6 @@ else
 		echo "${images[index % len]}"
 	}
 
-	monitors=($(hyprctl monitors 2>/dev/null | awk '/Monitor/ {print $2}' | sort -r))
-	len=${#monitors[@]}
-	(( len == 0 )) && { echo "No monitors found."; exit 1; }
-
 	img="$(rand_img $INDEX $num_images)"
 	wbg_pid="$(pgrep -of "$img")"
 fi
