@@ -242,9 +242,14 @@ local plugins = {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		keys = {
-			{ mode = "n", "<space><space>", "<cmd>Telescope find_files<cr>", desc = "ripgrep cwd" },
-			{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "ripgrep colorschemes" },
-			{ mode = "n", "<space>ff", "<cmd>Telescope live_grep<cr>", desc = "ripgrep cwd" },
+			{
+				mode = "n",
+				"<space><space>",
+				"<cmd>Telescope find_files hidden=true<cr>",
+				desc = "find files",
+			},
+			{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "grep colorschemes" },
+			{ mode = "n", "<space>ff", "<cmd>Telescope live_grep<cr>", desc = "grep cwd" },
 			{ mode = "n", "<space>fh", "<cmd>Telescope help_tags<cr>", desc = "grep help tags into float window" },
 			{ mode = "n", "<space>fk", "<cmd>Telescope keymaps<cr>", desc = "search keymaps" },
 			{ mode = "n", "<space>fm", "<cmd>Telescope marks<cr>", desc = "search marks" },
