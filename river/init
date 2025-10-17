@@ -104,7 +104,7 @@ riverctl map-pointer normal $mod BTN_RIGHT resize-view
 ################################# RULES #################################
 
 # to get app ids us lswt (https://sr.ht/~leon_plickat/lswt)
-riverctl rule-add -app-id * no-float
+riverctl rule-add no-float
 riverctl rule-add -app-id mpv tags $w6
 riverctl rule-add -app-id mpv fullscreen
 riverctl rule-add -app-id Spotify tags $w0
@@ -127,6 +127,7 @@ riverctl rule-add -title "DaVinci Resolve Studio" no-float
 
 ################################# EXEC ##################################
 
+riverctl map normal $mod S set-focused-tags $w0 &
 rivercarro -inner-gaps 0 -outer-gaps 0 -main-location monocle &
 ghostty -e tmux new-session -A -s jacob &
 $cyclewall -w $wallpaper_directory -d "$default_wallpaper" &
