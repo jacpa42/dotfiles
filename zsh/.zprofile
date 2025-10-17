@@ -50,5 +50,4 @@ export MANROFFOPT="-c"
 # can be relatively confident I don't fucking get locked out yk.
 #
 # From https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login but adapted :)
-([ "$SYSTEM" = "Linux" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) || exit 0
-exec river || exec Hyprland
+([ "$SYSTEM" = "Linux" ] && [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && (exec river || exec Hyprland)
