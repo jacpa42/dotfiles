@@ -57,10 +57,10 @@ c.zoom.default = "175%"
 # FONTS #
 c.hints.chars = "jfkdlspaieurow"
 c.fonts.default_size = "16pt"
-c.fonts.default_family = "JetBrainsMono Nerd Font"
-c.fonts.contextmenu = c.fonts.default_family
-c.fonts.prompts = c.fonts.default_family
-c.fonts.tooltip = c.fonts.default_family
+c.fonts.default_family = ["JetBrainsMono Nerd Font Mono", "Noto Color Emoji"]
+c.fonts.contextmenu = c.fonts.default_family[0]
+c.fonts.prompts = c.fonts.default_family[0]
+c.fonts.tooltip = c.fonts.default_family[0]
 
 ############# COLOUR SCHEME #############
 def catppuccin():

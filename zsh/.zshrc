@@ -37,6 +37,7 @@ source "$prefix/powerlevel10k.zsh-theme"
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
 ## alias ##
+help() { "$@" | bat -lhelp; }
 alias duai='dua interactive'
 alias matrix='neo-matrix --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
 alias aqua="asciiquarium --transparent"
