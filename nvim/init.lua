@@ -256,7 +256,8 @@ local plugins = {
 			{ mode = "n", "<space>fo", "<cmd>Telescope buffers<cr>", desc = "search open buffers" },
 			{ mode = "n", "<space>fr", "<cmd>Telescope oldfiles<cr>", desc = "search recent files" },
 			{ mode = "n", "<space>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
-			{ mode = "n", "gD", "<cmd>Telescope lsp_references<cr>", desc = "find symbol declaration" },
+			{ mode = "n", "<space>t", "<cmd>Telescope lsp_type_definitions<cr>", desc = "get type definition" },
+			{ mode = "n", "gD", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
 			{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
 			{
 				mode = "n",
@@ -451,41 +452,10 @@ m("n", "<c-f>", "<cmd>on<cr>")
 m("n", "<esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
--- { mode = { "n", "v" }, "<space>a", "<cmd>Telescope lsp_code_actions<cr>", desc = "lsp code actions" },
-
--- m("n", "<leader><leader>", "<cmd>FzfLua files<cr>", { desc = "Ripgrep cwd" })
--- m("n", "<leader>fT", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Get trouble for workspace" })
--- m("n", "<leader>fc", "<cmd>FzfLua colorschemes<cr>", { desc = "Ripgrep colorschemes" })
--- m("n", "<leader>ff", "<cmd>FzfLua live_grep<cr>", { desc = "Ripgrep cwd" })
--- m("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", { desc = "Grep neovim help tags into float window" })
--- m("n", "<leader>fj", "<cmd>FzfLua zoxide<cr>", { desc = "zoxide projects" })
--- m("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Search keymaps" })
--- m("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Search marks" })
--- m("n", "<leader>fo", "<cmd>FzfLua buffers<cr>", { desc = "Search open buffers" })
--- m("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Search recent files" })
--- m("n", "<leader>ft", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Get trouble for document" })
--- m("n", "gD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
--- m("n", "gd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Find symbol definition", noremap = true, silent = true })
--- m("n", "gi", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Get lsp impls" })
--- m({ "n", "v" }, "<leader>a", "<cmd>FzfLua lsp_code_actions<cr>")
-
--- m("n", "<leader><leader>", "<cmd>Telescope find_files<cr>", { desc = "Ripgrep cwd" })
--- m("n", "<leader>fc", "<cmd>Telescope colorschemes<cr>", { desc = "Ripgrep colorschemes" })
--- m("n", "<leader>ff", "<cmd>Telescope live_grep<cr>", { desc = "Ripgrep cwd" })
--- m("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Grep help tags into float window" })
--- m("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Search keymaps" })
--- m("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Search marks" })
--- m("n", "<leader>fo", "<cmd>Telescope buffers<cr>", { desc = "Search open buffers" })
--- m("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Search recent files" })
--- m("n", "<leader>ft", "<cmd>Telescope diagnostics<cr>", { desc = "Get trouble for document" })
--- m("n", "gD", "<cmd>Telescope lsp_references<cr>", { desc = "Find symbol declaration", noremap = true, silent = true })
--- m("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Get lsp impls" })
--- m({ "n", "v" }, "<leader>a", "<cmd>Telescope lsp_code_actions<cr>")
-
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
-m("n", "gd", vim.lsp.buf.definition, { desc = "Find symbol definition" })
+m("n", "gd", vim.lsp.buf.definition, { desc = "goto symbol definition" })
 m("n", "<leader>v", "<cmd>vsplit<cr>")
 ---------------------- REMAP ----------------------
 
