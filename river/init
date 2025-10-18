@@ -80,13 +80,13 @@ riverctl map normal $mod K set-focused-tags $w4
 riverctl map normal $mod L set-focused-tags $w5
 riverctl map normal $mod M set-focused-tags $w6
 
-riverctl map normal $mod+Alt S set-focused-tags $w0
-riverctl map normal $mod+Alt D set-focused-tags $w1
-riverctl map normal $mod+Alt F set-focused-tags $w2
-riverctl map normal $mod+Alt J set-focused-tags $w3
-riverctl map normal $mod+Alt K set-focused-tags $w4
-riverctl map normal $mod+Alt L set-focused-tags $w5
-riverctl map normal $mod+Alt M set-focused-tags $w6
+riverctl map normal $mod+Alt S set-view-tags $w0
+riverctl map normal $mod+Alt D set-view-tags $w1
+riverctl map normal $mod+Alt F set-view-tags $w2
+riverctl map normal $mod+Alt J set-view-tags $w3
+riverctl map normal $mod+Alt K set-view-tags $w4
+riverctl map normal $mod+Alt L set-view-tags $w5
+riverctl map normal $mod+Alt M set-view-tags $w6
 
 riverctl map normal $mod+Alt 0 spawn "$screenshot"
 riverctl map normal $mod+Alt 1 spawn "$player_playpause"
@@ -124,6 +124,7 @@ riverctl rule-add -app-id com.mitchellh.ghostty tags $w3
 riverctl rule-add -app-id resolve tags $w5
 riverctl rule-add -app-id resolve float
 riverctl rule-add -title "DaVinci Resolve Studio" no-float
+riverctl rule-add -title mordith float
 
 ################################# EXEC ##################################
 
