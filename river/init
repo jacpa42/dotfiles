@@ -103,7 +103,7 @@ riverctl map-pointer normal $mod BTN_RIGHT resize-view
 
 ################################# RULES #################################
 
-# to get app ids us lswt (https://sr.ht/~leon_plickat/lswt)
+# To get app ids us lswt (https://sr.ht/~leon_plickat/lswt)
 riverctl rule-add no-float
 riverctl rule-add -app-id mpv tags $w6
 riverctl rule-add -app-id mpv fullscreen
@@ -136,3 +136,4 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 copyq --start-server &
 polkit-kde-authentication-agent-1 &
 gsettings set org.gnome.desktop.interface cursor-theme \'$CURSOR_THEME\' &
+riverctl set-focused-tags $w3 &
