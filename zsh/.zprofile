@@ -22,10 +22,13 @@ else
 	export STOW_DIR="$HOME/.config/dotfiles"
 	export XCURSOR_SIZE="24"
 	export XCURSOR_THEME="$CURSOR_THEME"
-	export XDG_SESSION_DESKTOP="Hyprland"
 	export XDG_SESSION_TYPE="wayland"
 fi
 
+# The zsh cmdline prompt
+export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
+
+export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
 export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -35,7 +38,26 @@ export GOPATH="$HOME/.local/share/go"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-export KEYTIMEOUT="1"
+# https://www.youtube.com/watch?v=OKuUoZaPiwE&list=LL&index=1
+bindkey -v
+export KEYTIMEOUT=1
+
+# v in normal changes edits the current command in neovim
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+export VI_MODE_SET_CURSOR=true
+function zle-keymap-select { [[ ${KEYMAP} == vicmd ]] && echo -ne '\e[2 q' || echo -ne '\e[6 q' }
+zle -N zle-keymap-select
+
+function zle-line-init { zle -K viins; echo -ne '\e[6 q' }
+zle -N zle-line-init
+
+function vi-yank-clipboard { zle vi-yank; wl-copy "$CUTBUFFER" }
+zle -N vi-yank-clipboard
+bindkey -M vicmd 'yy' vi-yank-clipboard
+
 export LANG="en_ZA.UTF-8"
 export LC_ALL="en_ZA.UTF-8"
 export MANPAGER="nvim +Man!"

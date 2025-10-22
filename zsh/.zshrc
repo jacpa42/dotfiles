@@ -1,19 +1,5 @@
-# Enable Powerlevel10k instant pjjompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# I need SYSTEM to be set in .zprofile!!!
-# Use 'export SYSTEM="$(uname)"'
-# MacOS : SYSTEM = Darwin
-# Linux : SYSTEM = Linux
-
 export SYSTEM="$(uname)"
-
 source "$HOME/.cargo/env" 2>/dev/null
-
 export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
 
 [ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
@@ -30,11 +16,6 @@ setopt SHARE_HISTORY
 setopt MENU_COMPLETE
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
-
-# power_level_10k: https://aur.archlinux.org/packages/zsh-theme-powerlevel10k-git
-prefix=$([ "$SYSTEM" = "Darwin" ] && echo "$(brew --prefix)/share/powerlevel10k" || echo "/usr/share/zsh-theme-powerlevel10k")
-source "$prefix/powerlevel10k.zsh-theme"
-[[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
 ## alias ##
 help() { "$@" | bat -lhelp; }
@@ -62,11 +43,6 @@ alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgr
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
-function offday() {
-	days="${1:-+0}"
-	date -d "$days days" +"%H:%M:%S %d-%m-%Y"
-}
-
 # Yazi
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -88,8 +64,6 @@ function sk-history() {
 }
 zle -N sk-history
 bindkey '^R' sk-history
-
-###########
 
 ## autocomplete ##
 # Should be called before compinit
@@ -151,10 +125,3 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 source <(zoxide init --cmd j zsh)
 source <(krag_cli completions)
 source <(sk --shell zsh)
-
-##################
-
-### theme ###
-prefix=$([ "$SYSTEM" = "Darwin" ] && echo "$(brew --prefix)/share" || echo "/usr/share/zsh/plugins")
-source "$prefix/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "$ZDOTDIR/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"
