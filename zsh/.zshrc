@@ -2,8 +2,8 @@ export SYSTEM="$(uname)"
 source "$HOME/.cargo/env" 2>/dev/null
 export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
 
-[ $SYSTEM = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-[ $SYSTEM = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ "$SYSTEM" = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+[ "$SYSTEM" = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 HISTFILE="$ZDOTDIR/.zhistfile"
 HISTSIZE=10000
@@ -125,3 +125,6 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 source <(zoxide init --cmd j zsh)
 source <(krag_cli completions)
 source <(sk --shell zsh)
+
+# Syntax highlighting
+[ "$SYSTEM" = "Linux" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh || source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
