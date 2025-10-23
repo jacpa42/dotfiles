@@ -4,4 +4,4 @@ pgrep wmenu | grep -vw $$ >/dev/null && {
 	exit 0
 }
 
-eval wmenu -p"emoji" $wmenu_opts <$HOME/Projects/dotfiles/hypr/wmenu/emojis | awk '{printf "%s", $NF}' | wl-copy
+eval wmenu -p"emoji" $wmenu_opts <$HOME/Projects/dotfiles/hypr/scripts/emojis | awk '{printf "%s", $NF}' | wl-copy
