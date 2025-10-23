@@ -1,6 +1,9 @@
 export SYSTEM="$(uname)"
 source "$HOME/.cargo/env" 2>/dev/null
+# stuff for sk (https://github.com/lotabout/skim)
 export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
+# The zsh cmdline prompt
+export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
 
 [ "$SYSTEM" = "Darwin" ] && export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 [ "$SYSTEM" = "Darwin" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -42,6 +45,7 @@ alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgr
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
+
 
 # Yazi
 function y() {
@@ -126,5 +130,5 @@ source <(zoxide init --cmd j zsh)
 source <(krag_cli completions)
 source <(sk --shell zsh)
 
-# Syntax highlighting
+# Syntax highlighting (paru -S zsh-syntax-highlighting-git)
 [ "$SYSTEM" = "Linux" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh || source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

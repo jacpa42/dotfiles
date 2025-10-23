@@ -25,10 +25,6 @@ else
 	export XDG_SESSION_TYPE="wayland"
 fi
 
-# The zsh cmdline prompt
-export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
-
-export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
 export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export XDG_CACHE_HOME="$HOME/.cache"

@@ -150,7 +150,7 @@ local plugins = {
 		event = "VeryLazy",
 		keys = {
 			{
-				"<leader>e",
+				"<space>e",
 				desc = "File tree",
 				function()
 					vim.cmd("edit " .. (vim.fn.expand("%:p:h") ~= "" and vim.fn.expand("%:p:h") or "."))
@@ -458,6 +458,7 @@ m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 m("n", "gd", vim.lsp.buf.definition, { desc = "goto symbol definition" })
 m("n", "<leader>v", "<cmd>vsplit<cr>")
+m("n", "<leader>b", "<cmd>bnext<cr>", { desc = "next buffer" })
 ---------------------- REMAP ----------------------
 
 ---------------------- AUTOCMD ----------------------
