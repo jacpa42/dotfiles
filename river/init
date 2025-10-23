@@ -135,7 +135,6 @@ rivercarro -main-count 1 -main-ratio 0.5 -inner-gaps 0 -outer-gaps 0 -main-locat
 foot --server &
 footclient tmux new-session -A -s jacob &
 $cyclewall -w $wallpaper_directory -d "$default_wallpaper" &
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
 copyq --start-server &
 polkit-kde-authentication-agent-1 &
 gsettings set org.gnome.desktop.interface cursor-theme \'$CURSOR_THEME\' &
