@@ -25,7 +25,7 @@ while [[ $# -gt 0 ]]; do
 			notify=1
 			shift
 			;;
-		--default-wallpaper|-d)
+		--set|-s)
 			echo "default $2"
 			default_wallpaper="$2"
 			set_default_wallpaper=true
@@ -40,10 +40,10 @@ while [[ $# -gt 0 ]]; do
 			shift
 			;;
 		--help|-h)
-			echo "Usage: $0 --wallpaper-dir|-w <wallpaper directory> [--help|-h] [--default-wallpaper|-d <wallpaper>] [--reverse|-r]"
+			echo "Usage: $0 --wallpaper-dir|-w <wallpaper directory> [--help|-h] [--set|-s <wallpaper>] [--reverse|-r]"
 			echo
 			echo "	--wallpaper-dir     -w | Specify the directory to search for images."
-			echo "	--default-wallpaper -d | Specify the default wallpaper to use (must be in wallpaper-dir)."
+			echo "	--set               -s | Specify a wallpaper to set."
 			echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
 			echo "	--random            -R | Choose a random wallpaper."
 			echo "	--notify            -n | Send a notification when the wallpaper is changed."
@@ -51,29 +51,25 @@ while [[ $# -gt 0 ]]; do
 			;;
 		*)
 			echo "Unknown arg: $1"
-			echo "Usage: $0 --wallpaper-dir|-d <wallpaper directory> [--default-wallpaper|-d <wallpaper>] [--reverse|-r]"
+			echo "Usage: $0 --wallpaper-dir|-d <wallpaper directory> [--set|-s <wallpaper>] [--reverse|-r]"
 			exit 1
 			;;
 	esac
 done
 
-
 img=""
 wbg_pid=""
 
 if $set_default_wallpaper; then
-	echo "$(basename "$default_wallpaper")"
-	img="$(fd -1atfile "$(basename "$default_wallpaper")" "$dir")"
+	[ -f "$default_wallpaper" ] && img="$default_wallpaper" || img="$(fd -1atfile "$(basename "$default_wallpaper")" "$dir")"
 	wbg_pid="$(pgrep -of "^wbg.*$default_wallpaper")"
 else
 	images=($(fd -at f -e jpg . "$dir"))
 	num_images=${#images[@]}
-	(( num_images == 0 )) && { echo "No images found."; exit 1; }
+	(( num_images == 0 )) && { echo "No images found." && exit 1; }
 
 	F=$(fd 'hyprwall' /tmp --type f)
-	if [[ $F == "" ]]; then
-		F=$(mktemp /tmp/hyprwall.XXX)
-	fi
+	[[ $F == "" ]] && F=$(mktemp /tmp/hyprwall.XXX)
 
 	if $random; then
 		INDEX=$(($RANDOM % num_images))
@@ -114,10 +110,10 @@ if [ -n "$wbg_pid"	]; then
 else
 	pids=$(pidof wbg)
 
+	wbg -s "$img" &
+
 	[ $notify -eq 1 ] && notif "$img"
 
 	# Kill them as we don't need them
 	[ -n "$pids" ] && kill $pids
-
-	wbg -s "$img" &
 fi
