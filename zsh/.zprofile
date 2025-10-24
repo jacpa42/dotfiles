@@ -59,7 +59,7 @@ export LC_ALL="en_ZA.UTF-8"
 export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
 
-# NOTE:	I have this in my .zprofile. It launches hyprland if I'm in tty1 and no display session is running.
+# NOTE:	I have this in my .zprofile. It launches hyprland (or river) if I'm in tty1 and no display session is running.
 #	This lets me recover my system if I do something restarded. Like the other day I added a line to my .zshrc
 # which ran 'clear ; paru ; echo ; rustup update ; echo ; cargo install-update -a ; sudo shutdown now'. Not sure
 # why I did this but I did do it. So then I would log in and my system would do an update and immediately shut
