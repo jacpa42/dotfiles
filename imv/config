@@ -13,5 +13,5 @@ w = exec $XDG_CONFIG_HOME/hypr/cyclewall.sh -d $imv_current_file
 <Meta+k> = zoom 1
 <Meta+j> = zoom -1
 
-<Ctrl+r> = rotate 90
-<Ctrl+Shift+r> = rotate -90
+<Ctrl+r> = rotate by 90
+<Ctrl+Shift+r> = rotate by -90
