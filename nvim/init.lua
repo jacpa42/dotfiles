@@ -185,14 +185,9 @@ local plugins = {
 				["<leader>h"] = { "actions.select", opts = { horizontal = true } },
 				["<leader>p"] = "actions.preview",
 				["<C-l>"] = "actions.refresh",
-				["<leader>u"] = { "actions.parent", mode = "n" },
-				["_"] = false,
-				["`"] = { "actions.cd", mode = "n" },
-				["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-				["gs"] = { "actions.change_sort", mode = "n" },
-				["gx"] = "actions.open_external",
-				["g."] = { "actions.toggle_hidden", mode = "n" },
+				["<leader>."] = { "actions.toggle_hidden", mode = "n" },
 			},
+			use_default_keymaps = false,
 			view_options = {
 				show_hidden = true,
 				is_hidden_file = function(name)
@@ -452,6 +447,9 @@ end, { desc = "Smart write" })
 m("n", "<c-f>", "<cmd>on<cr>")
 m("n", "<esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
+
+m("n", "<tab>", "<cmd>tabn<cr>", { desc = "next tab" })
+m("n", "<s-tab>", "<cmd>tabp<cr>", { desc = "previous tab" })
 
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
@@ -771,7 +769,6 @@ for l, c in pairs(lsp_configs) do
 	vim.lsp.config[l] = c
 	vim.lsp.enable(l)
 end
-
 ---------------------- LSP ----------------------
 
 ---------------------- GREET ----------------------

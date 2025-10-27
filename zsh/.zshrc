@@ -23,6 +23,7 @@ setopt COMPLETE_IN_WORD
 ## alias ##
 help() { "$@" | bat -lhelp; }
 alias duai='dua interactive'
+alias shuffle='mpv --directory-mode=recursive --shuffle .'
 alias matrix='neo-matrix --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m "$(fortune)"'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
