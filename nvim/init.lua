@@ -243,6 +243,7 @@ local plugins = {
 				"<cmd>Telescope find_files hidden=true<cr>",
 				desc = "find files",
 			},
+
 			{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "grep colorschemes" },
 			{ mode = "n", "<space>ff", "<cmd>Telescope live_grep<cr>", desc = "grep cwd" },
 			{ mode = "n", "<space>fh", "<cmd>Telescope help_tags<cr>", desc = "grep help tags into float window" },
@@ -252,8 +253,10 @@ local plugins = {
 			{ mode = "n", "<space>fr", "<cmd>Telescope oldfiles<cr>", desc = "search recent files" },
 			{ mode = "n", "<space>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
 			{ mode = "n", "<space>t", "<cmd>Telescope lsp_type_definitions<cr>", desc = "get type definition" },
-			{ mode = "n", "gD", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
+			{ mode = "n", "<space>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "get type definition" },
+			{ mode = "n", "gr", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
 			{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
+			{ mode = "n", "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "goto symbol definition" },
 			{
 				mode = "n",
 				"<space>a",
@@ -454,7 +457,6 @@ m("n", "<s-tab>", "<cmd>tabp<cr>", { desc = "previous tab" })
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
-m("n", "gd", vim.lsp.buf.definition, { desc = "goto symbol definition" })
 m("n", "<leader>v", "<cmd>vsplit<cr>")
 m("n", "<leader>b", "<cmd>bnext<cr>", { desc = "next buffer" })
 ---------------------- REMAP ----------------------
