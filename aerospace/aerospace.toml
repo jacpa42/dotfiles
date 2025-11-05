@@ -25,9 +25,9 @@ automatically-unhide-macos-hidden-apps = false
     cmd-e = 'focus left'
     cmd-r = 'focus right'
 
-    cmd-s = 'workspace 3'
+    cmd-s = 'workspace 1'
     cmd-d = 'workspace 2'
-    cmd-f = 'workspace 1'
+    cmd-f = 'workspace 3'
     cmd-j = 'workspace 4'
     cmd-k = 'workspace 5'
     cmd-l = 'workspace 6'
@@ -45,7 +45,15 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'org.qutebrowser.qutebrowser'
-    run = 'move-node-to-workspace --focus-follows-window 1'
+    run = 'move-node-to-workspace --focus-follows-window 3'
+
+[[on-window-detected]]
+		if.app-id = 'org.mozilla.firefox'
+		run = 'move-node-to-workspace --focus-follows-window 3'
+
+[[on-window-detected]]
+		if.app-id = 'org.apple.Safari'
+		run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
     if.app-id = 'com.spotify.client'
@@ -53,7 +61,7 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'ch.protonmail.desktop'
-    run = 'move-node-to-workspace --focus-follows-window 3'
+    run = 'move-node-to-workspace --focus-follows-window 1'
 
 [[on-window-detected]]
     if.app-id = 'com.mitchellh.ghostty'
