@@ -13,6 +13,7 @@ return {
 			desc = "find files",
 		},
 
+		{ mode = "n", "<space>c", "<cmd>Telescope commands<cr>", desc = "grep commands" },
 		{ mode = "n", "<space>fc", "<cmd>Telescope colorscheme<cr>", desc = "grep colorschemes" },
 		{ mode = "n", "<space>ff", "<cmd>Telescope live_grep<cr>", desc = "grep cwd" },
 		{ mode = "n", "<space>fh", "<cmd>Telescope help_tags<cr>", desc = "grep help tags into float window" },

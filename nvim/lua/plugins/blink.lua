@@ -35,7 +35,7 @@ return {
 			},
 		},
 		keymap = {
-			["<c-leader>"] = { "select_and_accept" },
+			["<c-space>"] = { "select_and_accept" },
 			["<c-j>"] = { "select_next", "fallback" },
 			["<c-k>"] = { "select_prev", "fallback" },
 		},
