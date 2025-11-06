@@ -143,6 +143,7 @@ local buf = vim.api.nvim_get_current_buf()
 greeter_draw(buf)
 
 local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
+
 vim.api.nvim_create_autocmd("VimResized", {
 	buffer = buf,
 	desc = "Recalc and redraw greeter when window is resized",
@@ -150,6 +151,27 @@ vim.api.nvim_create_autocmd("VimResized", {
 	callback = function()
 		greeter_draw(buf)
 	end,
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+	buffer = buf,
+	desc = "Closes greeter and opens a new buffer",
+	group = NamespaceGroup,
+	callback = function()
+		vim.schedule(vim.cmd.enew)
+	end,
+})
+
+vim.keymap.set("n", "p", function()
+	vim.schedule(function()
+		vim.cmd.enew()
+		vim.cmd("norm p")
+	end)
+end, {
+	buffer = buf,
+	noremap = true,
+	silent = true,
+	desc = "Remap paste to open a new buffer",
 })
 
 vim.keymap.set("n", "q", ":q<cr>", {

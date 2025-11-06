@@ -1,9 +1,9 @@
 require("config.lazy")
 require("config.keymaps")
 require("config.status")
-require("config.greeter")
 require("config.autocmds")
 require("config.lsp")
+require("config.greeter")
 
 vim.cmd.colorscheme("kanagawa-wave")
 vim.cmd([[
