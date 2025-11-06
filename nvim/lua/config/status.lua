@@ -127,7 +127,7 @@ Statusline = {
 			"%#StatusLine#",
 			lsp(),
 			macro(),
-			"%=%#MiniStatuslineFileinfo#",
+			"%=%#StatusLine#",
 			filetype(),
 			lineinfo(),
 		})

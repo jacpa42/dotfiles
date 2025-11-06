@@ -12,6 +12,7 @@ return {
 			sh = { "shfmt" },
 			zig = { "zigfmt" },
 			bash = { "shfmt" },
+			html = { "superhtml" },
 			zsh = { "shfmt" },
 			tmux = { "shfmt" },
 			json = { "jq" },
