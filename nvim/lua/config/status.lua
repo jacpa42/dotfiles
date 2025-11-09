@@ -45,16 +45,29 @@ local function update_mode_colors()
 end
 
 local function filepath()
-	local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
-	return string.format(" %%<%s/", fpath)
-end
+	local max_len = 50
 
-local function filename()
-	local fname = vim.fn.expand("%:t") .. (vim.bo.modified and " [+]" or "    ")
-	if fname == "" then
-		return ""
+	local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+	local parts = {}
+	for part in string.gmatch(fpath, "[^/]+") do
+		table.insert(parts, part)
 	end
-	return fname .. " "
+
+	local short_path = table.concat(parts, "/")
+	while #short_path > max_len and #parts > 1 do
+		table.remove(parts, 1)
+		short_path = "</" .. table.concat(parts, "/")
+	end
+
+	if #short_path > max_len then
+		local filename = parts[#parts]
+		local excess = #short_path - max_len
+		filename = "…" .. string.sub(filename, excess + 2)
+		parts[#parts] = filename
+		short_path = table.concat(parts, "/")
+	end
+
+	return short_path
 end
 
 local function macro()
@@ -117,9 +130,8 @@ Statusline = {
 		return table.concat({
 			update_mode_colors(),
 			mode(),
-			"%#StatusLine#",
+			"%#StatusLine# ",
 			filepath(),
-			filename(),
 			"%#StatusLine#",
 			lsp(),
 			macro(),

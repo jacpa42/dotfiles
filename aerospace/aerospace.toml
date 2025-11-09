@@ -48,6 +48,10 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
+		if.window-title-regex-substring = 'mordith'
+    run = 'layout floating'
+
+[[on-window-detected]]
 		if.app-id = 'org.mozilla.firefox'
 		run = 'move-node-to-workspace --focus-follows-window 3'
 
