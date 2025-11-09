@@ -113,7 +113,7 @@ local function lineinfo()
 	local num_lines = vim.api.nvim_buf_line_count(0)
 	local spacing = math.floor(math.log10(num_lines)) + 1
 
-	return " %3p%% %" .. spacing .. "l "
+	return " %3p%% %" .. spacing .. "l"
 end
 
 Statusline = {
