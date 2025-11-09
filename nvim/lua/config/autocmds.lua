@@ -19,3 +19,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank({ timeout = 80 })
 	end,
 })
+
+vim.api.nvim_create_autocmd("VimLeave", {
+	callback = function()
+		-- Reset tmux statusline
+		vim.fn.system("tmux set status on")
+	end,
+})

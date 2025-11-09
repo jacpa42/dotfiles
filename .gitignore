@@ -8,6 +8,7 @@ zsh/.zhistfile
 zsh/.zcom
 zsh/.zcompdump
 zsh/.zcompcache
+**/.zsh_sessions/
 */.zhistfile
 ncspot/*.cbor
 .luarc.json
