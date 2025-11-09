@@ -6,6 +6,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.netrw_browsex_viewer = "qutebrowser"
+vim.g.tpipeline_restore = 1
 
 vim.o.breakindent = true
 vim.o.cmdheight = 0
