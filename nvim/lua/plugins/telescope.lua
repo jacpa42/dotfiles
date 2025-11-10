@@ -4,32 +4,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope-ui-select.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		{
-			"chenasraf/text-transform.nvim",
-			dependencies = { "nvim-lua/plenary.nvim" },
-			keys = {
-				{
-					mode = { "n", "v" },
-					"<leader>c",
-					"<cmd>TextTransform<cr>",
-					desc = "Transform text to different case",
-				},
-			},
-			opts = {
-				replacers = {
-					camel_case = { enabled = true },
-					const_case = { enabled = true },
-					kebab_case = { enabled = true },
-					pascal_case = { enabled = true },
-					snake_case = { enabled = true },
-
-					dot_case = { enabled = false },
-					title_case = { enabled = false },
-				},
-				sort_by = "frequency",
-				popup_type = "telescope",
-			},
-		},
 	},
 	keys = {
 		{
