@@ -1,4 +1,4 @@
 return {
 	"vimpostor/vim-tpipeline",
-	enabled = true,
+	event = "VimEnter",
 }
