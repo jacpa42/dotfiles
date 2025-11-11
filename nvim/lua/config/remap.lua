@@ -26,7 +26,7 @@ m("n", "<c-n>", function()
 	vim.cmd("normal! ciw" .. out)
 end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 
-m({ "n", "v" }, "<c-s>", function()
+m({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
 	if name == "" then
 		pcall(vim.cmd, "saveas " .. vim.fn.input("Save as: ", "", "file"))

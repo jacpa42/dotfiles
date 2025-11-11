@@ -67,6 +67,10 @@ local function filepath()
 		short_path = table.concat(parts, "/")
 	end
 
+	if vim.bo.modified then
+		short_path = short_path .. " [+]"
+	end
+
 	return short_path
 end
 
