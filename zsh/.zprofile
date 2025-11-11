@@ -3,6 +3,8 @@ export SYSTEM="$(uname)"
 if [ $SYSTEM = "Darwin" ]; then
 	export HOMEBREW_NO_EMOJI=1
 	export HOMEBREW_NO_ENV_HINTS=1
+	export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 else
 	export wmenu_opts='-i -l5 -f"JetBrainsMonoNerdFont Regular 17.5 @wght=200" -M090618ff -N090618ff -sDCD7BA -m7E9CD8ff -nDCD7BAff -S957FB8ff'
 	export RADV_PERFTEST="video_decode,video_encode"
@@ -25,6 +27,13 @@ else
 	export XDG_SESSION_TYPE="wayland"
 fi
 
+source "$HOME/.cargo/env" 2>/dev/null
+
+# stuff for sk (https://github.com/lotabout/skim)
+export SKIM_DEFAULT_OPTIONS='--prompt="❯ " --cmd-prompt="❯ " --color=16'
+# The zsh cmdline prompt
+export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
+
 export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -33,26 +42,6 @@ export GOPATH="$HOME/.local/share/go"
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-
-# https://www.youtube.com/watch?v=OKuUoZaPiwE&list=LL&index=1
-bindkey -v
-export KEYTIMEOUT=1
-
-# v in normal changes edits the current command in neovim
-autoload edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
-
-export VI_MODE_SET_CURSOR=true
-function zle-keymap-select { [[ ${KEYMAP} == vicmd ]] && echo -ne '\e[2 q' || echo -ne '\e[6 q' }
-zle -N zle-keymap-select
-
-function zle-line-init { zle -K viins; echo -ne '\e[6 q' }
-zle -N zle-line-init
-
-function vi-yank-clipboard { zle vi-yank; wl-copy "$CUTBUFFER" }
-zle -N vi-yank-clipboard
-bindkey -M vicmd 'yy' vi-yank-clipboard
 
 export LANG="en_ZA.UTF-8"
 export LC_ALL="en_ZA.UTF-8"
