@@ -12,6 +12,7 @@ return {
 			sh = { "shfmt" },
 			zig = { "zigfmt" },
 			bash = { "shfmt" },
+			toml = { "taplo" },
 			html = { "superhtml" },
 			zsh = { "shfmt" },
 			tmux = { "shfmt" },

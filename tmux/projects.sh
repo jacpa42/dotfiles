@@ -13,7 +13,7 @@ btop)
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
-    selected="$(tmux list-panes -a -F '#S:#I.#P  #{pane_current_command}  #{pane_current_path}' |
+    selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
         sk --preview-window="right:60%" --preview="$previewer" | awk '{print $1}')"
     [ -z "$selected" ] && exit 0
 

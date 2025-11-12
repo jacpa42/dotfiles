@@ -11,66 +11,66 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 automatically-unhide-macos-hidden-apps = false
 
 [key-mapping]
-    preset = 'qwerty'
+preset = 'qwerty'
 
 [gaps]
-    inner.horizontal = 0
-    inner.vertical =   0
-    outer.left =       0
-    outer.bottom =     0
-    outer.top =        0
-    outer.right =      0
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
 
 [mode.main.binding]
-    cmd-e = 'focus left'
-    cmd-r = 'focus right'
+cmd-e = 'focus left'
+cmd-r = 'focus right'
 
-    cmd-s = 'workspace 1'
-    cmd-d = 'workspace 2'
-    cmd-f = 'workspace 3'
-    cmd-j = 'workspace 4'
-    cmd-k = 'workspace 5'
-    cmd-l = 'workspace 6'
+cmd-s = 'workspace 1'
+cmd-d = 'workspace 2'
+cmd-f = 'workspace 3'
+cmd-j = 'workspace 4'
+cmd-k = 'workspace 5'
+cmd-l = 'workspace 6'
 
-    cmd-alt-s = 'move-node-to-workspace --focus-follows-window 1'
-    cmd-alt-d = 'move-node-to-workspace --focus-follows-window 2'
-    cmd-alt-f = 'move-node-to-workspace --focus-follows-window 3'
-    cmd-alt-j = 'move-node-to-workspace --focus-follows-window 4'
-    cmd-alt-k = 'move-node-to-workspace --focus-follows-window 5'
-    cmd-alt-l = 'move-node-to-workspace --focus-follows-window 6'
+cmd-alt-s = 'move-node-to-workspace --focus-follows-window 1'
+cmd-alt-d = 'move-node-to-workspace --focus-follows-window 2'
+cmd-alt-f = 'move-node-to-workspace --focus-follows-window 3'
+cmd-alt-j = 'move-node-to-workspace --focus-follows-window 4'
+cmd-alt-k = 'move-node-to-workspace --focus-follows-window 5'
+cmd-alt-l = 'move-node-to-workspace --focus-follows-window 6'
 
-		cmd-w = 'close --quit-if-last-window'
-		cmd-enter = 'fullscreen'
-		cmd-t = 'layout tiling floating'
-
-[[on-window-detected]]
-    if.app-id = 'org.qutebrowser.qutebrowser'
-    run = 'move-node-to-workspace --focus-follows-window 3'
+cmd-w = 'close --quit-if-last-window'
+cmd-enter = 'fullscreen'
+cmd-t = 'layout tiling floating'
 
 [[on-window-detected]]
-		if.window-title-regex-substring = 'mordith'
-    run = 'layout floating'
+if.app-id = 'org.qutebrowser.qutebrowser'
+run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
-		if.app-id = 'org.mozilla.firefox'
-		run = 'move-node-to-workspace --focus-follows-window 3'
+if.window-title-regex-substring = 'mordith'
+run = 'layout floating'
 
 [[on-window-detected]]
-		if.app-id = 'org.apple.Safari'
-		run = 'move-node-to-workspace --focus-follows-window 3'
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
-    run = 'move-node-to-workspace --focus-follows-window 2'
+if.app-id = 'org.apple.Safari'
+run = 'move-node-to-workspace --focus-follows-window 3'
 
 [[on-window-detected]]
-    if.app-id = 'ch.protonmail.desktop'
-    run = 'move-node-to-workspace --focus-follows-window 1'
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace --focus-follows-window 2'
 
 [[on-window-detected]]
-    if.app-id = 'com.mitchellh.ghostty'
-    run = 'move-node-to-workspace --focus-follows-window 4'
+if.app-id = 'ch.protonmail.desktop'
+run = 'move-node-to-workspace --focus-follows-window 1'
 
 [[on-window-detected]]
-    if.app-id = 'net.whatsapp.WhatsApp'
-    run = 'move-node-to-workspace --focus-follows-window 6'
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace --focus-follows-window 4'
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace --focus-follows-window 6'
