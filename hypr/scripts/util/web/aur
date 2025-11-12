@@ -1,3 +1,0 @@
-#!/bin/env /bin/sh
-url="https://aur.archlinux.org/packages"
-firefox --new-tab "$url"
