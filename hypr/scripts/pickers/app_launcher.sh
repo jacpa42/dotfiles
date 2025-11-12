@@ -3,4 +3,4 @@ applications="$(fd -aedesktop --format "{.}" -d1 . "/usr/share/applications")\n$
 selected="$(echo -e "$applications" | sk --preview-window="right:60%" --preview="bat --plain --color=always {1}.desktop")"
 [ -z "$selected" ] && exit
 
-hyprctl dispatch exec "gtk-launch "$(basename "$selected")""
+hyprctl dispatch exec "gtk-launch \""$(basename "$selected")"\""
