@@ -27,15 +27,16 @@ done <<EOF
 $(pactl list sinks | grep -E '^\s*(Name:|Description:|analog-output|hdmi-output|usb-audio)')
 EOF
 
-choice=$(echo -e "${options%??}" | sk)
+choice=$(echo -e "${options%??}" | sk --prompt=" audio sink: ")
 
-if [ -n "$choice" ]; then
-    selected_sink="${sinks[$choice]}"
-    selected_port="${ports[$choice]}"
-    if [ -n "$selected_sink" ] && [ -n "$selected_port" ]; then
-        pactl set-default-sink "$selected_sink"
-        pactl set-sink-port "$selected_sink" "$selected_port"
-    else
-        echo "Invalid choice or no sink/port found."
-    fi
+[ -z "$choice" ] && exit
+
+selected_sink="${sinks[$choice]}"
+selected_port="${ports[$choice]}"
+
+if [ -n "$selected_sink" ] && [ -n "$selected_port" ]; then
+    pactl set-default-sink "$selected_sink"
+    pactl set-sink-port "$selected_sink" "$selected_port"
+else
+    echo "Invalid choice or no sink/port found."
 fi

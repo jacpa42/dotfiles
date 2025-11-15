@@ -1,5 +1,13 @@
 local m = vim.keymap.set
 
+-- { mode = "n", "gr", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
+-- { mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
+-- { mode = "n", "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "goto symbol definition" },
+
+m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
+m("n", "gi", vim.lsp.buf.implementation, { desc = "find symbol implementation" })
+m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
+
 -- Converts a decimal to hex and back again
 m("n", "<c-n>", function()
 	local cword = vim.fn.expand("<cword>")
@@ -43,6 +51,9 @@ m("n", "<tab>", "<cmd>tabn<cr>", { desc = "next tab" })
 m("n", "<s-tab>", "<cmd>tabp<cr>", { desc = "previous tab" })
 
 m("n", "<leader>h", "<cmd>split<cr>")
+m("n", "<leader>v", "<cmd>vsplit<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
-m("n", "<leader>v", "<cmd>vsplit<cr>")
+
+m("n", "<c-n>", vim.cmd.cnext)
+m("n", "<c-p>", vim.cmd.cprev)

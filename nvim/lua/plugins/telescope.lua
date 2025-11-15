@@ -22,9 +22,6 @@ return {
 		{ mode = "n", "<leader>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
 		{ mode = "n", "<leader>t", "<cmd>Telescope lsp_type_definitions<cr>", desc = "get type definition" },
 		{ mode = "n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "get type definition" },
-		{ mode = "n", "gr", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
-		{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
-		{ mode = "n", "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "goto symbol definition" },
 		{
 			mode = "n",
 			"<leader>a",
