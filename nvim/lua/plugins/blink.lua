@@ -16,7 +16,7 @@ return {
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
-		cmdline = { enabled = false },
+		cmdline = { enabled = true },
 		completion = {
 			menu = {
 				draw = {

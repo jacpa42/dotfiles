@@ -10,6 +10,7 @@ https://web.whatsapp.com/
 https://wiki.hypr.land/Configuring/
 https://www.youtube.com/
 https://www.fnb.co.za/
+https://ziglang.org/documentation/master/
 EOF
 )
 

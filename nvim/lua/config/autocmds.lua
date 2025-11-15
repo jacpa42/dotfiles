@@ -26,3 +26,11 @@ vim.api.nvim_create_autocmd("VimLeave", {
 		vim.fn.system("tmux set status on")
 	end,
 })
+
+-- special commands for dapui buffers
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
+	callback = function(args)
+		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
+	end,
+})
