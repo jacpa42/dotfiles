@@ -1,3 +1,5 @@
+#!/usr/bin/env /usr/bin/sh
+
 pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     notify-send "Cycle wall is already running"
     exit 1

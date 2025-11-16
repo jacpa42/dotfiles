@@ -1,3 +1,5 @@
+#!/usr/bin/env /usr/bin/sh
+
 pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     notify-send -a "picker" -t 1000 -r 666 "screenshot tool is already running"
     exit 1

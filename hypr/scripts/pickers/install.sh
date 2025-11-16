@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env /usr/bin/sh
+
 previewlabel='alt-p: toggle description, alt-j/k: scroll, tab: multi-select'
 
 fzfargs=(

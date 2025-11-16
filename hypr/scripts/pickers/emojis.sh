@@ -1,3 +1,5 @@
+#!/usr/bin/env /usr/bin/sh
+
 selected="$(fzf <$HOME/Projects/dotfiles/hypr/scripts/pickers/emojis)"
 [ -z "$selected" ] && exit
 echo "$selected" | awk '{printf "%s", $NF}' | wl-copy || exit 1

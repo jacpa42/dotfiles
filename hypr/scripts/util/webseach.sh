@@ -3,7 +3,7 @@
 output=$(
     fzf --print-query <<EOF
 https://aur.archlinux.org/packages
-https://frame.work
+ttps://frame.work
 https://github.com/
 https://mail.proton.me/u/0/inbox
 https://web.whatsapp.com/

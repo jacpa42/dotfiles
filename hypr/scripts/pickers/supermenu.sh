@@ -1,3 +1,5 @@
+#!/usr/bin/env /usr/bin/sh
+
 script_dir="$HOME/Projects/dotfiles/hypr/scripts"
 cd $script_dir || exit
 

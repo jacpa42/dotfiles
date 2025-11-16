@@ -32,6 +32,9 @@ source "$HOME/.cargo/env" 2>/dev/null
 # stuff for fzf (https://github.com/lotabout/skim)
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
 
+# for fzf
+export FZF_DEFAULT_OPTS="--no-color"
+
 export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -45,6 +48,10 @@ export LANG="en_ZA.UTF-8"
 export LC_ALL="en_ZA.UTF-8"
 export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
+
+export HISTFILE="$ZDOTDIR/.zhistfile"
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 # note:	I have this in my .zprofile. It launches hyprland (or river) if I'm in tty1 and no display session is running.
 #	This lets me recover my system if I do something restarded. Like the other day I added a line to my .zshrc
