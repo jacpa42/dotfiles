@@ -8,7 +8,7 @@ m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 m("n", "gi", vim.lsp.buf.implementation, { desc = "find symbol implementation" })
 m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
-vim.api.nvim_create_user_command("RotateIntRepr", function()
+vim.api.nvim_create_user_command("CycleIntRepr", function()
 	local cword = vim.fn.expand("<cword>")
 	if tonumber(cword) == nil then
 		return

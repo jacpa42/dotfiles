@@ -1,4 +1,4 @@
-local function mode()
+local function mode(minimal)
 	local modes = {
 		["n"] = "NORMAL",
 		["no"] = "NORMAL",
@@ -23,11 +23,40 @@ local function mode()
 		["nt"] = "NORMTERM",
 	}
 
+	if minimal then
+		modes = {
+			["n"] = "NOR",
+			["no"] = "NOR",
+			["v"] = "VIS",
+			["V"] = "VIL",
+			[""] = "VIB",
+			["s"] = "SLT",
+			["S"] = "SLL",
+			[""] = "SLB",
+			["i"] = "INS",
+			["ic"] = "INS",
+			["R"] = "RPL",
+			["Rv"] = "VRL",
+			["c"] = "CMD",
+			["cv"] = "VIX",
+			["ce"] = "EX",
+			["r"] = "PMT",
+			["rm"] = "MOR",
+			["r?"] = "CNF",
+			["!"] = "SHL",
+			["t"] = "TRM",
+			["nt"] = "NTM",
+		}
+	end
+
 	local current_mode = vim.api.nvim_get_mode().mode
 	return string.format(" %s ", modes[current_mode])
 end
 
-local function update_mode_colors()
+local function update_mode_colors(minimal)
+	if minimal then
+		return "%#StatusLine#"
+	end
 	local current_mode = vim.api.nvim_get_mode().mode
 	local mode_color = "%#MiniStatuslineModeOther#"
 	if current_mode == "n" then
@@ -129,11 +158,12 @@ local function lineinfo()
 	return " %3p%% %" .. spacing .. "l"
 end
 
+local minimal = true
 Statusline = {
 	active = function()
 		return table.concat({
-			update_mode_colors(),
-			mode(),
+			update_mode_colors(minimal),
+			mode(minimal),
 			"%#StatusLine# ",
 			filepath(),
 			"%#StatusLine#",
