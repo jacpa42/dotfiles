@@ -1,17 +1,16 @@
 [global]
-frame_color = "#89b4fa"
+frame_color = "#1f1f28"
 separator_color = frame
-highlight = "#89b4fa"
+highlight = "#000000"
 
 [urgency_low]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+background = "#1f1f28"
+foreground = "#957fb8"
 
 [urgency_normal]
-background = "#1e1e2e"
-foreground = "#f38ba8"
+background = "#1f1f28"
+foreground = "#7e9cd8"
 
 [urgency_critical]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-frame_color = "#fab387"
+background = "#e82424"
+foreground = "#1f1f28"
