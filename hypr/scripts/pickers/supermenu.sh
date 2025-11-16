@@ -3,7 +3,7 @@ cd $script_dir || exit
 
 preview='bat --plain --color=always --language=sh $(fd --min-depth 2 --glob -1 -texecutable {1}\*)'
 
-selected="$(fd --min-depth 2 -texecutable --format "{/.}" | sk --preview-window="right:60%" --preview="$preview")"
+selected="$(fd --min-depth 2 -texecutable --format "{/.}" | fzf --preview-window="right:60%" --preview="$preview")"
 [ -z "$selected" ] && exit
 
 selected=$(fd --min-depth 2 --glob -1 -texecutable "$selected*")

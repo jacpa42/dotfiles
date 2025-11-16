@@ -14,7 +14,7 @@ btop)
 panes)
     previewer="tmux capture-pane -ept {1}"
     selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
-        sk --preview-window="right:60%" --preview="$previewer" | awk '{print $1}')"
+        fzf --preview-window="right:60%" --preview="$previewer" | awk '{print $1}')"
     [ -z "$selected" ] && exit 0
 
     session=${selected%%:*}
@@ -31,7 +31,7 @@ projects)
     custom_dirs="$HOME\n$HOME/Projects/server\n"
     project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
     prev="$HOME/.config/tmux/project_viewer.sh {}"
-    TARGET_DIR="$(echo -e "$project_dirs" | sk --preview-window="right:60%" --preview="$prev")"
+    TARGET_DIR="$(echo -e "$project_dirs" | fzf --preview-window="right:60%" --preview="$prev")"
     [ -z "$TARGET_DIR" ] && exit 0
     SESSION_NAME=$(basename "$TARGET_DIR")
 

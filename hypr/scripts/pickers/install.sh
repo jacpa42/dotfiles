@@ -1,7 +1,7 @@
 #!/bin/bash
 previewlabel='alt-p: toggle description, alt-j/k: scroll, tab: multi-select'
 
-skargs=(
+fzfargs=(
     --multi
     --preview="echo -e \"$previewlabel\n\" && paru -Sii {1}"
     --preview-window 'down:65%:wrap'
@@ -10,7 +10,7 @@ skargs=(
     --bind 'alt-k:preview-up,alt-j:preview-down'
 )
 
-pkg_names=$(paru -Slq | sk "${skargs[@]}")
+pkg_names=$(paru -Slq | fzf "${fzfargs[@]}")
 
 if [[ -n "$pkg_names" ]]; then
     # Convert newline-separated selections to space-separated for paru

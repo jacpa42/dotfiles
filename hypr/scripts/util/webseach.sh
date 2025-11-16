@@ -1,7 +1,7 @@
 #!/usr/bin/env /usr/bin/sh
 
 output=$(
-    sk --print-query <<EOF
+    fzf --print-query <<EOF
 https://aur.archlinux.org/packages
 https://frame.work
 https://github.com/

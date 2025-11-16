@@ -34,7 +34,7 @@ alias sn="$( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown
 alias sv="clear && sudo -E nvim"
 alias u="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a"
 alias ur="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && sudo reboot"
-alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"
+alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'systemctl sleep' )"
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
@@ -48,19 +48,6 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-
-# skim-rs integration
-function sk-history() {
-  local selected
-  selected=$(fc -rnl 1 | uniq | sk)
-  if [[ -n $selected ]]; then
-    BUFFER=$selected
-    CURSOR=$#BUFFER
-    zle -R -c
-  fi
-}
-zle -N sk-history
-bindkey '^R' sk-history
 
 ## autocomplete ##
 
@@ -141,7 +128,7 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 
 source <(zoxide init --cmd j zsh)
 source <(krag_cli completions)
-source <(sk --shell zsh)
+source <(fzf --zsh)
 
 # Syntax highlighting (paru -S zsh-syntax-highlighting-git)
 [ "$SYSTEM" = "Linux" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh || source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
