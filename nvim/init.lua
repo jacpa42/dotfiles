@@ -17,4 +17,6 @@ vim.cmd([[
     hi DiagnosticSignError guibg=NONE
     hi DiagnosticSignHint guibg=NONE
     hi StatusLine guibg=NONE
+    hi SignColumn guibg=NONE
+    hi CursorLineNr guibg=NONE
 ]])
