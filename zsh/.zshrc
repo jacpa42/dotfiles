@@ -13,7 +13,6 @@ setopt COMPLETE_IN_WORD
 help() { "$@" | bat --plain -lhelp; }
 alias duai='dua interactive'
 alias shuffle='mpv --directory-mode=recursive --shuffle .'
-alias matrix="$( [ "$SYSTEM" = "Darwin" ] && echo "cmatrix" || echo '"neo-matrix --defaultbg --color=red --fps=144 --speed=8 --charset=cyrillic -m $(fortune)"' )"
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"

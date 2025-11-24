@@ -38,8 +38,10 @@ shell-integration = zsh
 
 background-opacity = 0.90
 
-macos-non-native-fullscreen = visible-menu
+quit-after-last-window-closed = false
 
+# macos stuff
+macos-non-native-fullscreen = visible-menu
 macos-option-as-alt = true
 macos-window-shadow = true
 mouse-hide-while-typing = true

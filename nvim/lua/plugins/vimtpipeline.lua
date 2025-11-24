@@ -1,4 +1,5 @@
-return {
-	"vimpostor/vim-tpipeline",
-	event = "VimEnter",
-}
+return {}
+-- return {
+-- 	"vimpostor/vim-tpipeline",
+-- 	event = "VimEnter",
+-- }

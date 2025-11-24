@@ -11,14 +11,12 @@ else
     export CLUTTER_BACKEND="wayland"
     export GDK_BACKEND="wayland,x11,*"
     export GTK2_RC_FILES="/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"
-    export GTK_THEME="Adwaita:dark"
     export HYPRCURSOR_SIZE="24"
     export CURSOR_THEME="catppuccin-mocha-mauve-cursors"
     export HYPRCURSOR_THEME="$CURSOR_THEME"
     export QT_AUTO_SCREEN_SCALE_FACTOR="1"
     export QT_QPA_PLATFORM="wayland;xcb"
     export QT_QPA_PLATFORMTHEME="qt6ct"
-    export QT_STYLE_OVERRIDE="Adwaita-Dark"
     export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
     export RANDFILE="$HOME/.local/rnd"
     export STOW_DIR="$HOME/.config/dotfiles"
@@ -33,7 +31,7 @@ source "$HOME/.cargo/env" 2>/dev/null
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
 
 # for fzf
-export FZF_DEFAULT_OPTS="--no-color"
+export FZF_DEFAULT_OPTS="--color=base16,gutter:1"
 
 export DOTDIR="$HOME/Projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"

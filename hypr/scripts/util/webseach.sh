@@ -1,18 +1,8 @@
 #!/usr/bin/env /usr/bin/sh
 
-output=$(
-    fzf --print-query <<EOF
-https://aur.archlinux.org/packages
-ttps://frame.work
-https://github.com/
-https://mail.proton.me/u/0/inbox
-https://web.whatsapp.com/
-https://wiki.hypr.land/Configuring/
-https://www.youtube.com/
-https://www.fnb.co.za/
-https://ziglang.org/documentation/master/
-EOF
-)
+# Search for all the common websites as like a sudo bookmarks thing with grep
+scriptdir=$HOME/Projects/dotfiles/hypr/scripts/util/web
+output=$(grep -R $scriptdir -ohe "\"https.*\"" | fzf --print-query)
 
 [ -z "$output" ] && exit 0
 
@@ -21,4 +11,4 @@ url="$([ $lc -eq 1 ] &&
     echo "https://www.google.com/search?q=$(printf "%s" "$output" | sed -n '1p' | urlencode)&udm=14" ||
     printf "%s" "$output" | sed -n '2p')"
 
-hyprctl --batch "dispatch exec firefox --new-tab \"$url\" ; dispatch focuswindow class:firefox"
+hyprctl --batch "dispatch exec firefox --new-tab $url ; dispatch focuswindow class:firefox"

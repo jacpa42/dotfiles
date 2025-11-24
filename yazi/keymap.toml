@@ -1,6 +1,6 @@
 [[mgr.prepend_keymap]]
 on = "w"
-run = 'shell --orphan -- $HOME/.config/hypr/cyclewall.sh -s "$@"'
+run = 'shell --orphan -- $HOME/.config/hypr/scripts/util/cyclewall.sh -s "$@"'
 desc = "Change this image to the current wallpaper"
 for = "linux"
 

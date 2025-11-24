@@ -49,13 +49,12 @@ local function mode(minimal)
 		}
 	end
 
-	local current_mode = vim.api.nvim_get_mode().mode
-	return string.format(" %s ", modes[current_mode])
+	return modes[vim.api.nvim_get_mode().mode]
 end
 
 local function update_mode_colors(minimal)
 	if minimal then
-		return "%#StatusLine#"
+		return "%#StatusLine# "
 	end
 	local current_mode = vim.api.nvim_get_mode().mode
 	local mode_color = "%#MiniStatuslineModeOther#"
@@ -70,7 +69,7 @@ local function update_mode_colors(minimal)
 	elseif current_mode == "c" then
 		mode_color = "%#MiniStatuslineModeCommand#"
 	end
-	return mode_color
+	return mode_color .. " "
 end
 
 local function filepath()
@@ -158,13 +157,13 @@ local function lineinfo()
 	return " %3p%% %" .. spacing .. "l"
 end
 
-local minimal = true
+local minimal = false
 Statusline = {
 	active = function()
 		return table.concat({
 			update_mode_colors(minimal),
 			mode(minimal),
-			"%#StatusLine#",
+			" %#StatusLine# ",
 			filepath(),
 			"%#StatusLine#",
 			lsp(),
