@@ -49,22 +49,22 @@ return {
 			FIX = {
 				icon = " ", -- icon used for the sign, and in search results
 				color = "error", -- can be a hex color, or a named color (see below)
-				alt = { "fix", "fixme", "FIXME", "bug", "BUG", "fixit", "FIXIT", "issue", "ISSUE" }, -- a set of other keywords that all map to this fix keywords
+				alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this fix keywords
 				-- signs = false, -- configure signs for some keywords individually
 			},
-			TODO = { icon = " ", color = "blue", alt = { "todo" } }, -- failed: this is a random comment
-			HACK = { icon = " ", color = "yellow", alt = { "hack" } },
-			WARN = { icon = " ", color = "warning", alt = { "warn", "WARNING", "warning", "XXX", "xxx" } },
+			TODO = { icon = " ", color = "blue", alt = {} }, -- failed: this is a random comment
+			HACK = { icon = " ", color = "yellow", alt = {} },
+			WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
 			PERF = {
 				icon = " ",
 				color = "error",
-				alt = { "perf", "OPTIM", "optim", "PERFORMANCE", "performance", "OPTIMIZE", "optimize" },
+				alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" },
 			},
-			NOTE = { icon = " ", color = "blue", alt = { "note", "INFO", "info" } },
+			NOTE = { icon = " ", color = "blue", alt = { "INFO" } },
 			TEST = {
 				icon = "⏲ ",
 				color = "test",
-				alt = { "test", "TESTING", "testing", "PASSED", "passed", "FAILED", "failed" },
+				alt = { "TESTING", "PASSED", "FAILED" },
 			},
 		},
 		gui_style = {

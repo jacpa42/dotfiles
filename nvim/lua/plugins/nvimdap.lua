@@ -4,6 +4,7 @@ return {
 	dependencies = { "igorlfs/nvim-dap-view" },
 	keys = {
 		{ mode = "n", "<leader>b", "<cmd>DapToggleBreakpoint<cr>", desc = "toggle breakpoint" },
+		{ mode = "n", "<c-right>", "<cmd>DapContinue<cr>", desc = "continue until next breakpoint" },
 		{ mode = "n", "<right>", "<cmd>DapStepInto<cr>", desc = "dap step into" },
 		{ mode = "n", "<down>", "<cmd>DapStepOver<cr>", desc = "dap step over" },
 		{ mode = "n", "<up>", "<cmd>DapStepOut<cr>", desc = "dap step out" },
