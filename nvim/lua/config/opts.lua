@@ -5,10 +5,9 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.netrw_browsex_viewer = "qutebrowser"
-vim.g.tpipeline_restore = 1
-
+vim.g.netrw_browsex_viewer = "firefox"
 vim.o.breakindent = true
+vim.o.wrap = true
 vim.o.cmdheight = 0
 vim.o.confirm = true
 vim.o.ignorecase = true
@@ -31,7 +30,6 @@ vim.o.undofile = true
 vim.o.updatetime = 250
 vim.o.winborder = "rounded"
 vim.o.clipboard = "unnamedplus"
-
 vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
