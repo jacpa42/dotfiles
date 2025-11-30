@@ -1,11 +1,9 @@
 local m = vim.keymap.set
 
--- { mode = "n", "gr", "<cmd>Telescope lsp_references<cr>", desc = "find symbol references" },
--- { mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get lsp impls" },
--- { mode = "n", "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "goto symbol definition" },
-
+-- -- Telescope lsp_references
 m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
-m("n", "gi", vim.lsp.buf.implementation, { desc = "find symbol implementation" })
+-- -- Telescope lsp_implementations
+-- m("n", "gi", vim.lsp.buf.implementation, { desc = "find symbol implementation" })
 m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
 vim.api.nvim_create_user_command("CycleIntRepr", function()

@@ -22,6 +22,7 @@ return {
 		{ mode = "n", "<leader>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },
 		{ mode = "n", "<leader>t", "<cmd>Telescope lsp_type_definitions<cr>", desc = "get type definition" },
 		{ mode = "n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "get type definition" },
+		{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get methods for type" },
 		{
 			mode = "n",
 			"<leader>a",
