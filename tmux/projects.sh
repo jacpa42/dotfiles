@@ -12,9 +12,10 @@ btop)
     exec btop
     ;;
 music)
+    cd "$HOME/Music"
     dir="$(fzf --walker=dir)"
     [ -n "$dir" ] && cd "$dir"
-    mpv --directory-mode=recursive --shuffle .
+    mpv --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
