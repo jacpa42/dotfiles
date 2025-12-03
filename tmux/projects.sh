@@ -12,10 +12,25 @@ btop)
     exec btop
     ;;
 music)
+    window_name="music"
+    music_window="$(tmux list-panes -a -F '#S:#I.#P #W' | grep " $window_name$")"
+    [ -n "$music_window" ] && {
+        session=${music_window%%:*}
+        win_pane=${music_window#*:}
+        window=${win_pane%%.*}
+        pane=${music_window##*.}
+
+        tmux switch-client -t "$session"
+        tmux select-window -t "$window"
+        tmux select-pane -t "$pane"
+        exit 0
+    }
+
     cd "$HOME/Music"
     dir="$(fzf --walker=dir)"
     [ -n "$dir" ] && cd "$dir"
-    mpv --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .
+
+    tmux new-window -Sn "$window_name" 'mpv --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
