@@ -12,7 +12,9 @@ btop)
     exec btop
     ;;
 music)
-    tmux new-window -Sn "music" mpv --directory-mode=recursive --shuffle . $HOME/Music/
+    dir="$(fzf --walker=dir)"
+    [ -n "$dir" ] && cd "$dir"
+    mpv --directory-mode=recursive --shuffle .
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
