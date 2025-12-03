@@ -11,6 +11,9 @@ git)
 btop)
     exec btop
     ;;
+music)
+    tmux new-window -Sn "music" mpv --directory-mode=recursive --shuffle . $HOME/Music/
+    ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
     selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
