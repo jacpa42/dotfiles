@@ -1,8 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = {
-		"rafamadriz/friendly-snippets",
-	},
+	dependencies = { "rafamadriz/friendly-snippets" },
 	version = "*",
 	build = "cargo build --release",
 	opts_extend = {
@@ -34,6 +32,7 @@ return {
 				},
 			},
 		},
+
 		keymap = {
 			["<c-space>"] = { "select_and_accept" },
 			["<c-j>"] = { "select_next", "fallback" },
