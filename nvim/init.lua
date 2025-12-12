@@ -5,18 +5,17 @@ require("config.autocmds")
 require("config.lsp")
 require("config.greeter")
 
+local highlight = vim.cmd.hi
 vim.cmd.colorscheme("kanagawa-wave")
-vim.cmd([[
-    hi TelescopeBorder guibg=NONE
-    hi FloatBorder guibg=NONE
-    hi NormalFloat guibg=NONE
-    hi FloatTitle guibg=NONE
-    hi LineNr guibg=NONE
-    hi DiagnosticSignInfo guibg=NONE
-    hi DiagnosticSignWarn guibg=NONE
-    hi DiagnosticSignError guibg=NONE
-    hi DiagnosticSignHint guibg=NONE
-    hi StatusLine guibg=NONE
-    hi SignColumn guibg=NONE
-    hi CursorLineNr guibg=NONE
-]])
+highlight({ args = { "TelescopeBorder", "guibg=NONE" } })
+highlight({ args = { "FloatBorder", "guibg=NONE" } })
+highlight({ args = { "NormalFloat", "guibg=NONE" } })
+highlight({ args = { "FloatTitle", "guibg=NONE" } })
+highlight({ args = { "LineNr", "guibg=NONE" } })
+highlight({ args = { "DiagnosticSignInfo", "guibg=NONE" } })
+highlight({ args = { "DiagnosticSignWarn", "guibg=NONE" } })
+highlight({ args = { "DiagnosticSignError", "guibg=NONE" } })
+highlight({ args = { "DiagnosticSignHint", "guibg=NONE" } })
+highlight({ args = { "StatusLine", "guibg=NONE" } })
+highlight({ args = { "SignColumn", "guibg=NONE" } })
+highlight({ args = { "CursorLineNr", "guibg=NONE" } })

@@ -12,7 +12,7 @@ setopt COMPLETE_IN_WORD
 ## alias ##
 help() { "$@" | bat --plain -lhelp; }
 alias duai='dua interactive'
-alias shuffle='mpv --directory-mode=recursive --shuffle .'
+alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
@@ -20,17 +20,18 @@ alias l="eza --sort=type --long --icons always --no-time --no-user --header"
 alias ll="eza --sort=type --long --icons always --git --all"
 alias lll="eza --sort=type --long --icons always --git --all --total-size"
 alias v="clear && nvim"
-alias o="$( [ "$SYSTEM" = "Darwin" ] && echo "open -a" || echo "xdg-open" )"
-alias pipes="pipes-rs -p 20 -f 30 -t 0.4 -r 0.99"
-alias rmcache="$([ "$SYSTEM" = "Darwin" ] && echo "brew cleanup --prune=all" || echo "paru -Scv --noconfirm")"
-alias rmorphans="$([ "$SYSTEM" = "Darwin" ] && echo "brew autoremove" || echo "paru -Rns \$(paru -Qtdq) --noconfirm")"
+alias o="xdg-open"
+alias pipes="pipes-rs -p 10 -f 60 -t 0.4 -r 0.99"
+alias rmcache="paru -Scv --noconfirm"
+alias rmorphans="paru -Rns \$(paru -Qtdq) --noconfirm"
 alias rmtrash="rm -rf $HOME/.local/share/Trash/*"
 alias sl="sl -5 -a -e -d -G -l"
-alias sn="$( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'shutdown now' )"
+alias sn="systemctl sleep"
 alias sv="clear && sudo -E nvim"
-alias u="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a"
-alias ur="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && sudo reboot"
-alias us="clear && $( [ "$SYSTEM" = "Darwin" ] && echo 'brew update && brew upgrade' || echo 'paru -Syu' ) && echo && rustup update && echo && cargo install-update -a && $( [ "$SYSTEM" = "Darwin" ] && echo 'pmset sleepnow' || echo 'systemctl sleep' )"
+update="clear && paru -Syu --noconfirm && echo && rustup update && echo && cargo install-update -a"
+alias u="$update"
+alias ur="$update && sudo reboot"
+alias us="$update && systemctl sleep"
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
@@ -127,4 +128,4 @@ source <(krag_cli completions)
 source <(fzf --zsh)
 
 # Syntax highlighting (paru -S zsh-syntax-highlighting-git)
-[ "$SYSTEM" = "Linux" ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh || source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh

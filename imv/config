@@ -2,7 +2,7 @@
 overlay_font = JetBrainsMonoNerdFont:18
 overlay = true
 overlay_background_alpha = 00
-background=121212
+background=1e222b
 
 [binds]
 w = exec $XDG_CONFIG_HOME/hypr/scripts/cyclewall.sh -s $imv_current_file
