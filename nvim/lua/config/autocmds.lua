@@ -20,13 +20,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("VimLeave", {
-	callback = function()
-		-- Reset tmux statusline
-		vim.fn.system("tmux set status on")
-	end,
-})
-
 -- special commands for dapui buffers
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
