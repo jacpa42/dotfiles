@@ -31,8 +31,8 @@ keybind = ctrl+shift+c=copy_to_clipboard
 
 keybind = ctrl+shift+r=reload_config
 
-keybind = ctrl+shift+4=increase_font_size:1
-keybind = ctrl+shift+5=decrease_font_size:1
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
 
 shell-integration = zsh
 
