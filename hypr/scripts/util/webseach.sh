@@ -11,4 +11,4 @@ url="$([ $lc -eq 1 ] &&
     echo "https://www.google.com/search?q=$(printf "%s" "$output" | sed -n '1p' | urlencode)&udm=14" ||
     printf "%s" "$output" | sed -n '2p')"
 
-hyprctl --batch "dispatch exec qutebrowser $url ; dispatch focuswindow class:org.qutebrowser.qutebrowser"
+hyprctl --batch "dispatch exec xdg-open "$url"; dispatch exec workspace 3"

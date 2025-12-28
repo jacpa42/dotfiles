@@ -12,6 +12,7 @@ return {
 			"<cmd>Telescope find_files hidden=true<cr>",
 			desc = "find files",
 		},
+		{ mode = "n", "<leader>td", "<cmd>TodoTelescope<cr>", desc = "search telescope commands" },
 		{ mode = "n", "<leader>tt", "<cmd>Telescope<cr>", desc = "search telescope commands" },
 		{ mode = "n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "search colorschemes" },
 		{ mode = "n", "<leader>ff", "<cmd>Telescope live_grep<cr>", desc = "search cwd" },
