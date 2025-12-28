@@ -27,3 +27,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
 	end,
 })
+
+-- Disable spell for specific file types
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "qf", "json", "noice" }, -- dap-repl is set by `nvim-dap`
+	callback = function()
+		vim.opt_local.spell = false
+		vim.opt_local.spelllang = ""
+		vim.opt_local.syntax = "off"
+	end,
+})
