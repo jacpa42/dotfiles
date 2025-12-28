@@ -5,8 +5,35 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     exit 1
 }
 
-hyprctl dispatch 'exec sh -c
-screenshot_path="$HOME/Pictures/screenshots/grimshot_$(date "+%Y-%m-%d_%H-%M-%S.%N").png"
-grim -g "$(slurp)" "$screenshot_path" && wl-copy <"$screenshot_path" || exit 0
-notify-send --urgency=low --expire-time=5000 --app-name="hyprpicker" "Screenshot saved to" "$(dirname "$screenshot_path")"'
-exit
+mode="$(printf "region\noutput\nwindow\nactive" | fzf)"
+[ -z "$mode" ] && exit 0
+
+[ "$mode" = "window" ] && {
+    outputs="$(hyprctl monitors -j | jq -r '.[].name')"
+
+    # If we only have one monitor just screenshot the active one
+    [ "$(wc -l <<<"$outputs")" -eq 1 ] && mode="window -m active"
+}
+
+[ "$mode" = "output" ] && {
+    outputs="$(hyprctl monitors -j | jq -r '.[].name')"
+
+    lc="$(wc -l <<<"$outputs")"
+    [ $lc -lt 0 ] && exit 0
+
+    OUTPUT="$([ $lc -gt 1 ] && fzf <<<"$outputs" || head -n 1 <<<"$outputs")"
+    [ -z "$OUTPUT" ] && OUTPUT="active"
+
+    mode="output -m $OUTPUT"
+}
+
+[ "$mode" = "active" ] && {
+    OUTPUT="$(printf "window\noutput" | fzf)"
+    [ -z "$OUTPUT" ] && exit 0
+
+    mode="active -m $OUTPUT"
+}
+
+cmd="'hyprshot -z -m $mode -o \"\$HOME/Pictures/screenshots/\"'"
+echo "$cmd"
+hyprctl dispatch "exec sh -c $cmd"

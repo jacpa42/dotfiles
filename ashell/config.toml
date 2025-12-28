@@ -1,0 +1,56 @@
+outputs="All"
+position="Top"
+
+[modules]
+left = [ "Workspaces" ]
+center = [ "Clock" ]
+right = [ [ "MediaPlayer", "SystemInfo", "Settings" ] ]
+
+[workspaces]
+visibility="MonitorSpecificExclusive"
+workspace_names=["一","二","三","四","五","六","七","八","九","十"]
+
+[system_info]
+indicators=["Cpu", "Memory"]
+
+[clock]
+format = "%H:%M %d/%m/%Y"
+
+[media_player]
+max_title_length = 50
+
+[settings]
+shutdown_cmd = "shutdown now"
+suspend_cmd = "systemctl suspend"
+hibernate_cmd = "systemctl hibernate"
+reboot_cmd = "systemctl reboot"
+logout_cmd = "loginctl kill-user $(whoami)"
+remove_idle_btn = true
+battery_format = "Percentage"
+indicators = ["PowerProfile", "Audio", "Network", "Battery"]
+
+[appearance]
+font_name = "JetBrainsMono Nerd Font"
+style = "Solid"
+opacity = 0.8
+
+success_color = "#938aa9"
+text_color = "#dcd7ba"
+workspace_colors = [ "#957fb8" ] # Per monitor
+
+[appearance.primary_color]
+base = "#957fb8"
+text = "#090618"
+
+[appearance.danger_color]
+base = "#c34043"
+weak = "#c0a36e"
+
+[appearance.background_color]
+base = "#090618"
+weak = "#727169"
+strong = "#1d202f"
+
+[appearance.secondary_color]
+base = "#957fb8"
+strong = "#090618"
