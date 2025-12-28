@@ -14,7 +14,7 @@ workspace_names=["一","二","三","四","五","六","七","八","九","十"]
 indicators=["Cpu", "Memory"]
 
 [clock]
-format = "%H:%M %d/%m/%Y"
+format = "%H:%M %d/%m/%g"
 
 [media_player]
 max_title_length = 50
