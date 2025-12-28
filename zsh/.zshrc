@@ -12,7 +12,7 @@ setopt COMPLETE_IN_WORD
 ## alias ##
 help() { "$@" | bat --plain -lhelp; }
 alias duai='dua interactive'
-alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
+alias shuffle='mpv --resume-playback=no --force-window=true --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
