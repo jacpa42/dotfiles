@@ -4,8 +4,6 @@ vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.spell = true
 vim.o.spelllang = "en_gb"
 
--- hi hi hello hel
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "

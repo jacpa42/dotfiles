@@ -20,7 +20,6 @@ export XDG_SESSION_TYPE="wayland"
 source "$HOME/.cargo/env" 2>/dev/null
 
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
-
 export FZF_DEFAULT_OPTS="--color=base16,gutter:1"
 
 export DOTDIR="$HOME/Projects/dotfiles"
