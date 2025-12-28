@@ -27,7 +27,7 @@ config.bind("<Shift-r>", "config-source")
 
 c.fileselect.handler = "external"
 
-select_cmd = ["footclient", "--title=footpopup", "--app-id=footpopup", "yazi", "--chooser-file={}"]
+select_cmd = ["footclient", "--title=tpopup", "--app-id=tpopup", "yazi", "--chooser-file={}"]
 c.fileselect.folder.command = select_cmd
 c.fileselect.single_file.command = select_cmd
 c.fileselect.multiple_files.command = select_cmd
