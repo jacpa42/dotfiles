@@ -1,3 +1,2 @@
 url="https://wiki.hypr.land/Configuring/"
-
-hyprctl --batch "dispatch exec firefox --new-tab \"$url\" ; dispatch focuswindow class:firefox"
+hyprctl --batch "dispatch exec qutebrowser \"$url\" ; dispatch focuswindow class:org.qutebrowser.qutebrowser"
