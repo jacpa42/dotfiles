@@ -18,6 +18,7 @@ vim.o.mouse = ""
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 999
+vim.o.sidescrolloff = 999
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.expandtab = true

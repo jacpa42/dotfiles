@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Disable spell for specific file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "noice", "man" }, -- dap-repl is set by `nvim-dap`
+	pattern = { "qf", "json", "noice", "man", "confini" }, -- dap-repl is set by `nvim-dap`
 	callback = function()
 		vim.opt_local.spell = false
 		vim.opt_local.spelllang = ""

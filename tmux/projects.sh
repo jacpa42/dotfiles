@@ -30,7 +30,7 @@ music)
     dir="$(fzf --walker=dir)"
     [ -n "$dir" ] && cd "$dir"
 
-    tmux new-window -Sn "$window_name" 'mpv --resume-playback=no --force-window=yes --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
+    tmux new-window -Sn "$window_name" 'mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
