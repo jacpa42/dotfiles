@@ -49,4 +49,4 @@ export SAVEHIST=10000
 # can be relatively confident I don't fucking get locked out yk.
 #
 # From https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login but adapted :)
-([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && (exec Hyprland || exec river)
+([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && (exec start-hyprland || exec river)
