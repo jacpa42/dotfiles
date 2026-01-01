@@ -25,8 +25,7 @@ suspend_cmd = "systemctl suspend"
 hibernate_cmd = "systemctl hibernate"
 reboot_cmd = "systemctl reboot"
 logout_cmd = "loginctl kill-user $(whoami)"
-remove_idle_btn = true
-battery_format = "Percentage"
+battery_format = "IconAndPercentage"
 indicators = ["PowerProfile", "Audio", "Network", "Battery"]
 
 [appearance]
