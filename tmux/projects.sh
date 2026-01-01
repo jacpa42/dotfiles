@@ -26,11 +26,18 @@ music)
         exit 0
     }
 
-    cd "$HOME/Music"
-    dir="$(fzf --walker=dir)"
-    [ -n "$dir" ] && cd "$dir"
+    tmux new-window -c "$HOME/Music" -Sn "$window_name" bash -c '
+        dir="$(fzf --walker=dir)"
+        [ -n "$dir" ] && cd "$dir"
 
-    tmux new-window -Sn "$window_name" 'mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
+        mpv \
+            --resume-playback=no \
+            --directory-mode=recursive \
+            --directory-filter-types="video,audio,playlist,archive" \
+            --shuffle .
+
+        exec /bin/env $SHELL
+    '
     ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
@@ -68,7 +75,7 @@ projects)
     if [ -n "$FOUND_SESSION" ]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'nvim; /bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'nvim; exec /bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;
