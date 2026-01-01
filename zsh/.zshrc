@@ -10,7 +10,7 @@ setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
 ## alias ##
-help() { "$@" | bat --plain -lhelp; }
+h() { "$@" --help 2>&1 | bat --plain -lhelp; }
 alias duai='dua interactive'
 alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
