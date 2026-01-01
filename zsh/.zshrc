@@ -28,14 +28,13 @@ alias rmtrash="rm -rf $HOME/.local/share/Trash/*"
 alias sl="sl -5 -a -e -d -G -l"
 alias sn="systemctl sleep"
 alias sv="clear && sudo -E nvim"
-update="clear && paru -Syu --noconfirm && echo && rustup update && echo && cargo install-update -a"
+update="clear; paru -Syu --noconfirm; echo; rustup update; echo; cargo install-update -a"
 alias u="$update"
-alias ur="$update && sudo reboot"
-alias us="$update && systemctl sleep"
+alias ur="$update; systemctl reboot"
+alias us="$update; systemctl sleep"
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
-
 
 # Yazi
 function y() {
