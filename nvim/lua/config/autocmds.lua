@@ -5,6 +5,39 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+-- This will check which lsp is attaching and set makeprg accordingly
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local ft = vim.bo[args.buf].filetype
+		if ft == "rust" then
+			vim.o.makeprg = "cargo c"
+		elseif ft == "zig" then
+			vim.o.makeprg = "zig build"
+		else
+			print("No makeprg for " .. ft .. ". Default is " .. vim.o.makeprg)
+		end
+	end,
+})
+
+-- Source - https://stackoverflow.com/a
+-- Posted by hookenz, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-01-04, License - CC BY-SA 4.0
+
+function dump(o)
+	if type(o) == "table" then
+		local s = "{ "
+		for k, v in pairs(o) do
+			if type(k) ~= "number" then
+				k = '"' .. k .. '"'
+			end
+			s = s .. "[" .. k .. "] = " .. dump(v) .. ","
+		end
+		return s .. "} "
+	else
+		return tostring(o)
+	end
+end
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)

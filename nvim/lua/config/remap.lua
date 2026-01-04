@@ -1,9 +1,7 @@
 local m = vim.keymap.set
 
--- -- Telescope lsp_references
+m("n", "<leader>m", vim.cmd.make, { desc = "runs :make" })
 m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
--- -- Telescope lsp_implementations
--- m("n", "gi", vim.lsp.buf.implementation, { desc = "find symbol implementation" })
 m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
 vim.api.nvim_create_user_command("CycleIntRepr", function()
