@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 TARGET_DIR=""
 SESSION_NAME=""
@@ -7,6 +7,10 @@ OPERATION=""
 case "$1" in
 git)
     exec lazygit
+    ;;
+gitweb)
+    hyprctl dispatch workspace 3 >/dev/null
+    xdg-open "$(git config --get remote.origin.url)" >/dev/null
     ;;
 btop)
     exec btop
