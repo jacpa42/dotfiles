@@ -31,7 +31,7 @@ alias sv="clear && sudo -E nvim"
 update="clear; paru -Syu --noconfirm; echo; rustup update; echo; cargo install-update -a"
 alias u="$update"
 alias ur="$update; systemctl reboot"
-alias us="$update; systemctl sleep"
+alias us="$update; systemctl suspend"
 
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
@@ -111,7 +111,7 @@ zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
 zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
 # zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # Colors for files and directory
-zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Only display some tags for the command cd
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
