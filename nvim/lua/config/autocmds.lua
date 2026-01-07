@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
 		if ft == "rust" then
-			vim.o.makeprg = "cargo c"
+			vim.o.makeprg = "cargo c --tests"
 		elseif ft == "zig" then
 			vim.o.makeprg = "zig build"
 		else
