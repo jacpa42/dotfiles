@@ -1,3 +1,6 @@
+export LIBVA_DRIVER_NAME="nvidia"
+export __GLX_VENDOR_LIBRARY_NAME="nvidia"
+
 export RADV_PERFTEST="video_decode,video_encode"
 export CLUTTER_BACKEND="wayland"
 export GDK_BACKEND="wayland,x11,*"

@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
-		vim.treesitter.start(args.buf, ft)
+		pcall(vim.treesitter.start, args.buf, ft)
 	end,
 })
 
