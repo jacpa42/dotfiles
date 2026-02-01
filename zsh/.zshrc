@@ -27,12 +27,12 @@ alias rmorphans="paru -Rns \$(paru -Qtdq) --noconfirm"
 alias rmtrash="rm -rf $HOME/.local/share/Trash/*"
 alias sl="sl -5 -a -e -d -G -l"
 alias sn="systemctl sleep"
-alias sv="clear && sudo -E nvim"
+alias sv="sudo -E nvim"
+alias wifi='sudo -E nvim /etc/NetworkManager/system-connections'
 update="clear; paru -Syu --noconfirm; echo; rustup update; echo; cargo install-update -a"
 alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
-
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
