@@ -5,8 +5,8 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     exit 1
 }
 
-mode="$(printf "region\noutput\nwindow\nactive" | fzf)"
-[ -z "$mode" ] && exit 0
+modes="region\noutput\nwindow\nactive"
+mode="$(echo -e "$modes" | grep -m 1 "$1")"
 
 [ "$mode" = "window" ] && {
     outputs="$(hyprctl monitors -j | jq -r '.[].name')"
