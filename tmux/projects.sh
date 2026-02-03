@@ -60,8 +60,8 @@ panes)
     exit 0
     ;;
 projects)
-    custom_dirs="$HOME\n$HOME/Projects/server\n"
-    project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
+    custom_dirs="$HOME\n$HOME/projects/server\n"
+    project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$HOME/projects")"
     prev="$HOME/.config/tmux/project_viewer.sh {}"
     TARGET_DIR="$(echo -e "$project_dirs" | fzf --preview-window="right:60%" --preview="$prev")"
     [ -z "$TARGET_DIR" ] && exit 0

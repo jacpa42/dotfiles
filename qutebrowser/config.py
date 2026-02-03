@@ -34,7 +34,7 @@ c.fileselect.multiple_files.command = select_cmd
 
 import os
 
-c.url.default_page = f"file:///{os.path.expanduser("~")}/Projects/dotfiles/qutebrowser/metal.png"
+c.url.default_page = f"file:///{os.path.expanduser("~")}/projects/dotfiles/qutebrowser/metal.png"
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}"
     # "DEFAULT": "https://www.google.com/search?q={}"

@@ -33,7 +33,7 @@ update="clear; paru -Syu --noconfirm; echo; rustup update; echo; cargo install-u
 alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
-alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
+alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/projects -x zsh -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
 # Yazi

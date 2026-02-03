@@ -20,12 +20,12 @@ export RANDFILE="$HOME/.local/rnd"
 export STOW_DIR="$HOME/.config/dotfiles"
 export XDG_SESSION_TYPE="wayland"
 
-source "$HOME/.cargo/env" 2>/dev/null
+export PATH=$PATH:~/.cargo/bin
 
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
 export FZF_DEFAULT_OPTS="--color=base16,gutter:1"
 
-export DOTDIR="$HOME/Projects/dotfiles"
+export DOTDIR="$HOME/projects/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -34,8 +34,6 @@ export GOPATH="$HOME/.local/share/go"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-export LANG="en_ZA.UTF-8"
-export LC_ALL="en_ZA.UTF-8"
 export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
 
