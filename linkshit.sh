@@ -14,7 +14,7 @@ ln -vsfn $DOTDIR/zsh $CNFDIR/zsh
 ln -vsfn $DOTDIR/mpv $CNFDIR/mpv
 ln -vsfn $DOTDIR/imv $CNFDIR/imv
 ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
-ln -vsfn $DOTDIR/lazygit $HOME/lazygit
+ln -vsfn $DOTDIR/lazygit $CNFDIR/lazygit
 ln -vsfn $DOTDIR/foot $CNFDIR/foot
 ln -vsfn $DOTDIR/qutebrowser $CNFDIR/qutebrowser
 ln -vsfn $DOTDIR/xdg-desktop-portal-termfilechooser $CNFDIR/xdg-desktop-portal-termfilechooser
