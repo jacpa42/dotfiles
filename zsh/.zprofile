@@ -1,40 +1,22 @@
-export RADV_PERFTEST="video_decode,video_encode"
-export CLUTTER_BACKEND="wayland"
-export GDK_BACKEND="wayland,x11,*"
-export GTK2_RC_FILES="/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"
-
-export HYPRCURSOR_SIZE="24"
-export HYPRCURSOR_THEME="catppuccin-mocha-mauve-cursors"
-export XCURSOR_THEME="$HYPRCURSOR_THEME"
-export XCURSOR_SIZE="$HYPRCURSOR_SIZE"
-
-export QT_AUTO_SCREEN_SCALE_FACTOR="1"
-export QT_QPA_PLATFORM="wayland;xcb"
-export QT_QPA_PLATFORMTHEME="qt6ct"
-export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-
-export RANDFILE="$HOME/.local/rnd"
-export STOW_DIR="$HOME/.config/dotfiles"
-export XDG_SESSION_TYPE="wayland"
-
-export PATH=$PATH:~/.cargo/bin
-
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
+export PATH=$PATH:~/.cargo/bin
+export RANDFILE="$HOME/.local/rnd"
 export FZF_DEFAULT_OPTS="--color=base16,gutter:1"
 
-export DOTDIR="$HOME/projects/dotfiles"
-export ZDOTDIR="$HOME/.config/zsh"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export GOPATH="$HOME/.local/share/go"
+export PROJDIR=$HOME/Projects
+export DOTDIR=$PROJDIR/dotfiles
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+export GOPATH=$HOME/.local/share/go
 
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR=nvim
+export VISUAL=nvim
 
 export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
 
-export HISTFILE="$ZDOTDIR/.zhistfile"
+export HISTFILE=$ZDOTDIR/.zhistfile
 export HISTSIZE=10000
 export SAVEHIST=10000
 
@@ -47,4 +29,4 @@ export SAVEHIST=10000
 # can be relatively confident I don't fucking get locked out yk.
 #
 # From https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login but adapted :)
-([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && (exec start-hyprland || exec river)
+([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && start-hyprland
