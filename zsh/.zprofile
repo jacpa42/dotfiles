@@ -1,7 +1,7 @@
 export PS1='%F{blue}%B%~%b%f %F{9}❯%f '
 export PATH=$PATH:~/.cargo/bin
-export RANDFILE="$HOME/.local/rnd"
-export FZF_DEFAULT_OPTS="--color=base16,gutter:1"
+export RANDFILE=$HOME/.local/rnd
+export FZF_DEFAULT_OPTS=--color=base16,gutter:1
 
 export PROJDIR=$HOME/Projects
 export DOTDIR=$PROJDIR/dotfiles
@@ -20,7 +20,7 @@ export HISTFILE=$ZDOTDIR/.zhistfile
 export HISTSIZE=10000
 export SAVEHIST=10000
 
-# note:	I have this in my .zprofile. It launches hyprland (or river) if I'm in tty1 and no display session is running.
+# note:	I have this in my .zprofile. It launches hyprland if I'm in tty1 and no display session is running.
 #	This lets me recover my system if I do something restarded. Like the other day I added a line to my .zshrc
 # which ran 'clear ; paru ; echo ; rustup update ; echo ; cargo install-update -a ; sudo shutdown now'. Not sure
 # why I did this but I did do it. So then I would log in and my system would do an update and immediately shut
