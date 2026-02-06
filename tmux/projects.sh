@@ -79,7 +79,7 @@ projects)
     if [ -n "$FOUND_SESSION" ]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'nvim; exec /bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "vim" 'nvim; exec /bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;
