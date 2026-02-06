@@ -7,12 +7,7 @@ return {
 			["clang-format-custom"] = { command = "clang-format", args = { "--style=LLVM" }, stdin = true },
 			["json"] = {
 				command = "jq",
-				args = {
-					"-S",
-					"--indent",
-					"2",
-				},
-
+				args = { "-S", "--indent", "2" },
 				stdin = true,
 			},
 		},
