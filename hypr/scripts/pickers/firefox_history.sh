@@ -1,4 +1,4 @@
-#/usr/bin/env /usr/bin/bash
+#!/usr/bin/env /usr/bin/bash
 
 file="$(fd -1Htfile '^places.sqlite$' $HOME/.config/mozilla)"
 backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"
