@@ -1,6 +1,6 @@
 #!/usr/bin/env /usr/bin/bash
 
-file="$(fd -1Htfile '^places.sqlite$' $HOME)"
+file="$(fd -1gHItfile places.sqlite $HOME)"
 backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"
 trap 'rm "$backup_copy"' EXIT
 
