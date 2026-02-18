@@ -2,15 +2,12 @@
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
 (
-    address: "127.0.0.1:6600",
-    password: None,
-    theme: None,
-    cache_dir: None,
-    on_song_change: None,
-    volume_step: 5,
-    max_fps: 30,
-    scrolloff: 0,
-    wrap_navigation: false,
+    theme: Some("default.ron"),
+    cache_dir: Some("~/.cache/rmpc/"),
+    on_song_change: ["~/.config/rmpc/notify"],
+    max_fps: 60,
+    scrolloff: 999,
+    wrap_navigation: true,
     enable_mouse: true,
     scroll_amount: 1,
     enable_config_hot_reload: true,
@@ -26,7 +23,7 @@
     auto_open_downloads: true,
     album_art: (
         method: Auto,
-        max_size_px: (width: 1200, height: 1200),
+        max_size_px: (width: 0, height: 0),
         disabled_protocols: ["http://", "https://"],
         vertical_align: Center,
         horizontal_align: Center,
@@ -49,6 +46,8 @@
             "s":          Stop,
             ">":          NextTrack,
             "<":          PreviousTrack,
+            "<C-n>":      NextTrack,
+            "<C-p>":      PreviousTrack,
             "f":          SeekForward,
             "b":          SeekBack,
             ".":          VolumeUp,
@@ -160,18 +159,10 @@
                             panes: [
                                 (
                                     size: "100%",
-                                    borders: "LEFT | RIGHT | TOP",
+                                    borders: "NONE",
                                     border_symbols: Rounded,
                                     pane: Pane(AlbumArt)
-                                ),
-                                (
-                                    size: "7",
-                                    borders: "ALL",
-                                    border_symbols: Inherited(parent: Rounded, top_left: "├", top_right: "┤",),
-                                    border_title: [(kind: Text(" Lyrics "))],
-                                    border_title_alignment: Right,
-                                    pane: Pane(Lyrics)
-                                ),
+                                )
                             ],
                         ),
                     ), 
