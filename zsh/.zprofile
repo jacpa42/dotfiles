@@ -7,7 +7,6 @@ export PROJDIR=$HOME/Projects
 export DOTDIR=$PROJDIR/dotfiles
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
-export XDG_MUSIC_DIR=$HOME/Music
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export GOPATH=$HOME/.local/share/go
 
