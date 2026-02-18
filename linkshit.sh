@@ -1,6 +1,12 @@
 #!/usr/bin/env /usr/bin/bash
-[ -d "$DOTDIR" ] || { echo "DOTDIR \($DOTDIR\) doesnt exist"; exit 1; }
-[ -d "$XDG_CONFIG_HOME" ] || { echo "XDG_CONFIG_HOME \($XDG_CONFIG_HOME\) doesnt exist"; exit 1; }
+[ -d "$DOTDIR" ] || {
+    echo "DOTDIR \($DOTDIR\) doesnt exist"
+    exit 1
+}
+[ -d "$XDG_CONFIG_HOME" ] || {
+    echo "XDG_CONFIG_HOME \($XDG_CONFIG_HOME\) doesnt exist"
+    exit 1
+}
 
 ln -vsfn $DOTDIR/ashell $XDG_CONFIG_HOME/ashell
 ln -vsfn $DOTDIR/bat $XDG_CONFIG_HOME/bat
@@ -18,3 +24,5 @@ ln -vsfn $DOTDIR/foot $XDG_CONFIG_HOME/foot
 ln -vsfn $DOTDIR/qutebrowser $XDG_CONFIG_HOME/qutebrowser
 ln -vsfn $DOTDIR/xdg-desktop-portal-termfilechooser $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
 ln -vsfn $DOTDIR/xdg-desktop-portal $XDG_CONFIG_HOME/xdg-desktop-portal
+ln -vsfn $DOTDIR/rmpc $XDG_CONFIG_HOME/rmpc
+ln -vsfn $DOTDIR/mpd $XDG_CONFIG_HOME/mpd

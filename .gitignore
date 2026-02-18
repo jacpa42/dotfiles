@@ -17,3 +17,5 @@ qutebrowser/bookmarks/
 qutebrowser/qsettings/
 qutebrowser/quickmarks
 .DS_Store
+mpd/*
+!mpd/mpd.conf
