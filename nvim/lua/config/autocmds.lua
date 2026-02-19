@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.o.makeprg = "cargo c --tests --all-features"
 		elseif ft == "zig" then
 			vim.o.makeprg = "zig build"
+			vim.o.errorformat = "%f:%l:%c: %t%*[^:]: %m"
 		else
 			print("No makeprg for " .. ft .. ". Default is " .. vim.o.makeprg)
 		end
