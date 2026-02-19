@@ -1,7 +1,7 @@
 #!/usr/bin/env /usr/bin/sh
 
 # Search for all the common websites as like a sudo bookmarks thing with grep
-scriptdir=$HOME/Projects/dotfiles/hypr/scripts/util/web
+scriptdir=$DOTDIR/hypr/scripts/util/web
 output=$(grep -R $scriptdir -ohe "\"https.*\"" | fzf --print-query)
 
 [ -z "$output" ] && exit 0

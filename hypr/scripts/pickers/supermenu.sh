@@ -1,6 +1,6 @@
 #!/usr/bin/env /usr/bin/sh
 
-script_dir="$HOME/Projects/dotfiles/hypr/scripts"
+script_dir="$DOTDIR/hypr/scripts"
 cd $script_dir || exit
 
 preview='bat --plain --color=always --language=sh $(fd --min-depth 2 --glob -1 -texecutable {1}\*)'

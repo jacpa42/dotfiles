@@ -5,7 +5,7 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     exit 1
 }
 
-dir="$HOME/Projects/muur_papier/"
+dir="$PROJDIR/muur_papier/"
 default_wallpaper=""
 set_default_wallpaper=false
 random=false

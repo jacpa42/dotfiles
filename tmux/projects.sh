@@ -15,34 +15,6 @@ gitweb)
 btop)
     exec btop
     ;;
-music)
-    window_name="music"
-    music_window="$(tmux list-panes -a -F '#S:#I.#P #W' | grep " $window_name$")"
-    [ -n "$music_window" ] && {
-        session=${music_window%%:*}
-        win_pane=${music_window#*:}
-        window=${win_pane%%.*}
-        pane=${music_window##*.}
-
-        tmux switch-client -t "$session"
-        tmux select-window -t "$window"
-        tmux select-pane -t "$pane"
-        exit 0
-    }
-
-    tmux new-window -c "$HOME/Music" -Sn "$window_name" bash -c '
-        dir="$(fzf --walker=dir)"
-        [ -n "$dir" ] && cd "$dir"
-
-        mpv \
-            --resume-playback=no \
-            --directory-mode=recursive \
-            --directory-filter-types="video,audio,playlist,archive" \
-            --shuffle .
-
-        exec /bin/env $SHELL
-    '
-    ;;
 panes)
     previewer="tmux capture-pane -ept {1}"
     selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
@@ -60,8 +32,8 @@ panes)
     exit 0
     ;;
 projects)
-    custom_dirs="$HOME\n$HOME/Projects/server\n"
-    project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$HOME/Projects")"
+    custom_dirs="$HOME\n$PROJDIR/server\n"
+    project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$PROJDIR")"
     prev="$HOME/.config/tmux/project_viewer.sh {}"
     TARGET_DIR="$(echo -e "$project_dirs" | fzf --preview-window="right:60%" --preview="$prev")"
     [ -z "$TARGET_DIR" ] && exit 0
@@ -79,7 +51,7 @@ projects)
     if [ -n "$FOUND_SESSION" ]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'nvim; exec /bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "vim" 'nvim; exec /bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;

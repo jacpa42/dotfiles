@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Directory where to store temporary data
+TMP_DIR="/tmp/rmpc"
+
+# Ensure the directory is created
+mkdir -p "$TMP_DIR"
+
+# Where to temporarily store the album art received from rmpc
+ALBUM_ART_PATH="$TMP_DIR/notification_cover"
+
+# Save album art of the currently playing song to a file
+if ! rmpc albumart --output "$ALBUM_ART_PATH"; then
+    # Send the notification
+    notify-send -t 2000 -r 666 -a "mpd" "Now Playing" "$ARTIST - $TITLE"
+else
+    # Send the notification
+    notify-send -i "${ALBUM_ART_PATH}" -t 2000 -r 666 -a "mpd" "Now Playing" "$ARTIST - $TITLE"
+fi
