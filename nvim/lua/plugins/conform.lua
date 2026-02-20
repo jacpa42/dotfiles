@@ -10,6 +10,11 @@ return {
 				args = { "-S", "--indent", "2" },
 				stdin = true,
 			},
+			["odinfmt"] = {
+				command = "odinfmt",
+				args = { "-stdin" },
+				stdin = true,
+			},
 		},
 
 		formatters_by_ft = {
@@ -26,6 +31,7 @@ return {
 			python = { "ruff_format" },
 			zig = { "zigfmt" },
 			zsh = { "shfmt" },
+			odin = { "odinfmt" },
 		},
 	},
 }
