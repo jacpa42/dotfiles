@@ -14,7 +14,7 @@ return {
 		},
 		{ mode = "n", "<leader>td", "<cmd>TodoTelescope<cr>", desc = "search telescope commands" },
 		{ mode = "n", "<leader>tt", "<cmd>Telescope<cr>", desc = "search telescope commands" },
-		{ mode = "n", "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "search colorschemes" },
+		{ mode = "n", "<leader>fc", "<cmd>Telescope commands<cr>", desc = "search nvim commands" },
 		{ mode = "n", "<leader>ff", "<cmd>Telescope live_grep<cr>", desc = "search cwd" },
 		{ mode = "n", "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "search help tags into float window" },
 		{ mode = "n", "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "search keymaps" },
@@ -25,6 +25,7 @@ return {
 		{ mode = "n", "<leader>t", "<cmd>Telescope lsp_type_definitions<cr>", desc = "get type definition" },
 		{ mode = "n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "get type definition" },
 		{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get methods for type" },
+		{ mode = "n", "z=", "<cmd>Telescope spell_suggest<cr>", desc = "spell suggest" },
 		{
 			mode = "n",
 			"<leader>a",
