@@ -16,12 +16,19 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
+-- Just start treesitter on all buffers
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = {},
+	callback = function(args)
+		local ft = vim.bo[args.buf].filetype
+		pcall(vim.treesitter.start, args.buf, ft)
+	end,
+})
+
 -- This will check which lsp is attaching and set makeprg accordingly
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
-		vim.treesitter.start(args.buf, ft)
-
 		if ft == "rust" then
 			vim.o.makeprg = "cargo c --tests --all-features"
 		elseif ft == "zig" then

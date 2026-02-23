@@ -8,6 +8,9 @@
     exit 1
 }
 
+# This one is special
+ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
+
 ln -vsfn $DOTDIR/ashell $XDG_CONFIG_HOME/ashell
 ln -vsfn $DOTDIR/bat $XDG_CONFIG_HOME/bat
 ln -vsfn $DOTDIR/dunst $XDG_CONFIG_HOME/dunst
@@ -18,7 +21,6 @@ ln -vsfn $DOTDIR/yazi $XDG_CONFIG_HOME/yazi
 ln -vsfn $DOTDIR/zsh $XDG_CONFIG_HOME/zsh
 ln -vsfn $DOTDIR/mpv $XDG_CONFIG_HOME/mpv
 ln -vsfn $DOTDIR/imv $XDG_CONFIG_HOME/imv
-ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
 ln -vsfn $DOTDIR/lazygit $XDG_CONFIG_HOME/lazygit
 ln -vsfn $DOTDIR/foot $XDG_CONFIG_HOME/foot
 ln -vsfn $DOTDIR/qutebrowser $XDG_CONFIG_HOME/qutebrowser
