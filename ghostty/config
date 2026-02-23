@@ -14,6 +14,7 @@ cursor-invert-fg-bg = true
 
 theme = Kanagawa Wave
 
+gtk-single-instance = true
 app-notifications = no-clipboard-copy
 desktop-notifications = false
 
@@ -39,9 +40,3 @@ shell-integration = zsh
 background-opacity = 0.90
 
 quit-after-last-window-closed = false
-
-# macos stuff
-macos-non-native-fullscreen = visible-menu
-macos-option-as-alt = true
-macos-window-shadow = true
-mouse-hide-while-typing = true

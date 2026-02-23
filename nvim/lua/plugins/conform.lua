@@ -4,7 +4,11 @@ return {
 	cmd = "ConformInfo",
 	opts = {
 		formatters = {
-			["clang-format-custom"] = { command = "clang-format", args = { "--style=LLVM" }, stdin = true },
+			["clang-format-custom"] = {
+				command = "clang-format",
+				args = { "--style=Microsoft" },
+				stdin = true,
+			},
 			["json"] = {
 				command = "jq",
 				args = { "-S", "--indent", "2" },
@@ -32,6 +36,7 @@ return {
 			zig = { "zigfmt" },
 			zsh = { "shfmt" },
 			odin = { "odinfmt" },
+			glsl = { "clang-format-custom", lsp_format = "fallback" },
 		},
 	},
 }
