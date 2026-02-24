@@ -19,3 +19,4 @@ qutebrowser/quickmarks
 .DS_Store
 mpd/*
 !mpd/mpd.conf
+bat/themes/*

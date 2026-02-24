@@ -8,8 +8,12 @@
     exit 1
 }
 
-# This one is special
 ln -vsfn $DOTDIR/zsh/.zprofile $HOME/.zprofile
+
+# xdg stuff
+ln -vsfn $DOTDIR/xdg-stuff/xdg-desktop-portal-termfilechooser $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
+ln -vsfn $DOTDIR/xdg-stuff/xdg-desktop-portal $XDG_CONFIG_HOME/xdg-desktop-portal
+ln -vsfn $DOTDIR/xdg-stuff/applications/* $HOME/.local/share/applications/
 
 ln -vsfn $DOTDIR/ashell $XDG_CONFIG_HOME/ashell
 ln -vsfn $DOTDIR/bat $XDG_CONFIG_HOME/bat
@@ -24,7 +28,5 @@ ln -vsfn $DOTDIR/imv $XDG_CONFIG_HOME/imv
 ln -vsfn $DOTDIR/lazygit $XDG_CONFIG_HOME/lazygit
 ln -vsfn $DOTDIR/foot $XDG_CONFIG_HOME/foot
 ln -vsfn $DOTDIR/qutebrowser $XDG_CONFIG_HOME/qutebrowser
-ln -vsfn $DOTDIR/xdg-desktop-portal-termfilechooser $XDG_CONFIG_HOME/xdg-desktop-portal-termfilechooser
-ln -vsfn $DOTDIR/xdg-desktop-portal $XDG_CONFIG_HOME/xdg-desktop-portal
 ln -vsfn $DOTDIR/rmpc $XDG_CONFIG_HOME/rmpc
 ln -vsfn $DOTDIR/mpd $XDG_CONFIG_HOME/mpd

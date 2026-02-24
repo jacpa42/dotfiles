@@ -1,8 +1,6 @@
 #!/usr/bin/env /usr/bin/sh
 
-applications="$(fd -aedesktop --format "{/.}" -d1 . /usr/share/applications /home/jacob/.local/share/applications)"
-
-selected="$(echo -e "$applications" | fzf)"
+applications="/usr/share/applications /home/jacob/.local/share/applications"
+selected="$(fd -aedesktop --format "{/.}" -d1 . $applications | sort -u | fzf)"
 [ -z "$selected" ] && exit
-
-hyprctl dispatch exec "gtk-launch \""$(basename "$selected")"\""
+hyprctl dispatch exec "gtk-launch \"$selected\""
