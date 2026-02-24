@@ -173,7 +173,7 @@ Statusline = {
 	end,
 
 	inactive = function()
-		return " %F"
+		return "%F"
 	end,
 }
 

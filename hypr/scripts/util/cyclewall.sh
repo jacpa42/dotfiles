@@ -5,6 +5,8 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     exit 1
 }
 
+# Sets LASTWALLPAPER each time we update the wall paper
+LASTWALLPAPER="$XDG_CACHE_HOME/lastwallpaper"
 dir="$PROJDIR/muur_papier/"
 default_wallpaper=""
 set_default_wallpaper=false
@@ -109,6 +111,8 @@ if [ -n "$wbg_pid" ]; then
 else
     pids=$(pidof wbg)
 
+    # Spawn wbg
+    echo "$img" >"$LASTWALLPAPER"
     hyprctl dispatch exec "wbg -s "$img""
 
     # Kill them as we don't need them
