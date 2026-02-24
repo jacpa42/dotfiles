@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Disable spell for specific file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "noice", "man", "confini", "hyprlang", "sshconfig" },
+	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig" },
 	callback = function()
 		vim.opt_local.spell = false
 		vim.opt_local.spelllang = ""
@@ -16,19 +16,21 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
 -- This will check which lsp is attaching and set makeprg accordingly
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
-		pcall(vim.treesitter.start, args.buf, ft)
-
 		if ft == "rust" then
 			vim.o.makeprg = "cargo c --tests --all-features"
 		elseif ft == "zig" then
 			vim.o.makeprg = "zig build"
 			vim.o.errorformat = "%f:%l:%c: %t%*[^:]: %m"
-		else
-			print("No makeprg for " .. ft .. ". Default is " .. vim.o.makeprg)
 		end
 	end,
 })

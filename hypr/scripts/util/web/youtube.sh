@@ -1,2 +1,2 @@
 url="https://www.youtube.com/"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl --batch "dispatch exec firefox "$url"; dispatch workspace 3"

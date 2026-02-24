@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = { "rafamadriz/friendly-snippets" },
-	version = "*",
+	version = "1.*",
 	build = "cargo build --release",
 	opts_extend = {
 		"sources.completion.enabled_providers",
@@ -10,11 +10,15 @@ return {
 	},
 	event = "InsertEnter",
 	opts = {
-		appearance = { nerd_font_variant = "normal", use_nvim_cmp_as_default = false },
+		appearance = {
+			nerd_font_variant = "mono",
+			use_nvim_cmp_as_default = false,
+		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer", "cmdline" },
 		},
 		cmdline = { enabled = true },
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 		completion = {
 			menu = {
 				draw = {
@@ -25,11 +29,12 @@ return {
 					},
 				},
 			},
-			documentation = { auto_show = true, auto_show_delay_ms = 500 },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 500,
+			},
 			accept = {
-				auto_brackets = {
-					enabled = true,
-				},
+				auto_brackets = { enabled = true },
 			},
 		},
 

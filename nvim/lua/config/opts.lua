@@ -3,6 +3,7 @@ vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 
 vim.o.spell = true
 vim.o.spelllang = "en_gb"
+vim.o.shortmess = "aoOstTAIcCq"
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -11,7 +12,7 @@ vim.g.maplocalleader = "\\"
 vim.g.netrw_browsex_viewer = "qutebrowser"
 vim.o.breakindent = true
 vim.o.wrap = true
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.confirm = true
 vim.o.ignorecase = true
 vim.o.mouse = ""

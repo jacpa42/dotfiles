@@ -3,7 +3,7 @@
 [filechooser]
 cmd=yazi-wrapper.sh
 default_dir=$HOME
-env=TERMCMD='footclient --app-id "tpopup"'
+env=TERMCMD='footclient --app-id "termfilechooser"'
 env=VARIABLE2=VALUE2
 open_mode = suggested
 save_mode = last

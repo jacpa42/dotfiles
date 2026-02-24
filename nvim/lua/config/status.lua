@@ -1,4 +1,4 @@
-local function mode(minimal)
+local function mode(is_minimal)
 	local modes = {
 		["n"] = "NORMAL",
 		["no"] = "NORMAL",
@@ -23,7 +23,7 @@ local function mode(minimal)
 		["nt"] = "NORMTERM",
 	}
 
-	if minimal then
+	if is_minimal then
 		modes = {
 			["n"] = "NORM",
 			["no"] = "NORM",
@@ -52,27 +52,29 @@ local function mode(minimal)
 	return modes[vim.api.nvim_get_mode().mode]
 end
 
-local function update_mode_colors(minimal)
-	if minimal then
-		return "%#StatusLine# "
-	end
-	local current_mode = vim.api.nvim_get_mode().mode
+local function update_mode_colors(is_minimal)
 	local mode_color = "%#MiniStatuslineModeOther#"
-	if current_mode == "n" then
-		mode_color = "%#MiniStatuslineModeNormal#"
-	elseif current_mode == "i" or current_mode == "ic" then
-		mode_color = "%#MiniStatuslineModeInsert#"
-	elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
-		mode_color = "%#MiniStatuslineModeVisual#"
-	elseif current_mode == "R" then
-		mode_color = "%#MiniStatuslineModeReplace#"
-	elseif current_mode == "c" then
-		mode_color = "%#MiniStatuslineModeCommand#"
+	if is_minimal then
+		return "%#StatusLine#"
+	else
+		local current_mode = vim.api.nvim_get_mode().mode
+		if current_mode == "n" then
+			mode_color = "%#MiniStatuslineModeNormal#"
+		elseif current_mode == "i" or current_mode == "ic" then
+			mode_color = "%#MiniStatuslineModeInsert#"
+		elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
+			mode_color = "%#MiniStatuslineModeVisual#"
+		elseif current_mode == "R" then
+			mode_color = "%#MiniStatuslineModeReplace#"
+		elseif current_mode == "c" then
+			mode_color = "%#MiniStatuslineModeCommand#"
+		end
 	end
-	return mode_color .. " "
+
+	return mode_color
 end
 
-local function filepath()
+local function filepath(is_minimal)
 	local max_len = 50
 
 	local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
@@ -99,7 +101,7 @@ local function filepath()
 		short_path = short_path .. " [+]"
 	end
 
-	return short_path
+	return is_minimal and short_path or " " .. short_path
 end
 
 local function macro()
@@ -146,10 +148,6 @@ local function lsp()
 	return errors .. warnings .. hints .. info .. "%#StatusLine#"
 end
 
-local function filetype()
-	return string.format(" %s", vim.bo.filetype)
-end
-
 local function lineinfo()
 	local num_lines = vim.api.nvim_buf_line_count(0)
 	local spacing = math.floor(math.log10(num_lines)) + 1
@@ -157,19 +155,19 @@ local function lineinfo()
 	return " %3p%% %" .. spacing .. "l"
 end
 
-local minimal = false
+local is_minimal = true
 Statusline = {
 	active = function()
 		return table.concat({
-			update_mode_colors(minimal),
-			mode(minimal),
-			" %#StatusLine# ",
-			filepath(),
+			update_mode_colors(is_minimal),
+			mode(is_minimal),
+			" %#StatusLine#",
+			filepath(is_minimal),
 			"%#StatusLine#",
 			lsp(),
 			macro(),
 			"%=%#StatusLine#",
-			filetype(),
+			string.format(" %s", vim.bo.filetype),
 			lineinfo(),
 		})
 	end,
