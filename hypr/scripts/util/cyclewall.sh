@@ -8,27 +8,29 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
 # Sets LASTWALLPAPER each time we update the wall paper
 LASTWALLPAPER="$XDG_CACHE_HOME/lastwallpaper"
 dir="$PROJDIR/muur_papier/"
-default_wallpaper=""
-set_default_wallpaper=false
-random=false
-reverse=false
+requested_wallpaper=""
+set_last_used=""
+random=""
+reverse=""
 notify=0
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
     --wallpaper-dir | -w)
         dir="$2"
-        shift 2 || exit 0
+        shift 2 || exit 1
         ;;
     --notify | -n)
         notify=1
         shift
         ;;
     --set | -s)
-        echo "default $2"
-        default_wallpaper="$2"
-        set_default_wallpaper=true
-        shift 2 || exit 0
+        requested_wallpaper="$2"
+        shift 2 || exit 1
+        ;;
+    --set-last | -S)
+        set_last_used=true
+        shift
         ;;
     --reverse | -r)
         reverse=true
@@ -43,6 +45,7 @@ while [[ $# -gt 0 ]]; do
         echo
         echo "	--wallpaper-dir     -w | Specify the directory to search for images."
         echo "	--set               -s | Specify a wallpaper to set."
+        echo "	--set-last          -S | Trys to set the wallpaper to the last set wallpaper. On failure default behaviour occurs."
         echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
         echo "	--random            -R | Choose a random wallpaper."
         echo "	--notify            -n | Send a notification when the wallpaper is changed."
@@ -59,10 +62,13 @@ done
 img=""
 wbg_pid=""
 
-if $set_default_wallpaper; then
-    [ -f "$default_wallpaper" ] && img="$default_wallpaper" || img="$(fd -1atfile "$(basename "$default_wallpaper")" "$dir")"
-    wbg_pid="$(pgrep -of "^wbg.*$default_wallpaper")"
-else
+set_requested() {
+    req_wall="$1"
+    [ -f "$req_wall" ] && img="$req_wall" || img="$(fd -1atfile "$(basename "$req_wall")" "$dir")"
+    wbg_pid="$(pgrep -of "^wbg.*$req_wall")"
+}
+
+set_random() {
     images=($(fd -at f -e jpg . "$dir"))
     num_images=${#images[@]}
     ((num_images == 0)) && { echo "No images found." && exit 1; }
@@ -100,11 +106,29 @@ else
 
     img="$(rand_img $INDEX $num_images)"
     wbg_pid="$(pgrep -of "$img")"
-fi
+}
+
+wallpaper_set=""
+
+# Set last used if requested
+[[ -r "$LASTWALLPAPER" ]] && [[ -n "$set_last_used" ]] && {
+    wallpaper_set=true
+    requested_wallpaper="$(cat $LASTWALLPAPER)"
+    set_requested "$requested_wallpaper"
+}
+# Otherwise fallback to requested
+[[ -z "$wallpaper_set" ]] && [[ -n "$requested_wallpaper" ]] && {
+    wallpaper_set=true
+    set_requested "$requested_wallpaper"
+}
+# Otherwise fallback to random
+[[ -z "$wallpaper_set" ]] && {
+    set_random
+}
 
 if [ -n "$wbg_pid" ]; then
     # We already have the default going so we just kill all the other wbg processes and exit
-    echo "Default wallpaper already set."
+    echo "Wallpaper already set."
 
     # exclude the one with the default wallpaper and kill others
     pidof wbg | tr ' ' '\n' | grep -vwF -e "$wbg_pid" | xargs kill 2>/dev/null
