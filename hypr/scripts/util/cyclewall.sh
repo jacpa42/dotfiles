@@ -69,6 +69,9 @@ set_requested() {
 }
 
 set_random() {
+    random="$1"
+    reverse="$2"
+
     images=($(fd -at f -e jpg . "$dir"))
     num_images=${#images[@]}
     ((num_images == 0)) && { echo "No images found." && exit 1; }
@@ -76,7 +79,7 @@ set_random() {
     F=$(fd 'hyprwall' /tmp --type f)
     [[ $F == "" ]] && F=$(mktemp /tmp/hyprwall.XXX)
 
-    if $random; then
+    if [[ -n "$random" ]]; then
         INDEX=$(($RANDOM % num_images))
         echo "$INDEX" >"$F"
     else
@@ -85,7 +88,7 @@ set_random() {
             INDEX=0
         else
             read -r INDEX <"$F"
-            if $reverse; then
+            if [[ -n "$reverse" ]]; then
                 INDEX=$(((INDEX + num_images - 1) % num_images))
             else
                 INDEX=$(((INDEX + 1) % num_images))
@@ -123,7 +126,7 @@ wallpaper_set=""
 }
 # Otherwise fallback to random
 [[ -z "$wallpaper_set" ]] && {
-    set_random
+    set_random "$random" "$reverse"
 }
 
 if [ -n "$wbg_pid" ]; then
