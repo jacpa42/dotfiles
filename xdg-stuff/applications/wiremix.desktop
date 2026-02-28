@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Wiremix
-GenericName=Audio Mixer
-Comment=Configure audio device settings
-Exec=footclient -a wiremix wiremix
-Type=Application
-Keywords=pipewire;sound;audio
-Categories=Utility;Settings;ConsoleOnly
-StartupNotify=false

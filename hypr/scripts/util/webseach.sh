@@ -2,7 +2,7 @@
 
 # Search for all the common websites as like a sudo bookmarks thing with grep
 scriptdir=$DOTDIR/hypr/scripts/util/web
-output=$(grep -R $scriptdir -ohe "\"https.*\"" | fzf --print-query)
+output=$(grep -R $scriptdir -ohe "\"https.*\"" | fuzzel --dmenu)
 
 [ -z "$output" ] && exit 0
 
@@ -11,4 +11,4 @@ url="$([ $lc -eq 1 ] &&
     echo "https://www.google.com/search?q=$(printf "%s" "$output" | sed -n '1p' | urlencode)&udm=14" ||
     printf "%s" "$output" | sed -n '2p')"
 
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch exec workspace 3"
+hyprctl --batch "dispatch exec xdg-open \"$url\"; dispatch workspace 3"

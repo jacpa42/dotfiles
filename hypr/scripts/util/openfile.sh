@@ -1,6 +1,3 @@
 #!/usr/bin/env /usr/bin/sh
-selected="$(fzf --walker-root=$HOME --walker=file \
-    --bind 'ctrl-s:execute-silent(hyprctl dispatch exec xdg-open {-1})' \
-    --ghost="open file" \
-    --header="ctrl-s to open in background")"
+selected="$(fd -tf . $HOME | fuzzel --dmenu --mesg="open file")"
 hyprctl dispatch exec "xdg-open \""$selected"\""

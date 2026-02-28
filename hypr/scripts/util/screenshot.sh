@@ -1,12 +1,12 @@
-#!/usr/bin/env /usr/bin/sh
+#!/usr/bin/env bash
 
 pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     notify-send -a "picker" -t 1000 -r 666 "screenshot tool is already running"
     exit 1
 }
 
-modes="region\noutput\nwindow\nactive"
-mode="$(echo -e "$modes" | grep -m 1 "$1")"
+modes="region\noutput\nwindow\nactive window"
+mode="$(echo -e "$modes" | fuzzel --dmenu --auto-select)"
 
 [ "$mode" = "window" ] && {
     outputs="$(hyprctl monitors -j | jq -r '.[].name')"
@@ -21,19 +21,15 @@ mode="$(echo -e "$modes" | grep -m 1 "$1")"
     lc="$(wc -l <<<"$outputs")"
     [ $lc -lt 0 ] && exit 0
 
-    OUTPUT="$([ $lc -gt 1 ] && fzf <<<"$outputs" || head -n 1 <<<"$outputs")"
+    OUTPUT="$([ $lc -gt 1 ] && fuzzel --dmenu <<<"$outputs" || head -n 1 <<<"$outputs")"
     [ -z "$OUTPUT" ] && OUTPUT="active"
 
     mode="output -m $OUTPUT"
 }
 
-[ "$mode" = "active" ] && {
-    OUTPUT="$(printf "window\noutput" | fzf)"
-    [ -z "$OUTPUT" ] && exit 0
-
-    mode="active -m $OUTPUT"
+[ "$mode" = "active window" ] && {
+    mode="active -m window"
 }
 
 cmd="'hyprshot -z -m $mode -o \"\$HOME/Pictures/screenshots/\"'"
-echo "$cmd"
 hyprctl dispatch "exec sh -c $cmd"
