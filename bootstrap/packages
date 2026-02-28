@@ -14,7 +14,6 @@ clang
 cloc
 codelldb-bin
 coreutils
-davinci-resolve-studio
 dunst
 dysk
 entr
@@ -24,6 +23,7 @@ fd
 firefox
 foot
 foot-terminfo
+fuzzel
 fzf
 ghostscript
 git

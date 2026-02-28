@@ -32,3 +32,5 @@ paru -Syu --needed $(cat "$PACKAGES_FILE")
 paru -Rns $(paru -Qtdq)
 ### Link all my dotfiles ###
 ./linkshit.sh
+
+echo "WARN: you need to install davinci-resolve-studio manually"
