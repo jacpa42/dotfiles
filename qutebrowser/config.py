@@ -29,8 +29,8 @@ c.fileselect.handler = "external"
 
 select_cmd = [
     "footclient",
-    "--title=tpopup",
-    "--app-id=tpopup",
+    "--title=yazi",
+    "--app-id=yazi",
     "yazi",
     "--chooser-file={}",
 ]
