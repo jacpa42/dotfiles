@@ -42,8 +42,8 @@ m("n", "<c-f>", "<cmd>on<cr>")
 m("n", "<esc>", "<cmd>nohlsearch<cr>")
 m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
-m("n", "<tab>", "<cmd>tabn<cr>", { desc = "next tab" })
-m("n", "<s-tab>", "<cmd>tabp<cr>", { desc = "previous tab" })
+m("n", "<c-j>", "<cmd>tabn<cr>", { desc = "next tab" })
+m("n", "<c-k>", "<cmd>tabp<cr>", { desc = "previous tab" })
 
 m("n", "<leader>h", "<cmd>split<cr>")
 m("n", "<leader>v", "<cmd>vsplit<cr>")
