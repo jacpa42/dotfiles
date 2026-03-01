@@ -1,6 +1,3 @@
-# prompt
-export PS1='\[\e[34m\]\[\e[1m\]\w\[\e[0m\] \[\e[91m\]❯\[\e[0m\] '
-echo -en "\x1b[\x36 q"
 set_prompt() {
     local EXIT="$?"
     local BLUE="\[\e[34m\]\[\e[1m\]"
@@ -8,15 +5,28 @@ set_prompt() {
     local GREEN="\[\e[92m\]"
     local RESET="\[\e[0m\]"
 
-    if [ $EXIT -eq 0 ]; then
-        ARROW_COLOR="$BLUE"
-    else
-        ARROW_COLOR="$RED"
-    fi
+    [[ $EXIT -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
     PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
 }
 
-PROMPT_COMMAND=set_prompt
+echo -en "\x1b[\x36 q"
+export PROMPT_COMMAND=set_prompt
+export EDITOR=nvim
+export VISUAL=nvim
+export MANPAGER="nvim +Man!"
+export MANROFFOPT="-c"
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTCONTROL="erasedups:ignorespace"
+
+bind 'set show-all-if-ambiguous on'
+bind 'set colored-stats on'
+bind 'set visible-stats on'
+bind 'set mark-symlinked-directories on'
+bind 'set colored-completion-prefix on'
+bind 'set menu-complete-display-prefix on'
+bind 'set echo-control-characters off'
+bind 'set enable-bracketed-paste on'
 
 ## alias ##
 h() { "$@" --help 2>&1 | bat --plain -lhelp --paging=always; }
