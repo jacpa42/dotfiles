@@ -7,7 +7,7 @@ require("config.lsp")
 require("config.greeter")
 
 local highlight = vim.cmd.hi
-vim.cmd.colorscheme("kanagawa-wave")
+vim.cmd.colorscheme("kanagawa")
 highlight({ args = { "TelescopeBorder", "guibg=NONE" } })
 highlight({ args = { "FloatBorder", "guibg=NONE" } })
 highlight({ args = { "NormalFloat", "guibg=NONE" } })

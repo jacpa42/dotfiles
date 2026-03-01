@@ -61,10 +61,27 @@ done
 
 img=""
 wbg_pid=""
+F=$(fd 'hyprwall' /tmp --type f)
+[[ $F == "" ]] && F=$(mktemp /tmp/hyprwall.XXX)
+
+get_image_index() {
+    local element="$1"
+    local num_images=${#images[@]}
+    ((num_images == 0)) && exit 1
+
+    for ((i = 0; i < num_images; i++)); do
+        [[ "$element" == "${images[i]}" ]] && echo "$i" && exit
+    done
+
+    exit 1
+}
 
 set_requested() {
-    req_wall="$1"
+    local req_wall="$1"
     [ -f "$req_wall" ] && img="$req_wall" || img="$(fd -1atfile "$(basename "$req_wall")" "$dir")"
+    local images=($(fd -atf -ejpg . "$dir"))
+    local index="$(get_image_index "$img")"
+    [[ -n "$index" ]] && echo "$index" >"$F"
     wbg_pid="$(pgrep -of "^wbg.*$req_wall")"
 }
 
@@ -72,12 +89,9 @@ set_random() {
     random="$1"
     reverse="$2"
 
-    images=($(fd -at f -e jpg . "$dir"))
+    images=($(fd -atf -ejpg . "$dir"))
     num_images=${#images[@]}
     ((num_images == 0)) && { echo "No images found." && exit 1; }
-
-    F=$(fd 'hyprwall' /tmp --type f)
-    [[ $F == "" ]] && F=$(mktemp /tmp/hyprwall.XXX)
 
     if [[ -n "$random" ]]; then
         INDEX=$(($RANDOM % num_images))
@@ -116,7 +130,7 @@ wallpaper_set=""
 # Set last used if requested
 [[ -r "$LASTWALLPAPER" ]] && [[ -n "$set_last_used" ]] && {
     wallpaper_set=true
-    requested_wallpaper="$(cat $LASTWALLPAPER)"
+    requested_wallpaper="$(<$LASTWALLPAPER)"
     set_requested "$requested_wallpaper"
 }
 # Otherwise fallback to requested

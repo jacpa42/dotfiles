@@ -1,4 +1,4 @@
-font-family = JetBrainsMono Nerd Font
+font-family = JetBrainsMono Nerd Font Mono
 font-size = 21
 font-feature = cv11
 font-feature = ss03
@@ -6,8 +6,6 @@ font-feature = ss02
 font-feature = liga
 
 font-family = Noto Color Emoji
-
-window-decoration=none
 
 cursor-style = block
 cursor-invert-fg-bg = true
@@ -39,4 +37,4 @@ shell-integration = bash
 
 background-opacity = 0.90
 
-quit-after-last-window-closed = false
+quit-after-last-window-closed = true

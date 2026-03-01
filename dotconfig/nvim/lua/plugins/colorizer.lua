@@ -3,7 +3,7 @@ return {
 	event = "BufReadPre",
 	opts = {
 		options = {
-			parsers = { css = true },
+			parsers = { css_fn = true },
 			display = {
 				mode = "virtualtext",
 				virtualtext = {
