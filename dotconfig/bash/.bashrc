@@ -23,10 +23,11 @@ bind 'set show-all-if-ambiguous on'
 bind 'set colored-stats on'
 bind 'set visible-stats on'
 bind 'set mark-symlinked-directories on'
-bind 'set colored-completion-prefix on'
 bind 'set menu-complete-display-prefix on'
 bind 'set echo-control-characters off'
 bind 'set enable-bracketed-paste on'
+bind 'TAB:menu-complete'
+bind '"\e[Z": menu-complete-backward'
 
 ## alias ##
 h() { "$@" --help 2>&1 | bat --plain -lhelp --paging=always; }
