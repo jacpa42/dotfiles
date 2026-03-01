@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/bin/sh
+#!/usr/bin/env bash
 
 pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     notify-send -a "picker" -t 1000 -r 666 "color picker is already running"

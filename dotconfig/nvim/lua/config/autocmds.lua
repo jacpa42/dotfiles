@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Disable spell for specific file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig" },
+	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh" },
 	callback = function()
 		vim.opt_local.spell = false
 		vim.opt_local.spelllang = ""
