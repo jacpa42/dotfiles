@@ -6,14 +6,21 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
+local function disablespell()
+	vim.opt_local.spell = false
+	vim.opt_local.spelllang = ""
+	vim.opt_local.syntax = "off"
+end
+
 -- Disable spell for specific file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh" },
-	callback = function()
-		vim.opt_local.spell = false
-		vim.opt_local.spelllang = ""
-		vim.opt_local.syntax = "off"
-	end,
+	callback = disablespell,
+})
+
+-- Disable spell for terminal
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+	callback = disablespell,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

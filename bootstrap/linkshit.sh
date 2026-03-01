@@ -9,7 +9,8 @@
 }
 
 # special :)
-ln -vsfn $DOTDIR/dotconfig/zsh/.zprofile $HOME/.zprofile
+ln -vsfn $DOTDIR/dotconfig/bash/.bash_profile $HOME/.bash_profile
+ln -vsfn $DOTDIR/dotconfig/bash/.bashrc $HOME/.bashrc
 
 # custom desktop file stuff
 ln -vsfn $DOTDIR/custom_desktop_files/* $HOME/.local/share/applications/

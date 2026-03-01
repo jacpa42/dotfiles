@@ -1,5 +1,8 @@
 local m = vim.keymap.set
 
+-- More usable terminal mode
+m("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap = true })
+
 m("n", "<leader>m", vim.cmd.make, { desc = "runs :make" })
 m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })

@@ -6,6 +6,7 @@ aseprite
 ashell
 base
 base-devel
+bash-completion
 bat
 btop
 catppuccin-cursors-mocha
@@ -96,5 +97,3 @@ zathura-pdf-mupdf
 zig
 zls
 zoxide
-zsh
-zsh-syntax-highlighting-git
