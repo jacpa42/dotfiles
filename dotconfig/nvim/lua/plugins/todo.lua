@@ -52,18 +52,18 @@ return {
 				alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this fix keywords
 				-- signs = false, -- configure signs for some keywords individually
 			},
-			TODO = { icon = " ", color = "blue", alt = {} }, -- failed: this is a random comment
-			HACK = { icon = " ", color = "yellow", alt = {} },
-			WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+			TODO = { icon = " ", color = "info", alt = {} }, -- failed: this is a random comment
+			HACK = { icon = " ", color = "warn", alt = {} },
+			WARN = { icon = " ", color = "warn", alt = { "WARNING", "XXX" } },
 			PERF = {
 				icon = " ",
 				color = "error",
 				alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" },
 			},
-			NOTE = { icon = " ", color = "blue", alt = { "INFO" } },
+			NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
 			TEST = {
 				icon = "⏲ ",
-				color = "test",
+				color = "warn",
 				alt = { "TESTING", "PASSED", "FAILED" },
 			},
 		},
@@ -84,13 +84,10 @@ return {
 			exclude = {}, -- list of file types to exclude highlighting
 		},
 		colors = {
-			error = "MiniIconsRed",
-			warning = "MiniIconsOrange",
-			info = "MiniIconsGreen",
-			hint = "MiniIconsPurple",
-			yellow = "MiniIconsYellow",
-			blue = "MiniIconsBlue",
-			test = "MiniIconsPurple",
+			error = "DiagnosticSignError",
+			warn = "DiagnosticSignWarn",
+			info = "DiagnosticSignInfo",
+			hint = "DiagnosticSignHint",
 		},
 		search = {
 			command = "rg",
