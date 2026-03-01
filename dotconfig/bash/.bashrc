@@ -1,4 +1,22 @@
+# prompt
 export PS1='\[\e[34m\]\[\e[1m\]\w\[\e[0m\] \[\e[91m\]❯\[\e[0m\] '
+echo -en "\x1b[\x36 q"
+set_prompt() {
+    local EXIT="$?"
+    local BLUE="\[\e[34m\]\[\e[1m\]"
+    local RED="\[\e[91m\]"
+    local GREEN="\[\e[92m\]"
+    local RESET="\[\e[0m\]"
+
+    if [ $EXIT -eq 0 ]; then
+        ARROW_COLOR="$BLUE"
+    else
+        ARROW_COLOR="$RED"
+    fi
+    PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
+}
+
+PROMPT_COMMAND=set_prompt
 
 ## alias ##
 h() { "$@" --help 2>&1 | bat --plain -lhelp --paging=always; }
