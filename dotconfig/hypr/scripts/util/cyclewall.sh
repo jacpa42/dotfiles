@@ -5,23 +5,21 @@ pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
     exit 1
 }
 
-# Sets LASTWALLPAPER each time we update the wall paper
-LASTWALLPAPER="$XDG_CACHE_HOME/lastwallpaper"
-dir="$PROJDIR/muur_papier/"
-requested_wallpaper=""
-set_last_used=""
-random=""
-reverse=""
-notify=0
+wallpaper_dir="$PROJDIR/muur_papier/"
+requested_wallpaper=
+set_last_used=
+random=
+reverse=
+notify=
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
     --wallpaper-dir | -w)
-        dir="$2"
+        wallpaper_dir="$2"
         shift 2 || exit 1
         ;;
     --notify | -n)
-        notify=1
+        notify=true
         shift
         ;;
     --set | -s)
@@ -59,103 +57,64 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-img=""
-wbg_pid=""
-F=$(fd 'hyprwall' /tmp --type f)
-[[ $F == "" ]] && F=$(mktemp /tmp/hyprwall.XXX)
-
-get_image_index() {
-    local element="$1"
-    local num_images=${#images[@]}
-    ((num_images == 0)) && exit 1
-
-    for ((i = 0; i < num_images; i++)); do
-        [[ "$element" == "${images[i]}" ]] && echo "$i" && exit
-    done
-
-    exit 1
-}
+STATE_FILE=$XDG_CACHE_HOME/lastwallpaper
+[[ -r "$STATE_FILE" ]] && STATE="$(<$STATE_FILE)" || STATE=
+current_image="${STATE%%$'\n'*}"
+current_image_index="${STATE#*$'\n'}"
+next_image=
+next_image_index=
 
 set_requested() {
     local req_wall="$1"
-    [ -f "$req_wall" ] && img="$req_wall" || img="$(fd -1atfile "$(basename "$req_wall")" "$dir")"
-    local images=($(fd -atf -ejpg . "$dir"))
-    local index="$(get_image_index "$img")"
-    [[ -n "$index" ]] && echo "$index" >"$F"
-    wbg_pid="$(pgrep -of "^wbg.*$req_wall")"
+    [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_dir")"
+    next_image_index="$(fd -atf -ejpg . "$wallpaper_dir" | rg -nxF "$next_image" | cut -d: -f1)"
+    [[ -n "$next_image_index" ]] && next_image_index=0
 }
 
 set_random() {
-    random="$1"
-    reverse="$2"
+    local random="$1"
+    local reverse="$2"
 
-    images=($(fd -atf -ejpg . "$dir"))
-    num_images=${#images[@]}
+    local images=($(fd -atf -ejpg . "$wallpaper_dir"))
+    local num_images=${#images[@]}
     ((num_images == 0)) && { echo "No images found." && exit 1; }
 
     if [[ -n "$random" ]]; then
-        INDEX=$(($RANDOM % num_images))
-        echo "$INDEX" >"$F"
+        next_image_index=$(($RANDOM % num_images))
+    elif [[ -z "$current_image_index" ]]; then
+        next_image_index=0
+    elif [[ -n "$reverse" ]]; then
+        next_image_index=$(((current_image_index + num_images - 1) % num_images))
     else
-        if [[ ! -s $F ]]; then
-            echo 0 >"$F"
-            INDEX=0
-        else
-            read -r INDEX <"$F"
-            if [[ -n "$reverse" ]]; then
-                INDEX=$(((INDEX + num_images - 1) % num_images))
-            else
-                INDEX=$(((INDEX + 1) % num_images))
-            fi
-            echo "$INDEX" >"$F"
-        fi
+        next_image_index=$(((current_image_index + 1) % num_images))
     fi
 
-    rand_img() {
-        local index=${1:-0}
-        local len=${2:-0}
-        ((len == 0)) && {
-            echo "No images found."
-            exit 1
-        }
-        echo "${images[index % len]}"
-    }
+    next_image="${images[next_image_index]}"
 
-    img="$(rand_img $INDEX $num_images)"
-    wbg_pid="$(pgrep -of "$img")"
 }
 
 wallpaper_set=""
 
 # Set last used if requested
-[[ -r "$LASTWALLPAPER" ]] && [[ -n "$set_last_used" ]] && {
+[[ -n "$LASTWALLPAPER" ]] && [[ -n "$set_last_used" ]] && {
     wallpaper_set=true
-    requested_wallpaper="$(<$LASTWALLPAPER)"
+    requested_wallpaper="$LASTWALLPAPER"
     set_requested "$requested_wallpaper"
 }
+
 # Otherwise fallback to requested
 [[ -z "$wallpaper_set" ]] && [[ -n "$requested_wallpaper" ]] && {
     wallpaper_set=true
     set_requested "$requested_wallpaper"
 }
+
 # Otherwise fallback to random
 [[ -z "$wallpaper_set" ]] && {
     set_random "$random" "$reverse"
 }
 
-if [ -n "$wbg_pid" ]; then
-    # We already have the default going so we just kill all the other wbg processes and exit
-    echo "Wallpaper already set."
-
-    # exclude the one with the default wallpaper and kill others
-    pidof wbg | tr ' ' '\n' | grep -vwF -e "$wbg_pid" | xargs kill 2>/dev/null
-else
-    pids=$(pidof wbg)
-
-    # Spawn wbg
-    echo "$img" >"$LASTWALLPAPER"
-    hyprctl dispatch exec "wbg -s "$img""
-
-    # Kill them as we don't need them
-    [ -n "$pids" ] && kill $pids
-fi
+[[ $current_image != $next_image ]] && {
+    hyprctl hyprpaper wallpaper ",$next_image,"
+    printf "$next_image\n$next_image_index" >"$STATE_FILE"
+    notify-send --icon="$next_image" --replace-id=42069 "Wallpaper changed" "$next_image"
+}

@@ -11,6 +11,7 @@ hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE &
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
 dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=$QT_QPA_PLATFORMTHEME &
 mpd &
+hyprpaper &
 fcitx5 -d &
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita &
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark &

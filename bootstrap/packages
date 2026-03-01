@@ -35,6 +35,7 @@ glfw
 gtk2
 hyprland
 hyprls
+hyprpaper
 hyprpicker
 hyprshot
 imagemagick
@@ -82,7 +83,6 @@ ttf-jetbrains-mono-nerd
 ueberzugpp
 urlencode
 valgrind
-wbg
 wget
 which
 wiremix
