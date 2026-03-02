@@ -5,6 +5,7 @@ vim.o.spell = true
 vim.o.spelllang = "en_gb"
 vim.o.shortmess = "aoOstTAIcCq"
 
+vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
