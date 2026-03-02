@@ -1,15 +1,12 @@
 set_prompt() {
-    local EXIT="$?"
     local BLUE="\[\e[34m\]\[\e[1m\]"
     local RED="\[\e[91m\]"
     local GREEN="\[\e[92m\]"
     local RESET="\[\e[0m\]"
-
-    [[ $EXIT -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
+    [[ $? -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
     PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
 }
 
-echo -en "\x1b[\x36 q"
 export PROMPT_COMMAND=set_prompt
 export EDITOR=nvim
 export VISUAL=nvim
@@ -19,6 +16,11 @@ export HISTSIZE=10000
 export HISTFILESIZE=10000
 export HISTCONTROL="erasedups:ignorespace"
 
+set -o vi
+bind "set vi-cmd-mode-string \1\e[34;1m\2NOR \1\e[2 q\2\1\e[0m\2"
+bind "set vi-ins-mode-string \1\e[34;1m\2INS \1\e[\x36 q\2\1\e[0m\2"
+bind 'set keyseq-timeout 50'
+bind 'set show-mode-in-prompt on'
 bind 'set show-all-if-ambiguous on'
 bind 'set colored-stats on'
 bind 'set visible-stats on'
@@ -28,8 +30,9 @@ bind 'set echo-control-characters off'
 bind 'set enable-bracketed-paste on'
 bind 'TAB:menu-complete'
 bind '"\e[Z": menu-complete-backward'
+bind '"\C-l": clear-screen'
 
-## alias ##
+## aliases ##
 h() { "$@" --help 2>&1 | bat --plain -lhelp --paging=always; }
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

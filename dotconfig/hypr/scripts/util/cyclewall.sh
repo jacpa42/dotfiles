@@ -68,7 +68,7 @@ set_requested() {
     local req_wall="$1"
     [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_dir")"
     next_image_index="$(fd -atf -ejpg . "$wallpaper_dir" | rg -nxF "$next_image" | cut -d: -f1)"
-    [[ -n "$next_image_index" ]] && next_image_index=0
+    next_image_index="${next_image_index:-0}"
 }
 
 set_random() {
@@ -93,23 +93,24 @@ set_random() {
 
 }
 
-wallpaper_set=""
+wallpaper_set=
 
 # Set last used if requested
-[[ -n "$LASTWALLPAPER" ]] && [[ -n "$set_last_used" ]] && {
+[[ -z "$wallpaper_set" && -n "$current_image" && -n "$set_last_used" ]] && {
     wallpaper_set=true
-    requested_wallpaper="$LASTWALLPAPER"
+    requested_wallpaper="$current_image"
     set_requested "$requested_wallpaper"
 }
 
 # Otherwise fallback to requested
-[[ -z "$wallpaper_set" ]] && [[ -n "$requested_wallpaper" ]] && {
+[[ -z "$wallpaper_set" && -n "$requested_wallpaper" ]] && {
     wallpaper_set=true
     set_requested "$requested_wallpaper"
 }
 
 # Otherwise fallback to random
 [[ -z "$wallpaper_set" ]] && {
+    wallpaper_set=true
     set_random "$random" "$reverse"
 }
 
