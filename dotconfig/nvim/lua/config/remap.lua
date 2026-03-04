@@ -39,9 +39,9 @@ end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 m({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
 	if name == "" then
-		pcall(vim.cmd, "saveas " .. vim.fn.input("Save as: ", "", "file"))
+		vim.cmd("saveas " .. vim.fn.input("Save as: ", "", "file"))
 	else
-		vim.cmd("update")
+		vim.cmd("silent update")
 	end
 end, { desc = "Smart write" })
 

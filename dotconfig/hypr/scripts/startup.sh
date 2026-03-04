@@ -4,6 +4,8 @@ default_wallpaper="blue-flowers.jpg"
 wallpaper_directory="$PROJDIR/muur_papier"
 cyclewall="$DOTDIR/dotconfig/hypr/scripts/util/cyclewall.sh"
 
+# This spawns hyprpaper!
+
 ashell &
 foot --server &
 mpd &
@@ -15,7 +17,10 @@ gsettings set org.gnome.desktop.interface gtk-theme Adwaita &
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark &
 gsettings set org.gnome.desktop.interface cursor-theme $HYPRCURSOR_THEME &
 
-# This spawns hyprpaper!
-$cyclewall -w $wallpaper_directory --set-last -s $default_wallpaper
-
+hyprpaper &
 disown
+while ! pidof -q hyprpaper; do
+    sleep 0.1
+done
+sleep 0.3 # Wait for socket to connect or smthn idk
+$cyclewall --force -w $wallpaper_directory --set-last -s $default_wallpaper

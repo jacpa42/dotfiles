@@ -4,6 +4,7 @@ wallpaper_dir="$PROJDIR/muur_papier/"
 requested_wallpaper=
 set_last_used=
 random=
+force=
 reverse=
 notify=
 
@@ -33,6 +34,10 @@ while [[ $# -gt 0 ]]; do
         random=true
         shift
         ;;
+    --force | -f)
+        force=true
+        shift
+        ;;
     --help | -h)
         echo "Usage: $0 --wallpaper-dir|-w <wallpaper directory> [--help|-h] [--set|-s <wallpaper>] [--reverse|-r]"
         echo
@@ -41,6 +46,7 @@ while [[ $# -gt 0 ]]; do
         echo "	--set-last          -S | Trys to set the wallpaper to the last set wallpaper. On failure default behaviour occurs."
         echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
         echo "	--random            -R | Choose a random wallpaper."
+        echo "	--force             -f | Tell hyprpaper to set the wallpaper even if it is already loaded."
         echo "	--notify            -n | Send a notification when the wallpaper is changed."
         exit 0
         ;;
@@ -109,19 +115,7 @@ wallpaper_set=
     set_random "$random" "$reverse"
 }
 
-# We want to set the wallpaper if we just started hyprpaper or our current image is not the same as our previous image
-just_started_hyprpaper=
-pidof -q hyprpaper || {
-    hyprpaper &
-    disown
-    while ! pidof -q hyprpaper; do
-        sleep 0.1
-    done
-    sleep 0.1 # Wait for socket to connect or smthn idk
-    just_started_hyprpaper=true
-}
-
-[[ -n "$just_started_hyprpaper" || $current_image != $next_image ]] && {
+[[ -n "$force" || $current_image != $next_image ]] && {
     hyprctl hyprpaper wallpaper ",$next_image," || exit 2
     printf "$next_image\n$next_image_index" >"$STATE_FILE"
 }
