@@ -1,2 +1,2 @@
-url="https://admin.shopify.com/store"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://admin.shopify.com/store"

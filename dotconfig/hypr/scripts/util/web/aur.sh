@@ -1,2 +1,2 @@
-url="https://aur.archlinux.org/packages"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://aur.archlinux.org/packages"

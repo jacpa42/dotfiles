@@ -1,2 +1,2 @@
-url="https://wiki.archlinux.org/title/Main_page"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://wiki.archlinux.org/title/Main_page"

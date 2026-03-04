@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
-    notify-send "Cycle wall is already running"
-    exit 1
-}
-
 wallpaper_dir="$PROJDIR/muur_papier/"
 requested_wallpaper=
 set_last_used=
@@ -114,8 +109,19 @@ wallpaper_set=
     set_random "$random" "$reverse"
 }
 
-[[ $current_image != $next_image ]] && {
-    hyprctl hyprpaper wallpaper ",$next_image,"
+# We want to set the wallpaper if we just started hyprpaper or our current image is not the same as our previous image
+just_started_hyprpaper=
+pidof -q hyprpaper || {
+    hyprpaper &
+    disown
+    while ! pidof -q hyprpaper; do
+        sleep 0.1
+    done
+    sleep 0.1 # Wait for socket to connect or smthn idk
+    just_started_hyprpaper=true
+}
+
+[[ -n "$just_started_hyprpaper" || $current_image != $next_image ]] && {
+    hyprctl hyprpaper wallpaper ",$next_image," || exit 2
     printf "$next_image\n$next_image_index" >"$STATE_FILE"
-    notify-send --icon="$next_image" --replace-id=42069 "Wallpaper changed" "$next_image"
 }

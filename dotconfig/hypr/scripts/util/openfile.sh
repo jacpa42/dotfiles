@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-selected="$(fd -tf . $HOME | fuzzel --dmenu --mesg="open file")"
-hyprctl dispatch exec "xdg-open \""$selected"\""
+
+selected="$(fd -tf . $HOME | fuzzel --dmenu --placeholder="open file")"
+exec xdg-open $selected

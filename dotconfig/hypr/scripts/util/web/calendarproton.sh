@@ -1,2 +1,2 @@
-url="https://calendar.proton.me/u/0/"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://calendar.proton.me/u/0/"

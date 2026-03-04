@@ -1,2 +1,2 @@
-url="https://ziglang.org/documentation/$(zig version)/"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://ziglang.org/documentation/$(zig version)/"

@@ -17,7 +17,7 @@ return {
 		{ mode = "n", "<leader>ff", "<cmd>Telescope live_grep<cr>", desc = "search cwd" },
 		{ mode = "n", "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "search help tags into float window" },
 		{ mode = "n", "<leader>fk", "<cmd>Telescope keymaps<cr>", desc = "search keymaps" },
-		{ mode = "n", "<leader>fm", "<cmd>Telescope marks<cr>", desc = "search marks" },
+		{ mode = "n", "<leader>fm", "<cmd>Telescope man_pages<cr>", desc = "search marks" },
 		{ mode = "n", "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "search open buffers" },
 		{ mode = "n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "search recent files" },
 		{ mode = "n", "<leader>ft", "<cmd>Telescope diagnostics<cr>", desc = "get trouble for document" },

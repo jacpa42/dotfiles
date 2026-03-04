@@ -1,21 +1,14 @@
 #!/usr/bin/env bash
 
-pgrep "$(basename "$0")" | grep -vw $$ >/dev/null && {
-    notify-send -a "picker" -t 1000 -r 666 "screenshot tool is already running"
-    exit 1
-}
-
 modes="region\noutput\nwindow\nactive window"
 mode="$(echo -e "$modes" | fuzzel --dmenu --auto-select)"
 
-[ "$mode" = "window" ] && {
+if [[ "$mode" == "window" ]]; then
     outputs="$(hyprctl monitors -j | jq -r '.[].name')"
 
     # If we only have one monitor just screenshot the active one
     [ "$(wc -l <<<"$outputs")" -eq 1 ] && mode="window -m active"
-}
-
-[ "$mode" = "output" ] && {
+elif [[ "$mode" = "output" ]]; then
     outputs="$(hyprctl monitors -j | jq -r '.[].name')"
 
     lc="$(wc -l <<<"$outputs")"
@@ -25,11 +18,10 @@ mode="$(echo -e "$modes" | fuzzel --dmenu --auto-select)"
     [ -z "$OUTPUT" ] && OUTPUT="active"
 
     mode="output -m $OUTPUT"
-}
-
-[ "$mode" = "active window" ] && {
+elif [[ "$mode" = "active window" ]]; then
     mode="active -m window"
-}
+fi
 
-cmd="'hyprshot -z -m $mode -o \"\$HOME/Pictures/screenshots/\"'"
-hyprctl dispatch "exec sh -c $cmd"
+echo "mode=$mode"
+
+hyprshot -z -m $mode -o "$HOME/Pictures/screenshots/"

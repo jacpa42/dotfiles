@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
-# Search for all the common websites as like a sudo bookmarks thing with grep
-scriptdir=$DOTDIR/dotconfig/hypr/scripts/util/web
-output=$(grep -R $scriptdir -ohe "\"https.*\"" | fuzzel --dmenu)
-
+output="$(fuzzel -l1 --dmenu --placeholder="search web" <<<"")"
 [ -z "$output" ] && exit 0
-
-lc=$(echo "$output" | wc -l)
-url="$([ $lc -eq 1 ] &&
-    echo "https://www.google.com/search?q=$(printf "%s" "$output" | sed -n '1p' | urlencode)&udm=14" ||
-    printf "%s" "$output" | sed -n '2p')"
-
-hyprctl --batch "dispatch exec xdg-open \"$url\"; dispatch workspace 3"
+url="https://www.google.com/search?q=$(printf "%s" "$output" | sed -n '1p' | urlencode)&udm=14"
+hyprctl dispatch workspace 3
+exec xdg-open "$url"

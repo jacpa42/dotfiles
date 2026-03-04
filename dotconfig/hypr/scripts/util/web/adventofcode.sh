@@ -1,2 +1,2 @@
-url="https://adventofcode.com/"
-hyprctl --batch "dispatch exec xdg-open "$url"; dispatch workspace 3"
+hyprctl dispatch workspace 3
+exec xdg-open "https://adventofcode.com/"
