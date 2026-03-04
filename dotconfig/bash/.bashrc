@@ -64,6 +64,7 @@ alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
 alias urepo="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c 'cd \"{}/..\"; echo \$(pwd); git pull'"
+alias repostat="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c 'cd \"{}/..\"; echo \$(pwd); git status'"
 alias t="cd "$HOME" && exec tmux new-session -A -s jacob"
 
 source <(zoxide init --cmd j bash)
