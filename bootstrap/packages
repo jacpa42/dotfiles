@@ -49,7 +49,6 @@ lua-language-server
 luarocks
 man-db
 man-pages
-mpc
 mpd
 mpv
 neo-matrix
