@@ -17,8 +17,8 @@ export HISTFILESIZE=10000
 export HISTCONTROL="erasedups:ignorespace"
 
 set -o vi
-bind "set vi-cmd-mode-string \1\e[34;1m\2NOR \1\e[2 q\2\1\e[0m\2"
-bind "set vi-ins-mode-string \1\e[34;1m\2INS \1\e[\x36 q\2\1\e[0m\2"
+bind "set vi-cmd-mode-string \1\e[34;1m\1\e[2 q\2\1\e[0m\2"
+bind "set vi-ins-mode-string \1\e[34;1m\1\e[\x36 q\2\1\e[0m\2"
 bind 'set keyseq-timeout 50'
 bind 'set show-mode-in-prompt on'
 bind 'set show-all-if-ambiguous on'
