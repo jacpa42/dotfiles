@@ -1,5 +1,5 @@
 dotconfig/mpv/watch_later/
-dotconfig/nvim/lazy-lock.json
+**/lazy-lock.json
 dotconfig/zsh/.zcompdump
 dotconfig/zsh/.zcompcache
 dotconfig/zsh/.zsh_sessions/
@@ -10,6 +10,6 @@ dotconfig/qutebrowser/bookmarks/
 dotconfig/qutebrowser/qsettings/
 dotconfig/qutebrowser/quickmarks
 **/.DS_Store
-dotconfig/mpd/*
+**/mpd/*
 !dotconfig/mpd/mpd.conf
 dotconfig/bat/themes/*
