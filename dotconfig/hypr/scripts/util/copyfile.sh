@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+selected="$(fd -tf . $HOME | fuzzel --dmenu --placeholder="Copy file")"
+[[ -f "$selected" ]] && {
+    wl-copy <"$selected"
+    notify-send -i "$selected" -t 4000 -r 666 "Copied file \"$selected\" to clipboard"
+}

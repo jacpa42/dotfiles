@@ -1,0 +1,19 @@
+#!/usr/bin/env /usr/bin/bash
+
+file="$(fd -1gHItfile places.sqlite $HOME)"
+backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"
+trap 'rm "$backup_copy"' EXIT
+
+sqlite3 "file:$file?mode=ro&immutable=1" ".backup $backup_copy"
+
+query="select title,url from moz_places where title is not null order by last_visit_date desc"
+sep=".separator \" \""
+
+selection="$(sqlite3 "$backup_copy" "$sep" "$query" | fuzzel --dmenu --placeholder="search history")"
+
+url="${selection##* }"
+[ -z "$url" ] && exit 1
+
+xdg-open "$url" &
+hyprctl dispatch workspace 3
+disown

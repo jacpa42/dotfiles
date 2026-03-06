@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/bin/bash
+#!/usr/bin/env bash
 # NOTE: https://wiki.archlinux.org/title/Migrate_installation_to_new_hardware#List_of_installed_packages
 
 cd "$(dirname $0)"
@@ -26,9 +26,13 @@ PACKAGES_FILE="packages"
     exit 1
 }
 
-### Install packages ###
+echo "INFO: installing desired packages"
 paru -Syu --needed $(cat "$PACKAGES_FILE")
-### Remove orphan files ###
+echo "INFO: Removing orphan files"
 paru -Rns $(paru -Qtdq)
-### Link all my dotfiles ###
+echo "INFO: Link all my config files"
 ./linkshit.sh
+echo "INFO: adding user $USER to the input group for password stuff"
+sudo usermod -aG input $USER
+
+echo "WARN: you need to install davinci-resolve-studio manually"

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Bluetoothctl
+GenericName=bluetooth configuration tool
+Comment=Edit bluetooth configuration
+TryExec=bluetoothctl
+Exec=bluetoothctl
+Terminal=true
+Type=Application
+Keywords=bluetooth;
+Categories=Utility;
+StartupNotify=false

@@ -6,6 +6,7 @@ aseprite
 ashell
 base
 base-devel
+bash-completion
 bat
 btop
 catppuccin-cursors-mocha
@@ -14,16 +15,18 @@ clang
 cloc
 codelldb-bin
 coreutils
-davinci-resolve-studio
 dunst
 dysk
 entr
 eza
 fastfetch
+fcitx5-im
+fcitx5-mozc
 fd
 firefox
 foot
 foot-terminfo
+fuzzel
 fzf
 ghostscript
 git
@@ -32,6 +35,7 @@ glfw
 gtk2
 hyprland
 hyprls
+hyprpaper
 hyprpicker
 hyprshot
 imagemagick
@@ -45,7 +49,6 @@ lua-language-server
 luarocks
 man-db
 man-pages
-mpc
 mpd
 mpv
 neo-matrix
@@ -79,13 +82,14 @@ ttf-jetbrains-mono-nerd
 ueberzugpp
 urlencode
 valgrind
-wbg
 wget
 which
 wiremix
 wireplumber
+wtype
 xdg-desktop-portal-hyprland
 xdg-desktop-portal-termfilechooser-hunkyburrito-git
+xdg-terminal-exec-git
 yazi
 yt-dlp
 zathura
@@ -94,5 +98,3 @@ zathura-pdf-mupdf
 zig
 zls
 zoxide
-zsh
-zsh-syntax-highlighting-git

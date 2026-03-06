@@ -1,0 +1,42 @@
+vim.diagnostic.config({ virtual_text = { current_line = false } })
+vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
+
+vim.o.spell = true
+vim.o.spelllang = "en_gb"
+vim.o.shortmess = "aoOstTAIcCq"
+
+vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+vim.g.netrw_browsex_viewer = "qutebrowser"
+vim.o.breakindent = true
+vim.o.wrap = true
+vim.o.cmdheight = 1
+vim.o.confirm = true
+vim.o.ignorecase = true
+vim.o.mouse = ""
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 999
+vim.o.sidescrolloff = 999
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.expandtab = true
+vim.o.showmode = false
+vim.o.signcolumn = "number"
+vim.o.smartcase = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.swapfile = false
+vim.o.timeoutlen = 500
+vim.o.undodir = vim.fn.expand("~/.cache/undodir/")
+vim.o.undofile = true
+vim.o.updatetime = 250
+vim.o.winborder = "rounded"
+vim.o.clipboard = "unnamedplus"
+vim.opt.cursorline = true
+vim.opt.list = true
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+vim.opt.termguicolors = true
