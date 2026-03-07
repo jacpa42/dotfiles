@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-default_wallpaper="blue-flowers.jpg"
+default_wallpaper="fuji-clay-banks.jpg"
 wallpaper_directory="$PROJDIR/muur_papier"
 cyclewall="$DOTDIR/dotconfig/hypr/scripts/util/cyclewall.sh"
 
