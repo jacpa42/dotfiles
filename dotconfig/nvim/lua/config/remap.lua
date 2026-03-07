@@ -8,8 +8,9 @@ m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 m("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
 m("n", "<leader>td", ":silent grep TODO\\: <bar> copen<cr>", { desc = "grep 'TODO:'s", silent = true, noremap = true })
 
--- nnoremap <silent><leader>td :silent grep! TODO: <Bar> copen<CR>
--- nnoremap <silent><leader>tf :silent grep! FIX: <Bar> copen<CR>
+m("i", "(", "()<left>", { desc = "Auto ()", silent = true, noremap = true })
+m("i", "[", "[]<left>", { desc = "Auto []", silent = true, noremap = true })
+m("i", "{", "{}<left>", { desc = "Auto {}", silent = true, noremap = true })
 
 vim.api.nvim_create_user_command("CycleIntRepr", function()
 	local cword = vim.fn.expand("<cword>")
@@ -57,9 +58,5 @@ m("n", "<leader>v", "<cmd>vsplit<cr>")
 m("n", "<leader>l", "<cmd>Lazy<cr>")
 m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
-m("n", "<c-n>", function()
-	pcall(vim.cmd.cnext)
-end)
-m("n", "<c-p>", function()
-	pcall(vim.cmd.cprev)
-end)
+m("n", "<c-n>", ":silent cnext<cr>")
+m("n", "<c-p>", ":silent cprev<cr>")
