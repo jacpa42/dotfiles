@@ -8,7 +8,9 @@ desktop_file="$(fd -1 "$app" /usr/share/applications ~/.local/share/applications
 
 grep -q "^Terminal=true$" "$desktop_file" && {
     app_name="$(grep -m1 -oP 'Icon=\K.*' "$desktop_file")"
-    footclient -a "$app_name" -T "$app_name" xdg-open "$selected"
+    [[ -n "$app_name" ]] &&
+        footclient -a "$app_name" -T "$app_name" xdg-open "$selected" ||
+        footclient xdg-open "$selected"
 } || {
     xdg-open "$selected"
 }
