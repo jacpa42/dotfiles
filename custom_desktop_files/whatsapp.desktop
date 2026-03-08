@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Whatsapp
+GenericName=Whatsapp
+Comment=Send and receive messages
+TryExec=firefox
+Exec=firefox --new-window https://web.whatsapp.com/
+Type=Application
+Keywords=proton;mail;
+Categories=Utility;
+StartupNotify=false

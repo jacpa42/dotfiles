@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Proton Mail
+GenericName=Proton Mail
+Comment=Send and receive emails securely
+TryExec=firefox
+Exec=firefox --new-window https://mail.proton.me/u/2/inbox
+Type=Application
+Keywords=proton;mail;
+Categories=Utility;
+StartupNotify=false

@@ -13,7 +13,7 @@ git)
 gitweb)
     url="$(git config --get remote.origin.url)"
     [[ -z "$url" ]] && notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
-    hyprctl dispatch workspace 3
+    hyprctl dispatch workspace "$WEB_WORKSPACE"
     xdg-open "$(git config --get remote.origin.url)"
     ;;
 btop)
@@ -45,7 +45,7 @@ projects)
         exit 1
     }
 
-    hyprctl dispatch workspace 4
+    hyprctl dispatch workspace "$TERMINAL_WORKSPACE"
 
     SESSION_NAME=$(basename "$TARGET_DIR")
 
@@ -67,7 +67,7 @@ projects)
     ;;
 home_session)
     TARGET_DIR="$HOME"
-    hyprctl dispatch workspace 4
+    hyprctl dispatch workspace "$TERMINAL_WORKSPACE"
     SESSION_NAME=$(basename "$TARGET_DIR")
 
     # Otherwise just switch tmux sessions

@@ -1,2 +1,3 @@
-hyprctl dispatch workspace 3
+#!/usr/bin/env bash
+hyprctl dispatch workspace "$WEB_WORKSPACE"
 exec xdg-open "https://devhints.io/bash"

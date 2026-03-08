@@ -9,11 +9,11 @@ sqlite3 "file:$file?mode=ro&immutable=1" ".backup $backup_copy"
 query="select title,url from moz_places where title is not null order by last_visit_date desc"
 sep=".separator \" \""
 
-selection="$(sqlite3 "$backup_copy" "$sep" "$query" | fuzzel --dmenu --placeholder="search history")"
+selection="$(sqlite3 "$backup_copy" "$sep" "$query" | fuzzel --width=100 --dmenu --placeholder="search browser history")"
 
 url="${selection##* }"
 [ -z "$url" ] && exit 1
 
 xdg-open "$url" &
-hyprctl dispatch workspace 3
+hyprctl dispatch workspace "$WEB_WORKSPACE"
 disown
