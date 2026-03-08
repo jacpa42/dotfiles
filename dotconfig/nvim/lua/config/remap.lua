@@ -40,7 +40,9 @@ end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 m({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
 	if name == "" then
-		vim.cmd("saveas " .. vim.fn.input("Save as: ", "", "file"))
+		pcall(function()
+			vim.cmd("saveas " .. vim.fn.input("Save as: ", "", "file"))
+		end)
 	else
 		vim.cmd("silent update")
 	end

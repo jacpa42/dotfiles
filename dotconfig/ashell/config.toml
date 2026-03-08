@@ -4,7 +4,7 @@ position = "Top"
 [modules]
 left = ["Workspaces", "WindowTitle"]
 center = ["Clock"]
-right = [["MediaPlayer", "SystemInfo", "Settings"]]
+right = [["SystemInfo", "Settings"]]
 
 [workspaces]
 visibility = "MonitorSpecificExclusive"
