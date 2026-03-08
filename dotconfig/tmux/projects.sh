@@ -21,7 +21,7 @@ btop)
     ;;
 panes)
     selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
-        fuzzel --dmenu --auto-select --placeholder="Choose project pane" | awk '{print $1}')"
+        fuzzel --dmenu --placeholder="Choose project pane" | awk '{print $1}')"
     [ -z "$selected" ] && exit 0
 
     session=${selected%%:*}
@@ -38,8 +38,12 @@ projects)
     WORKING_DIRECTORY="$PROJDIR"
     cd "$WORKING_DIRECTORY"
 
-    TARGET_DIR="$PROJDIR$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --auto-select --placeholder="Choose project")"
-    [ -z "$TARGET_DIR" ] && exit 0
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --auto-select --placeholder="Choose project")"
+    [[ -z "$TARGET_DIR" ]] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
+    [[ -d "$TARGET_DIR" ]] || {
+        notify-send -t 2000 "\"$TARGET_DIR\" is not a directory :("
+        exit 1
+    }
 
     hyprctl dispatch workspace 4
 
@@ -54,7 +58,7 @@ projects)
         fi
     done)
 
-    if [ -n "$FOUND_SESSION" ]; then
+    if [[ -n "$FOUND_SESSION" ]]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
         tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" 'exec /usr/bin/env $SHELL'
