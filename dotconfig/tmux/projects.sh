@@ -38,7 +38,7 @@ projects)
     WORKING_DIRECTORY="$PROJDIR"
     cd "$WORKING_DIRECTORY"
 
-    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --auto-select --placeholder="Choose project")"
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
     [[ -z "$TARGET_DIR" ]] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [[ -d "$TARGET_DIR" ]] || {
         notify-send -t 2000 "\"$TARGET_DIR\" is not a directory :("
