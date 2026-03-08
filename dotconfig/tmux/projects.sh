@@ -3,22 +3,25 @@
 TARGET_DIR=""
 SESSION_NAME=""
 OPERATION=""
+WORKING_DIRECTORY="$(tmux display-message -Cp -d 0 '#{session_path}' || exit 0)"
+cd "$WORKING_DIRECTORY"
 
 case "$1" in
 git)
     exec lazygit
     ;;
 gitweb)
-    hyprctl dispatch workspace 3 >/dev/null
-    xdg-open "$(git config --get remote.origin.url)" >/dev/null
+    url="$(git config --get remote.origin.url)"
+    [[ -z "$url" ]] && notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
+    hyprctl dispatch workspace 3
+    xdg-open "$(git config --get remote.origin.url)"
     ;;
 btop)
     exec btop
     ;;
 panes)
-    previewer="tmux capture-pane -ept {1}"
     selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
-        fzf --preview-window="right:60%" --preview="$previewer" | awk '{print $1}')"
+        fuzzel --dmenu --auto-select --placeholder="Choose project pane" | awk '{print $1}')"
     [ -z "$selected" ] && exit 0
 
     session=${selected%%:*}
@@ -32,11 +35,14 @@ panes)
     exit 0
     ;;
 projects)
-    custom_dirs="$HOME\n$PROJDIR/server\n"
-    project_dirs="$custom_dirs$(fd --exec="dirname" -Htd --glob .git "$PROJDIR")"
-    prev="$HOME/.config/tmux/project_viewer.sh {}"
-    TARGET_DIR="$(echo -e "$project_dirs" | fzf --preview-window="right:60%" --preview="$prev")"
+    WORKING_DIRECTORY="$PROJDIR"
+    cd "$WORKING_DIRECTORY"
+
+    TARGET_DIR="$PROJDIR$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --auto-select --placeholder="Choose project")"
     [ -z "$TARGET_DIR" ] && exit 0
+
+    hyprctl dispatch workspace 4
+
     SESSION_NAME=$(basename "$TARGET_DIR")
 
     # Otherwise just switch tmux sessions
@@ -51,7 +57,28 @@ projects)
     if [ -n "$FOUND_SESSION" ]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "nvim" 'nvim; exec /usr/bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" 'exec /usr/bin/env $SHELL'
+        tmux switch-client -t "$SESSION_NAME"
+    fi
+    ;;
+home_session)
+    TARGET_DIR="$HOME"
+    hyprctl dispatch workspace 4
+    SESSION_NAME=$(basename "$TARGET_DIR")
+
+    # Otherwise just switch tmux sessions
+    FOUND_SESSION=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | while read -r s; do
+        dir=$(tmux display-message -p -t "$s" "#{session_path}")
+        if [ "$dir" = "$TARGET_DIR" ]; then
+            echo "$s"
+            break
+        fi
+    done)
+
+    if [ -n "$FOUND_SESSION" ]; then
+        tmux switch-client -t "$FOUND_SESSION"
+    else
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" 'exec /usr/bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;
