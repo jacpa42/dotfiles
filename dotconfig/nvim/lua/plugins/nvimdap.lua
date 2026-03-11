@@ -1,7 +1,13 @@
 return {
 	"mfussenegger/nvim-dap",
-	event = "VeryLazy",
 	dependencies = { "igorlfs/nvim-dap-view" },
+	cmd = {
+		"DapToggleBreakpoint",
+		"DapContinue",
+		"DapStepInto",
+		"DapStepOver",
+		"DapStepOut",
+	},
 	keys = {
 		{ mode = "n", "<leader>b", "<cmd>DapToggleBreakpoint<cr>", desc = "toggle breakpoint" },
 		{ mode = "n", "<c-right>", "<cmd>DapContinue<cr>", desc = "continue until next breakpoint" },

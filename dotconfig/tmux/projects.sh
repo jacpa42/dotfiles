@@ -19,21 +19,6 @@ gitweb)
 btop)
     exec btop
     ;;
-panes)
-    selected="$(tmux list-panes -a -F '#S:#I.#P #W #{pane_current_path}' |
-        fuzzel --dmenu --placeholder="Choose project pane" | awk '{print $1}')"
-    [ -z "$selected" ] && exit 0
-
-    session=${selected%%:*}
-    win_pane=${selected#*:}
-    window=${win_pane%%.*}
-    pane=${selected##*.}
-
-    tmux switch-client -t "$session"
-    tmux select-window -t "$window"
-    tmux select-pane -t "$pane"
-    exit 0
-    ;;
 projects)
     WORKING_DIRECTORY="$PROJDIR"
     cd "$WORKING_DIRECTORY"
@@ -61,7 +46,7 @@ projects)
     if [[ -n "$FOUND_SESSION" ]]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" 'exec /usr/bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'exec /usr/bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;
@@ -82,7 +67,7 @@ home_session)
     if [ -n "$FOUND_SESSION" ]; then
         tmux switch-client -t "$FOUND_SESSION"
     else
-        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" 'exec /usr/bin/env $SHELL'
+        tmux new-session -dAs "$SESSION_NAME" -c "$TARGET_DIR" -n "code" 'exec /usr/bin/env $SHELL'
         tmux switch-client -t "$SESSION_NAME"
     fi
     ;;

@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
-modes="region\noutput\nwindow\nactive window"
-mode="$(echo -e "$modes" | fuzzel --dmenu --auto-select)"
+mode=""
+args=()
+for arg in "$@"; do
+    case "$arg" in
+    -r | --region) mode="region" ;;
+    -o | --output) mode="output" ;;
+    -w | --window) mode="window" ;;
+    -a | --active-window) mode="active window" ;;
+    *) args+=("$arg") ;;
+    esac
+done
+[[ -z "$mode" ]] && mode="$(printf "region\noutput\nwindow\nactive window" | fuzzel --dmenu --auto-select)"
+[[ -z "$mode" ]] && exit
 
 if [[ "$mode" == "window" ]]; then
     outputs="$(hyprctl monitors -j | jq -r '.[].name')"
