@@ -5,10 +5,10 @@ overlay_background_alpha = 00
 background=1e222b
 
 [binds]
-w = exec $DOTDIR/dotconfig/hypr/scripts/util/cyclewall.sh -s $imv_current_file
+w = exec $DOTDIR/dotconfig/hypr/scripts/util/cyclewall.sh --set "$imv_current_file"
 
-<n> = next
-<p> = prev
+<Ctrl+n> = next
+<Ctrl+p> = prev
 
 <Meta+k> = zoom 1
 <Meta+j> = zoom -1
