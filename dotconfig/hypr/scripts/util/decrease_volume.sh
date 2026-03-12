@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 1%-
+notify-send -t 1000 -r 14366 "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
