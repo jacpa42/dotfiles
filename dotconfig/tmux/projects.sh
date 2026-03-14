@@ -6,6 +6,16 @@ OPERATION=""
 WORKING_DIRECTORY="$(tmux display-message -Cp -d 0 '#{session_path}' || exit 0)"
 cd "$WORKING_DIRECTORY"
 
+focus_terminal_window() {
+    local window_class="tmux"
+    local switch_window="$(hyprctl dispatch focuswindow "class:$window_class")"
+    [[ "$switch_window" == "ok" ]] || {
+        notify-send --expire-time=3000 --replace-id=21346532 "Failed to find window with class:\"$window_class\""
+        return 1
+    }
+    return 0
+}
+
 case "$1" in
 git)
     exec lazygit
@@ -14,6 +24,8 @@ gitweb)
     url="$(git config --get remote.origin.url)"
     [[ -z "$url" ]] && notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
     hyprctl dispatch workspace "$WEB_WORKSPACE"
+    default_browser="$(xdg-mime query default x-scheme-handler/https)"
+    hyprctl dispatch focuswindow "class:${default_browser%%.*}"
     xdg-open "$(git config --get remote.origin.url)"
     ;;
 btop)
@@ -30,7 +42,7 @@ projects)
         exit 1
     }
 
-    hyprctl dispatch workspace "$TERMINAL_WORKSPACE"
+    focus_terminal_window || exit 1
 
     SESSION_NAME=$(basename "$TARGET_DIR")
 
@@ -52,8 +64,8 @@ projects)
     ;;
 home_session)
     TARGET_DIR="$HOME"
-    hyprctl dispatch workspace "$TERMINAL_WORKSPACE"
     SESSION_NAME=$(basename "$TARGET_DIR")
+    focus_terminal_window || exit 1
 
     # Otherwise just switch tmux sessions
     FOUND_SESSION=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | while read -r s; do

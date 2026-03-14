@@ -29,16 +29,26 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
--- This will check which lsp is attaching and set makeprg accordingly
-vim.api.nvim_create_autocmd("LspAttach", {
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = "rust",
 	callback = function(args)
-		local ft = vim.bo[args.buf].filetype
-		if ft == "rust" then
-			vim.o.makeprg = "cargo c --tests --all-features"
-		elseif ft == "zig" then
-			vim.o.makeprg = "zig build"
-			vim.o.errorformat = "%f:%l:%c: %t%*[^:]: %m"
-		end
+		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
+		vim.bo[args.buf].errorformat = vim.bo[args.buf].errorformat .. ",.* panicked at %f:%l:%c:"
+		vim.notify_once("Setting keymap `<leader>T` to make cargo tests", vim.log.levels.INFO)
+		vim.keymap.set("n", "<leader>T", function()
+			local makeprg = vim.o.makeprg
+			vim.o.makeprg = "cargo t --all-features --color=never"
+			pcall(vim.cmd.make)
+			vim.o.makeprg = makeprg
+		end, { buffer = args.buf })
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = "zig",
+	callback = function(args)
+		vim.bo[args.buf].makeprg = "zig build"
+		vim.bo[args.buf].errorformat = vim.bo[args.buf].errorformat .. "%f:%l:%c: %t%*[^:]: %m"
 	end,
 })
 

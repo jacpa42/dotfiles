@@ -16,4 +16,6 @@ url="${selection##* }"
 
 xdg-open "$url" &
 hyprctl dispatch workspace "$WEB_WORKSPACE"
+default_browser="$(xdg-mime query default x-scheme-handler/https)"
+hyprctl dispatch focuswindow class:"${default_browser%%.*}"
 disown

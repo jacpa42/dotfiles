@@ -63,6 +63,7 @@ perf
 pipes-rs
 pipewire
 playerctl
+postgresql
 powerline-fonts
 resvg
 ripgrep

@@ -179,11 +179,11 @@ Statusline = {
 
 vim.api.nvim_exec2(
 	[[
-  augroup Statusline
-  au!
-  au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
-  au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
-  augroup END
-]],
+      augroup Statusline
+      au!
+      au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
+      au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
+      augroup END
+    ]],
 	{ output = false }
 )
