@@ -7,6 +7,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 local function disablespell()
+	require("config.opts")
 	vim.opt_local.spell = false
 	vim.opt_local.spelllang = ""
 	vim.opt_local.syntax = "off"

@@ -5,6 +5,7 @@ m("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap =
 
 m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
+
 m("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
 m("n", "<leader>td", ":silent grep TODO\\: <bar> copen<cr>", { desc = "grep 'TODO:'s", silent = true, noremap = true })
 
