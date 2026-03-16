@@ -38,7 +38,7 @@ while [[ $# -gt 0 ]]; do
         force=true
         shift
         ;;
-    --help | -h)
+    *)
         echo "Usage: $0 --wallpaper-dir|-w <wallpaper directory> [--help|-h] [--set|-s <wallpaper>] [--reverse|-r]"
         echo
         echo "	--wallpaper-dir     -w | Specify the directory to search for images."
@@ -49,11 +49,6 @@ while [[ $# -gt 0 ]]; do
         echo "	--force             -f | Tell hyprpaper to set the wallpaper even if it is already loaded."
         echo "	--notify            -n | Send a notification when the wallpaper is changed."
         exit 0
-        ;;
-    *)
-        echo "Unknown arg: $1"
-        echo "Usage: $0 --wallpaper-dir|-d <wallpaper directory> [--set|-s <wallpaper>] [--reverse|-r]"
-        exit 1
         ;;
     esac
 done
