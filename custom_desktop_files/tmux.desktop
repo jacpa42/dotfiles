@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=tmux
+GenericName=tmux
+Comment=Multiplex those terminals
+TryExec=tmux
+Exec=tmux new-session -A -s jacob
+Terminal=true
+Type=Application
+Keywords=terminal;
+Categories=Utility;
+StartupNotify=false
