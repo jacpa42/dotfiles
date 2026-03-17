@@ -9,10 +9,6 @@ m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 m("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
 m("n", "<leader>td", ":silent grep TODO\\: <bar> copen<cr>", { desc = "grep 'TODO:'s", silent = true, noremap = true })
 
-m("i", "(", "()<left>", { desc = "Auto ()", silent = true, noremap = true })
-m("i", "[", "[]<left>", { desc = "Auto []", silent = true, noremap = true })
-m("i", "{", "{}<left>", { desc = "Auto {}", silent = true, noremap = true })
-
 vim.api.nvim_create_user_command("CycleIntRepr", function()
 	local cword = vim.fn.expand("<cword>")
 	if tonumber(cword) == nil then
