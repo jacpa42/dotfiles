@@ -5,6 +5,7 @@ return {
 		pattern = "*",
 		insert_mode = true,
 		floating = false,
-		disabled_filetypes = { "greeter", "lazy" },
+		disabled_filetypes = { "greeter", "lazy", "terminal", "vim" },
+		disabled_modes = { "t", "nt" },
 	},
 }
