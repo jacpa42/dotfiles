@@ -1,13 +1,18 @@
-local m = vim.keymap.set
+local map = vim.keymap.set
 
 -- More usable terminal mode
-m("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap = true })
+map("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap = true })
 
-m("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
-m("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
+map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
+map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
-m("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
-m("n", "<leader>td", ":silent grep TODO\\: <bar> copen<cr>", { desc = "grep 'TODO:'s", silent = true, noremap = true })
+map("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
+map(
+	"n",
+	"<leader>td",
+	":silent grep TODO\\: <bar> copen<cr>",
+	{ desc = "grep 'TODO:'s", silent = true, noremap = true }
+)
 
 vim.api.nvim_create_user_command("CycleIntRepr", function()
 	local cword = vim.fn.expand("<cword>")
@@ -34,7 +39,7 @@ vim.api.nvim_create_user_command("CycleIntRepr", function()
 	vim.cmd("normal! ciw" .. out)
 end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 
-m({ "n", "v" }, "<leader>s", function()
+map({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)
 	if name == "" then
 		pcall(function()
@@ -45,17 +50,20 @@ m({ "n", "v" }, "<leader>s", function()
 	end
 end, { desc = "Smart write" })
 
-m("n", "<c-f>", "<cmd>on<cr>")
-m("n", "<esc>", "<cmd>nohlsearch<cr>")
-m("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
+map("n", "<c-f>", "<cmd>on<cr>")
+map("n", "<esc>", "<cmd>nohlsearch<cr>")
+map("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
-m("n", "<c-j>", "<cmd>tabn<cr>", { desc = "next tab" })
-m("n", "<c-k>", "<cmd>tabp<cr>", { desc = "previous tab" })
+map("n", "<c-j>", "<cmd>tabn<cr>", { desc = "next tab" })
+map("n", "<c-k>", "<cmd>tabp<cr>", { desc = "previous tab" })
 
-m("n", "<leader>h", "<cmd>split<cr>")
-m("n", "<leader>v", "<cmd>vsplit<cr>")
-m("n", "<leader>l", "<cmd>Lazy<cr>")
-m("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
+map("n", "<leader>h", "<cmd>split<cr>")
+map("n", "<leader>v", "<cmd>vsplit<cr>")
+map("n", "<leader>l", "<cmd>Lazy<cr>")
+map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
-m("n", "<c-n>", ":silent cnext<cr>")
-m("n", "<c-p>", ":silent cprev<cr>")
+map("n", "<c-n>", ":silent cnext<cr>")
+map("n", "<c-p>", ":silent cprev<cr>")
+
+map("n", "<leader>a", "lua vim.lsp.buf.code_action({})", { desc = "code actions" })
+map("n", ";", "q:", { desc = "code actions" })

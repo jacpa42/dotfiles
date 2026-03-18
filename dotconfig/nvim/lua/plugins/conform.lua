@@ -21,6 +21,13 @@ return {
 			},
 		},
 
+		notify_on_error = false,
+		format_on_save = {
+			-- I recommend these options. See :help conform.format for details.
+			lsp_format = "fallback",
+			timeout_ms = 500,
+		},
+
 		formatters_by_ft = {
 			bash = { "shfmt" },
 			c = { "clang-format-custom", lsp_format = "fallback" },
