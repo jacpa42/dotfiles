@@ -49,13 +49,14 @@ projects)
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
     [[ -z "$TARGET_DIR" ]] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [[ -d "$TARGET_DIR" ]] || exit 1
-    focus_or_create_tmux_window || exit 1
 
     switch_to_project "$TARGET_DIR"
+    focus_or_create_tmux_window || exit 1
     ;;
 home_session)
     TARGET_DIR="$HOME"
-    focus_or_create_tmux_window || exit 1
+
     switch_to_project "$TARGET_DIR"
+    focus_or_create_tmux_window || exit 1
     ;;
 esac
