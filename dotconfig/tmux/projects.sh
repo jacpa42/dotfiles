@@ -22,11 +22,20 @@ git)
     ;;
 gitweb)
     url="$(git config --get remote.origin.url)"
-    [[ -z "$url" ]] && notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
-    hyprctl dispatch workspace "$WEB_WORKSPACE"
+    echo "$url"
+    [[ -z "$url" ]] && {
+        notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
+        exit 0
+    }
     default_browser="$(xdg-mime query default x-scheme-handler/https)"
+    [[ -z "$default_browser" ]] && {
+        notify-send "Failed to find a default browser"
+        exit 0
+    }
+
+    hyprctl dispatch workspace "$WEB_WORKSPACE"
+    xdg-open "$url"
     hyprctl dispatch focuswindow "class:${default_browser%%.*}"
-    xdg-open "$(git config --get remote.origin.url)"
     ;;
 btop)
     exec btop

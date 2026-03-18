@@ -15,7 +15,7 @@ end
 
 -- Disable spell for specific file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh" },
+	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn" },
 	callback = disablespell,
 })
 
