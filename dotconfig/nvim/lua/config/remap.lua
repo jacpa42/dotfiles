@@ -65,5 +65,4 @@ map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 map("n", "<c-n>", ":silent cnext<cr>")
 map("n", "<c-p>", ":silent cprev<cr>")
 
-map("n", "<leader>a", "lua vim.lsp.buf.code_action({})", { desc = "code actions" })
 map("n", ";", "q:", { desc = "code actions" })

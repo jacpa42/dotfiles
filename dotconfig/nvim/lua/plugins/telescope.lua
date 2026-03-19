@@ -25,6 +25,15 @@ return {
 		{ mode = "n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "get type definition" },
 		{ mode = "n", "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "get methods for type" },
 		{ mode = "n", "z=", "<cmd>Telescope spell_suggest<cr>", desc = "spell suggest" },
+		{ mode = "n", "z=", "<cmd>Telescope spell_suggest<cr>", desc = "spell suggest" },
+		{
+			mode = { "n", "v" },
+			"<leader>a",
+			function()
+				vim.lsp.buf.code_action({})
+			end,
+			desc = "code actions",
+		},
 	},
 
 	config = function()
