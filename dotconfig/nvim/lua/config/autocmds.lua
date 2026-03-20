@@ -35,12 +35,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
 		vim.bo[args.buf].errorformat = vim.bo[args.buf].errorformat .. ",.* panicked at %f:%l:%c:"
-		vim.notify_once("Setting keymap `<leader>T` to make cargo tests", vim.log.levels.INFO)
+		print("Setting keymap `<leader>T` to make cargo tests", vim.log.levels.INFO)
 		vim.keymap.set("n", "<leader>T", function()
-			local makeprg = vim.o.makeprg
-			vim.o.makeprg = "cargo t --all-features --color=never"
-			pcall(vim.cmd.make)
-			vim.o.makeprg = makeprg
+			vim.opt_local.makeprg = "cargo t --all-features --color=never"
 		end, { buffer = args.buf })
 	end,
 })
