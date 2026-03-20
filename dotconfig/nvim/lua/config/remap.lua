@@ -6,7 +6,15 @@ map("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap
 map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
-map("n", "<leader>m", ":silent make! <bar> copen<cr>", { desc = "make project", silent = true, noremap = true })
+map("n", "<c-m>", ":make <bar> copen<cr>", { desc = "make project", noremap = true })
+map("n", "M", function()
+	local makecmd = vim.fn.input("edit makeprg=", vim.o.makeprg, "file")
+	if makecmd:len() > 0 then
+		print('makecmd = "' .. makecmd .. '"')
+		vim.o.makeprg = makecmd
+	end
+end, { desc = "set make cmd for project", noremap = true })
+
 map(
 	"n",
 	"<leader>td",
