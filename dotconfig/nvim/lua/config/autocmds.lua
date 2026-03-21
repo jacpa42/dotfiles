@@ -59,11 +59,3 @@ autocmd("TextYankPost", {
 		vim.hl.on_yank({ timeout = 80 })
 	end,
 })
-
-autocmd({ "BufEnter", "BufDelete" }, {
-	desc = "Reset scrolloff",
-	callback = function()
-		vim.opt_local.scrolloff = 999
-		vim.opt_global.scrolloff = 999
-	end,
-})
