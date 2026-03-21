@@ -35,15 +35,20 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
 	pattern = "rust",
 	callback = function(args)
+		vim.opt_local.errorformat = {
+			"%.%# panicked at %f:%l:%c:", -- cargo test
+			"%.%# --> %f:%l:%c", -- cargo check/build
+			"%.%# --> %f:%l:%c", -- cargo test debug prints
+			"%.%# [%f:%l:%c] %.%#", -- cargo test debug prints
+		}
 		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
 		vim.keymap.set("n", "t", function()
-			vim.opt_local.errorformat = {
-				"%.%# panicked at %f:%l:%c:", -- cargo test
-				"%.%# --> %f:%l:%c", -- cargo check/build
-			}
-			vim.opt_local.makeprg = "cargo nextest run --all-features --color=never"
-			vim.cmd.make()
-		end, { buffer = args.buf })
+			vim.opt_local.makeprg = 'cargo nextest run --all-features --max-fail="10:immediate"'
+			vim.cmd("silent make | copen | cnext")
+			local pwd = vim.fn.getcwd()
+			local basename = vim.fn.fnamemodify(pwd, ":t")
+			os.execute('notify-send -t 5000 -a "' .. basename .. '" "' .. basename .. ' testing compelete"')
+		end, { buffer = args.buf, silent = true })
 	end,
 })
 
