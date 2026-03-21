@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-hyprpaper &
+# This spawns hyprpaper!
+
 ashell &
 foot --server &
 mpd &
@@ -12,4 +13,4 @@ gsettings set org.gnome.desktop.interface gtk-theme Adwaita &
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark &
 gsettings set org.gnome.desktop.interface cursor-theme $HYPRCURSOR_THEME &
 
-disown
+exec hyprwall --force --set-last

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+info="$(fd -1gtfile "shipping_info.txt" $PROJDIR)"
+[ -z "$info" ] && {
+    notify-send "failed to find 'shipping_info.txt' in $PROJDIR :("
+    exit
+} || {
+    wl-copy <$info
+    notify-send -t 2000 "copied kragsentrale shipping info to clipboard"
+}

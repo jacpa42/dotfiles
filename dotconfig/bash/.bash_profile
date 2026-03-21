@@ -6,11 +6,15 @@ export DOTDIR=$PROJDIR/dotfiles
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.local/share/go
+export PATH=$PATH:$DOTDIR/bin
 
-export CHAT_WORKSPACE=1
-export WEB_WORKSPACE=2
-export TERMINAL_WORKSPACE=3
-export STEAM_WORKSPACE=4
+export EDITOR=nvim
+export VISUAL=nvim
+export MANPAGER="nvim +Man!"
+export MANROFFOPT="-c"
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTCONTROL="erasedups:ignorespace"
 
 # note:	I have this in my .zprofile. It launches hyprland if I'm in tty1 and no display session is running.
 #	This lets me recover my system if I do something restarded. Like the other day I added a line to my .zshrc

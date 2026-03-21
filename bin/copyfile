@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 selected="$(fd -tf . $HOME | fuzzel --dmenu --placeholder="Copy file")"
 [[ -f "$selected" ]] && {
     wl-copy <"$selected"

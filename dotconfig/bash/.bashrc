@@ -6,15 +6,7 @@ set_prompt() {
     [[ $? -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
     PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
 }
-
 export PROMPT_COMMAND=set_prompt
-export EDITOR=nvim
-export VISUAL=nvim
-export MANPAGER="nvim +Man!"
-export MANROFFOPT="-c"
-export HISTSIZE=10000
-export HISTFILESIZE=10000
-export HISTCONTROL="erasedups:ignorespace"
 
 set -o vi
 bind "set vi-cmd-mode-string \1\e[34;1m\1\e[2 q\2\1\e[0m\2"
