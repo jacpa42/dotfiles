@@ -63,7 +63,7 @@ next_image_index=
 set_requested() {
     local req_wall="$1"
     [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_dir")"
-    next_image_index="$(fd -atf -ejpg . "$wallpaper_dir" | rg -nxF "$next_image" | cut -d: -f1)"
+    next_image_index="$(fd -atf -ejxl . "$wallpaper_dir" | rg -nxF "$next_image" | cut -d: -f1)"
     next_image_index="${next_image_index:-0}"
 }
 
@@ -71,7 +71,7 @@ set_random() {
     local random="$1"
     local reverse="$2"
 
-    local images=($(fd -atf -ejpg . "$wallpaper_dir"))
+    local images=($(fd -atf -ejxl . "$wallpaper_dir"))
     local num_images=${#images[@]}
     ((num_images == 0)) && { echo "No images found." && exit 1; }
 
@@ -111,6 +111,11 @@ wallpaper_set=
 }
 
 [[ -n "$force" || $current_image != $next_image ]] && {
-    hyprctl hyprpaper wallpaper ",$next_image," || exit 2
+    pidof -q /usr/bin/hyprpaper && {
+        hyprctl hyprpaper wallpaper ",$next_image," || exit 2
+    } || {
+        HYPRPAPER_NEXT_IMAGE="$next_image" hyprpaper &
+        disown
+    }
     printf "$next_image\n$next_image_index" >"$STATE_FILE"
 }

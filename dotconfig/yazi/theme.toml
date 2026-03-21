@@ -1,10 +1,10 @@
 [mgr]
-find_keyword  = { italic = true }
+find_keyword = { italic = true }
 find_position = { bg = "reset", italic = true }
 border_symbol = "│"
 
 [status]
-separator_open  = ""
+separator_open = ""
 separator_close = ""
 
 [icon]
