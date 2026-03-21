@@ -22,5 +22,5 @@ disown
 while ! pidof -q hyprpaper; do
     sleep 0.1
 done
-sleep 0.3 # Wait for socket to connect or smthn idk
+sleep 0.5 # Wait for socket to connect or smthn idk
 $cyclewall --force -w $wallpaper_directory --set-last -s $default_wallpaper

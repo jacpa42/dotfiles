@@ -46,9 +46,8 @@ alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-f
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
-alias l="eza --sort=type --long --icons always --no-time --no-user --header"
-alias ll="eza --sort=type --long --icons always --git --all"
-alias lll="eza --sort=type --long --icons always --git --all --total-size"
+alias l="ls -gcFG --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
+alias ll="ls -AgcFG --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
 alias v="clear && nvim"
 alias o="xdg-open"
 alias pipes="pipes-rs -p 10 -f 60 -t 0.4 -r 0.99"
@@ -69,3 +68,5 @@ alias repostat="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c '
 source <(zoxide init --cmd j bash)
 source <(krag_cli completions --shell bash)
 source <(fzf --bash)
+source <(dircolors -b)
+export LS_COLORS="*.qoa=01;35:*.qoi=00;36:$LS_COLORS"

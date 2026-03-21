@@ -1,5 +1,7 @@
+local autocmd = vim.api.nvim_create_autocmd
+
 -- special commands for dapui buffers
-vim.api.nvim_create_autocmd({ "FileType" }, {
+autocmd({ "FileType" }, {
 	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
 	callback = function(args)
 		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
@@ -14,23 +16,23 @@ local function disablespell()
 end
 
 -- Disable spell for specific file types
-vim.api.nvim_create_autocmd({ "FileType" }, {
+autocmd({ "FileType" }, {
 	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn" },
 	callback = disablespell,
 })
 
 -- Disable spell for terminal
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
+autocmd({ "TermOpen" }, {
 	callback = disablespell,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
+autocmd({ "FileType" }, {
 	callback = function()
 		pcall(vim.treesitter.start)
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
+autocmd({ "FileType" }, {
 	pattern = "rust",
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
@@ -42,7 +44,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
+autocmd({ "FileType" }, {
 	pattern = "zig",
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "zig build"
@@ -50,7 +52,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
 	desc = "Highlight when yanking",
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
