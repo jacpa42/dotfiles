@@ -1,24 +1,11 @@
 config.load_autoconfig()
 
-# Open youtube in separate tab
-config.bind("Yt", "open -t https://youtube.com/")
-# Open youtube in current tab
-config.bind("yt", "open https://youtube.com/")
-# Open whatsapp in separate tab
-config.bind("Wa", "open -t https://web.whatsapp.com/")
-# Open whatsapp in current tab
-config.bind("wa", "open https://web.whatsapp.com/")
-# Open chatgpt in separate tab
-config.bind("Ch", "open -t https://chatgpt.com/")
-# Open chatgpt in current tab
-config.bind("ch", "open https://chatgpt.com/")
-# Open github in current tab
-config.bind("gh", "open https://github.com/")
+config.bind("<Ctrl-j>", "tab-next")
+config.bind("<Ctrl-k>", "tab-prev")
 
-# Open inbox
-config.bind("e", "open https://mail.proton.me/u/2/inbox")
-# Open inbox in separate tab
-config.bind("E", "open -t https://mail.proton.me/u/2/inbox")
+# Youtube with mpv
+config.bind("m", "spawn mpv {url}")
+config.bind("M", "hint links spawn mpv {hint-url}")
 
 # Clear download notifications
 config.bind("<Ctrl-f>", "download-clear ;; clear-messages")
@@ -41,7 +28,6 @@ c.fileselect.multiple_files.command = select_cmd
 import os
 
 c.url.searchengines = {"DEFAULT": "https://www.google.com/search?q={}"}
-
 c.tabs.position = "bottom"
 
 c.window.hide_decoration = True

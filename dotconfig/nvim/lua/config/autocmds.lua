@@ -8,7 +8,7 @@ autocmd({ "FileType" }, {
 	end,
 })
 
-local function disablespell()
+local function local_disable_spell()
 	require("config.opts")
 	vim.opt_local.spell = false
 	vim.opt_local.spelllang = ""
@@ -18,12 +18,12 @@ end
 -- Disable spell for specific file types
 autocmd({ "FileType" }, {
 	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn" },
-	callback = disablespell,
+	callback = local_disable_spell,
 })
 
 -- Disable spell for terminal
 autocmd({ "TermOpen" }, {
-	callback = disablespell,
+	callback = local_disable_spell,
 })
 
 autocmd({ "FileType" }, {
@@ -57,5 +57,13 @@ autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
 		vim.hl.on_yank({ timeout = 80 })
+	end,
+})
+
+autocmd({ "BufEnter", "BufDelete" }, {
+	desc = "Reset scrolloff",
+	callback = function()
+		vim.opt_local.scrolloff = 999
+		vim.opt_global.scrolloff = 999
 	end,
 })

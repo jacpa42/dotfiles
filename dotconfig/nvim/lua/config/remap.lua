@@ -6,7 +6,7 @@ map("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap
 map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 
-map("n", "m", ":make <bar> copen<cr>", { desc = "make project", noremap = true })
+map("n", "m", "<cmd>make <bar> copen<cr>", { desc = "make project", noremap = true })
 map("n", "<leader>m", function()
 	local makecmd = vim.fn.input("edit makeprg=", vim.o.makeprg, "file")
 	if makecmd:len() > 0 then
@@ -18,7 +18,7 @@ end, { desc = "set make cmd for project", noremap = true })
 map(
 	"n",
 	"<leader>td",
-	":silent grep TODO\\: <bar> copen<cr>",
+	"<cmd>silent grep TODO\\: <bar> copen<cr>",
 	{ desc = "grep 'TODO:'s", silent = true, noremap = true }
 )
 
@@ -32,13 +32,13 @@ vim.api.nvim_create_user_command("CycleIntRepr", function()
 	local fmt = nil
 	if cword:sub(1, 2) == "0x" then
 		prefix = "0b"
-		fmt = ":b"
+		fmt = "<cmd>b"
 	elseif cword:sub(1, 2) == "0b" then
 		prefix = ""
 		fmt = ""
 	else
 		prefix = "0x"
-		fmt = ":x"
+		fmt = "<cmd>x"
 	end
 
 	-- I use python here as they have bigint by default
@@ -58,8 +58,8 @@ map({ "n", "v" }, "<leader>s", function()
 	end
 end, { desc = "Smart write" })
 
-map("n", "<c-f>", "<cmd>on<cr>")
-map("n", "<esc>", "<cmd>nohlsearch<cr>")
+map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
+map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
 map("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
 
 map("n", "<c-j>", "<cmd>tabn<cr>", { desc = "next tab" })
@@ -70,7 +70,7 @@ map("n", "<leader>v", "<cmd>vsplit<cr>")
 map("n", "<leader>l", "<cmd>Lazy<cr>")
 map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
-map("n", "<c-n>", ":silent cnext<cr>")
-map("n", "<c-p>", ":silent cprev<cr>")
+map("n", "<c-n>", "<cmd>cnext<cr>", { noremap = true, silent = true })
+map("n", "<c-p>", "<cmd>cprev<cr>", { noremap = true, silent = true })
 
-map("n", ";", "q:", { desc = "code actions" })
+map("n", ";", "q:", { desc = "command history" })

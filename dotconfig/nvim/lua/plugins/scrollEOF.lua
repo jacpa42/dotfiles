@@ -4,8 +4,7 @@ return {
 	opts = {
 		pattern = "*",
 		insert_mode = true,
-		floating = false,
-		disabled_filetypes = { "greeter", "lazy", "terminal", "vim" },
+		floating = true,
 		disabled_modes = { "t", "nt" },
 	},
 }
