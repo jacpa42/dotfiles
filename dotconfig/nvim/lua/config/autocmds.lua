@@ -36,10 +36,13 @@ autocmd({ "FileType" }, {
 	pattern = "rust",
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
-		vim.bo[args.buf].errorformat = vim.bo[args.buf].errorformat .. ",.* panicked at %f:%l:%c:"
-		print("Setting keymap `<leader>T` to make cargo tests", vim.log.levels.INFO)
-		vim.keymap.set("n", "<leader>T", function()
-			vim.opt_local.makeprg = "cargo t --all-features --color=never"
+		vim.keymap.set("n", "t", function()
+			vim.opt_local.errorformat = {
+				"%.%# panicked at %f:%l:%c:", -- cargo test
+				"%.%# --> %f:%l:%c", -- cargo check/build
+			}
+			vim.opt_local.makeprg = "cargo nextest run --all-features --color=never"
+			vim.cmd.make()
 		end, { buffer = args.buf })
 	end,
 })
@@ -48,7 +51,11 @@ autocmd({ "FileType" }, {
 	pattern = "zig",
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "zig build"
-		vim.bo[args.buf].errorformat = vim.bo[args.buf].errorformat .. "%f:%l:%c: %t%*[^:]: %m"
+		vim.opt.errorformat = { "%f:%l:%c: %t%*[^:]: %m" }
+		vim.keymap.set("n", "t", function()
+			vim.opt_local.makeprg = "zig build t --summary new"
+			vim.cmd.make()
+		end, { buffer = args.buf })
 	end,
 })
 
