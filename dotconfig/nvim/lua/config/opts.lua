@@ -40,3 +40,5 @@ vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.opt.termguicolors = true
+vim.o.textwidth = 100
+vim.o.formatoptions = "cro"

@@ -43,6 +43,7 @@ return {
 			zig = { "zigfmt" },
 			zsh = { "shfmt" },
 			odin = { "odinfmt" },
+			markdown = { "rumdl" },
 			glsl = { "clang-format-custom", lsp_format = "fallback" },
 		},
 	},
