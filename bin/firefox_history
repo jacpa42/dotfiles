@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/usr/bin/dash
 
 file="$(fd -1gHItfile places.sqlite $HOME)"
 backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"
@@ -15,7 +15,6 @@ url="${selection##* }"
 [ -z "$url" ] && exit 1
 
 xdg-open "$url" &
-hyprctl dispatch workspace "$WEB_WORKSPACE"
 default_browser="$(xdg-mime query default x-scheme-handler/https)"
 hyprctl dispatch focuswindow class:"${default_browser%%.*}"
 disown
