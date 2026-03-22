@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 info="$(fd -1gtfile "vat_number.txt" $PROJDIR)"
 [ -z "$info" ] && {
     notify-send "failed to find 'vat_number.txt' in $PROJDIR :("

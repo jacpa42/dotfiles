@@ -91,7 +91,7 @@
     "tooltip-format-ethernet": "{ifname}",
     "tooltip-format-wifi": "{essid} ({signalStrength}%)"
   },
-  "position": "top",
+  "position": "bottom",
   "spacing": 5,
   "temperature": {
     "format": "{temperatureC}°C"

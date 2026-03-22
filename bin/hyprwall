@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 
 # NOTE: Running this script without hyprpaper running will launch hyprpaper! nice!
 #
@@ -7,7 +7,7 @@
 wallpaper_directory="${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}"
 requested_wallpaper="$DEFAULT_WALLPAPER"
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
     case "$1" in
     --set | -s)
         echo "requested_wallpaper=$2"
@@ -49,6 +49,11 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+STATE_FILE=$XDG_CACHE_HOME/lastwallpaper
+[ -r "$STATE_FILE" ] && STATE="$(cat $STATE_FILE)" || STATE=
+current_image="${STATE#*::}"
+current_image_index="${STATE%%::*}"
+
 set_requested() {
     local req_wall="$1"
     [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_directory")"
@@ -61,59 +66,48 @@ set_random() {
     local random="$1"
     local reverse="$2"
 
-    local images=($(fd -atf -ejxl . "$wallpaper_directory"))
-    local num_images=${#images[@]}
-    ((num_images == 0)) && { echo "No images found." && exit 1; }
+    local images="$(fd -atf -ejxl . "$wallpaper_directory")"
+    local num_images="$(echo "$images" | wc -l)"
 
-    if [[ -n "$random" ]]; then
-        next_image_index=$(($RANDOM % num_images))
-    elif [[ -z "$current_image_index" ]]; then
+    [ $num_images -eq 0 ] && { echo "No images found." && exit 1; }
+
+    if [ -n "$random" ]; then
+        next_image_index=$(($(date +%N) % num_images))
+    elif [ -z "$current_image_index" ]; then
         next_image_index=0
-    elif [[ -n "$reverse" ]]; then
+    elif [ -n "$reverse" ]; then
         next_image_index=$(((current_image_index + num_images - 1) % num_images))
     else
         next_image_index=$(((current_image_index + 1) % num_images))
     fi
 
-    next_image="${images[next_image_index]}"
-
+    next_image="$(echo "$images" | sed -n "$((next_image_index + 1))"p)"
 }
 
-STATE_FILE=$XDG_CACHE_HOME/lastwallpaper
-[[ -r "$STATE_FILE" ]] && STATE="$(<$STATE_FILE)" || STATE=
-current_image="${STATE%%$'\n'*}"
-current_image_index="${STATE#*$'\n'}"
-
-echo "current_image=$current_image"
-echo "current_image_index=$current_image_index"
-
-wallpaper_set=
-
 # Set last used if requested
-[[ -z "$wallpaper_set" && -n "$current_image" && -n "$set_last_used" ]] && {
+[ -z "$wallpaper_set" ] && [ -n "$current_image" ] && [ -n "$set_last_used" ] && {
     wallpaper_set=true
     requested_wallpaper="$current_image"
     set_requested "$requested_wallpaper"
 }
 
 # Otherwise fallback to requested
-[[ -z "$wallpaper_set" && -n "$set_requested" ]] && {
+[ -z "$wallpaper_set" ] && [ -n "$set_requested" ] && {
     wallpaper_set=true
     set_requested "$requested_wallpaper"
 }
 
 # Otherwise fallback to random
-[[ -z "$wallpaper_set" ]] && {
+[ -z "$wallpaper_set" ] && {
     wallpaper_set=true
     set_random "$random" "$reverse"
 }
 
-[[ -n "$force" || $current_image != $next_image ]] && {
+[ -n "$force" ] || [ "$current_image" != "$next_image" ] && {
+    printf "$next_image_index::$next_image" >"$STATE_FILE"
     pidof -q /usr/bin/hyprpaper && {
-        hyprctl hyprpaper wallpaper ",$next_image," &
+        hyprctl hyprpaper wallpaper ",$next_image,"
     } || {
         HYPRPAPER_NEXT_IMAGE="$next_image" hyprpaper &
     }
-    disown
-    printf "$next_image\n$next_image_index" >"$STATE_FILE"
 }

@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 exec hyprpicker -nbar -f"${1:-hex}"

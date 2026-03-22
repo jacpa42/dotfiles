@@ -1,4 +1,4 @@
-#!/usr/bin/env /usr/bin/bash
+#!/usr/bin/env dash
 
 file="$(fd -1gHItfile places.sqlite $HOME)"
 backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"

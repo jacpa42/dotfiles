@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 selected="$(hyprctl -j clients | jq -r '.[] | "\(.class) \(.title) \(.address)"' | fuzzel --dmenu --auto-select)"
-[[ -z "$selected" ]] && exit
+[ -z "$selected" ] && exit
 hyprctl dispatch focuswindow "address:${selected##* }"

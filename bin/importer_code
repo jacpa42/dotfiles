@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 
 info="$(fd -gtfile "importer_code.txt" $PROJDIR)"
 [ -z "$info" ] && {

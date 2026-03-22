@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 selected="$(fuzzel --dmenu --auto-select --placeholder="copy emoji" <$DOTDIR/dotconfig/hypr/emojis)"
 [ -z "$selected" ] && exit
 echo "$selected" | awk '{printf "%s", $NF}' | wl-copy || exit 1

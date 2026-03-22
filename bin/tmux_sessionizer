@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 
 TARGET_DIR=""
 OPERATION=""
@@ -8,8 +8,7 @@ cd "$WORKING_DIRECTORY"
 focus_or_create_tmux_window() {
     local window_class="tmux"
     local switch_window="$(hyprctl dispatch focuswindow "class:$window_class")"
-    [[ "$switch_window" == "ok" ]] || gtk-launch tmux
-    return 0
+    [ "$switch_window" = "ok" ] || gtk-launch tmux
 }
 
 switch_to_project() {
@@ -20,18 +19,16 @@ switch_to_project() {
 }
 
 case "$1" in
-git)
-    exec lazygit
-    ;;
+git) exec lazygit ;;
 gitweb)
     url="$(git config --get remote.origin.url)"
     echo "$url"
-    [[ -z "$url" ]] && {
+    [ -z "$url" ] && {
         notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
         exit 0
     }
     default_browser="$(xdg-mime query default x-scheme-handler/https)"
-    [[ -z "$default_browser" ]] && {
+    [ -z "$default_browser" ] && {
         notify-send "Failed to find a default browser"
         exit 0
     }
@@ -40,15 +37,11 @@ gitweb)
     xdg-open "$url"
     hyprctl dispatch focuswindow "class:${default_browser%%.*}"
     ;;
-btop)
-    exec btop
-    ;;
 projects)
     cd "$PROJDIR"
-
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
-    [[ -z "$TARGET_DIR" ]] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
-    [[ -d "$TARGET_DIR" ]] || exit 1
+    [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
+    [ -d "$TARGET_DIR" ] || exit 1
 
     switch_to_project "$TARGET_DIR"
     focus_or_create_tmux_window || exit 1

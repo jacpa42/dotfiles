@@ -1,0 +1,7 @@
+#!/usr/bin/dash
+wpctl set-mute @DEFAULT_SINK@ toggle
+wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -qm1 "MUTED" && {
+    notify-send -t 1000 -r 14366 "default sink muted"
+} || {
+    notify-send -t 1000 -r 14366 "default sink unmuted"
+}

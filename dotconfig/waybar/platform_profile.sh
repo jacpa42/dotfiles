@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 
 get_profile() {
     cat /sys/firmware/acpi/platform_profile 2>/dev/null
@@ -10,6 +10,7 @@ set_profile() {
 
 cycle_profile() {
     current=$(get_profile)
+    echo "$current"
 
     case "$current" in
     quiet) next="balanced" ;;
@@ -21,6 +22,6 @@ cycle_profile() {
     set_profile "$next"
 }
 
-[[ "$1" == "toggle" ]] && cycle_profile
+[ "$1" = "toggle" ] && cycle_profile
 
 echo "{\"alt\": \"$(get_profile)\"}"

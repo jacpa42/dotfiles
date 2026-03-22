@@ -1,9 +1,6 @@
-#!/usr/bin/env bash
-
+#!/usr/bin/dash
 script_dir="$DOTDIR/bin"
 cd $script_dir || exit
-
 preview='bat --plain --color=always --language=sh $(fd --min-depth 2 --glob -1 -texecutable {1}\*)'
-
 selected="$(fd -texecutable --format "{/.}" | fuzzel --dmenu --auto-select)"
 exec "$selected"

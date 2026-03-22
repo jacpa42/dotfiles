@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 info="$(fd -1gtfile "payment_info.txt" $PROJDIR)"
 [ -z "$info" ] && {
     notify-send "failed to find 'payment_info.txt' in $PROJDIR :("

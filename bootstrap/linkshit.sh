@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/dash
 [ -d "$DOTDIR" ] || {
     echo "DOTDIR \($DOTDIR\) doesnt exist"
     exit 1
