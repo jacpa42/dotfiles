@@ -7,6 +7,14 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.local/share/go
 export PATH=$PATH:$DOTDIR/bin
+export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
+export DEFAULT_WALLPAPER="fuji-clay-banks"
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd_socks"
+
+export CHAT_WORKSPACE=1
+export WEB_WORKSPACE=2
+export TERMINAL_WORKSPACE=3
+export STEAM_WORKSPACE=4
 
 export EDITOR=nvim
 export VISUAL=nvim
