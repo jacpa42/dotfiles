@@ -1,3 +1,83 @@
+set_ls_colors() {
+    export LS_COLORS
+    LS_COLORS="rs=0"
+
+    # 09 is cross out
+    # 03 is italic
+    #
+    # rs | reset / normal text
+    # di | directory
+    # ln | symbolic link
+    # pi | named pipe (FIFO)
+    # so | socket
+    # bd | block device
+    # cd | character device
+    # or | symbolic link pointing to missing target
+    # mi | missing file
+    # su | setuid file
+    # sg | setgid file
+    # ca | capability file
+    # tw | sticky directory writable by others
+    # ow | other-writable directory
+    # st | sticky directory
+    # ex | executable file
+
+    # system files
+    LS_COLORS="$LS_COLORS:di=01;34:ln=04;36:pi=40;33:so=03;35:bd=40;33;01:cd=40;33;01:or=04;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=03;32:*~=00;90:*#=00;90"
+
+    # temp files
+    exts=(bak crdownload dpkg-dist dpkg-new dpkg-old dpkg-tmp old orig part rej rpmnew rpmorig rpmsave swp tmp ucf-dist ucf-new ucf-old)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=00;90"
+    done
+
+    # audio stuff
+    exts=(aac asf au avi cgm dl emf flac flc fli flv gl m4a mid midi mka mp3 mp3 mpc oga ogg ogv ogx opus ra rm rmvb spx wav xcf xspf xwd yuv)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=03;33"
+    done
+
+    # image stuff
+    exts=(arw avif bmp gif heic jpeg jpg jxl mjpeg mjpg mng pbm pcx pgm png ppm qoi svg svgz tga tif tiff webm webp xbm xpm)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=03;35"
+    done
+
+    # 01;31
+    # complex document stuff
+    exts=(7z ace alz apk apkg arc arj bz bz2 cab cpio crate csv cue deb dic docx drpm dwm dxf dz ear egg esd fbx gz jar lha lrz lz lz4 lzh lzma lzo mtl nfo obj ods pdf pyz qet rar rpm rz sar srt swm t7z tar taz tbz tbz2 tgz tlz toml ttf txz tz tzo tzst udeb war whl wim xlsx xz z zip zoo zst)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=00;31"
+    done
+
+    # video stuff
+    exts=(m2v m4v mkv mov mp4 mp4v mpeg mpg nuv ogm qt vob webm webp wmv)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=01;36"
+    done
+
+    # code header stuff
+    exts=(zon sh ron mk html h hpp glsl css)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=03;37"
+    done
+
+    # code source stuff
+    exts=(zig py rs lua js ino cpp c)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=03;33"
+    done
+
+    # config
+    exts=(yml service json ini desktop pem conf)
+    for ext in "${exts[@]}"; do
+        LS_COLORS="$LS_COLORS:*.${ext}=01;35"
+    done
+
+    LS_COLORS="$LS_COLORS:fi=01;37"
+}
+set_ls_colors
+
 set_prompt() {
     local BLUE="\[\e[34m\]\[\e[1m\]"
     local RED="\[\e[91m\]"
@@ -38,8 +118,8 @@ alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-f
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
 alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
-alias l="ls -gcFGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
-alias ll="ls -AgcFGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
+alias l="ls --group-directories-first --indicator-style=none -gcGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
+alias ll="ls --group-directories-first -AgcGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
 alias v="clear && nvim"
 alias o="xdg-open"
 alias pipes="pipes-rs -p 10 -f 60 -t 0.4 -r 0.99"
@@ -60,5 +140,3 @@ alias repostat="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c '
 source <(zoxide init --cmd j bash)
 source <(krag_cli completions --shell bash)
 source <(fzf --bash)
-source <(dircolors -b)
-export LS_COLORS="*.qoa=01;35:*.qoi=00;36:$LS_COLORS"
