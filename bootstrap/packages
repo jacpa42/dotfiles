@@ -3,7 +3,6 @@ amd-ucode
 amdgpu_top
 asciiquarium-transparent-git
 aseprite
-ashell
 base
 base-devel
 bash-completion
@@ -83,6 +82,7 @@ ttf-jetbrains-mono-nerd
 ueberzugpp
 urlencode
 valgrind
+waybar
 wget
 which
 wiremix

@@ -4,7 +4,7 @@ return {
 	opts = {
 		options = {
 			parsers = { css_fn = true },
-			display = { mode = "foreground" },
+			display = { mode = "background" },
 		},
 	},
 }
