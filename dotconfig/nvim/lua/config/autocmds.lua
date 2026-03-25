@@ -41,13 +41,17 @@ autocmd({ "FileType" }, {
 			"%.%# --> %f:%l:%c", -- cargo test debug prints
 			"%.%# [%f:%l:%c] %.%#", -- cargo test debug prints
 		}
-		vim.bo[args.buf].makeprg = "cargo c --tests --all-features"
+		local default = "cargo c --tests --all-features"
+		local test_make = 'cargo nextest run --all-features --max-fail="10:immediate"'
+		vim.bo[args.buf].makeprg = default
+
+		local function starts(String, Start)
+			return string.sub(String, 1, string.len(Start)) == Start
+		end
+
 		vim.keymap.set("n", "t", function()
-			vim.opt_local.makeprg = 'cargo nextest run --all-features --max-fail="10:immediate"'
-			vim.cmd("silent make | copen | cnext")
-			local pwd = vim.fn.getcwd()
-			local basename = vim.fn.fnamemodify(pwd, ":t")
-			os.execute('notify-send -t 5000 -a "' .. basename .. '" "' .. basename .. ' testing compelete"')
+			vim.bo[args.buf].makeprg = starts(vim.o.makeprg, "cargo c") and test_make or default
+			vim.notify("makeprg is now " .. vim.o.makeprg, vim.log.levels.INFO)
 		end, { buffer = args.buf, silent = true })
 	end,
 })

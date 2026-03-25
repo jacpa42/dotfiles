@@ -43,6 +43,9 @@ return {
 	-- passed: this is a random comment
 	-- FAILED: this is a random comment
 	-- failed: this is a random comment
+	-- IMPORTANT: this is a random comment
+	-- important: this is a random comment
+
 	opts = {
 		signs = false,
 		keywords = {
@@ -53,7 +56,9 @@ return {
 				-- signs = false, -- configure signs for some keywords individually
 			},
 			TODO = { icon = " ", color = "info", alt = {} }, -- failed: this is a random comment
-			HACK = { icon = " ", color = "warn", alt = {} },
+			HACK = { icon = " ", color = "warn", alt = {
+				"IMPORTANT",
+			} },
 			WARN = { icon = " ", color = "warn", alt = { "WARNING", "XXX" } },
 			PERF = {
 				icon = " ",

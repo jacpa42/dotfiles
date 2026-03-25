@@ -7,8 +7,8 @@ background=1e222b
 [binds]
 w = exec hyprwall --set "$imv_current_file"
 
-<Ctrl+n> = next
-<Ctrl+p> = prev
+<Ctrl+j> = next
+<Ctrl+k> = prev
 
 <Meta+k> = zoom 1
 <Meta+j> = zoom -1

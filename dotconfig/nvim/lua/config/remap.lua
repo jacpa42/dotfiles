@@ -5,6 +5,7 @@ map("t", "<esc>", "<c-\\><c-n>", { desc = "escape out of terminal mode", noremap
 
 map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "find symbol decl" })
 
 map("n", "<leader>m", "<cmd>make <bar> copen<cr>", { desc = "make project", noremap = true })
 map("n", "<leader>M", function()
@@ -18,7 +19,7 @@ end, { desc = "set make cmd for project", noremap = true })
 map(
 	"n",
 	"<leader>td",
-	"<cmd>silent grep TODO\\: <bar> copen<cr>",
+	"<cmd>silent grep '(BUG\\|FAILED\\|FIX\\|FIXME\\|HACK\\|NOTE\\|TODO\\|WARN\\|XXX\\|IMPORTANT):' | copen<cr>",
 	{ desc = "grep 'TODO:'s", silent = true, noremap = true }
 )
 
