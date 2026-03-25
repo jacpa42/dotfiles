@@ -85,8 +85,8 @@ return {
 			after = "", -- "fg" or "bg" or empty
 			pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
 			comments_only = true, -- uses treesitter to match keywords in comments only
-			max_line_len = 400, -- ignore lines longer than this
-			exclude = {}, -- list of file types to exclude highlighting
+			max_line_len = 400, -- ignore lines longer thad this
+			exclude = { "qf", "vim" }, -- list of file types to exclude highlighting
 		},
 		colors = {
 			error = "DiagnosticSignError",

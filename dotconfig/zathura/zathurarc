@@ -86,7 +86,7 @@ set index-bg rgb(29,32,47)
 
 # Defines the foreground color of the index mode.
 # • Value type: String
-set index-fg rgb(220,215,186)
+set index-fg rgb(225,238,217)
 
 # Maximum number of positions to remember in the jumplist.
 # • Value type: Integer

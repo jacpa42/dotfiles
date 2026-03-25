@@ -1,7 +1,7 @@
 {
   "battery": {
     "bat": "BAT1",
-    "format": "{icon} {capacity}%",
+    "format": "{icon} {capacity}",
     "format-icons": [
       " ",
       " ",
@@ -89,7 +89,7 @@
     "format-wifi": "{icon}",
     "tooltip-format-disconnected": "Disconnected",
     "tooltip-format-ethernet": "{ifname}",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)"
+    "tooltip-format-wifi": "{essid} ({signalStrength})"
   },
   "position": "bottom",
   "spacing": 5,
@@ -101,7 +101,7 @@
     "spacing": 16
   },
   "wireplumber": {
-    "format": "󰕾  {volume}%",
+    "format": "󰕾  {volume}",
     "max-volume": 100,
     "scroll-step": 5
   }
