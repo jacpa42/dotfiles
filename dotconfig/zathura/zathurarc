@@ -1,8 +1,8 @@
 set font "JetBrains Mono Nerd Font 24"
 
+set recolor false
 set statusbar-h-padding 0
 set statusbar-v-padding 0
-
 
 # Defines if the search results should be cleared on abort.
 # • Value type: Boolean
@@ -135,10 +135,6 @@ set page-thumbnail-size (4M)
 # Defines the number of pages that are rendered next to each other in a row.
 # • Value type: Integer
 set pages-per-row 1
-
-# En/Disables recoloring
-# • Value type: Boolean
-set recolor true
 
 # En/Disables adjusting lightness when recoloring.
 # • Value type: Boolean

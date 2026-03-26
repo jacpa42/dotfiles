@@ -8,22 +8,34 @@ autocmd({ "FileType" }, {
 	end,
 })
 
-local function local_disable_spell()
+local function buf_disable_spell()
+	vim.o.spell = false
+	vim.o.spelllang = ""
+end
+
+local function buf_enable_spell()
+	vim.o.spell = true
+	vim.o.spelllang = "en_gb"
+end
+
+function BufToggleSpell()
 	require("config.opts")
-	vim.opt_local.spell = false
-	vim.opt_local.spelllang = ""
-	vim.opt_local.syntax = "off"
+	if vim.o.spell then
+		buf_disable_spell()
+	else
+		buf_enable_spell()
+	end
 end
 
 -- Disable spell for specific file types
 autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn" },
-	callback = local_disable_spell,
+	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn", "zathurarc" },
+	callback = buf_disable_spell,
 })
 
 -- Disable spell for terminal
 autocmd({ "TermOpen" }, {
-	callback = local_disable_spell,
+	callback = buf_disable_spell,
 })
 
 autocmd({ "FileType" }, {
@@ -60,7 +72,11 @@ autocmd({ "FileType" }, {
 	pattern = "zig",
 	callback = function(args)
 		vim.bo[args.buf].makeprg = "zig build"
-		vim.opt.errorformat = { "%f:%l:%c: %t%*[^:]: %m" }
+		vim.opt.errorformat = {
+			"%f:%l:%c: %t%*[^:]: %m",
+			"%f:%l:%c: %m",
+		}
+
 		vim.keymap.set("n", "t", function()
 			vim.opt_local.makeprg = "zig build t --summary new"
 			vim.cmd.make()
