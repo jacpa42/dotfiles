@@ -1,12 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
 
--- special commands for dapui buffers
-autocmd({ "FileType" }, {
-	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
-	callback = function(args)
-		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
-	end,
-})
+local function starts_with(str, prefix)
+	return string.sub(str, 1, string.len(prefix)) == prefix
+end
 
 local function buf_disable_spell()
 	vim.o.spell = false
@@ -26,6 +22,14 @@ function BufToggleSpell()
 		buf_enable_spell()
 	end
 end
+
+-- special commands for dapui buffers
+autocmd({ "FileType" }, {
+	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
+	callback = function(args)
+		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
+	end,
+})
 
 -- Disable spell for specific file types
 autocmd({ "FileType" }, {
@@ -47,22 +51,19 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
 	pattern = "rust",
 	callback = function(args)
+		local compile = "cargo c --tests --all-features"
+		local test = 'cargo nextest run --all-features --max-fail="10:immediate"'
+
+		vim.o.makeprg = not starts_with(vim.o.makeprg, "cargo") and compile or vim.o.makeprg
 		vim.opt_local.errorformat = {
 			"%.%# panicked at %f:%l:%c:", -- cargo test
 			"%.%# --> %f:%l:%c", -- cargo check/build
 			"%.%# --> %f:%l:%c", -- cargo test debug prints
 			"%.%# [%f:%l:%c] %.%#", -- cargo test debug prints
 		}
-		local default = "cargo c --tests --all-features"
-		local test_make = 'cargo nextest run --all-features --max-fail="10:immediate"'
-		vim.bo[args.buf].makeprg = default
-
-		local function starts(String, Start)
-			return string.sub(String, 1, string.len(Start)) == Start
-		end
 
 		vim.keymap.set("n", "t", function()
-			vim.bo[args.buf].makeprg = starts(vim.o.makeprg, "cargo c") and test_make or default
+			vim.o.makeprg = starts_with(vim.o.makeprg, "cargo c") and test or compile
 			vim.notify("makeprg is now " .. vim.o.makeprg, vim.log.levels.INFO)
 		end, { buffer = args.buf, silent = true })
 	end,
@@ -71,16 +72,16 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
 	pattern = "zig",
 	callback = function(args)
-		vim.bo[args.buf].makeprg = "zig build"
-		vim.opt.errorformat = {
-			"%f:%l:%c: %t%*[^:]: %m",
-			"%f:%l:%c: %m",
-		}
+		local compile = "zig build"
+		local test = "zig build test --summary new"
+
+		vim.o.makeprg = not starts_with(vim.o.makeprg, "zig build") and compile or vim.o.makeprg
+		vim.opt.errorformat = { "%f:%l:%c: %t%*[^:]: %m", "%f:%l:%c: %m" }
 
 		vim.keymap.set("n", "t", function()
-			vim.opt_local.makeprg = "zig build t --summary new"
-			vim.cmd.make()
-		end, { buffer = args.buf })
+			vim.o.makeprg = starts_with(vim.o.makeprg, "zig build t") and compile or test
+			vim.notify("makeprg is now " .. vim.o.makeprg, vim.log.levels.INFO)
+		end, { buffer = args.buf, silent = true })
 	end,
 })
 

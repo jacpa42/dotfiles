@@ -42,10 +42,9 @@
   "hyprland/workspaces": {
     "format": "<span size='larger'>{icon}</span>",
     "format-icons": {
-      "active": "",
-      "default": ""
+      "active": " ",
+      "default": " "
     },
-    "icon-size": 10,
     "on-click": "activate",
     "sort-by-number": true
   },

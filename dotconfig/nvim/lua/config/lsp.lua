@@ -123,12 +123,6 @@ local lsp_configs = {
 		root_markers = { "zls.json", "build.zig", ".git" },
 		workspace_required = false,
 	},
-
-	["ols"] = {
-		cmd = { "odinls" },
-		filetypes = { "odin" },
-		root_markers = { "ols.json", "**.odin", ".git" },
-	},
 }
 
 for l, c in pairs(lsp_configs) do
