@@ -111,16 +111,13 @@ alias pipes="pipes-rs -p 10 -f 60 -t 0.4 -r 0.99"
 alias rmcache="paru -Scv --noconfirm"
 alias rmorphans="paru -Rns \$(paru -Qtdq) --noconfirm"
 alias rmtrash="rm -rf $HOME/.local/share/Trash/*"
-alias sl="sl -5 -a -e -d -G -l"
 alias sn="systemctl sleep"
 alias sv="sudo -E nvim"
-alias wifi='sudo -E nvim /etc/NetworkManager/system-connections'
+alias wifi='sudo -E nvim /var/lib/iwd/'
 update="clear; paru -Syu --noconfirm"
 alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
-alias gitpull="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c 'cd \"{}/..\"; echo \$(pwd); git pull; echo'"
-alias gitstatus="fd -Htdirectory --absolute-path "\.git$" ~/Projects -x bash -c 'cd \"{}/..\"; echo \$(pwd); git status; echo'"
 
 source <(zoxide init --cmd j bash)
 source <(krag_cli completions --shell bash)
