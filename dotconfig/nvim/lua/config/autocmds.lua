@@ -72,11 +72,15 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
 	pattern = "zig",
 	callback = function(args)
-		local compile = "zig build"
-		local test = "zig build test --summary new"
+		local compile = "zig build -freference-trace=20"
+		local test = "zig build test -freference-trace=20 --summary new"
 
 		vim.o.makeprg = not starts_with(vim.o.makeprg, "zig build") and compile or vim.o.makeprg
-		vim.opt.errorformat = { "%f:%l:%c: %t%*[^:]: %m", "%f:%l:%c: %m" }
+		vim.opt.errorformat = {
+			"%f:%l:%c: %t%*[^:]: %m",
+			"%f:%l:%c: %m",
+			"     %m: %f:%l:%c",
+		}
 
 		vim.keymap.set("n", "t", function()
 			vim.o.makeprg = starts_with(vim.o.makeprg, "zig build t") and compile or test
