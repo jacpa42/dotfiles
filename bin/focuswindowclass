@@ -1,0 +1,7 @@
+#!/usr/bin/dash
+[ -z "$1" ] && exit
+
+current="$(hyprctl activewindow -j | jq -r .class)"
+[ "$current" = "$1" ] && exit
+
+focuswindowclass "$1"
