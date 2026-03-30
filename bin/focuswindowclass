@@ -4,4 +4,4 @@
 current="$(hyprctl activewindow -j | jq -r .class)"
 [ "$current" = "$1" ] && exit
 
-hyprctl dispatch focuswindow "$1"
+hyprctl dispatch focuswindow "class:$1"

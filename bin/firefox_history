@@ -14,7 +14,6 @@ selection="$(sqlite3 "$backup_copy" "$sep" "$query" | fuzzel --width=100 --dmenu
 url="${selection##* }"
 [ -z "$url" ] && exit 1
 
-xdg-open "$url" &
 default_browser="$(xdg-mime query default x-scheme-handler/https)"
 focuswindowclass "${default_browser%%.*}"
-disown
+exec xdg-open "$url"
