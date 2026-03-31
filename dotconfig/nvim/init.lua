@@ -692,7 +692,6 @@ if true then
 			lua = { "stylua" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			sh = { "shfmt" },
-			tmux = { "shfmt" },
 			toml = { "taplo" },
 			python = { "ruff_format" },
 			zig = { "zigfmt" },
