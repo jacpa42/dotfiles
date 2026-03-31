@@ -2,25 +2,22 @@
 
 TARGET_DIR=""
 OPERATION=""
-WORKING_DIRECTORY="$(tmux display-message -Cp -d 0 '#{session_path}' || exit 0)"
-cd "$WORKING_DIRECTORY"
-
-focus_or_create_tmux_window() {
-    local window_class="tmux"
-    local switch_window="$(hyprctl dispatch focuswindow "class:$window_class")"
-    [ "$switch_window" = "ok" ] || gtk-launch tmux
-}
 
 switch_to_project() {
     local target_dir="$1"
     local session_name="$(basename $target_dir)"
-    tmux new-session -d -s "$session_name" -c "$target_dir" -n "code"
-    tmux switch-client -t "$session_name"
+    cd $target_dir
+    exec nvim
 }
 
 case "$1" in
 git) exec lazygit ;;
 gitweb)
+    cd "$PROJDIR"
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
+    [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
+    [ -d "$TARGET_DIR" ] || exit 1
+    cd "$TARGET_DIR"
     url="$(git config --get remote.origin.url)"
     echo "$url"
     [ -z "$url" ] && {
@@ -33,8 +30,8 @@ gitweb)
         exit 0
     }
 
-    xdg-open "$url"
     hyprctl dispatch focuswindow "class:${default_browser%%.*}"
+    exec xdg-open "$url"
     ;;
 projects)
     cd "$PROJDIR"
@@ -42,13 +39,10 @@ projects)
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
-    switch_to_project "$TARGET_DIR"
-    focus_or_create_tmux_window || exit 1
+    exec footclient -D "$TARGET_DIR" -T nvim -a nvim nvim
     ;;
 home_session)
     TARGET_DIR="$HOME"
-
-    switch_to_project "$TARGET_DIR"
-    focus_or_create_tmux_window || exit 1
+    exec footclient -D "$TARGET_DIR" -T nvim -a nvim nvim
     ;;
 esac

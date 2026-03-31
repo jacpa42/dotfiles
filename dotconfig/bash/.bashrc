@@ -33,7 +33,7 @@ set_ls_colors() {
     # ex | executable file
 
     # system files
-    LS_COLORS="rs=0:di=01;34:ln=04;36:pi=40;33:so=03;35:bd=40;33;01:cd=40;33;01:or=04;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=03;32:*~=00;90:*#=00;90"
+    LS_COLORS="rs=0:di=01;34:ln=04;36:pi=40;33:so=03;35:bd=40;33;01:cd=40;33;01:or=04;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=01;34:st=37;44:ex=03;32:*~=00;90:*#=00;90"
 
     # temp files
     format_exts "00;90" bak crdownload dpkg-dist dpkg-new dpkg-old dpkg-tmp old orig part rej rpmnew rpmorig rpmsave swp tmp ucf-dist ucf-new ucf-old

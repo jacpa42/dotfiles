@@ -41,10 +41,6 @@
   },
   "hyprland/workspaces": {
     "format": "<span size='larger'>{icon}</span>",
-    "format-icons": {
-      "active": " ",
-      "default": " "
-    },
     "on-click": "activate",
     "sort-by-number": true
   },
