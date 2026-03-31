@@ -11,12 +11,20 @@ switch_to_project() {
 }
 
 case "$1" in
-git) exec lazygit ;;
+git)
+    cd "$PROJDIR"
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
+    [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
+    [ -d "$TARGET_DIR" ] || exit 1
+
+    exec footclient -D "$TARGET_DIR" -T lazygit -a lazygit sh -c "lazygit"
+    ;;
 gitweb)
     cd "$PROJDIR"
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
+
     cd "$TARGET_DIR"
     url="$(git config --get remote.origin.url)"
     echo "$url"
@@ -39,10 +47,10 @@ projects)
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
-    exec footclient -D "$TARGET_DIR" -T nvim -a nvim nvim
+    exec footclient -D "$TARGET_DIR" -T nvim -a nvim sh -c "nvim; $SHELL"
     ;;
 home_session)
     TARGET_DIR="$HOME"
-    exec footclient -D "$TARGET_DIR" -T nvim -a nvim nvim
+    exec footclient -D "$TARGET_DIR" -T nvim -a nvim sh -c "nvim; $SHELL"
     ;;
 esac
