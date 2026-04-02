@@ -42,7 +42,10 @@
   "hyprland/workspaces": {
     "format": "<span size='larger'>{icon}</span>",
     "on-click": "activate",
-    "sort-by-number": true
+    "sort-by-number": true,
+    "persistent-workspaces": {
+        "*": 5
+    }
   },
   "idle_inhibitor": {
     "format": "{icon}",
