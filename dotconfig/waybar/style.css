@@ -1,6 +1,19 @@
-@define-color foreground #c1c1c1;
-@define-color foreground-inactive #8e8e8e;
-@define-color background #000000;
+@define-color base00 #000000;
+@define-color base01 #121212;
+@define-color base02 #222222;
+@define-color base03 #606060;
+@define-color base04 #000000;
+@define-color base05 #c1c1c1;
+@define-color base06 #999999;
+@define-color base07 #c1c1c1;
+@define-color base08 #5f8787;
+@define-color base09 #aaaaaa;
+@define-color base0A #974b46;
+@define-color base0B #eceee3;
+@define-color base0C #aaaaaa;
+@define-color base0D #888888;
+@define-color base0E #999999;
+@define-color base0F #708484;
 
 * {
     font-family: JetBrainsMono Nerd Font Mono;
@@ -11,17 +24,17 @@
 }
 
 #waybar {
-    color: @foreground;
-    background-color: @background;
+    color: @base05;
+    background-color: @base00;
 }
 
 #workspaces button {
-    color: @foreground;
+    color: @base05;
     padding-left: 0.5em;
 }
 
 #workspaces button.empty {
-    color: @foreground-inactive;
+    color: @base0D;
 }
 
 #memory,

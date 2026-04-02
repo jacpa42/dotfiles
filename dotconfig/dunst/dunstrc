@@ -1,5 +1,5 @@
 [global]
-font = "JetBrainsMono Nerd Font 11"
+font = "JetBrainsMono Nerd Font 12"
 frame_color = "#000000"
 separator_color = frame
 highlight = "#000000"

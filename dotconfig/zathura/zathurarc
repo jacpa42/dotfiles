@@ -1,6 +1,28 @@
 set font "JetBrains Mono Nerd Font 24"
 
-set recolor false
+set default-bg                  "#000000"
+set default-fg                  "#c1c1c1"
+set statusbar-fg                "#000000"
+set statusbar-bg                "#222222"
+set inputbar-bg                 "#000000"
+set inputbar-fg                 "#c1c1c1"
+set notification-bg             "#000000"
+set notification-fg             "#c1c1c1"
+set notification-error-bg       "#000000"
+set notification-error-fg       "#5f8787"
+set notification-warning-bg     "#000000"
+set notification-warning-fg     "#5f8787"
+set highlight-color             "#974b46"
+set highlight-active-color      "#888888"
+set completion-bg               "#121212"
+set completion-fg               "#888888"
+set completion-highlight-fg     "#c1c1c1"
+set completion-highlight-bg     "#888888"
+set recolor-lightcolor          "#000000"
+set recolor-darkcolor           "#999999"
+set recolor                     "false"
+set recolor-keephue             "false"
+
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 
@@ -50,14 +72,6 @@ set filemonitor noop
 # column, and for layouts with more columns the first page would be put in the 3rd column.
 # • Value type: String
 set first-page-column "1"
-
-# Defines the color that is used to show the current selected highlighted element (e.g: current search result)
-# • Value type: String
-set highlight-active-color rgba(126,156,216,0.7)
-
-# Defines the color that is used for highlighting parts of the document (e.g.: show search results)
-# • Value type: String
-set highlight-color rgba(126,156,216,0.7)
 
 # Defines the color that is used for text when highlighting parts of the document (e.g.: number for links).
 # • Value type: String
@@ -139,18 +153,6 @@ set pages-per-row 1
 # En/Disables adjusting lightness when recoloring.
 # • Value type: Boolean
 set recolor-adjust-lightness true
-
-# Defines the color value that is used to represent dark colors in recoloring mode
-# • Value type: String
-set recolor-darkcolor rgb(220,215,186)
-
-# En/Disables keeping original hue when recoloring
-# • Value type: Boolean
-set recolor-keephue false
-
-# Defines the color value that is used to represent light colors in recoloring mode
-# • Value type: String
-set recolor-lightcolor rgb(9,6,24)
 
 # Defines if original image colors should be kept while recoloring.
 # • Value type: Boolean

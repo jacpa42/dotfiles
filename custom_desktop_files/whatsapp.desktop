@@ -2,9 +2,9 @@
 Name=Whatsapp
 GenericName=Whatsapp
 Comment=Send and receive messages
-TryExec=firefox
-Exec=firefox --new-window https://web.whatsapp.com/
+TryExec=whatsapp
+Exec=whatsapp
 Type=Application
-Keywords=proton;mail;
+Keywords=message;whatsapp;
 Categories=Utility;
 StartupNotify=false
