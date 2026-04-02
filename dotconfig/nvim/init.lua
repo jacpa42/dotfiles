@@ -5,9 +5,10 @@
 vim.diagnostic.config({ virtual_text = { current_line = false } })
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 
+vim.o.background = "dark"
 vim.o.spell = true
 vim.o.spelllang = "en_gb"
-vim.o.shortmess = "aoOstTAIcCq"
+vim.o.shortmess = "aoOstTAIcC"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -355,11 +356,11 @@ map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "find symbol decl" })
 
-map("n", "<leader>m", "<cmd>make <bar> copen<cr>", { desc = "make project", noremap = true })
+map("n", "<leader>m", "<cmd>silent make <bar> copen<cr>", { desc = "make project", noremap = true })
 map("n", "<leader>M", function()
 	local makecmd = vim.fn.input("edit makeprg=", vim.o.makeprg, "file")
 	if makecmd:len() > 0 then
-		print('makecmd = "' .. makecmd .. '"')
+		vim.notify('makecmd = "' .. makecmd .. '"')
 		vim.o.makeprg = makecmd
 	end
 end, { desc = "set make cmd for project", noremap = true })
@@ -442,7 +443,6 @@ map("t", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "
 
 map("t", "<m-r>", "<c-\\><c-n><cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
 map("t", "<m-e>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
-
 map("n", "<m-r>", "<cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
 map("n", "<m-e>", "<cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
 
@@ -480,22 +480,18 @@ map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 ----------------------------------plugins----------------------------------
 ----------------------------------plugins----------------------------------
 
-local gh = function(plugin)
-	return "https://github.com/" .. plugin
-end
-
 -- treesitter
 if true then
 	vim.pack.add({
-		gh("nvim-treesitter/nvim-treesitter"),
+		"https://github.com/nvim-treesitter/nvim-treesitter",
 	})
 	require("nvim-treesitter").setup({
 		highlight = {
 			enable = true,
 			disable = function()
-				local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+				local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
 				if ok and stats and stats.size > 100 * 1024 then
-					print("disabling treesitter for " .. buf)
+					vim.notify("disabling treesitter")
 					return true
 				end
 			end,
@@ -509,10 +505,10 @@ end
 -- telescope
 if true then
 	vim.pack.add({
-		gh("nvim-lua/plenary.nvim"), -- dependency
-		gh("nvim-tree/nvim-web-devicons"), -- dependency
-		gh("nvim-telescope/telescope-ui-select.nvim"), -- dependency
-		gh("nvim-telescope/telescope.nvim"),
+		"https://github.com/nvim-lua/plenary.nvim", -- dependency
+		"https://github.com/nvim-tree/nvim-web-devicons", -- dependency
+		"https://github.com/nvim-telescope/telescope-ui-select.nvim", -- dependency
+		"https://github.com/nvim-telescope/telescope.nvim",
 	})
 	require("telescope").setup({
 		defaults = { file_ignore_patterns = { "^.git/" } },
@@ -526,8 +522,8 @@ end
 -- oil
 if true then
 	vim.pack.add({
-		gh("nvim-tree/nvim-web-devicons"), -- dependency
-		gh("stevearc/oil.nvim"),
+		"https://github.com/nvim-tree/nvim-web-devicons", -- dependency
+		"https://github.com/stevearc/oil.nvim",
 	})
 	require("oil").setup({
 		columns = { "icon", "size" },
@@ -577,8 +573,8 @@ end
 -- blink
 if true then
 	vim.pack.add({
-		gh("rafamadriz/friendly-snippets"), -- dependency
-		{ src = gh("saghen/blink.cmp"), version = vim.version.range("1.*") },
+		"https://github.com/rafamadriz/friendly-snippets", -- dependency
+		{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 	})
 	require("blink.cmp").setup({
 		appearance = {
@@ -617,8 +613,8 @@ end
 -- nvim-dap
 if true then
 	vim.pack.add({
-		gh("igorlfs/nvim-dap-view"), -- dependency
-		gh("mfussenegger/nvim-dap"),
+		"https://github.com/igorlfs/nvim-dap-view", -- dependency
+		"https://github.com/mfussenegger/nvim-dap",
 	})
 	local dapview = require("dap-view")
 	dapview.setup()
@@ -655,7 +651,7 @@ end
 -- conform
 if true then
 	vim.pack.add({
-		gh("stevearc/conform.nvim"),
+		"https://github.com/stevearc/conform.nvim",
 	})
 	require("conform").setup({
 		formatters = {
@@ -675,14 +671,12 @@ if true then
 				stdin = true,
 			},
 		},
-
 		notify_on_error = false,
 		format_on_save = {
 			-- I recommend these options. See :help conform.format for details.
 			lsp_format = "fallback",
 			timeout_ms = 500,
 		},
-
 		formatters_by_ft = {
 			bash = { "shfmt" },
 			c = { "clang-format-custom", lsp_format = "fallback" },
@@ -703,26 +697,81 @@ if true then
 	})
 end
 
--- kanagawa
+-- black metal
 if true then
 	vim.pack.add({
-		gh("rebelot/kanagawa.nvim"),
+		"https://github.com/metalelf0/black-metal-theme-neovim",
 	})
-	require("kanagawa").setup({ transparent = true })
-	local hi = vim.cmd.hi
-	vim.cmd.colorscheme("kanagawa")
-	hi({ args = { "TelescopeBorder", "guibg=NONE" } })
-	hi({ args = { "FloatBorder", "guibg=NONE" } })
-	hi({ args = { "NormalFloat", "guibg=NONE" } })
-	hi({ args = { "FloatTitle", "guibg=NONE" } })
-	hi({ args = { "LineNr", "guibg=NONE" } })
-	hi({ args = { "DiagnosticSignInfo", "guibg=NONE" } })
-	hi({ args = { "DiagnosticSignWarn", "guibg=NONE" } })
-	hi({ args = { "DiagnosticSignError", "guibg=NONE" } })
-	hi({ args = { "DiagnosticSignHint", "guibg=NONE" } })
-	hi({ args = { "StatusLine", "guibg=NONE" } })
-	hi({ args = { "SignColumn", "guibg=NONE" } })
-	hi({ args = { "CursorLineNr", "guibg=NONE" } })
+	require("black-metal").setup({
+		theme = "khold",
+		variant = "dark",
+		alt_bg = false,
+		-- If true, docstrings will be highlighted like strings, otherwise they will be
+		-- highlighted like comments. Note, behaviour is dependent on the language server.
+		colored_docstrings = true,
+		-- If true, highlights the {sign,fold} column the same as cursorline
+		cursorline_gutter = true,
+		-- If true, highlights the gutter darker than the bg
+		dark_gutter = false,
+		-- if true favor treesitter highlights over semantic highlights
+		favor_treesitter_hl = false,
+		-- Don't set background of floating windows. Recommended for when using floating
+		-- windows with borders.
+		plain_float = false,
+		-- Show the end-of-buffer character
+		show_eob = true,
+		-- If true, enable the vim terminal colors
+		term_colors = false,
+		-- Don't set background
+		transparent = true,
+
+		-----DIAGNOSTICS and CODE STYLE-----
+		diagnostics = {
+			darker = true, -- Darker colors for diagnostic
+			undercurl = true, -- Use undercurl for diagnostics
+			background = true, -- Use background color for virtual text
+		},
+		-- The following table accepts values the same as the `gui` option for normal
+		-- highlights. For example, `bold`, `italic`, `underline`, `none`.
+		code_style = {
+			comments = "bold,italic",
+			conditionals = "none",
+			functions = "none",
+			keywords = "italic",
+			headings = "bold", -- Markdown headings
+			operators = "bold",
+			keyword_return = "none",
+			strings = "italic",
+			variables = "none",
+		},
+
+		-----PLUGINS-----
+		--
+		-- The following options allow for more control over some plugin appearances.
+		plugin = { cmp = { plain = false, reverse = false } },
+		colors = {},
+		highlights = {},
+	})
+	require("black-metal").load()
+end
+
+-- colorizer
+if true then
+	vim.pack.add({
+		"https://github.com/norcalli/nvim-colorizer.lua",
+	})
+	require("colorizer").setup({ "*" }, {
+		RGB = true, -- #RGB hex codes
+		RRGGBB = true, -- #RRGGBB hex codes
+		RRGGBBAA = true, -- #RRGGBBAA hex codes
+		names = false, -- "Name" codes like Blue
+		rgb_fn = true, -- CSS rgb() and rgba() functions
+		hsl_fn = true, -- CSS hsl() and hsla() functions
+		css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+		css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+		-- Available modes: foreground, background
+		mode = "background", -- Set the display mode.
+	})
 end
 
 -- epic experimental ui
@@ -740,10 +789,6 @@ require("vim._core.ui2").enable({
 ----------------------------------greeter----------------------------------
 ----------------------------------greeter----------------------------------
 ----------------------------------greeter----------------------------------
-
-if #vim.v.argv > 2 then
-	return
-end
 
 local ascii_art = [[
  ██ ▄█▀ ██▀███   ▄▄▄        ▄████ 
@@ -810,7 +855,6 @@ local function apply_highlights(buf, vertical_pad)
 	vim.hl.range(buf, ns, "ErrorMsg", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
 
 	-- Highlight version line
-	-- vim.api.nvim_buf_add_highlight(buf, -1, "NonText", vertical_pad + #ascii, 0, -1)
 
 	local text_line = vertical_pad + #ascii
 
@@ -855,45 +899,55 @@ local function greeter_draw(buf)
 	apply_highlights(buf, pad_height)
 end
 
-vim.cmd.enew()
-local buf = vim.api.nvim_get_current_buf()
-greeter_draw(buf)
-
 local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
 
-vim.api.nvim_create_autocmd("VimResized", {
-	buffer = buf,
-	desc = "Recalc and redraw greeter when window is resized",
+autocmd("VimEnter", {
+	desc = "Greeter",
 	group = NamespaceGroup,
 	callback = function()
+		if #vim.v.argv > 2 then
+			return
+		end
+
+		vim.cmd.enew()
+		local buf = vim.api.nvim_get_current_buf()
+
+		autocmd("VimResized", {
+			buffer = buf,
+			desc = "Recalc and redraw greeter when window is resized",
+			group = NamespaceGroup,
+			callback = function()
+				greeter_draw(buf)
+			end,
+		})
+
+		autocmd("InsertEnter", {
+			buffer = buf,
+			desc = "Closes greeter and opens a new buffer",
+			group = NamespaceGroup,
+			callback = function()
+				vim.schedule(vim.cmd.enew)
+			end,
+		})
+
+		vim.keymap.set("n", "p", function()
+			vim.schedule(function()
+				vim.cmd.enew()
+				vim.cmd("norm p")
+			end)
+		end, {
+			buffer = buf,
+			noremap = true,
+			silent = true,
+			desc = "Remap paste to open a new buffer",
+		})
+		vim.keymap.set("n", "q", ":q<cr>", {
+			buffer = buf,
+			noremap = true,
+			silent = true,
+			desc = "Quit nvim",
+		})
+
 		greeter_draw(buf)
 	end,
-})
-
-vim.api.nvim_create_autocmd("InsertEnter", {
-	buffer = buf,
-	desc = "Closes greeter and opens a new buffer",
-	group = NamespaceGroup,
-	callback = function()
-		vim.schedule(vim.cmd.enew)
-	end,
-})
-
-vim.keymap.set("n", "p", function()
-	vim.schedule(function()
-		vim.cmd.enew()
-		vim.cmd("norm p")
-	end)
-end, {
-	buffer = buf,
-	noremap = true,
-	silent = true,
-	desc = "Remap paste to open a new buffer",
-})
-
-vim.keymap.set("n", "q", ":q<cr>", {
-	buffer = buf,
-	noremap = true,
-	silent = true,
-	desc = "Quit nvim",
 })

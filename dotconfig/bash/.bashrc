@@ -74,18 +74,19 @@ set_prompt() {
 export PROMPT_COMMAND=set_prompt
 
 set -o vi
+shopt -s autocd
 bind "set vi-cmd-mode-string \1\e[34;1m\1\e[2 q\2\1\e[0m\2"
 bind "set vi-ins-mode-string \1\e[34;1m\1\e[\x36 q\2\1\e[0m\2"
-bind 'set keyseq-timeout 50'
-bind 'set show-mode-in-prompt on'
-bind 'set show-all-if-ambiguous on'
-bind 'set colored-stats on'
-bind 'set visible-stats on'
-bind 'set mark-symlinked-directories on'
-bind 'set menu-complete-display-prefix on'
-bind 'set echo-control-characters off'
-bind 'set enable-bracketed-paste on'
-bind 'TAB:menu-complete'
+bind "set keyseq-timeout 50"
+bind "set show-mode-in-prompt on"
+bind "set show-all-if-ambiguous on"
+bind "set colored-stats on"
+bind "set visible-stats on"
+bind "set mark-symlinked-directories on"
+bind "set menu-complete-display-prefix on"
+bind "set echo-control-characters off"
+bind "set enable-bracketed-paste on"
+bind "TAB:menu-complete"
 bind '"\e[Z": menu-complete-backward'
 bind '"\C-l": clear-screen'
 
