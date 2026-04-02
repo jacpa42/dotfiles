@@ -1,4 +1,0 @@
-#!/usr/bin/dash
-fd -Htd --absolute-path \
-    "\.git$" ~/Projects -x \
-    bash -c 'cd $(dirname {}); ls -d --color=always $(pwd); git pull'

@@ -7,8 +7,6 @@ fcitx5 -d &
 hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE &
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
 dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=$QT_QPA_PLATFORMTHEME &
-gsettings set org.gnome.desktop.interface gtk-theme Adwaita &
-gsettings set org.gnome.desktop.interface color-scheme prefer-dark &
 gsettings set org.gnome.desktop.interface cursor-theme $HYPRCURSOR_THEME &
 
-exec hyprwall --force --set-last
+exec jacob_hyprwall --force --set-last

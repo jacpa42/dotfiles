@@ -5,7 +5,7 @@ overlay_background_alpha = 00
 background=1e222b
 
 [binds]
-w = exec hyprwall --set "$imv_current_file"
+w = exec jacob_hyprwall --set "$imv_current_file"
 
 <Ctrl+j> = next
 <Ctrl+k> = prev
