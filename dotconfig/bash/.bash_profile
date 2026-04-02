@@ -8,7 +8,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.local/share/go
 export PATH=$PATH:$DOTDIR/bin
 export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
-export DEFAULT_WALLPAPER="fuji-clay-banks-kanagawa"
+export DEFAULT_WALLPAPER="knight-templar"
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd_socks"
 
 export CHAT_WORKSPACE=1
