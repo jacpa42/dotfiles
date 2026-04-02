@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Open File
+TryExec=jacob_openfile
+Exec=jacob_openfile
+Type=Application
+Categories=Utility;
+StartupNotify=false

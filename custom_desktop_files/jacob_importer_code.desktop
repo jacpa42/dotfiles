@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=importer_code
+TryExec=jacob_importer_code
+Exec=jacob_importer_code
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Firefox History
+TryExec=jacob_firefox_history
+Exec=jacob_firefox_history
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Emoji
+TryExec=jacob_emojis
+Exec=jacob_emojis
+Type=Application
+Categories=Utility;
+StartupNotify=false

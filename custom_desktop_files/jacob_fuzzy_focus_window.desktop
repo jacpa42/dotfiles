@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Focus Hyprland Window
+TryExec=jacob_fuzzy_focus_window
+Exec=jacob_fuzzy_focus_window
+Type=Application
+Categories=Utility;
+StartupNotify=false

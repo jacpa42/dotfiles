@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=gitstatus
+TryExec=jacob_gitstatus
+Exec=jacob_gitstatus
+Type=Application
+Categories=Utility;
+Terminal=true
+StartupNotify=false

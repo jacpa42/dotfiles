@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=hyprwall
+TryExec=jacob_hyprwall
+Exec=jacob_hyprwall
+Type=Application
+Categories=Utility;
+StartupNotify=false

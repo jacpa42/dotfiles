@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Bash Cheat Sheet
+TryExec=jacob_shellbashcheatsheet
+Exec=jacob_shellbashcheatsheet
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=zigstd: Zig Standard Library
+TryExec=jacob_zigstdlib
+Exec=jacob_zigstdlib
+Type=Application
+Categories=Utility;
+StartupNotify=false

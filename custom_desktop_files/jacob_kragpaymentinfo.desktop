@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=kragpaymentinfo
+TryExec=jacob_kragpaymentinfo
+Exec=jacob_kragpaymentinfo
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=gitpull
+TryExec=jacob_gitpull
+Exec=jacob_gitpull
+Type=Application
+Categories=Utility;
+Terminal=true
+StartupNotify=false

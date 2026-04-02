@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Paystack Website
+TryExec=jacob_paystack
+Exec=jacob_paystack
+Type=Application
+Categories=Utility;
+StartupNotify=false

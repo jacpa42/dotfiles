@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Yoco Payment Gateway Website
+TryExec=jacob_yocopaymentgateway
+Exec=jacob_yocopaymentgateway
+Type=Application
+Categories=Utility;
+StartupNotify=false

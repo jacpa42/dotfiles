@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Github
+TryExec=jacob_github
+Exec=jacob_github
+Type=Application
+Categories=Utility;
+StartupNotify=false

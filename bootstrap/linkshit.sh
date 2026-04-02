@@ -8,6 +8,9 @@
     exit 1
 }
 
+# also special :)
+ln -vsfn "$DOTDIR/gtk"/.??* "$HOME"
+
 # special :)
 ln -vsfn $DOTDIR/dotconfig/bash/.bash_profile $HOME/.bash_profile
 ln -vsfn $DOTDIR/dotconfig/bash/.bashrc $HOME/.bashrc

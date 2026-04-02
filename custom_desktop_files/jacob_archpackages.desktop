@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Arch Linux Packages
+TryExec=jacob_archpackages
+Exec=jacob_archpackages
+Type=Application
+Categories=Utility;
+StartupNotify=false

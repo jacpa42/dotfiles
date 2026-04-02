@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=FNB Banking Website
+TryExec=jacob_fnbbankwebsite
+Exec=jacob_fnbbankwebsite
+Type=Application
+Categories=Utility;
+StartupNotify=false

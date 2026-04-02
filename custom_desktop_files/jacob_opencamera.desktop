@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Camera
+TryExec=jacob_opencamera
+Exec=jacob_opencamera
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Whatsapp
+GenericName=Whatsapp
+Comment=Send and receive messages
+TryExec=jacob_whatsapp
+Exec=jacob_whatsapp
+Type=Application
+Keywords=message;whatsapp;
+Categories=Utility;
+StartupNotify=false

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Proton Calendar
+TryExec=jacob_calendarproton
+Exec=jacob_calendarproton
+Type=Application
+Categories=Utility;
+StartupNotify=false

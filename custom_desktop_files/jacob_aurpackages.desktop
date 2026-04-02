@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Arch User Repository (AUR)
+TryExec=jacob_aurpackages
+Exec=jacob_aurpackages
+Type=Application
+Categories=Utility;
+StartupNotify=false

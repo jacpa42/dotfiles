@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=zigref: Zig Language Reference
+TryExec=jacob_ziglanguagereference
+Exec=jacob_ziglanguagereference
+Type=Application
+Categories=Utility;
+StartupNotify=false

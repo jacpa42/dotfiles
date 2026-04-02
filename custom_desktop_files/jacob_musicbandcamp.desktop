@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=BandCamp Website
+TryExec=jacob_musicbandcamp
+Exec=jacob_musicbandcamp
+Type=Application
+Categories=Utility;
+StartupNotify=false

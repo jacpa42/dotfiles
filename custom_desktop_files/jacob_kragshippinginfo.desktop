@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=kragshippinginfo
+TryExec=jacob_kragshippinginfo
+Exec=jacob_kragshippinginfo
+Type=Application
+Categories=Utility;
+StartupNotify=false

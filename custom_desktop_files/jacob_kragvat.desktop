@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=kragvat
+TryExec=jacob_kragvat
+Exec=jacob_kragvat
+Type=Application
+Categories=Utility;
+StartupNotify=false

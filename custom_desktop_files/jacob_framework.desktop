@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Framework Computers Website
+TryExec=jacob_framework
+Exec=jacob_framework
+Type=Application
+Categories=Utility;
+StartupNotify=false

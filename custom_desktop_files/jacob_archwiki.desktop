@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Arch Wiki
+TryExec=jacob_archwiki
+Exec=jacob_archwiki
+Type=Application
+Categories=Utility;
+StartupNotify=false

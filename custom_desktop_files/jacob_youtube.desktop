@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Youtube
+TryExec=jacob_youtube
+Exec=jacob_youtube
+Type=Application
+Categories=Utility;
+StartupNotify=false

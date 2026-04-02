@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Shopify Website
+TryExec=jacob_shopify
+Exec=jacob_shopify
+Type=Application
+Categories=Utility;
+StartupNotify=false

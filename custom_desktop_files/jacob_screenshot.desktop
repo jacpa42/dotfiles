@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Screenshot
+TryExec=jacob_screenshot
+Exec=jacob_screenshot
+Type=Application
+Categories=Utility;
+StartupNotify=false

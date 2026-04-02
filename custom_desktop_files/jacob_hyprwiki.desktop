@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Hyprland Wiki
+TryExec=jacob_hyprwiki
+Exec=jacob_hyprwiki
+Type=Application
+Categories=Utility;
+StartupNotify=false

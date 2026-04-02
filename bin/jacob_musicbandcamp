@@ -1,0 +1,4 @@
+#!/usr/bin/dash
+default_browser="$(xdg-mime query default x-scheme-handler/https)"
+jacob_focuswindowclass "${default_browser%%.*}"
+exec xdg-open "https://bandcamp.com/discover"

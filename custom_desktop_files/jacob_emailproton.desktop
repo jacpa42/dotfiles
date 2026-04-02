@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Proton Email
+TryExec=jacob_emailproton
+Exec=jacob_emailproton
+Type=Application
+Categories=Utility;
+StartupNotify=false
