@@ -2,9 +2,10 @@
 ----------------------------------opts----------------------------------
 ----------------------------------opts----------------------------------
 
-vim.diagnostic.config({ virtual_text = { current_line = false } })
-vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
+-- epic experimental ui
+require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 5000 } } })
 
+vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
 vim.o.spell = true
 vim.o.spelllang = "en_gb"
@@ -45,6 +46,7 @@ vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.opt.termguicolors = true
 vim.o.textwidth = 80
 vim.o.formatoptions = "cro"
+vim.o.cmdheight = 0
 
 ----------------------------------autocmd----------------------------------
 ----------------------------------autocmd----------------------------------
@@ -773,18 +775,6 @@ if true then
 		mode = "background", -- Set the display mode.
 	})
 end
-
--- epic experimental ui
-require("vim._core.ui2").enable({
-	enable = true,
-	msg = {
-		targets = { "cmd", "msg", "pager", "dailog" },
-		cmd = { height = 0.5 },
-		dialog = { height = 0.5 },
-		msg = { height = 0.5 },
-		pager = { height = 10 },
-	},
-})
 
 ----------------------------------greeter----------------------------------
 ----------------------------------greeter----------------------------------
