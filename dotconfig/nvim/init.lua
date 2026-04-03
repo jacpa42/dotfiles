@@ -9,7 +9,7 @@ vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
 vim.o.spell = true
 vim.o.spelllang = "en_gb"
-vim.o.shortmess = "aoOstTAIcC"
+vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -20,6 +20,7 @@ vim.o.breakindent = true
 vim.o.wrap = true
 vim.o.confirm = true
 vim.o.ignorecase = true
+vim.o.smartcase = true
 vim.o.mouse = ""
 vim.o.number = true
 vim.o.relativenumber = true
@@ -30,7 +31,6 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.showmode = false
 vim.o.signcolumn = "number"
-vim.o.smartcase = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.swapfile = false
@@ -47,6 +47,21 @@ vim.opt.termguicolors = true
 vim.o.textwidth = 80
 vim.o.formatoptions = "cro"
 vim.o.cmdheight = 0
+
+----------------------------------statusline----------------------------------
+----------------------------------statusline----------------------------------
+----------------------------------statusline----------------------------------
+
+function Macro()
+	local macroaddr = vim.fn.reg_recording()
+	if macroaddr ~= "" then
+		return "%#Macro#@" .. macroaddr .. "%*"
+	else
+		return ""
+	end
+end
+vim.o.statusline =
+	"%<%f %h%w%m%r %{% luaeval('Macro()') %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}"
 
 ----------------------------------autocmd----------------------------------
 ----------------------------------autocmd----------------------------------
@@ -145,11 +160,8 @@ autocmd({ "FileType" }, {
 })
 
 autocmd({ "TextYankPost" }, {
-	desc = "Highlight when yanking",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank({ timeout = 80 })
-	end,
+	desc = "Highlight when yanking (copying) text",
+	callback = vim.hl.on_yank,
 })
 
 ----------------------------------lsp----------------------------------
@@ -412,7 +424,7 @@ end, { desc = "Smart write" })
 
 map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
-map("n", "<leader>d", "<cmd>bd<cr>", { noremap = true, silent = true })
+map("n", "<leader>d", "<cmd>q<cr>", { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
 map("n", "<leader>v", "<cmd>vsplit<cr>")
@@ -442,6 +454,15 @@ map("t", "<m-J>", "<c-\\><c-n><c-w>J", { noremap = true, silent = true, desc = "
 map("t", "<m-K>", "<c-\\><c-n><c-w>K", { noremap = true, silent = true, desc = "window focus up" })
 map("t", "<m-H>", "<c-\\><c-n><c-w>H", { noremap = true, silent = true, desc = "window focus left" })
 map("t", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "window focus right" })
+
+map("i", "<m-j>", "<c-\\><c-n><c-w>j", { noremap = true, silent = true, desc = "window focus down" })
+map("i", "<m-k>", "<c-\\><c-n><c-w>k", { noremap = true, silent = true, desc = "window focus up" })
+map("i", "<m-h>", "<c-\\><c-n><c-w>h", { noremap = true, silent = true, desc = "window focus left" })
+map("i", "<m-l>", "<c-\\><c-n><c-w>l", { noremap = true, silent = true, desc = "window focus right" })
+map("i", "<m-J>", "<c-\\><c-n><c-w>J", { noremap = true, silent = true, desc = "window focus down" })
+map("i", "<m-K>", "<c-\\><c-n><c-w>K", { noremap = true, silent = true, desc = "window focus up" })
+map("i", "<m-H>", "<c-\\><c-n><c-w>H", { noremap = true, silent = true, desc = "window focus left" })
+map("i", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "window focus right" })
 
 map("t", "<m-r>", "<c-\\><c-n><cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
 map("t", "<m-e>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
@@ -780,7 +801,8 @@ end
 ----------------------------------greeter----------------------------------
 ----------------------------------greeter----------------------------------
 
-local ascii_art = [[
+if true then
+	local ascii_art = [[
  ██ ▄█▀ ██▀███   ▄▄▄        ▄████ 
  ██▄█▒ ▓██ ▒ ██▒▒████▄     ██▒ ▀█▒
 ▓███▄░ ▓██ ░▄█ ▒▒██  ▀█▄  ▒██░▄▄▄░
@@ -792,152 +814,153 @@ local ascii_art = [[
 ░  ░      ░           ░  ░      ░ 
 ]]
 
-local ascii = vim.split(ascii_art, "\n")
+	local ascii = vim.split(ascii_art, "\n")
 
-local function pad_str(padding, string)
-	return string.rep(" ", padding) .. string
-end
+	local function pad_str(padding, string)
+		return string.rep(" ", padding) .. string
+	end
 
-local function count_utf_chars(str)
-	local count = 0
-	local i = 1
-	local len = #str
-	while i <= len do
-		local byte = str:byte(i)
-		if byte < 128 then
-			i = i + 1 -- ASCII byte
-		elseif byte < 224 then
-			i = i + 2 -- 2 byte character
-		elseif byte < 240 then
-			i = i + 3 -- 3 byte character
-		else
-			i = i + 4 -- 4 byte character
+	local function count_utf_chars(str)
+		local count = 0
+		local i = 1
+		local len = #str
+		while i <= len do
+			local byte = str:byte(i)
+			if byte < 128 then
+				i = i + 1 -- ASCII byte
+			elseif byte < 224 then
+				i = i + 2 -- 2 byte character
+			elseif byte < 240 then
+				i = i + 3 -- 3 byte character
+			else
+				i = i + 4 -- 4 byte character
+			end
+			count = count + 1
 		end
-		count = count + 1
-	end
-	return count
-end
-
-local function set_options(buf)
-	local opts = { scope = "local" }
-	local opt_values = {
-		["filetype"] = "greeter",
-		["buflisted"] = false,
-		["bufhidden"] = "wipe",
-		["buftype"] = "nofile",
-		["colorcolumn"] = "",
-		["relativenumber"] = false,
-		["number"] = false,
-		["list"] = false,
-		["signcolumn"] = "no",
-	}
-
-	for o, v in pairs(opt_values) do
-		vim.api.nvim_set_option_value(o, v, opts)
+		return count
 	end
 
-	vim.api.nvim_set_current_buf(buf)
-end
+	local function set_options(buf)
+		local opts = { scope = "local" }
+		local opt_values = {
+			["filetype"] = "greeter",
+			["buflisted"] = false,
+			["bufhidden"] = "wipe",
+			["buftype"] = "nofile",
+			["colorcolumn"] = "",
+			["relativenumber"] = false,
+			["number"] = false,
+			["list"] = false,
+			["signcolumn"] = "no",
+		}
 
-local function apply_highlights(buf, vertical_pad)
-	-- Apply highlight to each line of ASCII art
-	local ns = vim.api.nvim_create_namespace("my_ns")
-	vim.hl.range(buf, ns, "ErrorMsg", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
+		for o, v in pairs(opt_values) do
+			vim.api.nvim_set_option_value(o, v, opts)
+		end
 
-	-- Highlight version line
-
-	local text_line = vertical_pad + #ascii
-
-	vim.hl.range(buf, ns, "Conceal", { text_line, 0 }, { text_line, -1 })
-end
-
-local function calc_ascii(vertical_pad, pad_cols)
-	local centered_ascii = {}
-
-	-- Add empty lines for vertical padding
-	for _ = 1, vertical_pad do
-		table.insert(centered_ascii, "")
+		vim.api.nvim_set_current_buf(buf)
 	end
 
-	-- Add ASCII lines with padding
-	for _, line in ipairs(ascii) do
-		local padded_line = pad_str(pad_cols, line)
-		table.insert(centered_ascii, padded_line)
+	local function apply_highlights(buf, vertical_pad)
+		-- Apply highlight to each line of ASCII art
+		local ns = vim.api.nvim_create_namespace("my_ns")
+		vim.hl.range(buf, ns, "ErrorMsg", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
+
+		-- Highlight version line
+
+		local text_line = vertical_pad + #ascii
+
+		vim.hl.range(buf, ns, "Conceal", { text_line, 0 }, { text_line, -1 })
 	end
 
-	return centered_ascii
-end
+	local function calc_ascii(vertical_pad, pad_cols)
+		local centered_ascii = {}
 
-local function greeter_draw(buf)
-	set_options(buf)
-	-- width
-	local screen_width = vim.api.nvim_get_option_value("columns", {})
-	local draw_width = count_utf_chars(ascii[1])
-	local pad_width = math.floor((screen_width - draw_width) / 2)
-	-- height
-	local screen_height = vim.api.nvim_get_option_value("lines", {})
-	local draw_height = #ascii + 1 -- Including version line
-	local pad_height = math.floor((screen_height - draw_height) / 2)
+		-- Add empty lines for vertical padding
+		for _ = 1, vertical_pad do
+			table.insert(centered_ascii, "")
+		end
 
-	if not (screen_width >= draw_width + 2 and screen_height >= draw_height + 2) then
-		-- Only display if there is enough space
-		return
+		-- Add ASCII lines with padding
+		for _, line in ipairs(ascii) do
+			local padded_line = pad_str(pad_cols, line)
+			table.insert(centered_ascii, padded_line)
+		end
+
+		return centered_ascii
 	end
 
-	local centered_ascii = calc_ascii(pad_height, pad_width)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
-	apply_highlights(buf, pad_height)
-end
+	local function greeter_draw(buf)
+		set_options(buf)
+		-- width
+		local screen_width = vim.api.nvim_get_option_value("columns", {})
+		local draw_width = count_utf_chars(ascii[1])
+		local pad_width = math.floor((screen_width - draw_width) / 2)
+		-- height
+		local screen_height = vim.api.nvim_get_option_value("lines", {})
+		local draw_height = #ascii + 1 -- Including version line
+		local pad_height = math.floor((screen_height - draw_height) / 2)
 
-local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
-
-autocmd("VimEnter", {
-	desc = "Greeter",
-	group = NamespaceGroup,
-	callback = function()
-		if #vim.v.argv > 2 then
+		if not (screen_width >= draw_width + 2 and screen_height >= draw_height + 2) then
+			-- Only display if there is enough space
 			return
 		end
 
-		vim.cmd.enew()
-		local buf = vim.api.nvim_get_current_buf()
+		local centered_ascii = calc_ascii(pad_height, pad_width)
+		vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_ascii)
+		apply_highlights(buf, pad_height)
+	end
 
-		autocmd("VimResized", {
-			buffer = buf,
-			desc = "Recalc and redraw greeter when window is resized",
-			group = NamespaceGroup,
-			callback = function()
-				greeter_draw(buf)
-			end,
-		})
+	local NamespaceGroup = vim.api.nvim_create_augroup("Greeter", { clear = true })
 
-		autocmd("InsertEnter", {
-			buffer = buf,
-			desc = "Closes greeter and opens a new buffer",
-			group = NamespaceGroup,
-			callback = function()
-				vim.schedule(vim.cmd.enew)
-			end,
-		})
+	autocmd("VimEnter", {
+		desc = "Greeter",
+		group = NamespaceGroup,
+		callback = function()
+			if #vim.v.argv > 2 then
+				return
+			end
 
-		vim.keymap.set("n", "p", function()
-			vim.schedule(function()
-				vim.cmd.enew()
-				vim.cmd("norm p")
-			end)
-		end, {
-			buffer = buf,
-			noremap = true,
-			silent = true,
-			desc = "Remap paste to open a new buffer",
-		})
-		vim.keymap.set("n", "q", ":q<cr>", {
-			buffer = buf,
-			noremap = true,
-			silent = true,
-			desc = "Quit nvim",
-		})
+			vim.cmd.enew()
+			local buf = vim.api.nvim_get_current_buf()
 
-		greeter_draw(buf)
-	end,
-})
+			autocmd("VimResized", {
+				buffer = buf,
+				desc = "Recalc and redraw greeter when window is resized",
+				group = NamespaceGroup,
+				callback = function()
+					greeter_draw(buf)
+				end,
+			})
+
+			autocmd("InsertEnter", {
+				buffer = buf,
+				desc = "Closes greeter and opens a new buffer",
+				group = NamespaceGroup,
+				callback = function()
+					vim.schedule(vim.cmd.enew)
+				end,
+			})
+
+			vim.keymap.set("n", "p", function()
+				vim.schedule(function()
+					vim.cmd.enew()
+					vim.cmd("norm p")
+				end)
+			end, {
+				buffer = buf,
+				noremap = true,
+				silent = true,
+				desc = "Remap paste to open a new buffer",
+			})
+			vim.keymap.set("n", "q", ":q<cr>", {
+				buffer = buf,
+				noremap = true,
+				silent = true,
+				desc = "Quit nvim",
+			})
+
+			greeter_draw(buf)
+		end,
+	})
+end

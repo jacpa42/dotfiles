@@ -10,6 +10,7 @@ export PATH=$PATH:$DOTDIR/bin
 export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
 export DEFAULT_WALLPAPER="knight-templar"
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd_socks"
+export GTK_THEME='black-metal-khold:dark'
 
 export CHAT_WORKSPACE=1
 export WEB_WORKSPACE=2
