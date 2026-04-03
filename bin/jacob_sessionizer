@@ -44,13 +44,15 @@ gitweb)
 projects)
     cd "$PROJDIR"
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
+    TITLE="$(basename "$TARGET_DIR")"
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
-    exec footclient -D "$TARGET_DIR" -T nvim -a nvim sh -c "nvim; $SHELL"
+    exec footclient -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
     ;;
 home_session)
     TARGET_DIR="$HOME"
-    exec footclient -D "$TARGET_DIR" -T nvim -a nvim sh -c "nvim; $SHELL"
+    TITLE="$(basename "$TARGET_DIR")"
+    exec footclient -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
     ;;
 esac

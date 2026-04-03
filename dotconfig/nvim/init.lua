@@ -43,7 +43,7 @@ vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.opt.termguicolors = true
-vim.o.textwidth = 100
+vim.o.textwidth = 80
 vim.o.formatoptions = "cro"
 
 ----------------------------------autocmd----------------------------------
@@ -714,14 +714,14 @@ if true then
 		-- If true, highlights the gutter darker than the bg
 		dark_gutter = false,
 		-- if true favor treesitter highlights over semantic highlights
-		favor_treesitter_hl = false,
+		favor_treesitter_hl = true,
 		-- Don't set background of floating windows. Recommended for when using floating
 		-- windows with borders.
-		plain_float = false,
+		plain_float = true,
 		-- Show the end-of-buffer character
-		show_eob = true,
+		show_eob = false,
 		-- If true, enable the vim terminal colors
-		term_colors = false,
+		term_colors = true,
 		-- Don't set background
 		transparent = true,
 
