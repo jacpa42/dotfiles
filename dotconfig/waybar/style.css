@@ -1,4 +1,4 @@
-@define-color base00 #000000;
+@define-color base00 rgba(0, 0, 0, 0.9);
 @define-color base01 #121212;
 @define-color base02 #222222;
 @define-color base03 #606060;
@@ -18,7 +18,7 @@
 * {
     font-family: JetBrainsMono Nerd Font Mono;
     font-size: 19px;
-    font-weight: bold;
+    font-weight: normal;
     padding: 0;
     margin: 0;
 }
@@ -29,7 +29,7 @@
 }
 
 #workspaces button {
-    color: @base05;
+    color: @base0A;
     padding-left: 0.5em;
 }
 

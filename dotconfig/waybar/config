@@ -40,7 +40,7 @@
     "format": "{short}"
   },
   "hyprland/workspaces": {
-    "format": "<span size='larger'>{icon}</span>",
+    "format": "{icon} ",
     "on-click": "activate",
     "sort-by-number": true,
     "persistent-workspaces": {
