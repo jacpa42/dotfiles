@@ -12,16 +12,16 @@ set notification-error-bg       "#000000"
 set notification-error-fg       "#5f8787"
 set notification-warning-bg     "#000000"
 set notification-warning-fg     "#5f8787"
-set highlight-color             "#974b46"
-set highlight-active-color      "#888888"
+set highlight-fg                "#c1c1c1"
+set highlight-color             rgba(0x88,0x88,0x88,0.7)
+set highlight-active-color      rgba(0x97,0x4b,0x46,0.7)
 set completion-bg               "#121212"
 set completion-fg               "#888888"
 set completion-highlight-fg     "#c1c1c1"
 set completion-highlight-bg     "#888888"
 set recolor-lightcolor          "#000000"
 set recolor-darkcolor           "#999999"
-set recolor                     "false"
-set recolor-keephue             "false"
+set recolor                     false
 
 set statusbar-h-padding 0
 set statusbar-v-padding 0
