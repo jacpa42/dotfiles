@@ -353,13 +353,8 @@ local map = vim.keymap.set
 map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("t", "<m-v>", "<c-\\><c-n><cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
-map("n", "<m-c>", "<cmd>tabnew +terminal term <cr>i", { desc = "new terminal tab" })
-map(
-	"t",
-	"<m-c>",
-	"<c-\\><c-n><cmd>tabnew +terminal term<cr>i",
-	{ noremap = true, silent = true, desc = "new terminal tab" }
-)
+map("n", "<m-c>", "<cmd>tabnew +terminal<cr>i", { desc = "new terminal tab" })
+map("t", "<m-c>", "<c-\\><c-n><cmd>tabnew +terminal<cr>i", { noremap = true, silent = true, desc = "new terminal tab" })
 map("t", "<m-esc>", "<c-\\><c-n>", { noremap = true, silent = true, desc = "escape out of terminal mode" })
 map("n", "<m-y>", "<cmd>tabnew +terminal\\ yazi<cr>i", { noremap = true, silent = true, desc = "yazi" })
 
