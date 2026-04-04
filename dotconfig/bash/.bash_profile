@@ -1,6 +1,5 @@
 export PATH=$PATH:~/.cargo/bin
 export RANDFILE=$HOME/.local/rnd
-export FZF_DEFAULT_OPTS=--color=base16,gutter:1
 export PROJDIR=$HOME/Projects
 export DOTDIR=$PROJDIR/dotfiles
 export XDG_CACHE_HOME=$HOME/.cache
@@ -11,6 +10,7 @@ export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
 export DEFAULT_WALLPAPER="knight-templar"
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd_socks"
 export GTK_THEME='black-metal-khold:dark'
+export FZF_DEFAULT_OPTS=--color=base16,gutter:1
 
 export CHAT_WORKSPACE=1
 export WEB_WORKSPACE=2

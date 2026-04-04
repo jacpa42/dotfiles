@@ -13,8 +13,8 @@ set notification-error-fg       "#5f8787"
 set notification-warning-bg     "#000000"
 set notification-warning-fg     "#5f8787"
 set highlight-fg                "#c1c1c1"
-set highlight-color             rgba(0x88,0x88,0x88,0.7)
-set highlight-active-color      rgba(0x97,0x4b,0x46,0.7)
+set highlight-color             rgba(136,136,136,0.7)
+set highlight-active-color      rgba(151,75,70,0.7)
 set completion-bg               "#121212"
 set completion-fg               "#888888"
 set completion-highlight-fg     "#c1c1c1"
