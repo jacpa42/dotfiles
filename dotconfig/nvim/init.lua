@@ -159,10 +159,7 @@ autocmd({ "FileType" }, {
 	end,
 })
 
-autocmd({ "TextYankPost" }, {
-	desc = "Highlight when yanking (copying) text",
-	callback = vim.hl.on_yank,
-})
+vim.cmd("autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=100}")
 
 ----------------------------------lsp----------------------------------
 ----------------------------------lsp----------------------------------
@@ -431,8 +428,8 @@ map("n", "<leader>v", "<cmd>vsplit<cr>")
 map("n", "<leader>l", vim.pack.update)
 map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
-map("n", "<c-n>", "<cmd>cnext<cr>", { noremap = true, silent = true })
-map("n", "<c-p>", "<cmd>cprev<cr>", { noremap = true, silent = true })
+map("n", "<c-n>", "<cmd>silent cnext<cr>", { noremap = true, silent = true })
+map("n", "<c-p>", "<cmd>silent cprev<cr>", { noremap = true, silent = true })
 
 map("n", ";", "q:", { desc = "command history" })
 
