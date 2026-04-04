@@ -59,7 +59,8 @@ set_requested() {
     [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_directory")"
     next_image_index="$(fd -atf -ejxl . "$wallpaper_directory" | rg -nFm1 "$next_image" | cut -d: -f1)"
     next_image_index="${next_image_index%%:*}"
-    next_image_index="${next_image_index:-0}"
+    next_image_index="${next_image_index:-1}"
+    next_image_index="$((next_image_index - 1))"
 }
 
 set_random() {
