@@ -50,9 +50,4 @@ projects)
 
     exec footclient -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
     ;;
-home_session)
-    TARGET_DIR="$HOME"
-    TITLE="$(basename "$TARGET_DIR")"
-    exec footclient -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
-    ;;
 esac
