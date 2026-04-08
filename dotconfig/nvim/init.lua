@@ -1,9 +1,9 @@
-----------------------------------opts----------------------------------
-----------------------------------opts----------------------------------
-----------------------------------opts----------------------------------
-
 -- epic experimental ui
 require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 5000 } } })
+
+----------------------------------opts----------------------------------
+----------------------------------opts----------------------------------
+----------------------------------opts----------------------------------
 
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
@@ -416,7 +416,10 @@ end, { desc = "Smart write" })
 
 map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
-map("n", "<leader>d", "<cmd>q<cr>", { noremap = true, silent = true })
+map("n", "<leader>d", function()
+	local num_windows = vim.fn.winnr("$")
+	vim.cmd(num_windows > 1 and "q" or "bd")
+end, { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
 map("n", "<leader>v", "<cmd>vsplit<cr>")

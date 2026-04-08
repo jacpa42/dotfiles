@@ -1,4 +1,4 @@
 #!/usr/bin/dash
-selected="$(hyprctl -j clients | jq -r '.[] | "\(.class) \(.title) \(.address)"' | fuzzel --dmenu --auto-select)"
+selected="$(hyprctl -j clients | jq -r 'sort_by(.focusHistoryID)[] | "\(.class) \(.title) \(.address)"' | fuzzel --dmenu --auto-select)"
 [ -z "$selected" ] && exit
 hyprctl dispatch focuswindow "address:${selected##* }"
