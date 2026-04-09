@@ -124,7 +124,7 @@ autocmd({ "FileType" }, {
 		local compile = "cargo c --tests --all-features"
 		local test = 'cargo nextest run --all-features --max-fail="10:immediate"'
 
-		vim.o.makeprg = not starts_with(vim.o.makeprg, "cargo") and compile or vim.o.makeprg
+		vim.o.makeprg = compile
 		vim.opt_local.errorformat = {
 			"%.%# panicked at %f:%l:%c:", -- cargo test
 			"%.%# --> %f:%l:%c", -- cargo check/build
@@ -145,7 +145,7 @@ autocmd({ "FileType" }, {
 		local compile = "zig build -freference-trace=20"
 		local test = "zig build test -freference-trace=20 --summary new"
 
-		vim.o.makeprg = not starts_with(vim.o.makeprg, "zig build") and compile or vim.o.makeprg
+		vim.o.makeprg = compile
 		vim.opt.errorformat = {
 			"%f:%l:%c: %t%*[^:]: %m",
 			"%f:%l:%c: %m",
