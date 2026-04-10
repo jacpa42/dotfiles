@@ -1,5 +1,5 @@
 -- epic experimental ui
-require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 5000 } } })
+require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 3000 } } })
 
 ----------------------------------opts----------------------------------
 ----------------------------------opts----------------------------------
