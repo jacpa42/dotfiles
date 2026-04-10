@@ -464,6 +464,14 @@ map("t", "<m-e>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, d
 map("n", "<m-r>", "<cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
 map("n", "<m-e>", "<cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
 
+-- grep selection
+map(
+	"v",
+	"<leader>f",
+	"\"zy<cmd>exec 'silent grep ' . shellescape(@z) . ' | copen | wincmd p'<cr>",
+	{ desc = "grep current visual selection" }
+)
+
 -- telescope stuff
 map("n", "<leader><leader>", "<cmd>Telescope find_files hidden=true<cr>", { desc = "find files" })
 map("n", "<leader>tt", "<cmd>Telescope<cr>", { desc = "search telescope commands" })
