@@ -102,6 +102,7 @@
   },
   "wireplumber": {
     "format": "󰕾  {volume}",
+    "format-muted": "󰝟  {volume}",
     "max-volume": 100,
     "on-click": "footclient -T wiremix -a wiremix wiremix",
     "scroll-step": 5
