@@ -363,7 +363,7 @@ map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "find symbol decl" })
 
 map("n", "<leader>m", "<cmd>silent make <bar> copen<cr>", { desc = "make project", noremap = true })
-map("n", "<leader>M", function()
+map("n", "M", function()
 	local makecmd = vim.fn.input("edit makeprg=", vim.o.makeprg, "file")
 	if makecmd:len() > 0 then
 		vim.notify('makecmd = "' .. makecmd .. '"')
@@ -700,9 +700,14 @@ autocmd("FileType", {
 				type = "lldb",
 				request = "launch",
 				program = function()
-					-- Run zig build before launching
-					vim.fn.system("zig build -Doptimize=Debug")
-					return "${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}"
+					local result = vim.fn.system({
+						"fd",
+						"-HI1agtx",
+						vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+						vim.fn.getcwd(),
+					})
+
+					return result[1] or vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 				end,
 				cwd = "${workspaceFolder}",
 				stopOnEntry = false,
@@ -849,7 +854,7 @@ local c = {
 	number = "#aaaaaa",
 	operator = "#9b99a3",
 	property = "#c1c1c1",
-	string = "#eceee3",
+	string = "#9b99a3",
 	type = "#914b46",
 	visual = "#333333",
 	diag_red = "#5f8787",
@@ -940,6 +945,7 @@ COMMON.WinSeparator = { fg = c.comment }
 local SYNTAX = {}
 local code_style = {
 	comments = "bold,italic",
+	constants = "bold",
 	conditionals = "none",
 	functions = "none",
 	keywords = "italic",
@@ -988,7 +994,7 @@ local syntax = {
 	-- Typedef = { fg = c.constant }, -- 'typedef'
 	Todo = { fg = blend(c.comment, 0.6, c.fg), fmt = "bolditalic" }, -- (preferred) 'TODO' keywords in comments
 }
-local treesitter = {
+SYNTAX.treesitter = {
 	-- identifiers
 	["@variable"] = { fg = c.fg, fmt = code_style.variables }, -- any variable that does not have another higM.ght
 	["@variable.builtin"] = syntax["Type"], -- variable names that are defined by the language, like 'this' or 'self'
@@ -1114,7 +1120,7 @@ SYNTAX.lsp = {
 		fg = blend(c.constant, 0.8, c.bg),
 	},
 	["@lsp.type.macro"] = syntax["Macro"],
-	["@lsp.type.parameter"] = treesitter["@variable.parameter"],
+	["@lsp.type.parameter"] = SYNTAX.treesitter["@variable.parameter"],
 	["@lsp.type.lifetime"] = { fg = c.type, fmt = "italic" },
 	["@lsp.type.readonly"] = { fg = c.constant, fmt = "italic" },
 	["@lsp.mod.readonly"] = { fg = c.constant, fmt = "italic" },
@@ -1180,7 +1186,6 @@ SYNTAX.LspDiagnosticsVirtualTextWarning = SYNTAX.DiagnosticVirtualTextWarn
 SYNTAX.LspDiagnosticsVirtualTextInformation = SYNTAX.DiagnosticVirtualTextInfo
 SYNTAX.LspDiagnosticsVirtualTextHint = SYNTAX.DiagnosticVirtualTextHint
 SYNTAX.syntax = syntax
-SYNTAX.treesitter = treesitter
 local PLUGIN = {}
 PLUGIN.cmp = {
 	CmpItemAbbr = { fg = c.fg },
