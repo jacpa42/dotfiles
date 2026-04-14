@@ -71,7 +71,7 @@ set_prompt() {
     [[ $? -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
     PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
 }
-export PROMPT_COMMAND=set_prompt
+export PROMPT_COMMAND="history -a; set_prompt"
 
 set -o vi
 shopt -s autocd
