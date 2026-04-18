@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "black-metal-theme-neovim": {
+      "rev": "87e21420c449e414a00ab78e395debf48f372169",
+      "src": "https://github.com/metalelf0/black-metal-theme-neovim"
+    },
     "blink.cmp": {
       "rev": "451168851e8e2466bc97ee3e026c3dcb9141ce07",
       "src": "https://github.com/saghen/blink.cmp",
@@ -12,6 +16,10 @@
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "kanagawa.nvim": {
+      "rev": "aef7f5cec0a40dbe7f3304214850c472e2264b10",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "nvim-dap": {
       "rev": "4f5deb110d9ff8994d96c21df95e2271d11214f9",
@@ -48,6 +56,10 @@
     "telescope.nvim": {
       "rev": "cfb85dcf7f822b79224e9e6aef9e8c794211b20b",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "vague.nvim": {
+      "rev": "8751181a1aa431b4e8983b0a183afef5cbc08381",
+      "src": "https://github.com/vague-theme/vague.nvim"
     }
   }
 }
