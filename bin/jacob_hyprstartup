@@ -9,6 +9,6 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=$QT_QPA_PLATFORMTHEME &
 gsettings set org.gnome.desktop.interface cursor-theme $HYPRCURSOR_THEME &
 jacob_hyprwall --force --set-last &
-hyprcapture "$HOME/Projects/forfun/hyprcapture/hyprcapture.sqlite" &
+hyprcapture -r 50 "$HOME/Projects/forfun/hyprcapture/hyprcapture.sqlite" &
 
 exec hyprctl dispatch workspace 3
