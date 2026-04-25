@@ -99,7 +99,6 @@ function y() {
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
     rm -f -- "$tmp"
 }
-alias duai='dua interactive'
 alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"

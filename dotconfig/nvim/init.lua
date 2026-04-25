@@ -349,6 +349,18 @@ end
 
 local map = vim.keymap.set
 
+map("n", "<leader>c", function()
+	local loc = vim.fn.expand("%:p") .. ":" .. vim.fn.line(".") .. ":" .. vim.fn.col(".")
+	vim.fn.setreg("+", loc)
+	vim.notify('copied "' .. loc .. '"')
+end, {
+	noremap = true,
+	silent = true,
+	desc = "copy current file location",
+})
+
+map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
+
 -- terminal stuff
 map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
