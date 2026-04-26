@@ -13,3 +13,4 @@ dotconfig/qutebrowser/quickmarks
 **/mpd/*
 !dotconfig/mpd/mpd.conf
 dotconfig/bat/themes/*
+dotconfig/nvim/nvim-pack-lock.json
