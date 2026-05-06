@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=iwctl
+GenericName=Internet wireless control utility
+Comment=Edit bluetooth configuration
+TryExec=iwctl
+Exec=iwctl
+Terminal=true
+Type=Application
+Keywords=network;internet;
+Categories=Utility;
+StartupNotify=false

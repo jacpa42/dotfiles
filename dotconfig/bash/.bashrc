@@ -118,8 +118,8 @@ update="clear; paru -Syu --noconfirm"
 alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
-alias gitpull="fd -Htd --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git pull'"
-alias gitstatus="fd -Htd --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git status'"
+alias gitpull="fd -Htd -j24 --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git pull'"
+alias gitstatus="fd -Htd -j24 --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git status'"
 
 source <(zoxide init --cmd j bash)
 source <(krag_cli completions --shell bash)

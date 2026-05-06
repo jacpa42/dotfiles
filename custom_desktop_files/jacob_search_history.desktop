@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Browser Search History
+TryExec=jacob_search_history
+Exec=jacob_search_history
+Type=Application
+Categories=Utility;
+StartupNotify=false
