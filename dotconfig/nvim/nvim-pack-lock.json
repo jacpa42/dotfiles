@@ -17,6 +17,10 @@
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
+    "mason.nvim": {
+      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
     "nvim-dap": {
       "rev": "4f5deb110d9ff8994d96c21df95e2271d11214f9",
       "src": "https://github.com/mfussenegger/nvim-dap"

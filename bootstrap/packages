@@ -12,7 +12,6 @@ catppuccin-cursors-mocha
 chafa
 clang
 cloc
-codelldb-bin
 coreutils
 dash
 dunst
@@ -44,7 +43,6 @@ lazygit
 linux
 linux-firmware
 localsend-bin
-lua-language-server
 luarocks
 man-db
 man-pages
@@ -69,14 +67,10 @@ ripgrep
 rmpc
 rsync
 ruff
-rumdl
-shfmt
 spotify
 steam
 stylua
 sudo
-superhtml
-taplo-cli
 transmission-cli
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
@@ -97,5 +91,4 @@ zathura
 zathura-cb
 zathura-pdf-mupdf
 zig
-zls
 zoxide
