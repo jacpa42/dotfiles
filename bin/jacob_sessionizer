@@ -3,15 +3,8 @@
 TARGET_DIR=""
 OPERATION=""
 
-switch_to_project() {
-    local target_dir="$1"
-    local session_name="$(basename $target_dir)"
-    cd $target_dir
-    exec nvim
-}
-
 case "$1" in
-git)
+lazygit)
     cd "$PROJDIR"
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"

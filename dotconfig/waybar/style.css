@@ -30,11 +30,13 @@
 
 #workspaces button {
     color: @base0A;
+    background-color: @base00;
     padding-left: 0.5em;
 }
 
 #workspaces button.empty {
     color: @base0D;
+    background-color: @base00;
 }
 
 #memory,

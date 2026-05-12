@@ -1,23 +1,16 @@
--- /usr/share/hypr/stubs/hl.meta.lua
+-- source /usr/share/hypr/stubs/hl.meta.lua
 
-local envint = function(name, default)
-	local value = os.getenv(name)
-	if value ~= nil then
-		return tonumber(value)
-	else
-		return default
-	end
-end
+local util = require("util")
 
 local env = {
 	DEFAULT_WALLPAPER = os.getenv("DEFAULT_WALLPAPER") or "",
 	HYPRCURSOR_SIZE = 24,
 	HYPRCURSOR_THEME = "catppuccin-mocha-mauve-cursors",
 	QT_QPA_PLATFORMTHEME = "qt6ct",
-	CHAT_WORKSPACE = envint("CHAT_WORKSPACE", 0),
-	WEB_WORKSPACE = envint("WEB_WORKSPACE", 1),
-	TERMINAL_WORKSPACE = envint("TERMINAL_WORKSPACE", 2),
-	STEAM_WORKSPACE = envint("STEAM_WORKSPACE", 3),
+	CHAT_WORKSPACE = util.envint("CHAT_WORKSPACE", 0),
+	WEB_WORKSPACE = util.envint("WEB_WORKSPACE", 1),
+	TERMINAL_WORKSPACE = util.envint("TERMINAL_WORKSPACE", 2),
+	STEAM_WORKSPACE = util.envint("STEAM_WORKSPACE", 3),
 	ANKI_WAYLAND = 1,
 	AQ_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1",
 	CLUTTER_BACKEND = "wayland",
@@ -38,18 +31,18 @@ for key, value in pairs(env) do
 	hl.env(key, value)
 end
 
-local terminal_popup_app_classes = {
-	"tpopup",
-	"rmpc",
-	"yazi",
-	"termfilechooser",
-	"btop",
-	"lazygit",
-	"wiremix",
-	"bluetoothctl",
-	"iwctl",
-}
-local terminal_popup_regex = "^(" .. table.concat(terminal_popup_app_classes, "|") .. ")$"
+hl.on("hyprland.start", function()
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("foot --server")
+	hl.exec_cmd("mpd")
+	hl.exec_cmd("fcitx5 -d")
+	hl.exec_cmd('hyprctl setcursor "' .. env.HYPRCURSOR_THEME .. '" "' .. env.HYPRCURSOR_SIZE .. '"')
+	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+	hl.exec_cmd("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=" .. env.QT_QPA_PLATFORMTHEME)
+	hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme " .. env.HYPRCURSOR_THEME)
+	hl.exec_cmd("jacob_hyprwall --force --set-last")
+	hl.exec_cmd("hyprcapture -r 50 '" .. os.getenv("HOME") .. "/Projects/forfun/hyprcapture/hyprcapture.sqlite'")
+end)
 
 hl.monitor({
 	output = "DP-1",
@@ -82,46 +75,6 @@ hl.monitor({
 	transform = 0,
 })
 
--------------------
----- AUTOSTART ----
--------------------
-
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
---
-
-hl.on("hyprland.start", function()
-	hl.exec_cmd("waybar")
-	hl.exec_cmd("foot --server")
-	hl.exec_cmd("mpd")
-	hl.exec_cmd("fcitx5 -d")
-	hl.exec_cmd('hyprctl setcursor "' .. env.HYPRCURSOR_THEME .. '" "' .. env.HYPRCURSOR_SIZE .. '"')
-	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-	hl.exec_cmd("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=" .. env.QT_QPA_PLATFORMTHEME)
-	hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme " .. env.HYPRCURSOR_THEME)
-	hl.exec_cmd("jacob_hyprwall --force --set-last")
-	hl.exec_cmd("hyprcapture -r 50 '" .. os.getenv("HOME") .. "/Projects/forfun/hyprcapture/hyprcapture.sqlite'")
-end)
-
------------------------
------ PERMISSIONS -----
------------------------
-
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
--- Please note permission changes here require a Hyprland restart and are not applied on-the-fly
--- for security reasons
-
--- hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
--- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
--- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
-
------------------------
----- LOOK AND FEEL ----
------------------------
-
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
 		gaps_in = 1,
@@ -196,13 +149,24 @@ hl.device({
 	kb_layout = "gb",
 	kb_options = "caps:escape",
 })
-
 hl.device({
 	name = "framework-laptop-16-keyboard-module---ansi-keyboard",
 	kb_options = "caps:escape",
 })
-hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
-hl.gesture({ fingers = 2, direction = "pinchin", action = "cursor_zoom", live = true })
+hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 1, mode = "live" })
+
+local terminal_popup_app_classes = {
+	"tpopup",
+	"rmpc",
+	"yazi",
+	"termfilechooser",
+	"btop",
+	"lazygit",
+	"wiremix",
+	"bluetoothctl",
+	"iwctl",
+}
+local terminal_popup_regex = "^(" .. table.concat(terminal_popup_app_classes, "|") .. ")$"
 
 hl.window_rule({
 	name = "window can grab the entire screen on start-up and tile",
@@ -347,12 +311,7 @@ hl.window_rule({
 	no_initial_focus = true,
 })
 
----------------------
----- KEYBINDINGS ----
----------------------
-
 local mod = "SUPER"
-
 hl.bind(mod .. "+J", hl.dsp.layout("colresize +conf"))
 hl.bind(mod .. "+K", hl.dsp.layout("colresize -conf"))
 hl.bind(mod .. "+R", hl.dsp.layout("focus right"))
@@ -370,76 +329,34 @@ hl.bind(mod .. "+PERIOD", hl.dsp.exec_raw("jacob_sessionizer projects"))
 hl.bind(mod .. "+C", hl.dsp.exec_raw("jacob_color_picker"))
 hl.bind(mod .. "+X", hl.dsp.exec_raw("jacob_screenshot"))
 hl.bind(mod .. "+H", hl.dsp.exec_raw("jacob_search_history"))
-hl.bind(mod .. "+V", hl.dsp.exec_raw("jacob_hyprwall"), { repeating = true })
-hl.bind(mod .. "+SHIFT+V", hl.dsp.exec_raw("exec, jacob_hyprwall -r"), { repeating = true })
-hl.bind(mod .. "+ALT+V", hl.dsp.exec_raw("exec, jacob_hyprwall -s " .. env.DEFAULT_WALLPAPER))
-hl.bind(mod .. "+CTRL+V", hl.dsp.exec_raw("exec, jacob_hyprwall -R"), { repeating = true })
-
+hl.bind(mod .. "+V", hl.dsp.exec_cmd("jacob_hyprwall"), { repeating = true })
+hl.bind(mod .. "+SHIFT+V", hl.dsp.exec_cmd("jacob_hyprwall -r"), { repeating = true })
+hl.bind(mod .. "+ALT+V", hl.dsp.exec_cmd("jacob_hyprwall -s " .. env.DEFAULT_WALLPAPER))
+hl.bind(mod .. "+CTRL+V", hl.dsp.exec_cmd("jacob_hyprwall -R"), { repeating = true })
 hl.bind(mod .. "+ALT+SPACE", hl.dsp.exec_raw("jacob_fuzzy_focus_window"))
 
--- Closes all windows with the `class` matching `"tpopup"` and `title` not matching `ignore_title`
-local is_terminal = function(window)
-	for _, term_class in ipairs(terminal_popup_app_classes) do
-		if term_class == window.class then
-			return true
+local terminal_apps = {
+	lazygit = { key = mod .. "+L", cmd = "jacob_sessionizer lazygit" },
+	btop = { key = mod .. "+B", cmd = "footclient -ET btop -a tpopup btop" },
+	rmpc = { key = mod .. "+M", cmd = "footclient -ET rmpc -a tpopup rmpc" },
+	yazi = { key = mod .. "+Y", cmd = "footclient -ET yazi -a tpopup yazi" },
+}
+for app, config in pairs(terminal_apps) do
+	hl.bind(config.key, function()
+		local matching = util.close_non_matching(app, terminal_popup_app_classes)
+		if matching == 0 then
+			hl.exec_cmd(config.cmd)
+		else
+			hl.dispatch(hl.dsp.window.close({ class = terminal_popup_regex }))
 		end
-	end
-	return false
+	end)
 end
-local close_non_matching = function(initial_title)
-	local windows = hl.get_windows({ floating = true })
-	local matching = 0
-
-	for _, window in ipairs(windows) do
-		if is_terminal(window) then
-			if initial_title == window.initial_title then
-				matching = matching + 1
-			else
-				hl.dispatch(hl.dsp.window.close({ window = window }))
-			end
-		end
-	end
-
-	return matching
-end
-hl.bind(mod .. "+L", function()
-	local matching = close_non_matching("lazygit")
-	if matching == 0 then
-		hl.exec_cmd("jacob_sessionizer git")
-	else
-		hl.dispatch(hl.dsp.window.close({ class = terminal_popup_regex }))
-	end
-end)
-hl.bind(mod .. "+B", function()
-	local matching = close_non_matching("btop")
-	if matching == 0 then
-		hl.exec_cmd("footclient -ET btop -a tpopup btop")
-	else
-		hl.dispatch(hl.dsp.window.close({ class = terminal_popup_regex }))
-	end
-end)
-hl.bind(mod .. "+M", function()
-	local matching = close_non_matching("rmpc")
-	if matching == 0 then
-		hl.exec_cmd("footclient -ET rmpc -a tpopup rmpc")
-	else
-		hl.dispatch(hl.dsp.window.close({ class = terminal_popup_regex }))
-	end
-end)
-hl.bind(mod .. "+Y", function()
-	local matching = close_non_matching("yazi")
-	if matching == 0 then
-		hl.exec_cmd("footclient -ET yazi -a tpopup yazi")
-	else
-		hl.dispatch(hl.dsp.window.close({ class = terminal_popup_regex }))
-	end
-end)
 
 local workspace_config = {
-	S = CHAT_WORKSPACE,
-	D = WEB_WORKSPACE,
-	F = TERMINAL_WORKSPACE,
-	G = STEAM_WORKSPACE,
+	S = env.CHAT_WORKSPACE,
+	D = env.WEB_WORKSPACE,
+	F = env.TERMINAL_WORKSPACE,
+	G = env.STEAM_WORKSPACE,
 }
 for key, value in pairs(workspace_config) do
 	hl.bind(mod .. "+" .. key, hl.dsp.focus({ workspace = value }))
