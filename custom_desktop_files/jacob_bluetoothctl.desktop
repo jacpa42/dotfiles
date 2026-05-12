@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Bluetoothctl
-GenericName=bluetooth configuration tool
+GenericName=Bluetooth configuration tool
 Comment=Edit bluetooth configuration
 TryExec=bluetoothctl
 Exec=bluetoothctl
