@@ -253,7 +253,7 @@ local lsp_configs = {
 		settings = {
 			Lua = {
 				runtime = { version = "LuaJIT" },
-				diagnostics = { globals = "vim" },
+				diagnostics = { globals = { "vim", "hl" } },
 				workspace = {
 					library = vim.api.nvim_get_runtime_file("", true),
 					checkThirdParty = false, -- don't prompt about love2d/etc
@@ -989,7 +989,7 @@ autocmd("VimEnter", {
 			desc = "Closes greeter",
 			group = NamespaceGroup,
 			callback = function()
-				vim.api.nvim_buf_delete(buf, { unload = true })
+				pcall(vim.api.nvim_buf_delete, buf, { unload = true })
 			end,
 		})
 
@@ -1000,14 +1000,14 @@ autocmd("VimEnter", {
 			group = NamespaceGroup,
 			callback = function()
 				vim.cmd.new()
-				vim.api.nvim_buf_delete(buf, { unload = true })
+				pcall(vim.api.nvim_buf_delete, buf, { unload = true })
 			end,
 		})
 
 		vim.keymap.set("n", "p", function()
 			vim.schedule(function()
 				vim.cmd.new()
-				vim.api.nvim_buf_delete(buf, { unload = true })
+				pcall(vim.api.nvim_buf_delete, buf, { unload = true })
 				vim.cmd("norm p")
 			end)
 		end, {

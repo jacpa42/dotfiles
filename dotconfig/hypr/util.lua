@@ -1,5 +1,36 @@
 local M = {}
 
+-- NOTE: fuzzel blocks current thread of execution as it waits for user input
+-- which deadlocks the hyprland session
+M.sessionizer_git = function()
+	local project_path = M.fuzzy_find_project_path(true)
+	hl.exec_cmd('footclient -D "' .. project_path .. '" -T lazygit -a lazygit sh -c lazygit')
+end
+
+-- NOTE: fuzzel blocks current thread of execution as it waits for user input
+-- which deadlocks the hyprland session
+M.sessionizer_gitweb = function()
+	local project_path = M.fuzzy_find_project_path(true)
+	local proc = io.popen('git -C "' .. project_path .. '" config --get remote.origin.url')
+	if proc == nil then
+		error("Faile get git url for " .. project_path)
+	end
+	local url = proc:read("*l")
+	proc:close()
+	hl.exec_cmd('xdg-open "' .. url .. '"')
+end
+
+-- NOTE: fuzzel blocks current thread of execution as it waits for user input
+-- which deadlocks the hyprland session
+M.sessionizer_projects = function()
+	local project_path = M.fuzzy_find_project_path(true)
+	local project_name = string.match(project_path, "([^/]+)$")
+	local shell = os.getenv("SHELL") or "/usr/bin/bash"
+	hl.exec_cmd(
+		'footclient -D "' .. project_path .. '" -T "' .. project_name .. '" -a nvim sh -c "nvim; ' .. shell .. '"'
+	)
+end
+
 -- Returns the env variable or a default value. Always returns a number
 M.envint = function(name, default)
 	local value = os.getenv(name)
@@ -22,8 +53,10 @@ end
 
 M.fuzzy_find_project_path = function(absolute)
 	local projdir = os.getenv("PROJDIR") or "."
-	local proc =
-		io.popen('fd --format="{//}" -Hgtd .git ' .. projdir .. ' | fuzzel --dmenu --placeholder="Choose project"', "r")
+	local proc = io.popen(
+		"cd " .. projdir .. ' && fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project"',
+		"r"
+	)
 	if proc == nil then
 		error("Failed to find project path")
 	end

@@ -1,5 +1,4 @@
 -- source /usr/share/hypr/stubs/hl.meta.lua
-
 local util = require("util")
 
 local env = {
@@ -32,16 +31,18 @@ for key, value in pairs(env) do
 end
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("waybar")
-	hl.exec_cmd("foot --server")
-	hl.exec_cmd("mpd")
-	hl.exec_cmd("fcitx5 -d")
-	hl.exec_cmd('hyprctl setcursor "' .. env.HYPRCURSOR_THEME .. '" "' .. env.HYPRCURSOR_SIZE .. '"')
-	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-	hl.exec_cmd("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=" .. env.QT_QPA_PLATFORMTHEME)
-	hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme " .. env.HYPRCURSOR_THEME)
-	hl.exec_cmd("jacob_hyprwall --force --set-last")
-	hl.exec_cmd("hyprcapture -r 50 '" .. os.getenv("HOME") .. "/Projects/forfun/hyprcapture/hyprcapture.sqlite'")
+	local hyprcapture_db = os.getenv("HOME") .. "/Projects/forfun/hyprcapture/hyprcapture.sqlite'"
+	local qt_theme = env.QT_QPA_PLATFORMTHEME
+	hl.dispatch(hl.dsp.exec_raw("waybar"))
+	hl.dispatch(hl.dsp.exec_raw("foot --server"))
+	hl.dispatch(hl.dsp.exec_raw("mpd"))
+	hl.dispatch(hl.dsp.exec_raw("fcitx5 -d"))
+	hl.dispatch(hl.dsp.exec_raw('hyprctl setcursor "' .. env.HYPRCURSOR_THEME .. '" "' .. env.HYPRCURSOR_SIZE .. '"'))
+	hl.dispatch(hl.dsp.exec_raw("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"))
+	hl.dispatch(hl.dsp.exec_raw("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=" .. qt_theme))
+	hl.dispatch(hl.dsp.exec_raw("gsettings set org.gnome.desktop.interface cursor-theme " .. env.HYPRCURSOR_THEME))
+	hl.dispatch(hl.dsp.exec_raw("jacob_hyprwall --force --set-last"))
+	hl.dispatch(hl.dsp.exec_raw("hyprcapture -r 50 '" .. hyprcapture_db))
 end)
 
 hl.monitor({
@@ -77,6 +78,7 @@ hl.monitor({
 
 hl.config({
 	general = {
+		layout = "scrolling",
 		gaps_in = 1,
 		gaps_out = 0,
 		border_size = 0,
@@ -84,9 +86,7 @@ hl.config({
 			active_border = "rgba(974b46ff)",
 			inactive_border = "rgba(8e8e8eff)",
 		},
-		resize_on_border = false,
 		allow_tearing = true,
-		layout = "scrolling",
 	},
 
 	decoration = {
@@ -97,7 +97,7 @@ hl.config({
 		blur = { enabled = false },
 	},
 
-	animations = { enabled = false },
+	animations = { enabled = true },
 
 	misc = {
 		disable_hyprland_logo = true,
@@ -144,6 +144,12 @@ hl.config({
 	},
 })
 
+-- animations
+hl.curve("imnotgay", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+
+hl.animation({ leaf = "global", enabled = false })
+hl.animation({ leaf = "windows", enabled = true, speed = 2.5, bezier = "imnotgay" })
+
 hl.device({
 	name = "razer-razer-blade-keyboard",
 	kb_layout = "gb",
@@ -164,6 +170,7 @@ local terminal_popup_app_classes = {
 	"lazygit",
 	"wiremix",
 	"bluetoothctl",
+	"swappy",
 	"iwctl",
 }
 local terminal_popup_regex = "^(" .. table.concat(terminal_popup_app_classes, "|") .. ")$"
@@ -330,9 +337,9 @@ hl.bind(mod .. "+C", hl.dsp.exec_raw("jacob_color_picker"))
 hl.bind(mod .. "+X", hl.dsp.exec_raw("jacob_screenshot"))
 hl.bind(mod .. "+H", hl.dsp.exec_raw("jacob_search_history"))
 hl.bind(mod .. "+V", hl.dsp.exec_cmd("jacob_hyprwall"), { repeating = true })
-hl.bind(mod .. "+SHIFT+V", hl.dsp.exec_cmd("jacob_hyprwall -r"), { repeating = true })
-hl.bind(mod .. "+ALT+V", hl.dsp.exec_cmd("jacob_hyprwall -s " .. env.DEFAULT_WALLPAPER))
-hl.bind(mod .. "+CTRL+V", hl.dsp.exec_cmd("jacob_hyprwall -R"), { repeating = true })
+hl.bind(mod .. "+SHIFT+V", hl.dsp.exec_raw("jacob_hyprwall -r"), { repeating = true })
+hl.bind(mod .. "+ALT+V", hl.dsp.exec_raw("jacob_hyprwall -s " .. env.DEFAULT_WALLPAPER))
+hl.bind(mod .. "+CTRL+V", hl.dsp.exec_raw("jacob_hyprwall -R"), { repeating = true })
 hl.bind(mod .. "+ALT+SPACE", hl.dsp.exec_raw("jacob_fuzzy_focus_window"))
 
 local terminal_apps = {
@@ -373,10 +380,12 @@ local rl = { repeating = true, locked = true }
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_raw("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 1%+"), rl)
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 1%-"), rl)
+hl.bind("SHIFT+XF86AudioRaiseVolume", hl.dsp.exec_raw("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"), rl)
+hl.bind("SHIFT+XF86AudioLowerVolume", hl.dsp.exec_raw("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%-"), rl)
 hl.bind("XF86AudioMute", hl.dsp.exec_raw("wpctl set-mute @DEFAULT_SINK@ toggle"), l)
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_raw("brightnessctl set 5%-"), rl)
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_raw("brightnessctl set +5%"), rl)
-hl.bind("Print", hl.dsp.exec_raw("jacob_screenshot --output"), l)
+hl.bind("Print", hl.dsp.exec_raw("jacob_screenshot"), l)
 hl.bind("XF86Tools", hl.dsp.exec_raw("pkill fuzzel || fuzzel"), l)
 hl.bind("XF86AudioPlay", hl.dsp.exec_raw("rmpc togglepause"), l)
 hl.bind("XF86AudioPrev", hl.dsp.exec_raw("rmpc prev"), l)

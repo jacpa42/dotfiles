@@ -62,6 +62,7 @@ pipewire
 playerctl
 postgresql
 powerline-fonts
+qt5-wayland
 resvg
 ripgrep
 rmpc
@@ -71,6 +72,7 @@ spotify
 steam
 stylua
 sudo
+swappy
 transmission-cli
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
