@@ -31,7 +31,7 @@ gitweb)
         exit 0
     }
 
-    hyprctl dispatch focuswindow "class:${default_browser%%.*}"
+    jacob_focuswindowclass "${default_browser%%.*}"
     exec xdg-open "$url"
     ;;
 projects)
