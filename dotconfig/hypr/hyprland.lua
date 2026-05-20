@@ -343,7 +343,6 @@ hl.bind(mod .. "+CTRL+V", hl.dsp.exec_raw("jacob_hyprwall -R"), { repeating = tr
 hl.bind(mod .. "+ALT+SPACE", hl.dsp.exec_raw("jacob_fuzzy_focus_window"))
 
 local terminal_apps = {
-	lazygit = { key = mod .. "+L", cmd = "jacob_sessionizer lazygit" },
 	btop = { key = mod .. "+B", cmd = "footclient -ET btop -a tpopup btop" },
 	rmpc = { key = mod .. "+M", cmd = "footclient -ET rmpc -a tpopup rmpc" },
 	yazi = { key = mod .. "+Y", cmd = "footclient -ET yazi -a tpopup yazi" },

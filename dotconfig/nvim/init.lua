@@ -370,6 +370,7 @@ map("n", "<m-c>", "<cmd>tabnew +terminal<cr>i", { desc = "new terminal tab" })
 map("t", "<m-c>", "<c-\\><c-n><cmd>tabnew +terminal<cr>i", { noremap = true, silent = true, desc = "new terminal tab" })
 map("t", "<m-esc>", "<c-\\><c-n>", { noremap = true, silent = true, desc = "escape out of terminal mode" })
 map("n", "<m-y>", "<cmd>tabnew +terminal\\ yazi<cr>i", { noremap = true, silent = true, desc = "yazi" })
+map("n", "<m-g>", "<cmd>tabnew +terminal\\ lazygit<cr>i", { noremap = true, silent = true, desc = "lazygit" })
 
 map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
