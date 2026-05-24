@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=speedtest
+GenericName=speedtest
+Comment=Test connection download and upload speed
+TryExec=speedtest
+Exec=speedtest
+Terminal=true
+Type=Application
+Keywords=network;internet;wifi;speed;download;upload
+Categories=Utility;
+StartupNotify=false
