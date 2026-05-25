@@ -370,8 +370,8 @@ for key, value in pairs(workspace_config) do
 end
 
 for i = 1, 9, 1 do
-	hl.bind(mod .. "+" .. i, hl.dsp.focus({ workspace = i }))
-	hl.bind(mod .. "+ALT+" .. i, hl.dsp.window.move({ workspace = i, follow = true }))
+	hl.bind(mod .. "+" .. tostring(i), hl.dsp.focus({ workspace = i }))
+	hl.bind(mod .. "+ALT+" .. tostring(i), hl.dsp.window.move({ workspace = i, follow = true }))
 end
 
 local l = { locked = true }
