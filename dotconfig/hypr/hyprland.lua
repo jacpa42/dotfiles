@@ -77,18 +77,6 @@ hl.monitor({
 })
 
 hl.config({
-	general = {
-		layout = "scrolling",
-		gaps_in = 0,
-		gaps_out = 0,
-		border_size = 2,
-		col = {
-			active_border = "rgba(974b46ff)",
-			inactive_border = "rgba(ffffffff)",
-		},
-		allow_tearing = true,
-	},
-
 	decoration = {
 		rounding = 0,
 		inactive_opacity = 1,
@@ -141,6 +129,18 @@ hl.config({
 		focus_fit_method = 1,
 		follow_focus = true,
 		direction = "right",
+	},
+
+	general = {
+		gaps_in = 0,
+		gaps_out = 0,
+		border_size = 2,
+		col = {
+			active_border = "rgba(974b46ff)",
+			inactive_border = "rgba(00000000)",
+		},
+		allow_tearing = true,
+		layout = "scrolling",
 	},
 })
 
@@ -277,7 +277,6 @@ hl.window_rule({
 hl.window_rule({
 	name = "small popup window rules",
 	match = { class = "(hyprland-share-picker)" },
-	border_size = 0,
 	center = 1,
 	float = true,
 	no_anim = true,
@@ -288,7 +287,6 @@ hl.window_rule({
 hl.window_rule({
 	name = "Terminal app rules",
 	match = { class = terminal_popup_regex },
-	border_size = 0,
 	center = 1,
 	float = true,
 	no_anim = true,
