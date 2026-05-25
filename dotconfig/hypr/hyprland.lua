@@ -79,19 +79,19 @@ hl.monitor({
 hl.config({
 	general = {
 		layout = "scrolling",
-		gaps_in = 1,
+		gaps_in = 0,
 		gaps_out = 0,
-		border_size = 0,
+		border_size = 2,
 		col = {
 			active_border = "rgba(974b46ff)",
-			inactive_border = "rgba(8e8e8eff)",
+			inactive_border = "rgba(ffffffff)",
 		},
 		allow_tearing = true,
 	},
 
 	decoration = {
 		rounding = 0,
-		inactive_opacity = 0.8,
+		inactive_opacity = 1,
 		fullscreen_opacity = 1,
 		shadow = { enabled = false },
 		blur = { enabled = false },

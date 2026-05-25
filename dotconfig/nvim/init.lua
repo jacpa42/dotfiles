@@ -285,6 +285,11 @@ local lsp_configs = {
 		filetypes = { "hyprlang" },
 	},
 
+	["odin"] = {
+		cmd = { "ols" },
+		filetypes = { "odin" },
+	},
+
 	["zls"] = {
 		cmd = { "zls" },
 		filetypes = { "zig", "zir" },
@@ -753,9 +758,15 @@ autocmd("BufAdd", {
 					args = { "--style=Microsoft" },
 					stdin = true,
 				},
-				["json"] = {
+				json = {
 					command = "jq",
 					args = { "-S", "--indent", "2" },
+					stdin = true,
+				},
+				odinfmt = {
+					-- Change where to find the command if it isn't in your path.
+					command = "odinfmt",
+					args = { "-stdin" },
 					stdin = true,
 				},
 			},
@@ -769,6 +780,7 @@ autocmd("BufAdd", {
 				cpp = { "clang-format", lsp_format = "fallback" },
 				html = { "superhtml" },
 				json = { "json" },
+				odin = { "odinfmt" },
 				lua = { "stylua" },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				sh = { "shfmt" },
