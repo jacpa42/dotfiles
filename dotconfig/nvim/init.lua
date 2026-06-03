@@ -712,7 +712,7 @@ autocmd("InsertEnter", {
 
 autocmd("FileType", {
 	desc = "dap setup",
-	pattern = { "zig" },
+	pattern = { "zig", "odin" },
 	group = PluginLoaderGroup,
 	once = true,
 	callback = function()
@@ -732,6 +732,26 @@ autocmd("FileType", {
 		}
 		-- setup a debugger config for zig projects
 		dap.configurations.zig = {
+			{
+				name = "Launch",
+				type = "lldb",
+				request = "launch",
+				program = function()
+					local result = vim.fn.systemlist({
+						"fd",
+						"-I1agtx",
+						vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+					})
+
+					return result[1] or vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+				cwd = "${workspaceFolder}",
+				stopOnEntry = false,
+				args = {},
+			},
+		}
+
+		dap.configurations.odin = {
 			{
 				name = "Launch",
 				type = "lldb",
