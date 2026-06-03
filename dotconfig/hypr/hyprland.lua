@@ -309,12 +309,6 @@ hl.window_rule({
 	stay_focused = true,
 	no_screen_share = true,
 })
-hl.window_rule({
-	name = "ueberzugg must float",
-	match = { class = "ueberzugpp.*" },
-	float = true,
-	no_initial_focus = true,
-})
 
 local mod = "SUPER"
 hl.bind(mod .. "+J", hl.dsp.layout("colresize +conf"))
