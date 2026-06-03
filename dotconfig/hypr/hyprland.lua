@@ -139,7 +139,6 @@ hl.config({
 			active_border = "rgba(974b46ff)",
 			inactive_border = "rgba(00000000)",
 		},
-		allow_tearing = true,
 		layout = "scrolling",
 	},
 })
@@ -248,7 +247,7 @@ hl.window_rule({
 })
 hl.window_rule({
 	name = "fixes davinci popup jank",
-	match = { class = "^(resolve)" },
+	match = { class = "davinci-resolve-studio" },
 	float = true,
 	workspace = env.CHAT_WORKSPACE,
 })
