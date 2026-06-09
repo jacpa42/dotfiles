@@ -372,10 +372,7 @@ end, {
 	desc = "copy current file location",
 })
 
-map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
-
 -- terminal stuff
-map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("t", "<m-v>", "<c-\\><c-n><cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
 map("n", "<m-c>", "<cmd>tabnew +terminal<cr>i", { desc = "new terminal tab" })
@@ -403,31 +400,6 @@ map(
 	"<cmd>silent grep '(BUG\\|FAILED\\|FIX\\|FIXME\\|HACK\\|NOTE\\|TODO\\|WARN\\|XXX\\|IMPORTANT):' | copen<cr>",
 	{ desc = "grep 'TODO:'s", silent = true, noremap = true }
 )
-
-vim.api.nvim_create_user_command("CycleIntRepr", function()
-	local cword = vim.fn.expand("<cword>")
-	if tonumber(cword) == nil then
-		return
-	end
-
-	local prefix = nil
-	local fmt = nil
-	if cword:sub(1, 2) == "0x" then
-		prefix = "0b"
-		fmt = "<cmd>b"
-	elseif cword:sub(1, 2) == "0b" then
-		prefix = ""
-		fmt = ""
-	else
-		prefix = "0x"
-		fmt = "<cmd>x"
-	end
-
-	-- I use python here as they have bigint by default
-	local cmd = 'echo "print(f\\"' .. prefix .. "{" .. cword .. fmt .. '}\\")" | python3'
-	local out = vim.fn.system(cmd)
-	vim.cmd("normal! ciw" .. out)
-end, { desc = "Convert (rotate) an int to hex->bin->dec->hex." })
 
 map({ "n", "v" }, "<leader>s", function()
 	local name = vim.api.nvim_buf_get_name(0)

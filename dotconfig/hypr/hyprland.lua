@@ -228,6 +228,12 @@ hl.window_rule({
 	tile = true,
 })
 hl.window_rule({
+	name = "Steam sign in window rules",
+	match = { title = "Sign in to Steam" },
+	workspace = env.STEAM_WORKSPACE,
+	tile = true,
+})
+hl.window_rule({
 	name = "browser rules",
 	match = { class = "(firefox|org.qutebrowser.qutebrowser|librewolf)" },
 	workspace = env.WEB_WORKSPACE,
