@@ -412,8 +412,13 @@ map({ "n", "v" }, "<leader>s", function()
 	end
 end, { desc = "Smart write" })
 
-map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
+map("n", "<c-j>", ":move+1<cr>", { noremap = true, silent = true, desc = "move line down" })
+map("v", "<c-j>", ":move '>+1<cr> gv", { noremap = true, silent = true, desc = "move line down" })
+map("n", "<c-k>", ":move-2<cr>", { noremap = true, silent = true, desc = "move line up" })
+map("v", "<c-k>", ":move-2<cr> gv", { noremap = true, silent = true, desc = "move line up" })
+
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
+map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 map("n", "<leader>d", function()
 	local num_windows = vim.fn.winnr("$")
 	vim.cmd(num_windows > 1 and "q" or "bd")
