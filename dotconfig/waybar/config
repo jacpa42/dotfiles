@@ -42,8 +42,8 @@
   },
   "hyprland/workspaces": {
     "format": "{icon} ",
-    "on-click": "activate",
-    "sort-by-number": true,
+    "separate-outputs": true,
+    "sort-by": "number",
     "persistent-workspaces": {
         "*": 5
     }
