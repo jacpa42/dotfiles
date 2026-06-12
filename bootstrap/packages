@@ -74,6 +74,7 @@ steam
 stylua
 sudo
 swappy
+systemd-resolvconf
 transmission-cli
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
@@ -82,6 +83,7 @@ valgrind
 waybar
 wget
 which
+wireguard-tools
 wiremix
 wireplumber
 wtype
