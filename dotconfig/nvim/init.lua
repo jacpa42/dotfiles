@@ -800,31 +800,25 @@ autocmd("BufAdd", {
 	end,
 })
 
-autocmd("BufAdd", {
-	desc = "nvim-highlight-colors setup",
-	group = PluginLoaderGroup,
-	once = true,
-	callback = function()
-		require("nvim-highlight-colors").setup({
-			render = "background",
-			enable_hex = true,
-			enable_short_hex = false,
-			enable_rgb = true,
-			enable_hsl = true,
-			enable_ansi = false,
-			enable_xterm256 = true,
-			enable_xtermTrueColor = true,
-			enable_hsl_without_function = true,
-			enable_var_usage = true,
-			enable_named_colors = true,
-			enable_tailwind = false,
+require("nvim-highlight-colors").setup({
+	render = "background",
+	enable_hex = true,
+	enable_short_hex = false,
+	enable_rgb = true,
+	enable_rgba = true,
+	enable_hsl = true,
+	enable_ansi = false,
+	enable_xterm256 = true,
+	enable_xtermTrueColor = true,
+	enable_hsl_without_function = true,
+	enable_var_usage = true,
+	enable_named_colors = true,
+	enable_tailwind = false,
 
-			exclude_filetypes = {},
-			exclude_buftypes = {},
-			exclude_buffer = function(bufnr)
-				return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 100 * 1024
-			end,
-		})
+	exclude_filetypes = {},
+	exclude_buftypes = {},
+	exclude_buffer = function(bufnr)
+		return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 100 * 1024
 	end,
 })
 
@@ -833,13 +827,13 @@ require("black-metal").setup({
 	variant = "dark",
 	alt_bg = false,
 	colored_docstrings = true,
-	cursorline_gutter = true,
+	cursorline_gutter = false,
 	-- If true, highlights the gutter darker than the bg
 	dark_gutter = false,
 	favor_treesitter_hl = false,
 	plain_float = true,
 	show_eob = false,
-	term_colors = true,
+	term_colors = false,
 	transparent = true,
 
 	-----DIAGNOSTICS and CODE STYLE-----
