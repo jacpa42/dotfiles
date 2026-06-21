@@ -627,7 +627,7 @@ autocmd("InsertEnter", {
 		require("blink.cmp").setup({
 			appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = false },
 			sources = { default = { "lsp", "path", "snippets", "buffer", "cmdline" } },
-			fuzzy = { implementation = "prefer_rust_with_warning" },
+			fuzzy = { implementation = "rust" },
 			completion = {
 				menu = {
 					draw = {
@@ -832,14 +832,14 @@ require("black-metal").setup({
 	dark_gutter = false,
 	favor_treesitter_hl = false,
 	plain_float = true,
-	show_eob = false,
+	show_eob = true,
 	term_colors = false,
 	transparent = true,
 
 	-----DIAGNOSTICS and CODE STYLE-----
 	--
 	diagnostics = {
-		darker = true, -- Darker colors for diagnostic
+		darker = false, -- Darker colors for diagnostic
 		undercurl = true, -- Use undercurl for diagnostics
 		background = true, -- Use background color for virtual text
 	},
@@ -852,7 +852,7 @@ require("black-metal").setup({
 		keywords = "bold",
 		headings = "bold",
 		operators = "none",
-		keyword_return = "none",
+		keyword_return = "bold",
 		strings = "none",
 		variables = "none",
 	},
