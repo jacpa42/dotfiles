@@ -99,11 +99,6 @@ function y() {
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
     rm -f -- "$tmp"
 }
-cloc() {
-    echo "*.$1 files: $(fd "-e$1" | wc -l)"
-    echo "  lines   words   bytes"
-    fd "-e$1" -x rg -v '^[[:space:]]*$' {} | wc
-}
 alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
