@@ -462,6 +462,9 @@ map("i", "<m-K>", "<c-\\><c-n><c-w>K", { noremap = true, silent = true, desc = "
 map("i", "<m-H>", "<c-\\><c-n><c-w>H", { noremap = true, silent = true, desc = "window focus left" })
 map("i", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "window focus right" })
 
+map("n", "E", "<cmd>vert res -2<cr>", { noremap = true, silent = true, desc = "window resize left" })
+map("n", "R", "<cmd>vert res +2<cr>", { noremap = true, silent = true, desc = "window resize right" })
+
 map("t", "<m-r>", "<c-\\><c-n><cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
 map("t", "<m-e>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
 map("n", "<m-r>", "<cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
@@ -832,7 +835,7 @@ require("black-metal").setup({
 	dark_gutter = false,
 	favor_treesitter_hl = false,
 	plain_float = true,
-	show_eob = true,
+	show_eob = false,
 	term_colors = false,
 	transparent = true,
 
