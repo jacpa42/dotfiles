@@ -10,7 +10,7 @@ lazygit)
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
-    exec footclient -D "$TARGET_DIR" -T lazygit -a lazygit sh -c "lazygit"
+    exec foot -D "$TARGET_DIR" -T lazygit -a lazygit sh -c "lazygit"
     ;;
 gitweb)
     cd "$PROJDIR"
@@ -41,6 +41,6 @@ projects)
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
-    exec footclient -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
+    exec foot -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
     ;;
 esac
