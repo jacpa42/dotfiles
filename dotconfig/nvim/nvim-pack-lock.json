@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "base16-nvim": {
+      "rev": "21233d5fd574439ae1e2f5e4bfbc574214f4ab3d",
+      "src": "https://github.com/RRethy/base16-nvim"
+    },
     "black-metal-theme-neovim": {
       "rev": "87e21420c449e414a00ab78e395debf48f372169",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"

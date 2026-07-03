@@ -1,25 +1,25 @@
 set font "JetBrains Mono Nerd Font 24"
 
-set default-bg                  "#000000"
-set default-fg                  "#c1c1c1"
-set statusbar-fg                "#000000"
+set default-bg                  "#1b161e"
+set default-fg                  "#a1a1a1"
+set statusbar-fg                "#556677"
 set statusbar-bg                "#222222"
-set inputbar-bg                 "#000000"
+set inputbar-bg                 "#1b161e"
 set inputbar-fg                 "#c1c1c1"
-set notification-bg             "#000000"
+set notification-bg             "#1b161e"
 set notification-fg             "#c1c1c1"
-set notification-error-bg       "#000000"
-set notification-error-fg       "#5f8787"
-set notification-warning-bg     "#000000"
-set notification-warning-fg     "#5f8787"
+set notification-error-bg       "#1b161e"
+set notification-error-fg       "#7799bb"
+set notification-warning-bg     "#1b161e"
+set notification-warning-fg     "#7799bb"
 set highlight-fg                "#c1c1c1"
 set highlight-color             rgba(136,136,136,0.7)
-set highlight-active-color      rgba(151,75,70,0.7)
-set completion-bg               "#121212"
+set highlight-active-color      rgba(27,22,31,0.7)
+set completion-bg               "#1b161e"
 set completion-fg               "#888888"
 set completion-highlight-fg     "#c1c1c1"
 set completion-highlight-bg     "#888888"
-set recolor-lightcolor          "#000000"
+set recolor-lightcolor          "#1b161e"
 set recolor-darkcolor           "#999999"
 set recolor                     false
 

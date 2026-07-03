@@ -1,19 +1,19 @@
 [global]
 font = "JetBrainsMono Nerd Font 12"
-frame_color = "#000000"
+frame_color = "#1b161e"
 separator_color = frame
-highlight = "#000000"
+highlight = "#1b161e"
 follow = keyboard
 offset = (0, 0)
 
 [urgency_low]
-background = "#000000"
+background = "#1b161e"
 foreground = "#c1c1c1"
 
 [urgency_normal]
-background = "#000000"
-foreground = "#5f8787"
+background = "#1b161e"
+foreground = "#556677"
 
 [urgency_critical]
-background = "#000000"
-foreground = "#974b46"
+background = "#1b161e"
+foreground = "#7799bb"

@@ -822,10 +822,12 @@ require("nvim-highlight-colors").setup({
 	end,
 })
 
+-- See here for the location of a base16 scheme
+-- https://github.com/RRethy/base16-nvim
 require("black-metal").setup({
-	theme = "khold",
+	theme = "immortal",
 	variant = "dark",
-	alt_bg = false,
+	alt_bg = true,
 	colored_docstrings = true,
 	cursorline_gutter = false,
 	-- If true, highlights the gutter darker than the bg
