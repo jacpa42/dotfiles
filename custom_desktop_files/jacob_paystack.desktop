@@ -1,7 +1,8 @@
 [Desktop Entry]
-Name=Paystack Website
+Name=Paystack Orders
 TryExec=jacob_paystack
 Exec=jacob_paystack
 Type=Application
+Keywords=kragsentrale;membership;order;paystack
 Categories=Utility;
 StartupNotify=false
