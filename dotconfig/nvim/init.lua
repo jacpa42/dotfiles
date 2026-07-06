@@ -829,7 +829,7 @@ require("black-metal").setup({
 	variant = "dark",
 	alt_bg = true,
 	colored_docstrings = true,
-	cursorline_gutter = false,
+	cursorline_gutter = true,
 	-- If true, highlights the gutter darker than the bg
 	dark_gutter = false,
 	favor_treesitter_hl = false,
@@ -841,8 +841,8 @@ require("black-metal").setup({
 	-----DIAGNOSTICS and CODE STYLE-----
 	--
 	diagnostics = {
-		darker = false, -- Darker colors for diagnostic
-		undercurl = true, -- Use undercurl for diagnostics
+		darker = true, -- Darker colors for diagnostic
+		undercurl = false, -- Use undercurl for diagnostics
 		background = true, -- Use background color for virtual text
 	},
 	-- The following table accepts values the same as the `gui` option for normal
