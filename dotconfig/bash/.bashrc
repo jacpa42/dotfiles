@@ -119,7 +119,8 @@ alias u="$update"
 alias ur="$update; systemctl reboot"
 alias us="$update; systemctl suspend"
 alias gitpull="fd -Htd -j24 --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git pull'"
-alias gitstatus="fd -Htd -j24 --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git status'"
+alias gitstatus="fd -Htd -j24 --absolute-path \"\.git\$\" ~/Projects -x bash -c 'cd \$(dirname {}); ls -d --color=always \$(pwd); git status -s'"
+alias kragman420="ssh krag@192.168.101.218"
 
 source <(zoxide init --cmd j bash)
 source <(krag_cli completions --shell bash)
