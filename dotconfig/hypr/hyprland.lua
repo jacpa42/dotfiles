@@ -222,6 +222,14 @@ hl.window_rule({
 	float = true,
 })
 hl.window_rule({
+	name = "Drawy popup window rules",
+	match = {
+		title = "(Select Color — Drawy|Configure Drawy|Action Required — Drawy|Save File — Drawy|Export to Image — Drawy|Configure Keyboard Shortcuts — Drawy)",
+	},
+	stay_focused = true,
+	float = true,
+})
+hl.window_rule({
 	name = "Main steam window rules",
 	match = { title = "^(Steam)" },
 	workspace = env.STEAM_WORKSPACE,

@@ -1,0 +1,45 @@
+#!/usr/bin/dash
+
+opts=
+
+if [ "$1" = "--music" ]; then
+    opts="--yes-playlist --extract-audio" $opts
+    shift
+fi
+
+if [ $# -ge 1 ]; then
+    url=$1
+else
+    url="$(jacob_firefox_history ytvideo)"
+    if [ -z "$url" ]; then
+        printf 'Usage: %s [--music] <url>\n' "$0" >&2
+        exit 1
+    fi
+fi
+
+id=
+
+echo "$opts"
+
+yt-dlp \
+    -o "$HOME/Downloads/%(title)s.%(ext)s" \
+    --newline \
+    --no-warnings \
+    --progress \
+    --progress-template 'download:%(progress._percent_str)s %(progress._speed_str)s' \
+    $opts "$url" 2>&1 |
+    while IFS= read -r line; do
+        printf '%s\n' "$line"
+
+        if [ -z "$id" ]; then
+            id=$(notify-send \
+                --app-name="yt-dlp" \
+                --print-id \
+                "$url" "$line")
+        else
+            notify-send \
+                --app-name="yt-dlp" \
+                --replace-id="$id" \
+                "$url" "$line" >/dev/null
+        fi
+    done

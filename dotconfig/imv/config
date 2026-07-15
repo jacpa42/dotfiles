@@ -2,7 +2,7 @@
 overlay_font = JetBrainsMonoNerdFont:18
 overlay = true
 overlay_background_alpha = 00
-background=1e222b
+background=1a161e
 
 [binds]
 w = exec jacob_hyprwall --set "$imv_current_file"

@@ -1,0 +1,28 @@
+#!/usr/bin/dash
+
+#
+# The usage of this script is to create a copy of the sqlite history database
+# stored by firefox and run an sqlite query against it.
+#
+# sqlite query type is at `$1`. I select the query based off an 'enum' value
+# because I will forget otherwise.
+#
+
+# Assign the query based on $1
+if [ "$1" = "ytvideo" ]; then
+    query="select title,url from moz_places where title is not null and url like 'https://www.youtube.com/watch?%' order by last_visit_date desc"
+else
+    query="select title,url from moz_places where title is not null order by last_visit_date desc"
+fi
+
+file="$(fd -1gHItfile places.sqlite $HOME)"
+backup_copy="$(mktemp /tmp/mozhist.XXXXXXX.sqlite)"
+trap 'rm "$backup_copy"' EXIT
+
+sqlite3 "file:$file?mode=ro&immutable=1" ".backup $backup_copy"
+
+sep=".separator \" \""
+
+selection="$(sqlite3 "$backup_copy" "$sep" "$query" | fuzzel --width=100 --dmenu --placeholder="search browser history")"
+
+echo "${selection##* }"
