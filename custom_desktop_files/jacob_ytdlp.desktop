@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=ytdlp
+TryExec=jacob_ytdlp
+Exec=jacob_ytdlp
+Type=Application
+Categories=Utility;
+StartupNotify=false
