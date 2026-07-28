@@ -70,6 +70,12 @@ vim.o.statusline =
 
 local autocmd = vim.api.nvim_create_autocmd
 
+-- No [process existed blah blah garbage] please thanks
+vim.api.nvim_clear_autocmds({
+	group = "nvim.terminal",
+	event = "TermClose",
+})
+
 local function starts_with(str, prefix)
 	return string.sub(str, 1, string.len(prefix)) == prefix
 end
@@ -785,7 +791,7 @@ autocmd("BufAdd", {
 				cpp = { "clang-format", lsp_format = "fallback" },
 				html = { "superhtml" },
 				json = { "json" },
-				odin = { "odinfmt" },
+				-- odin = { "odinfmt" },
 				lua = { "stylua" },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				sh = { "shfmt" },
