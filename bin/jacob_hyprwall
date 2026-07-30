@@ -1,9 +1,5 @@
 #!/usr/bin/dash
 
-# NOTE: Running this script without hyprpaper running will launch hyprpaper! nice!
-#
-# See $DOTDIR/dotconfig/hypr/hyprpaper.conf. I set the wallpaper path with an env var
-
 wallpaper_directory="${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}"
 requested_wallpaper="$DEFAULT_WALLPAPER"
 
@@ -40,7 +36,7 @@ while [ $# -gt 0 ]; do
         echo
         echo "	--help              -h | display this message."
         echo "	--set               -s | Specify a wallpaper to set."
-        echo "	--set-last          -S | Trys to set the wallpaper to the last set wallpaper. On failure default behaviour occurs."
+        echo "	--set-last          -S | Tries to set the wallpaper to the last set wallpaper. On failure default behaviour occurs."
         echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
         echo "	--random            -R | Choose a random wallpaper."
         echo "	--force             -f | Tell hyprpaper to set the wallpaper even if it is already loaded."
@@ -106,9 +102,6 @@ set_random() {
 
 [ -n "$force" ] || [ "$current_image" != "$next_image" ] && {
     printf "$next_image_index::$next_image" >"$STATE_FILE"
-    pidof -q /usr/bin/hyprpaper && {
-        hyprctl hyprpaper wallpaper ",$next_image,"
-    } || {
-        HYPRPAPER_NEXT_IMAGE="$next_image" hyprpaper &
-    }
+    pkill wbg
+    wbg -s $next_image &
 }

@@ -17,7 +17,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.netrw_browsex_viewer = "qutebrowser"
 vim.o.breakindent = true
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.confirm = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -116,7 +116,7 @@ autocmd({ "FileType" }, {
 
 -- Disable spell for specific file types
 autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn", "zathurarc" },
+	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn", "zathurarc", "swayconfig" },
 	callback = buf_disable_spell,
 })
 

@@ -1,0 +1,29 @@
+general {
+    colors = true
+    color_good = "#7799bb"
+    color_bad = "#5f7a95"
+    interval = 60
+}
+
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "tztime local"
+
+wireless _first_ {
+    format_up = "W: (%quality at %essid) %ip"
+    format_down = "no weefee"
+}
+
+ethernet _first_ {
+    format_up = "E: %ip (%speed)"
+    format_down = "no efernet"
+}
+
+battery all {
+    format = "%status %percentage %remaining"
+}
+
+tztime local {
+    format = "%H:%M %d/%m/%y"
+}

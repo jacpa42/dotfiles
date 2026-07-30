@@ -43,4 +43,8 @@ projects)
 
     exec foot -D "$TARGET_DIR" -T "$TITLE" -a nvim sh -c "nvim; $SHELL"
     ;;
+*)
+    echo "Provide a subcommand please"
+    ;;
+
 esac

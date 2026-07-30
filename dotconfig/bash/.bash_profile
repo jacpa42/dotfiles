@@ -7,7 +7,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/.local/share/go
 export PATH=$PATH:$DOTDIR/bin
 export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
-export DEFAULT_WALLPAPER="knight-templar"
+export DEFAULT_WALLPAPER="knight_templar"
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd_socks"
 export GTK_THEME='black-metal-khold:dark'
 export FZF_DEFAULT_OPTS=--color=base16,gutter:1
@@ -34,4 +34,4 @@ export HISTCONTROL="erasedups:ignorespace"
 # can be relatively confident I don't fucking get locked out yk.
 #
 # From https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login but adapted :)
-([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && start-hyprland
+([ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]) && sway
