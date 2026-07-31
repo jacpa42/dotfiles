@@ -791,7 +791,7 @@ autocmd("BufAdd", {
 				-- cpp = { "clang-format", lsp_format = "fallback" },
 				html = { "superhtml" },
 				json = { "json" },
-				-- odin = { "odinfmt" },
+				odin = { "odinfmt" },
 				lua = { "stylua" },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				sh = { "shfmt" },

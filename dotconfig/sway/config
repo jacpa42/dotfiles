@@ -5,12 +5,17 @@ set $menu fuzzel
 default_border none
 font pango:JetBrainsMono Nerd Font 14
 seat seat0 hide_cursor 500
-workspace_auto_back_and_forth yes
 workspace_layout tabbed
 
+output DP-1  resolution 2560x1440@240Hz position 0,0
 output eDP-2 resolution 2560x1600@165Hz position 0,0
 
 exec jacob_hyprwall --force --set-last
+exec mpd
+exec fcitx5 -d
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=
+exec gsettings set org.gnome.desktop.interface cursor-theme catppuccin-mocha-mauve-cursors
 
 input "type:keyboard" xkb_options caps:escape
 input "type:keyboard" repeat_delay 200
@@ -79,6 +84,11 @@ input "type:keyboard" repeat_rate 60
 # Workspaces:
 #
     # Switch to workspace
+    bindsym $mod+s workspace number 1
+    bindsym $mod+d workspace number 2
+    bindsym $mod+f workspace number 3
+    bindsym $mod+g workspace number 4
+
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
@@ -89,17 +99,23 @@ input "type:keyboard" repeat_rate 60
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+    bindsym $mod+Alt+s move container to workspace number 1; workspace 1
+    bindsym $mod+Alt+d move container to workspace number 2; workspace 2
+    bindsym $mod+Alt+f move container to workspace number 3; workspace 3
+    bindsym $mod+Alt+g move container to workspace number 4; workspace 4
+
+    bindsym $mod+Alt+1 move container to workspace number 1;  workspace 1
+    bindsym $mod+Alt+2 move container to workspace number 2;  workspace 2
+    bindsym $mod+Alt+3 move container to workspace number 3;  workspace 3
+    bindsym $mod+Alt+4 move container to workspace number 4;  workspace 4
+    bindsym $mod+Alt+5 move container to workspace number 5;  workspace 5
+    bindsym $mod+Alt+6 move container to workspace number 6;  workspace 6
+    bindsym $mod+Alt+7 move container to workspace number 7;  workspace 7
+    bindsym $mod+Alt+8 move container to workspace number 8;  workspace 8
+    bindsym $mod+Alt+9 move container to workspace number 9;  workspace 9
+    bindsym $mod+Alt+0 move container to workspace number 10; workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
@@ -129,8 +145,8 @@ input "type:keyboard" repeat_rate 60
 #
     # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -1%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +1%
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
 
     # Special keys to control media via playerctl
