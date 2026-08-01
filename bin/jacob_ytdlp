@@ -11,6 +11,7 @@ if [ $# -ge 1 ]; then
     url=$1
 else
     url="$(jacob_firefox_history ytvideo)"
+
     if [ -z "$url" ]; then
         printf 'Usage: %s [--music] <url>\n' "$0" >&2
         exit 1
