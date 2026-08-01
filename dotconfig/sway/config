@@ -71,6 +71,9 @@ input "type:keyboard" repeat_rate 60
     bindsym $mod+e focus left
     bindsym $mod+r focus right
 
+    bindsym $mod+Alt+e move left
+    bindsym $mod+Alt+r move right
+
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
