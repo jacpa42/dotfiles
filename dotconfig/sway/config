@@ -186,12 +186,13 @@ bar {
 #
 # Window colors
 #
+# class                │ border  │ background │ text    │ indicator │ child_border │
 
-client.focused          #5f7a95 #5f7a95 #1a161e #7799bb #5f7a95
-client.focused_inactive #333d47 #333d47 #c1c1c1 #44515f #333d47
-client.unfocused        #1a161e #1a161e #a1a1a1 #1a161e #1a161e
-client.urgent           #7799bb #7799bb #1a161e #7799bb #7799bb
-client.placeholder      #1a161e #1a161e #888888 #1a161e #1a161e
+client.focused          #5f7a95    #1a161e      #5f7a95   #7799bb     #5f7a95
+client.focused_inactive #c1c1c1    #1a161e      #c1c1c1   #7799bb     #5f7a95
+client.unfocused        #1a161e    #1a161e      #a1a1a1   #1a161e     #1a161e
+client.urgent           #7799bb    #7799bb      #1a161e   #7799bb     #7799bb
+client.placeholder      #1a161e    #1a161e      #888888   #1a161e     #1a161e
 client.background #1a161e
 
 include /etc/sway/config.d/*
