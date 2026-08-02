@@ -1,5 +1,5 @@
 #!/usr/bin/dash
-selected="$(fuzzel --dmenu --placeholder="copy emoji" <$DOTDIR/dotconfig/hypr/emojis)"
+selected="$(fuzzel --dmenu --placeholder="copy emoji" <$DOTDIR/dotconfig/fuzzel/emojis)"
 [ -z "$selected" ] && exit
 emoji="$(echo "$selected" | awk '{printf "%s", $NF}')"
 

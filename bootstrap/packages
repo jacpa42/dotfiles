@@ -35,9 +35,6 @@ git
 github-cli
 glfw
 gtk2
-hyprland
-hyprls
-hyprpaper
 hyprpicker
 hyprshot
 imagemagick
@@ -89,7 +86,6 @@ wireguard-tools
 wiremix
 wireplumber
 wtype
-xdg-desktop-portal-hyprland
 xdg-desktop-portal-termfilechooser-hunkyburrito-git
 yazi
 yt-dlp

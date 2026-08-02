@@ -1,7 +1,7 @@
 #!/usr/bin/dash
 [ -z "$1" ] && exit
 
-current="$(hyprctl activewindow -j | jq -r .class)"
+current="$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused) | .app_id')"
 [ "$current" = "$1" ] && exit
 
-hyprctl dispatch "hl.dsp.focus({ window = \"class:$1\" })"
+swaymsg "[app_id=\"$1\"]" focus

@@ -14,12 +14,12 @@ done
 [ -z "$mode" ] && exit
 
 if [ "$mode" = "window" ]; then
-    outputs="$(hyprctl monitors -j | jq -r '.[].name')"
+    outputs="$(swaymsg -t get_outputs | jq -r '.[].name')"
 
     # If we only have one monitor just screenshot the active one
     [ "$(echo -e "$outputs" | wc -l)" -eq 1 ] && mode="window -m active"
 elif [ "$mode" = "output" ]; then
-    OUTPUT="$(hyprctl monitors -j | jq -r '.[].name')"
+    OUTPUT="$(swaymsg -t get_outputs | jq -r '.[].name')"
 
     [ -z "$OUTPUT" ] && exit 0
 

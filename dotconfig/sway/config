@@ -14,6 +14,7 @@ assign [class  = "Spotify"] 1
 assign [app_id = "firefox"] 2
 assign [app_id = "nvim"   ] 3
 assign [class  = "steam"  ] 4
+assign [class  = "steam"  ] 4
 
 # colors
 client.focused          #5f7a95    #1a161e      #5f7a95   #7799bb     #5f7a95
@@ -166,24 +167,27 @@ input "type:keyboard" repeat_rate 60
 # Utilities:
 #
     # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -1%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +1%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    bindsym --locked XF86AudioMute              exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume       exec pactl set-sink-volume \@DEFAULT_SINK@ -1%
+    bindsym --locked XF86AudioRaiseVolume       exec pactl set-sink-volume \@DEFAULT_SINK@ +1%
+    bindsym --locked Shift+XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked Shift+XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute           exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
 
     # Special keys to control media via playerctl
-    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioPlay  exec playerctl play-pause
     bindsym --locked XF86AudioPause exec playerctl play-pause
-    bindsym --locked XF86AudioPrev exec playerctl previous
-    bindsym --locked XF86AudioNext exec playerctl next
-    bindsym --locked XF86AudioStop exec playerctl stop
+    bindsym --locked XF86AudioPrev  exec playerctl previous
+    bindsym --locked XF86AudioNext  exec playerctl next
+    bindsym --locked XF86AudioStop  exec playerctl stop
 
-    # Special keys to adjust brightness via brightnessctl
+    # Other special keys
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+
+    bindsym --locked XF86Tools             exec pkill fuzzel || fuzzel
 
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    # Screenshot
+    bindsym Print exec jacob_screenshot
 
 bar {
     position top
