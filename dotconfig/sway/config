@@ -1,15 +1,33 @@
+# variables
 set $mod Mod4
 set $term foot
 set $menu fuzzel
 
+# general config
 default_border none
 font pango:JetBrainsMono Nerd Font 14
 seat seat0 hide_cursor 500
 workspace_layout tabbed
 
+# window rules
+assign [class  = "Spotify"] 1
+assign [app_id = "firefox"] 2
+assign [app_id = "nvim"   ] 3
+assign [class  = "steam"  ] 4
+
+# colors
+client.focused          #5f7a95    #1a161e      #5f7a95   #7799bb     #5f7a95
+client.focused_inactive #c1c1c1    #1a161e      #c1c1c1   #7799bb     #5f7a95
+client.unfocused        #1a161e    #1a161e      #a1a1a1   #1a161e     #1a161e
+client.urgent           #7799bb    #7799bb      #1a161e   #7799bb     #7799bb
+client.placeholder      #1a161e    #1a161e      #888888   #1a161e     #1a161e
+client.background #1a161e
+
+# display config
 output DP-1  resolution 2560x1440@240Hz position 0,0
 output eDP-2 resolution 2560x1600@165Hz position 0,0
 
+# startup things
 exec jacob_hyprwall --force --set-last
 exec mpd
 exec fcitx5 -d
@@ -17,6 +35,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=
 exec gsettings set org.gnome.desktop.interface cursor-theme catppuccin-mocha-mauve-cursors
 
+# input setup
 input "type:keyboard" xkb_options caps:escape
 input "type:keyboard" repeat_delay 200
 input "type:keyboard" repeat_rate 60
@@ -34,7 +53,7 @@ input "type:keyboard" repeat_rate 60
     bindsym $mod+m exec $term -T rmpc -a rmpc -e rmpc
     bindsym $mod+Period exec jacob_sessionizer projects
     bindsym $mod+h exec xdg-open $(jacob_firefox_history)
-    bindsym $mod+p jacob_passwords --type
+    bindsym $mod+p exec jacob_passwords --type
 
     # Screenshot and colorpicker
     bindsym $mod+c exec jacob_color_picker
@@ -182,17 +201,5 @@ bar {
         binding_mode       #556677 #556677 #c1c1c1
     }
 }
-
-#
-# Window colors
-#
-# class                │ border  │ background │ text    │ indicator │ child_border │
-
-client.focused          #5f7a95    #1a161e      #5f7a95   #7799bb     #5f7a95
-client.focused_inactive #c1c1c1    #1a161e      #c1c1c1   #7799bb     #5f7a95
-client.unfocused        #1a161e    #1a161e      #a1a1a1   #1a161e     #1a161e
-client.urgent           #7799bb    #7799bb      #1a161e   #7799bb     #7799bb
-client.placeholder      #1a161e    #1a161e      #888888   #1a161e     #1a161e
-client.background #1a161e
 
 include /etc/sway/config.d/*

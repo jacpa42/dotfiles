@@ -2,7 +2,7 @@ general {
     colors = true
     color_good = "#7799bb"
     color_bad = "#5f7a95"
-    interval = 60
+    interval = 1
 }
 
 order += "wireless _first_"
