@@ -116,7 +116,19 @@ autocmd({ "FileType" }, {
 
 -- Disable spell for specific file types
 autocmd({ "FileType" }, {
-	pattern = { "qf", "json", "man", "confini", "hyprlang", "sshconfig", "sh", "openvpn", "zathurarc", "swayconfig" },
+	pattern = {
+		"qf",
+		"sh",
+		"man",
+		"json",
+		"openvpn",
+		"confini",
+		"hyprlang",
+		"nvim-pack",
+		"sshconfig",
+		"zathurarc",
+		"swayconfig",
+	},
 	callback = buf_disable_spell,
 })
 
