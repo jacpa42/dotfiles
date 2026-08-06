@@ -4,31 +4,21 @@ mode=""
 for arg in "$@"; do
     case "$arg" in
     -r | --region) mode="region" ;;
-    -o | --output) mode="output" ;;
     -w | --window) mode="window" ;;
-    -a | --active-window) mode="active window" ;;
+    -o | --output) mode="output" ;;
     *) exit 1 ;;
     esac
 done
-[ -z "$mode" ] && mode="$(printf "region\noutput\nwindow\nactive window" | fuzzel --dmenu --auto-select)"
+[ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --dmenu --auto-select)"
 [ -z "$mode" ] && exit
 
-if [ "$mode" = "window" ]; then
-    outputs="$(swaymsg -t get_outputs | jq -r '.[].name')"
+filename="$HOME/Pictures/screenshots/$(date +'%F-%N').png"
 
-    # If we only have one monitor just screenshot the active one
-    [ "$(echo -e "$outputs" | wc -l)" -eq 1 ] && mode="window -m active"
-elif [ "$mode" = "output" ]; then
-    OUTPUT="$(swaymsg -t get_outputs | jq -r '.[].name')"
+[ "$mode" = "region" ] && slurp | grim "$filename"
+[ "$mode" = "window" ] && swaymsg -t get_tree |
+    jq -r '.. | select(.pid? and .visible?) | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"' |
+    slurp | grim "$filename"
+[ "$mode" = "output" ] && grim -o "$(swaymsg -t get_outputs | jq -r '.. | select(.active?) | .name')" "$filename"
 
-    [ -z "$OUTPUT" ] && exit 0
-
-    lc="$(echo "$OUTPUT" | wc -l)"
-    [ $lc -gt 1 ] && OUTPUT="$(echo "$OUTPUT" | fuzzel --dmenu)"
-
-    mode="output -m $OUTPUT"
-elif [ "$mode" = "active window" ]; then
-    mode="active -m window"
-fi
-
-hyprshot -z -m $mode -o "$HOME/Pictures/screenshots"
+notify-send -a screenshot -i "$filename" "screenshot taken" "Saved+copied screenshot."
+wl-copy <"$filename"
