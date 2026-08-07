@@ -379,6 +379,27 @@ end
 
 local map = vim.keymap.set
 
+map("n", "gC", function()
+	local cmt = vim.bo.commentstring
+	if cmt == "" then
+		return
+	end
+	cmt = cmt:gsub(" %%s", "")
+	local row = vim.api.nvim_win_get_cursor(0)[1]
+
+	local line = vim.api.nvim_get_current_line()
+	local indent = line:match("^%s*") or ""
+
+	vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, {
+		indent .. cmt,
+		indent .. cmt .. " ",
+		indent .. cmt,
+	})
+
+	vim.api.nvim_win_set_cursor(0, { row + 1, #(cmt .. " ") })
+	vim.cmd("startinsert!")
+end, { noremap = true, silent = true, desc = "triple comment" })
+
 map("n", "<leader>c", function()
 	local loc = vim.fn.expand("%:p") .. ":" .. vim.fn.line(".") .. ":" .. vim.fn.col(".")
 	vim.fn.setreg("+", loc)
