@@ -828,7 +828,7 @@ autocmd("BufAdd", {
 				rust = { "rustfmt", lsp_format = "fallback" },
 				sh = { "shfmt" },
 				toml = { "taplo" },
-				python = { "ruff_format" },
+				-- python = { "ruff_format" },
 				zig = { "zigfmt" },
 				zsh = { "shfmt" },
 				markdown = { "rumdl" },

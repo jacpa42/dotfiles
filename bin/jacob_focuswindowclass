@@ -4,4 +4,4 @@
 current="$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused) | .app_id')"
 [ "$current" = "$1" ] && exit
 
-swaymsg "[app_id=\"$1\"]" focus
+swaymsg "[app_id=\"$1\"]" focus && exit 0
