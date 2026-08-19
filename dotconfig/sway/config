@@ -26,6 +26,7 @@ client.background #1a161e
 
 # display config
 output DP-1  resolution 2560x1440@240Hz position 0,0
+output DP-5  resolution 3840x2160@30Hz
 output eDP-2 resolution 2560x1600@165Hz position 0,0
 
 # startup things
