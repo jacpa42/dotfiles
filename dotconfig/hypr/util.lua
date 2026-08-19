@@ -13,7 +13,7 @@ M.sessionizer_gitweb = function()
 	local project_path = M.fuzzy_find_project_path(true)
 	local proc = io.popen('git -C "' .. project_path .. '" config --get remote.origin.url')
 	if proc == nil then
-		error("Faile get git url for " .. project_path)
+		error("Failed get git url for " .. project_path)
 	end
 	local url = proc:read("*l")
 	proc:close()

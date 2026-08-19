@@ -7,8 +7,6 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
-vim.o.spell = true
-vim.o.spelllang = "en_gb"
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
 vim.g.loaded_netrw = 1
@@ -37,7 +35,7 @@ vim.o.timeoutlen = 500
 vim.o.undodir = vim.fn.expand("~/.cache/undodir/")
 vim.o.undofile = true
 vim.o.updatetime = 250
-vim.o.winborder = "rounded"
+vim.o.winborder = "bold"
 vim.o.clipboard = "unnamedplus"
 vim.opt.cursorline = true
 vim.opt.list = true
@@ -61,7 +59,7 @@ function Macro()
 end
 
 vim.o.statusline =
-	"%<%f %h%w%m%r %{% luaeval('Macro()') %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}"
+	"%<%f %h%w%m%r %{% luaeval('Macro()') %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}"
 
 ----------------------------------autocmd----------------------------------
 ----------------------------------autocmd----------------------------------
@@ -79,25 +77,6 @@ local function starts_with(str, prefix)
 	return string.sub(str, 1, string.len(prefix)) == prefix
 end
 
-local function buf_disable_spell()
-	vim.o.spell = false
-	vim.o.spelllang = ""
-end
-
-local function buf_enable_spell()
-	vim.o.spell = true
-	vim.o.spelllang = "en_gb"
-end
-
-function BufToggleSpell()
-	require("config.opts")
-	if vim.o.spell then
-		buf_disable_spell()
-	else
-		buf_enable_spell()
-	end
-end
-
 -- special commands for dapui buffers
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function(args)
@@ -111,29 +90,6 @@ autocmd({ "FileType" }, {
 	callback = function(args)
 		vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
 	end,
-})
-
--- Disable spell for specific file types
-autocmd({ "FileType" }, {
-	pattern = {
-		"qf",
-		"sh",
-		"man",
-		"json",
-		"openvpn",
-		"confini",
-		"hyprlang",
-		"nvim-pack",
-		"sshconfig",
-		"zathurarc",
-		"swayconfig",
-	},
-	callback = buf_disable_spell,
-})
-
--- Disable spell for terminal
-autocmd({ "TermOpen" }, {
-	callback = buf_disable_spell,
 })
 
 autocmd({ "FileType" }, {
@@ -528,7 +484,6 @@ map("n", "<leader>t", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "searc
 map("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "search lsp symbols in current file" })
 map("n", "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", { desc = "search lsp symbols in current project" })
 map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "search methods for type" })
-map("n", "z=", "<cmd>Telescope spell_suggest<cr>", { desc = "spell suggest" })
 map({ "n", "v" }, "<leader>a", function()
 	vim.lsp.buf.code_action({})
 end, { desc = "code actions" })
@@ -816,7 +771,6 @@ autocmd("BufAdd", {
 			notify_on_error = false,
 			format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
 			formatters_by_ft = {
-				["*"] = { "codespell" },
 				["_"] = { "trim_whitespace" },
 				bash = { "shfmt" },
 				-- c = { "clang-format-custom", lsp_format = "fallback" },
@@ -877,12 +831,12 @@ require("black-metal").setup({
 	transparent = true,
 
 	-----DIAGNOSTICS and CODE STYLE-----
-	--
 	diagnostics = {
 		darker = true, -- Darker colors for diagnostic
 		undercurl = false, -- Use undercurl for diagnostics
 		background = true, -- Use background color for virtual text
 	},
+
 	-- The following table accepts values the same as the `gui` option for normal
 	-- highlights. For example, `bold`, `italic`, `underline`, `none`.
 	code_style = {

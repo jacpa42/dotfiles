@@ -4,4 +4,21 @@
 current="$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused) | .app_id')"
 [ "$current" = "$1" ] && exit
 
-swaymsg "[app_id=\"$1\"]" focus
+swaymsg "[app_id=\"$1\"]" focus && exit 0
+
+#
+# If we fail to find the window with sway focus, then manually search here
+#
+case "$1" in
+firefox)
+    exec swaymsg workspace number "$WEB_WORKSPACE"
+    ;;
+
+spotify | discord | webcord | Vesktop)
+    exec swaymsg workspace number "$CHAT_WORKSPACE"
+    ;;
+
+nvim* | foot | footclient | "org.mapeditor.tiled" | aseprite)
+    exec swaymsg workspace number "$TERMINAL_WORKSPACE"
+    ;;
+esac

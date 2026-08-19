@@ -1,10 +1,27 @@
 #!/usr/bin/dash
 
+#
+# Here are the basic operations I need to do for wallpapers:
+# 1. Set a specific wallpaper
+# 2. Get the path of the default wallpaper
+# 3. Get the path of the last wallpaper
+# 4. Go to the next wallpaper
+# 5. Go to the next wallpaper (random)
+# 6. Go to the prev wallpaper
+# 7. Go to the prev wallpaper (random)
+#
+
 wallpaper_directory="${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}"
 requested_wallpaper="$DEFAULT_WALLPAPER"
+get_last=0
 
 while [ $# -gt 0 ]; do
     case "$1" in
+    --get | -g)
+        get_last=1
+        requested_wallpaper="$2"
+        shift 2 || exit 1
+        ;;
     --set | -s)
         echo "requested_wallpaper=$2"
         set_requested=true
