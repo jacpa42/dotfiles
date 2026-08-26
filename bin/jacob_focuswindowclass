@@ -18,7 +18,7 @@ spotify | discord | webcord | Vesktop)
     exec swaymsg workspace number "$CHAT_WORKSPACE"
     ;;
 
-nvim* | foot | footclient | "org.mapeditor.tiled" | aseprite)
+nvim* | foot | footclient | kitty | "org.mapeditor.tiled" | aseprite)
     exec swaymsg workspace number "$TERMINAL_WORKSPACE"
     ;;
 esac

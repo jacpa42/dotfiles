@@ -27,6 +27,9 @@ fd
 firefox
 foot
 foot-terminfo
+kitty
+kitty-shell-integration
+kitty-terminfo
 fuzzel
 fzf
 ghostscript

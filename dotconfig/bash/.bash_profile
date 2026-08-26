@@ -7,6 +7,9 @@ export GOPATH=$HOME/.local/share/go
 export WALLPAPER_DIRECTORY="$PROJDIR/muur_papier"
 export DEFAULT_WALLPAPER="knight_templar"
 export GTK_THEME='black-metal-khold:dark'
+export KITTY_SHELL_INTEGRATION="shell_integration"
+
+export TERMINAL="/usr/bin/kitty"
 
 export PATH=$PATH:~/.cargo/bin:$DOTDIR/bin
 

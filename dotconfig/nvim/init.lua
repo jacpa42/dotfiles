@@ -1,9 +1,7 @@
 -- epic experimental ui
 require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 3000 } } })
 
-----------------------------------opts----------------------------------
-----------------------------------opts----------------------------------
-----------------------------------opts----------------------------------
+----------------------------------opts---------------------------------
 
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
@@ -45,9 +43,7 @@ vim.o.textwidth = 80
 vim.o.formatoptions = "cro"
 vim.o.cmdheight = 0
 
-----------------------------------statusline----------------------------------
-----------------------------------statusline----------------------------------
-----------------------------------statusline----------------------------------
+----------------------------------statusline---------------------------------
 
 function Macro()
 	local macroaddr = vim.fn.reg_recording()
@@ -61,9 +57,7 @@ end
 vim.o.statusline =
 	"%<%f %h%w%m%r %{% luaeval('Macro()') %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}"
 
-----------------------------------autocmd----------------------------------
-----------------------------------autocmd----------------------------------
-----------------------------------autocmd----------------------------------
+----------------------------------autocmd---------------------------------
 
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -142,9 +136,7 @@ autocmd({ "FileType" }, {
 
 vim.cmd("autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=100}")
 
-----------------------------------lsp----------------------------------
-----------------------------------lsp----------------------------------
-----------------------------------lsp----------------------------------
+----------------------------------lsp---------------------------------
 
 local function switch_source_header(bufnr, client)
 	local method_name = "textDocument/switchSourceHeader"
@@ -283,9 +275,7 @@ for l, c in pairs(lsp_configs) do
 	vim.lsp.enable(l)
 end
 
-----------------------------------scroll eof----------------------------------
-----------------------------------scroll eof----------------------------------
-----------------------------------scroll eof----------------------------------
+----------------------------------scroll eof---------------------------------
 
 if false then
 	local function check_eof_scrolloff(ev)
@@ -329,9 +319,8 @@ if false then
 	vim_resized_cb()
 	vim.defer_fn(vim_resized_cb, 0)
 end
-----------------------------------keymap----------------------------------
-----------------------------------keymap----------------------------------
-----------------------------------keymap----------------------------------
+
+----------------------------------keymap---------------------------------
 
 local map = vim.keymap.set
 
@@ -367,13 +356,7 @@ end, {
 })
 
 -- terminal stuff
-map("n", "<m-v>", "<cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
-map("t", "<m-v>", "<c-\\><c-n><cmd>vert terminal<cr>i", { noremap = true, silent = true, desc = "vert terminal" })
-map("n", "<m-c>", "<cmd>tabnew +terminal<cr>i", { desc = "new terminal tab" })
-map("t", "<m-c>", "<c-\\><c-n><cmd>tabnew +terminal<cr>i", { noremap = true, silent = true, desc = "new terminal tab" })
 map("t", "<m-esc>", "<c-\\><c-n>", { noremap = true, silent = true, desc = "escape out of terminal mode" })
-map("n", "<m-y>", "<cmd>tabnew +terminal\\ yazi<cr>i", { noremap = true, silent = true, desc = "yazi" })
-map("n", "<m-g>", "<cmd>tabnew +terminal\\ lazygit<cr>i", { noremap = true, silent = true, desc = "lazygit" })
 
 map("n", "gr", vim.lsp.buf.references, { desc = "find symbol references" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "find symbol definition" })
@@ -420,7 +403,7 @@ end, { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
 map("n", "<leader>v", "<cmd>vsplit<cr>")
-map("n", "<leader>l", vim.pack.update)
+map("n", "<leader>u", vim.pack.update)
 map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
 map("n", "<c-n>", "<cmd>silent cnext<cr>", { noremap = true, silent = true })
@@ -428,38 +411,10 @@ map("n", "<c-p>", "<cmd>silent cprev<cr>", { noremap = true, silent = true })
 
 map("n", ";", "q:", { desc = "command history" })
 
--- window moving stuff
-map("n", "<m-j>", "<c-w>j", { noremap = true, silent = true, desc = "window focus down" })
-map("n", "<m-k>", "<c-w>k", { noremap = true, silent = true, desc = "window focus up" })
-map("n", "<m-h>", "<c-w>h", { noremap = true, silent = true, desc = "window focus left" })
-map("n", "<m-l>", "<c-w>l", { noremap = true, silent = true, desc = "window focus right" })
-map("n", "<m-J>", "<c-w>J", { noremap = true, silent = true, desc = "window focus down" })
-map("n", "<m-K>", "<c-w>K", { noremap = true, silent = true, desc = "window focus up" })
-map("n", "<m-H>", "<c-w>H", { noremap = true, silent = true, desc = "window focus left" })
-map("n", "<m-L>", "<c-w>L", { noremap = true, silent = true, desc = "window focus right" })
-
-map("t", "<m-j>", "<c-\\><c-n><c-w>j", { noremap = true, silent = true, desc = "window focus down" })
-map("t", "<m-k>", "<c-\\><c-n><c-w>k", { noremap = true, silent = true, desc = "window focus up" })
-map("t", "<m-h>", "<c-\\><c-n><c-w>h", { noremap = true, silent = true, desc = "window focus left" })
-map("t", "<m-l>", "<c-\\><c-n><c-w>l", { noremap = true, silent = true, desc = "window focus right" })
-map("t", "<m-J>", "<c-\\><c-n><c-w>J", { noremap = true, silent = true, desc = "window focus down" })
-map("t", "<m-K>", "<c-\\><c-n><c-w>K", { noremap = true, silent = true, desc = "window focus up" })
-map("t", "<m-H>", "<c-\\><c-n><c-w>H", { noremap = true, silent = true, desc = "window focus left" })
-map("t", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "window focus right" })
-
-map("i", "<m-j>", "<c-\\><c-n><c-w>j", { noremap = true, silent = true, desc = "window focus down" })
-map("i", "<m-k>", "<c-\\><c-n><c-w>k", { noremap = true, silent = true, desc = "window focus up" })
-map("i", "<m-h>", "<c-\\><c-n><c-w>h", { noremap = true, silent = true, desc = "window focus left" })
-map("i", "<m-l>", "<c-\\><c-n><c-w>l", { noremap = true, silent = true, desc = "window focus right" })
-map("i", "<m-J>", "<c-\\><c-n><c-w>J", { noremap = true, silent = true, desc = "window focus down" })
-map("i", "<m-K>", "<c-\\><c-n><c-w>K", { noremap = true, silent = true, desc = "window focus up" })
-map("i", "<m-H>", "<c-\\><c-n><c-w>H", { noremap = true, silent = true, desc = "window focus left" })
-map("i", "<m-L>", "<c-\\><c-n><c-w>L", { noremap = true, silent = true, desc = "window focus right" })
-
-map("t", "<m-r>", "<c-\\><c-n><cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
-map("t", "<m-e>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
-map("n", "<m-r>", "<cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
-map("n", "<m-e>", "<cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
+map("t", "<tab>", "<c-\\><c-n><cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
+map("t", "<s-tab>", "<c-\\><c-n><cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
+map("n", "<tab>", "<cmd>tabn<cr>", { noremap = true, silent = true, desc = "next tab" })
+map("n", "<s-tab>", "<cmd>tabp<cr>", { noremap = true, silent = true, desc = "previous tab" })
 
 -- grep selection
 map(
@@ -499,9 +454,7 @@ map("n", "<right>", "<cmd>DapStepInto<cr>", { desc = "dap step into" })
 map("n", "<down>", "<cmd>DapStepOver<cr>", { desc = "dap step over" })
 map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 
-----------------------------------plugins----------------------------------
-----------------------------------plugins----------------------------------
-----------------------------------plugins----------------------------------
+----------------------------------plugins---------------------------------
 vim.pack.add({
 	"https://github.com/rafamadriz/friendly-snippets",
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
@@ -856,9 +809,7 @@ require("black-metal").setup({
 -- specified in your config.
 require("black-metal").load()
 
-----------------------------------greeter----------------------------------
-----------------------------------greeter----------------------------------
-----------------------------------greeter----------------------------------
+----------------------------------greeter---------------------------------
 
 local ascii_art = [[
 ██ ▄█▀ ██▀███   ▄▄▄        ▄████

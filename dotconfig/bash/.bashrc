@@ -102,7 +102,7 @@ function y() {
 alias shuffle='mpv --resume-playback=no --directory-mode=recursive --directory-filter-types="video,audio,playlist,archive" --shuffle .'
 alias aqua="asciiquarium --transparent"
 alias ff="clear && fastfetch"
-alias icat="chafa -w 9 --threads=24 --exact-size=auto -O 9 --format=sixels --passthrough=tmux"
+alias icat="kitten icat"
 alias l="ls --group-directories-first --indicator-style=none -gcGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
 alias ll="ls --group-directories-first -AgcGh --time-style=\"+%H:%M %d/%m/%y\" --color=auto"
 alias v="clear && nvim"
