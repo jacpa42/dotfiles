@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/usr/bin/dash
 
 mode=""
 for arg in "$@"; do
@@ -12,12 +12,15 @@ done
 [ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --dmenu --auto-select)"
 [ -z "$mode" ] && exit
 
+mkdir -p "$HOME/Pictures/screenshots"
 filename="$HOME/Pictures/screenshots/$(date +'%F-%N').png"
 
-[ "$mode" = "region" ] && slurp | grim "$filename"
+[ "$mode" = "region" ] && slurp | grim -g - "$filename"
+
 [ "$mode" = "window" ] && swaymsg -t get_tree |
     jq -r '.. | select(.pid? and .visible?) | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"' |
-    slurp | grim "$filename"
+    slurp | grim -g - "$filename"
+
 [ "$mode" = "output" ] && grim -o "$(swaymsg -t get_outputs | jq -r '.. | select(.active?) | .name')" "$filename"
 
 notify-send -a screenshot -i "$filename" "screenshot taken" "Saved+copied screenshot."
