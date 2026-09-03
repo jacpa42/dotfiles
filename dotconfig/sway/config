@@ -8,6 +8,7 @@ default_border none
 font pango:JetBrainsMono Nerd Font 14
 seat seat0 hide_cursor when-typing enable
 workspace_layout tabbed
+hide_edge_borders --i3 smart
 
 # window rules
 assign [class  = "Spotify"] 1
@@ -41,6 +42,7 @@ exec gsettings set org.gnome.desktop.interface cursor-theme catppuccin-mocha-mau
 input "type:keyboard" xkb_options caps:escape
 input "type:keyboard" repeat_delay 200
 input "type:keyboard" repeat_rate 60
+input "type:touchpad" dwt disabled
 
 ### Key bindings
 #
