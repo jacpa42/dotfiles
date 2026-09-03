@@ -50,9 +50,9 @@ input "type:keyboard" repeat_rate 60
     bindsym $mod+Backspace exec $term
 
     # Mini programs
-    bindsym $mod+y exec $term -T yazi -a yazi -e yazi
-    bindsym $mod+b exec $term -T btop -a btop -e btop
-    bindsym $mod+m exec $term -T rmpc -a rmpc -e rmpc
+    bindsym $mod+y exec $term -T yazi --app-id yazi -e yazi
+    bindsym $mod+b exec $term -T btop --app-id btop -e btop
+    bindsym $mod+m exec $term -T rmpc --app-id rmpc -e rmpc
     bindsym $mod+Period exec jacob_sessionizer projects
     bindsym $mod+h exec xdg-open $(jacob_firefox_history)
     bindsym $mod+p exec jacob_passwords --type

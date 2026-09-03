@@ -67,12 +67,18 @@ vim.api.nvim_clear_autocmds({
 	event = "TermClose",
 })
 
+autocmd("BufReadPost", {
+	pattern = "*",
+	desc = "Open file at the last position it was edited earlier",
+	command = 'silent! normal! g`"zv',
+})
+
 local function starts_with(str, prefix)
 	return string.sub(str, 1, string.len(prefix)) == prefix
 end
 
 -- special commands for dapui buffers
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
 	callback = function(args)
 		pcall(vim.treesitter.start, args.buf)
 	end,
@@ -346,13 +352,13 @@ map("n", "gC", function()
 end, { noremap = true, silent = true, desc = "triple comment" })
 
 map("n", "<leader>c", function()
-	local loc = vim.fn.expand("%:p") .. ":" .. vim.fn.line(".") .. ":" .. vim.fn.col(".")
+	local loc = vim.fn.expand("%:p")
 	vim.fn.setreg("+", loc)
 	vim.notify('copied "' .. loc .. '"')
 end, {
 	noremap = true,
 	silent = true,
-	desc = "copy current file location",
+	desc = "copy current file path",
 })
 
 -- terminal stuff

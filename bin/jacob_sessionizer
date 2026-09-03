@@ -5,8 +5,7 @@ OPERATION=""
 
 case "$1" in
 gitweb)
-    cd "$PROJDIR"
-    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git --base-directory "$PROJDIR" | fuzzel --dmenu --placeholder="Choose project")"
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
@@ -27,15 +26,15 @@ gitweb)
     exec xdg-open "$url"
     ;;
 projects)
-    cd "$PROJDIR"
-    TARGET_DIR="$(fd --format="{//}" -Hgtd .git | fuzzel --dmenu --placeholder="Choose project")"
+    TARGET_DIR="$(fd --format="{//}" -Hgtd .git -C "$PROJDIR" | fuzzel --dmenu --placeholder="Choose project")"
     TITLE="$(basename "$TARGET_DIR")"
+
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || exit 1
 
     swaymsg workspace number "$TERMINAL_WORKSPACE"
 
-    exec ${TERMINAL:-foot} --app-id "nvim" --working-directory "$TARGET_DIR" -T "$TITLE" sh -c "nvim; $SHELL"
+    exec ${TERMINAL:-foot} --app-id "nvim" --working-directory "$TARGET_DIR" -T "$TITLE" sh -c "/usr/bin/nvim; $SHELL"
     ;;
 *)
     echo "Provide a subcommand please"
