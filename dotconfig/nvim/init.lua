@@ -4,9 +4,6 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 ----------------------------------opts---------------------------------
 
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
-vim.o.completeopt = "fuzzy,menu,noinsert,noinsert,popup"
-vim.o.pumheight = 7
-vim.o.pummaxwidth = 80
 vim.o.background = "dark"
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
@@ -68,16 +65,6 @@ local autocmd = vim.api.nvim_create_autocmd
 vim.api.nvim_clear_autocmds({
 	group = "nvim.terminal",
 	event = "TermClose",
-})
-
-autocmd("LspAttach", {
-	desc = "auto completion for lsp",
-	callback = function(ev)
-		local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
-		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
 })
 
 autocmd("BufReadPost", {
@@ -345,8 +332,6 @@ end
 
 local map = vim.keymap.set
 
-map("i", "<c-space>", "<c-x><c-o>", { noremap = true, silent = true, desc = "omnicomplete" })
-
 map("n", "gC", function()
 	local cmt = vim.bo.commentstring
 	if cmt == "" then
@@ -418,7 +403,6 @@ map("n", "<c-k>", ":move-2<cr>", { noremap = true, silent = true, desc = "move l
 map("v", "<c-k>", ":move-2<cr> gv", { noremap = true, silent = true, desc = "move line up" })
 
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
-map("n", "<c-f>", "<cmd>on<cr>", { noremap = true, silent = true })
 map("n", "<leader>d", function()
 	local num_windows = vim.fn.winnr("$")
 	vim.cmd(num_windows > 1 and "q" or "bd")
@@ -479,6 +463,7 @@ map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 
 ----------------------------------plugins---------------------------------
 vim.pack.add({
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-lua/plenary.nvim",
@@ -546,6 +531,76 @@ autocmd("FileType", {
 	callback = function()
 		require("mason").setup({})
 	end,
+})
+
+
+autocmd("InsertEnter", {
+       desc = "blink setup",
+       group = PluginLoaderGroup,
+       once = true,
+       callback = function()
+               require("blink.cmp").setup({
+                       appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = false },
+                       sources = { default = { "lsp", "path", "snippets", "buffer", "cmdline" } },
+                       fuzzy = { implementation = "rust" },
+                       completion = {
+                               menu = {
+                                       draw = {
+                                               treesitter = { "lsp" },
+                                               columns = {
+                                                       { "label", "label_description", gap = 1 },
+                                                       { "kind_icon", "kind" },
+                                               },
+                                               components = {
+                                                       -- customize the drawing of kind icons
+                                                       kind_icon = {
+                                                               text = function(ctx)
+                                                                       -- default kind icon
+                                                                       local icon = ctx.kind_icon
+                                                                       -- if LSP source, check for color derived from documentation
+                                                                       if ctx.item.source_name == "LSP" then
+                                                                               local color_item = require("nvim-highlight-colors").format(
+                                                                                       ctx.item.documentation,
+                                                                                       { kind = ctx.kind }
+                                                                               )
+                                                                               if color_item and color_item.abbr ~= "" then
+                                                                                       icon = color_item.abbr
+                                                                               end
+                                                                       end
+                                                                       return icon .. ctx.icon_gap
+                                                               end,
+                                                               highlight = function(ctx)
+                                                                       -- default highlight group
+                                                                       local highlight = "BlinkCmpKind" .. ctx.kind
+                                                                       -- if LSP source, check for color derived from documentation
+                                                                       if ctx.item.source_name == "LSP" then
+                                                                               local color_item = require("nvim-highlight-colors").format(
+                                                                                       ctx.item.documentation,
+                                                                                       { kind = ctx.kind }
+                                                                               )
+                                                                               if color_item and color_item.abbr_hl_group then
+                                                                                       highlight = color_item.abbr_hl_group
+                                                                               end
+                                                                       end
+                                                                       return highlight
+                                                               end,
+                                                       },
+                                               },
+                                       },
+                               },
+                               documentation = {
+                                       auto_show = true,
+                                       auto_show_delay_ms = 500,
+                               },
+                               accept = { auto_brackets = { enabled = true } },
+                       },
+                       keymap = {
+                               ["<c-space>"] = { "select_and_accept" },
+                               ["<c-j>"] = { "select_next", "fallback" },
+                               ["<c-k>"] = { "select_prev", "fallback" },
+                       },
+               })
+       end,
 })
 
 -- treesitter
