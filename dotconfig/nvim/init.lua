@@ -4,6 +4,9 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 ----------------------------------opts---------------------------------
 
 vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
+vim.o.completeopt = "fuzzy,menu,noinsert,noinsert,popup"
+vim.o.pumheight = 7
+vim.o.pummaxwidth = 80
 vim.o.background = "dark"
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
@@ -65,6 +68,16 @@ local autocmd = vim.api.nvim_create_autocmd
 vim.api.nvim_clear_autocmds({
 	group = "nvim.terminal",
 	event = "TermClose",
+})
+
+autocmd("LspAttach", {
+	desc = "auto completion for lsp",
+	callback = function(ev)
+		local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+		if client:supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+		end
+	end,
 })
 
 autocmd("BufReadPost", {
@@ -194,6 +207,7 @@ end
 
 local lsp_configs = {
 	["clangd"] = {
+		enable = false,
 		cmd = { "clangd" },
 		root_markers = {
 			".clangd",
@@ -226,6 +240,7 @@ local lsp_configs = {
 	},
 
 	["luals"] = {
+		enable = true,
 		cmd = { "lua-language-server" },
 		filetypes = { "lua" },
 		settings = {
@@ -242,6 +257,7 @@ local lsp_configs = {
 	},
 
 	["rust_analyzer"] = {
+		enable = true,
 		cmd = { "rust-analyzer" },
 		filetypes = { "rust" },
 		single_file_support = true,
@@ -258,17 +274,14 @@ local lsp_configs = {
 		end,
 	},
 
-	["hyprls"] = {
-		cmd = { "hyprls" },
-		filetypes = { "hyprlang" },
-	},
-
 	["odin"] = {
+		enable = true,
 		cmd = { "ols" },
 		filetypes = { "odin" },
 	},
 
 	["zls"] = {
+		enable = true,
 		cmd = { "zls" },
 		filetypes = { "zig", "zir" },
 		root_markers = { "zls.json", "build.zig", ".git" },
@@ -278,7 +291,9 @@ local lsp_configs = {
 
 for l, c in pairs(lsp_configs) do
 	vim.lsp.config[l] = c
-	vim.lsp.enable(l)
+	if c.enable then
+		vim.lsp.enable(l)
+	end
 end
 
 ----------------------------------scroll eof---------------------------------
@@ -329,6 +344,8 @@ end
 ----------------------------------keymap---------------------------------
 
 local map = vim.keymap.set
+
+map("i", "<c-space>", "<c-x><c-o>", { noremap = true, silent = true, desc = "omnicomplete" })
 
 map("n", "gC", function()
 	local cmt = vim.bo.commentstring
@@ -463,7 +480,6 @@ map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 ----------------------------------plugins---------------------------------
 vim.pack.add({
 	"https://github.com/rafamadriz/friendly-snippets",
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
@@ -571,75 +587,6 @@ autocmd("BufAdd", {
 	end,
 })
 
-autocmd("InsertEnter", {
-	desc = "blink setup",
-	group = PluginLoaderGroup,
-	once = true,
-	callback = function()
-		require("blink.cmp").setup({
-			appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = false },
-			sources = { default = { "lsp", "path", "snippets", "buffer", "cmdline" } },
-			fuzzy = { implementation = "rust" },
-			completion = {
-				menu = {
-					draw = {
-						treesitter = { "lsp" },
-						columns = {
-							{ "label", "label_description", gap = 1 },
-							{ "kind_icon", "kind" },
-						},
-						components = {
-							-- customize the drawing of kind icons
-							kind_icon = {
-								text = function(ctx)
-									-- default kind icon
-									local icon = ctx.kind_icon
-									-- if LSP source, check for color derived from documentation
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr ~= "" then
-											icon = color_item.abbr
-										end
-									end
-									return icon .. ctx.icon_gap
-								end,
-								highlight = function(ctx)
-									-- default highlight group
-									local highlight = "BlinkCmpKind" .. ctx.kind
-									-- if LSP source, check for color derived from documentation
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr_hl_group then
-											highlight = color_item.abbr_hl_group
-										end
-									end
-									return highlight
-								end,
-							},
-						},
-					},
-				},
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 500,
-				},
-				accept = { auto_brackets = { enabled = true } },
-			},
-			keymap = {
-				["<c-space>"] = { "select_and_accept" },
-				["<c-j>"] = { "select_next", "fallback" },
-				["<c-k>"] = { "select_prev", "fallback" },
-			},
-		})
-	end,
-})
-
 autocmd("FileType", {
 	desc = "dap setup",
 	pattern = { "zig", "odin" },
@@ -708,6 +655,9 @@ autocmd("BufAdd", {
 	group = PluginLoaderGroup,
 	once = true,
 	callback = function()
+		vim.keymap.set("n", "<c-f>", function()
+			require("conform").format({ lsp_format = "fallback", timeout_ms = 500 })
+		end)
 		require("conform").setup({
 			formatters = {
 				["clang-format-custom"] = {
@@ -728,7 +678,6 @@ autocmd("BufAdd", {
 				},
 			},
 			notify_on_error = false,
-			format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
 			formatters_by_ft = {
 				["_"] = { "trim_whitespace" },
 				bash = { "shfmt" },
