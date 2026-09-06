@@ -46,7 +46,10 @@ projects)
     # Make sure there is a window attached to tmux. If there isn't one, we
     # create one and exit
     #
-    jacob_focuswindowclass "$TMUX_APP_ID" || exec $TERMCMD $TMUXCMD
+    jacob_focuswindowclass "$TMUX_APP_ID" || {
+        foot --app-id "$TMUX_APP_ID" --working-directory "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" $SHELL &
+        for i in $(seq 100); do jacob_focuswindowclass "$TMUX_APP_ID" && exit 0; done
+    }
 
     tmux has-session -t "$SESSION_NAME" && exec tmux switch-client -t "$SESSION_NAME"
     tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR" $SHELL && exec tmux switch-client -t "$SESSION_NAME"

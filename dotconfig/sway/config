@@ -15,7 +15,7 @@ assign [class  = "Spotify"] 1
 assign [app_id = "discord"] 1
 assign [app_id = "firefox"] 2
 assign [app_id = "nvim"   ] 3
-assign [class  = "tmux"   ] 3
+assign [app_id = "tmux"   ] 3
 assign [class  = "steam"  ] 4
 
 # colors

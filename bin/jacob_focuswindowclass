@@ -11,15 +11,15 @@ swaymsg "[app_id=\"$1\"]" focus && exit 0
 #
 case "$1" in
 firefox)
-    exec swaymsg workspace number "$WEB_WORKSPACE"
+    swaymsg workspace number "$WEB_WORKSPACE" && exit 0
     ;;
 
 spotify | discord | webcord | Vesktop)
-    exec swaymsg workspace number "$CHAT_WORKSPACE"
+    swaymsg workspace number "$CHAT_WORKSPACE" && exit 0
     ;;
 
 nvim* | foot | footclient | kitty | "org.mapeditor.tiled" | aseprite)
-    exec swaymsg workspace number "$TERMINAL_WORKSPACE"
+    swaymsg workspace number "$TERMINAL_WORKSPACE" && exit 0
     ;;
 esac
 
