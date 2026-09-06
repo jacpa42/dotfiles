@@ -1,6 +1,6 @@
 # variables
 set $mod Mod4
-set $term kitty
+set $term foot
 set $menu fuzzel
 
 # general config
@@ -15,6 +15,7 @@ assign [class  = "Spotify"] 1
 assign [app_id = "discord"] 1
 assign [app_id = "firefox"] 2
 assign [app_id = "nvim"   ] 3
+assign [class  = "tmux"   ] 3
 assign [class  = "steam"  ] 4
 
 # colors

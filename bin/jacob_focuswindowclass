@@ -1,8 +1,8 @@
 #!/usr/bin/dash
-[ -z "$1" ] && exit
+[ -z "$1" ] && exit 1
 
 current="$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused) | .app_id')"
-[ "$current" = "$1" ] && exit
+[ "$current" = "$1" ] && exit 0
 
 swaymsg "[app_id=\"$1\"]" focus && exit 0
 
@@ -22,3 +22,5 @@ nvim* | foot | footclient | kitty | "org.mapeditor.tiled" | aseprite)
     exec swaymsg workspace number "$TERMINAL_WORKSPACE"
     ;;
 esac
+
+exit 1
