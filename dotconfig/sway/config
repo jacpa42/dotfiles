@@ -78,6 +78,9 @@ input "type:touchpad" dwt disabled
     # Start your launcher
     bindsym $mod+Space exec pkill $menu || $menu
 
+    # search last copied thing
+    bindsym $mod+Slash exec jacob_websearch last_copied
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.

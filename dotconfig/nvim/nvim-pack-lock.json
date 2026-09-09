@@ -5,7 +5,7 @@
       "src": "https://github.com/RRethy/base16-nvim"
     },
     "black-metal-theme-neovim": {
-      "rev": "3148f7f105e41726093c6db899ca9bd4269e13bf",
+      "rev": "3a5522fbc7127c638ac8a98692cb83bbdf3594a9",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"
     },
     "blink.cmp": {

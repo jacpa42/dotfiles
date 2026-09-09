@@ -1,0 +1,15 @@
+#!/usr/bin/dash
+
+case "$1" in
+last_copied)
+    SEARCHFOR="$(wl-paste)"
+    ;;
+esac
+
+[ -z "$SEARCHFOR" ] && SEARCHFOR="$(echo | fuzzel -l0 --dmenu --placeholder="search web")"
+[ -z "$SEARCHFOR" ] && exit 0
+
+url="https://www.google.com/search?q=$(printf "%s" "$SEARCHFOR" | sed -n '1p' | urlencode)&udm=14"
+default_browser="$(xdg-mime query default x-scheme-handler/https)"
+jacob_focuswindowclass "${default_browser%%.*}"
+exec xdg-open "$url"

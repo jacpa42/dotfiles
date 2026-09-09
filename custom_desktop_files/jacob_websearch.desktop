@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Webseach
-TryExec=jacob_webseach
-Exec=jacob_webseach
+TryExec=jacob_websearch
+Exec=jacob_websearch
 Type=Application
 Categories=Utility;
 StartupNotify=false
