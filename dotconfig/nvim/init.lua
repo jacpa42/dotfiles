@@ -11,7 +11,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.netrw_browsex_viewer = "qutebrowser"
 vim.o.breakindent = true
 vim.o.wrap = true
 vim.o.confirm = true
@@ -54,9 +53,21 @@ function Macro()
 	end
 end
 
-vim.o.statusline =
-	"%<%f %h%w%m%r %{% luaeval('Macro()') %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}"
+vim.o.statusline = table.concat({
+	"%<%f %h%w%m%r ",
+	"%{%v:lua.Macro()%}",
+	"%=",
+	"%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}",
+	"%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}",
+	"%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}",
+	"%{% &busy > 0 ? '◐ ' : '' %}",
+	"%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}",
+})
 
+vim.schedule(function()
+	vim.g.tpipeline_autoembed = 0
+	vim.g.tpipeline_statusline = vim.o.statusline
+end)
 ----------------------------------autocmd---------------------------------
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -194,7 +205,7 @@ end
 
 local lsp_configs = {
 	["clangd"] = {
-		enable = false,
+		enable = true,
 		cmd = { "clangd" },
 		root_markers = {
 			".clangd",
@@ -332,6 +343,7 @@ end
 
 local map = vim.keymap.set
 
+vim.g.tmux_navigator_no_mappings = 1
 map("n", "<m-h>", "<cmd>TmuxNavigateLeft<cr>", { noremap = true, silent = true })
 map("n", "<m-j>", "<cmd>TmuxNavigateDown<cr>", { noremap = true, silent = true })
 map("n", "<m-k>", "<cmd>TmuxNavigateUp<cr>", { noremap = true, silent = true })
@@ -339,7 +351,9 @@ map("n", "<m-l>", "<cmd>TmuxNavigateRight<cr>", { noremap = true, silent = true 
 
 map("n", "gC", function()
 	local cmt = vim.bo.commentstring
-	if cmt == "" then return end
+	if cmt == "" then
+		return
+	end
 
 	cmt = cmt:gsub(" %%s", "")
 	local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -469,7 +483,7 @@ map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 	"https://github.com/rafamadriz/friendly-snippets",
-    "https://github.com/vimpostor/vim-tpipeline",
+	"https://github.com/vimpostor/vim-tpipeline",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/christoomey/vim-tmux-navigator",
@@ -601,8 +615,8 @@ autocmd("InsertEnter", {
 			},
 			keymap = {
 				["<c-space>"] = { "select_and_accept" },
-				["<c-j>"] = { "select_next", "fallback" },
-				["<c-k>"] = { "select_prev", "fallback" },
+				["<c-n>"] = { "select_next", "fallback" },
+				["<c-p>"] = { "select_prev", "fallback" },
 			},
 		})
 	end,
@@ -782,27 +796,25 @@ require("nvim-highlight-colors").setup({
 	end,
 })
 
--- See here for the location of a base16 scheme
--- https://github.com/RRethy/base16-nvim
 require("black-metal").setup({
 	theme = "immortal",
 	variant = "dark",
-	alt_bg = true,
+	alt_bg = false,
 	colored_docstrings = true,
 	cursorline_gutter = true,
 	-- If true, highlights the gutter darker than the bg
 	dark_gutter = false,
-	favor_treesitter_hl = false,
+	favor_treesitter_hl = true,
 	plain_float = true,
 	show_eob = false,
-	term_colors = false,
+	term_colors = true,
 	transparent = true,
 
 	-----DIAGNOSTICS and CODE STYLE-----
 	diagnostics = {
-		darker = true, -- Darker colors for diagnostic
+		darker = false, -- Darker colors for diagnostic
 		undercurl = false, -- Use undercurl for diagnostics
-		background = true, -- Use background color for virtual text
+		background = false, -- Use background color for virtual text
 	},
 
 	-- The following table accepts values the same as the `gui` option for normal
@@ -819,9 +831,8 @@ require("black-metal").setup({
 		variables = "none",
 	},
 	plugin = { cmp = { plain = false, reverse = false } },
+    colors = { fg = "#ffffff", property = "#ffffff" }
 })
--- Convenience function that simply calls `:colorscheme <theme>` with the theme
--- specified in your config.
 require("black-metal").load()
 
 ----------------------------------greeter---------------------------------

@@ -36,7 +36,7 @@ projects)
         exit 1
     }
 
-    SESSION_NAME=$(basename "$TARGET_DIR")
+    SESSION_NAME="$(basename "$TARGET_DIR")"
 
     TMUX_APP_ID=tmux
     TERMCMD="foot --app-id $TMUX_APP_ID --working-directory $TARGET_DIR -T $SESSION_NAME"
@@ -47,12 +47,12 @@ projects)
     # create one and exit
     #
     jacob_focuswindowclass "$TMUX_APP_ID" || {
-        foot --app-id "$TMUX_APP_ID" --working-directory "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" $SHELL &
+        foot --app-id "$TMUX_APP_ID" --working-directory "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" -n bash "nvim; $SHELL" &
         for i in $(seq 100); do jacob_focuswindowclass "$TMUX_APP_ID" && exit 0; done
     }
 
     tmux has-session -t "$SESSION_NAME" && exec tmux switch-client -t "$SESSION_NAME"
-    tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR" $SHELL && exec tmux switch-client -t "$SESSION_NAME"
+    tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR" -n bash "nvim; $SHELL" && exec tmux switch-client -t "$SESSION_NAME"
     ;;
 *)
     echo "Provide a subcommand please"

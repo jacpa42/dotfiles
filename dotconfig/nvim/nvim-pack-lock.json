@@ -5,7 +5,7 @@
       "src": "https://github.com/RRethy/base16-nvim"
     },
     "black-metal-theme-neovim": {
-      "rev": "ae50fc0f292a1710309090cb8ad8b3512f883251",
+      "rev": "3148f7f105e41726093c6db899ca9bd4269e13bf",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"
     },
     "blink.cmp": {
@@ -14,7 +14,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "blink.lib": {
-      "rev": "f55df8a6e0a7acccf45ef0ffbb4ce46110fcf7d0",
+      "rev": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa",
       "src": "https://github.com/saghen/blink.lib"
     },
     "conform.nvim": {
@@ -22,7 +22,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "friendly-snippets": {
-      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "rev": "30bfd475adadfd4f286f86168831348dfd8aecdc",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "mason.nvim": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "41416e81a6c7f4af4984395bfe0cd8d174e70976",
+      "rev": "5cb0114e6242625db56dd6440e945ed1ece10bc7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
