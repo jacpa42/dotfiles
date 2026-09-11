@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=copy date
+TryExec=jacob_date
+Exec=jacob_date
+Type=Application
+Categories=Utility;
+Terminal=false
+StartupNotify=false
