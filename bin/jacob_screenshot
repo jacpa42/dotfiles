@@ -9,7 +9,7 @@ for arg in "$@"; do
     *) exit 1 ;;
     esac
 done
-[ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --dmenu --auto-select)"
+[ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --lines=3 --dmenu --auto-select)"
 [ -z "$mode" ] && exit
 
 mkdir -p "$HOME/Pictures/screenshots"

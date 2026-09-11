@@ -1,0 +1,6 @@
+#!/usr/bin/dash
+DATE="$(date)"
+wl-copy "$DATE"
+wtype "$DATE"
+
+notify-send --app-name="date" --replace-id=11009 "copied/typed $DATE"
