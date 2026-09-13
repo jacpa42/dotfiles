@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Slang Shader Documentation Website
+TryExec=jacob_slangdoc
+Exec=jacob_slangdoc
+Type=Application
+Categories=Utility;
+StartupNotify=false

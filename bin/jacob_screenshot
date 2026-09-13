@@ -1,25 +1,21 @@
 #!/usr/bin/dash
 
-mode=""
-for arg in "$@"; do
-    case "$arg" in
-    -r | --region) mode="region" ;;
-    -w | --window) mode="window" ;;
-    -o | --output) mode="output" ;;
-    *) exit 1 ;;
-    esac
-done
+mode="$1"
 [ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --lines=3 --dmenu --auto-select)"
 [ -z "$mode" ] && exit
 
 mkdir -p "$HOME/Pictures/screenshots"
 filename="$HOME/Pictures/screenshots/$(date +'%F-%N').png"
 
-[ "$mode" = "region" ] && slurp | grim -g - "$filename"
+[ "$mode" = "region" ] && {
+    DIM="$(slurp || exit)"
+    grim -g "$DIM" "$filename"
+}
 
-[ "$mode" = "window" ] && swaymsg -t get_tree |
-    jq -r '.. | select(.pid? and .visible?) | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"' |
-    slurp | grim -g - "$filename"
+[ "$mode" = "window" ] && {
+    DIM="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"' | slurp)"
+    grim -g "$DIM" "$filename" || exit
+}
 
 [ "$mode" = "output" ] && grim -o "$(swaymsg -t get_outputs | jq -r '.. | select(.active?) | .name')" "$filename"
 

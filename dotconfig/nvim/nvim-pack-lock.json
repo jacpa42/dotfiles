@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "base16-nvim": {
-      "rev": "09944b3120451d2881dc8cfb13c85c11949f477d",
-      "src": "https://github.com/RRethy/base16-nvim"
-    },
     "black-metal-theme-neovim": {
       "rev": "3a5522fbc7127c638ac8a98692cb83bbdf3594a9",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"
@@ -30,7 +26,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim-dap": {
-      "rev": "c9a0738e45f1bd41d792a126941348dce661cf9b",
+      "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
@@ -42,7 +38,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "d4d59cb369da46b95699bd2200efbcffc6dadb3b",
+      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
