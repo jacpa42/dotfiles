@@ -60,6 +60,7 @@ input "type:touchpad" dwt disabled
     bindsym $mod+Period exec jacob_sessionizer projects
     bindsym $mod+h exec xdg-open $(jacob_firefox_history)
     bindsym $mod+p exec jacob_passwords --type
+    bindsym $mod+Shift+y exec jacob_ytdlp "$(wl-paste)"
 
     # Screenshot and colorpicker
     bindsym $mod+c exec jacob_color_picker
