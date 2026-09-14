@@ -64,7 +64,7 @@ input "type:touchpad" dwt disabled
 
     # Screenshot and colorpicker
     bindsym $mod+c exec jacob_color_picker
-    bindsym $mod+x exec jacob_screenshot
+    bindsym $mod+x exec jacob_screenshot region
     bindsym $mod+u exec jacob_sessionizer gitweb
 
     # Wallpaper stuff

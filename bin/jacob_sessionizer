@@ -1,40 +1,31 @@
 #!/usr/bin/dash
 
-TARGET_DIR=""
-OPERATION=""
-
-case "$1" in
-gitweb)
-    TARGET_DIR="$(fd --format="{//}" -Hgtd .git --base-directory "$PROJDIR" | fuzzel --dmenu --placeholder="Choose project")"
-    [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
-    [ -d "$TARGET_DIR" ] || exit 1
-
-    cd "$TARGET_DIR"
-    url="$(git config --get remote.origin.url)"
-    echo "$url"
-    [ -z "$url" ] && {
-        notify-send "Failed to find git url for \"$WORKING_DIRECTORY\""
-        exit 0
-    }
-    default_browser="$(xdg-mime query default x-scheme-handler/https)"
-    [ -z "$default_browser" ] && {
-        notify-send "Failed to find a default browser"
-        exit 0
-    }
-
-    swaymsg workspace number "$WEB_WORKSPACE"
-    exec xdg-open "$url"
-    ;;
-projects)
-    #
-    # Search git projects
-    #
+choose_a_project() {
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git -C "$PROJDIR" | fuzzel --dmenu --placeholder="Choose project")"
-    [ -z "$TARGET_DIR" ] && exit 0 ||TARGET_DIR="$PROJDIR/$TARGET_DIR"
+    [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
     [ -d "$TARGET_DIR" ] || {
         notify-send -t 2000 "\"$TARGET_DIR\" is not a directory :("
         exit 1
     }
+}
+
+case "$1" in
+gitweb)
+    choose_a_project || exit 1
+
+    cd "$TARGET_DIR"
+    url="$(git config get remote.origin.url)"
+    [ -z "$url" ] && {
+        notify-send "Failed to find git url for \"$TARGET_DIR\""
+        exit 0
+    }
+
+    default_browser="$(xdg-mime query default x-scheme-handler/https)"
+    jacob_focuswindowclass "${default_browser%%.*}"
+    exec xdg-open "$url"
+    ;;
+projects)
+    choose_a_project || exit 1
 
     SESSION_NAME="$(basename "$TARGET_DIR")"
 
@@ -49,6 +40,7 @@ projects)
     jacob_focuswindowclass "$TMUX_APP_ID" || {
         foot --app-id "$TMUX_APP_ID" --working-directory "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" -n bash "nvim; $SHELL" &
         for i in $(seq 100); do jacob_focuswindowclass "$TMUX_APP_ID" && exit 0; done
+        exit
     }
 
     tmux has-session -t "$SESSION_NAME" && exec tmux switch-client -t "$SESSION_NAME"

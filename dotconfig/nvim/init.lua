@@ -3,7 +3,6 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 
 ----------------------------------opts---------------------------------
 
-vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
 vim.o.background = "dark"
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
@@ -294,51 +293,6 @@ for l, c in pairs(lsp_configs) do
 	end
 end
 
-----------------------------------scroll eof---------------------------------
-
-if false then
-	local function check_eof_scrolloff(ev)
-		if ev.event == "WinScrolled" then
-			local win_id = vim.api.nvim_get_current_win()
-			local win_event = vim.v.event[tostring(win_id)]
-			if win_event ~= nil and win_event.topline <= 0 then
-				return
-			end
-		end
-
-		local win_height = vim.fn.winheight(0)
-		local win_cur_line = vim.fn.winline()
-		local visual_distance_to_eof = win_height - win_cur_line
-
-		if visual_distance_to_eof < vim.o.scrolloff then
-			local win_view = vim.fn.winsaveview()
-			vim.fn.winrestview({
-				skipcol = 0, -- Without this, `gg` `G` can cause the cursor position to be shown incorrectly
-				topline = win_view.topline + vim.o.scrolloff - visual_distance_to_eof,
-			})
-		end
-	end
-
-	local vim_resized_cb = function()
-		vim.o.scrolloff = math.floor(vim.fn.winheight(0) / 2)
-	end
-
-	local scrollEOF_group = vim.api.nvim_create_augroup("ScrollEOF", { clear = true })
-
-	vim.api.nvim_create_autocmd({ "VimResized" }, {
-		group = scrollEOF_group,
-		callback = vim_resized_cb,
-	})
-
-	vim.api.nvim_create_autocmd({ "CursorMoved", "WinScrolled", "CursorMovedI" }, {
-		group = scrollEOF_group,
-		callback = check_eof_scrolloff,
-	})
-
-	vim_resized_cb()
-	vim.defer_fn(vim_resized_cb, 0)
-end
-
 ----------------------------------keymap---------------------------------
 
 local map = vim.keymap.set
@@ -423,7 +377,8 @@ map("v", "<c-k>", ":move-2<cr> gv", { noremap = true, silent = true, desc = "mov
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
 map("n", "<leader>d", function()
 	local num_windows = vim.fn.winnr("$")
-	vim.cmd(num_windows > 1 and "q" or "bd")
+	local num_tabs = vim.fn.tabpagenr("$")
+	vim.cmd((num_windows > 1 and "q") or (num_tabs > 1 and "tabclose") or "bd")
 end, { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
@@ -833,7 +788,8 @@ require("black-metal").setup({
 	plugin = { cmp = { plain = false, reverse = false } },
     colors = { fg = "#ffffff", property = "#ffffff" }
 })
-require("black-metal").load()
+-- require("black-metal").load()
+vim.cmd.colorscheme("habamax")
 
 ----------------------------------greeter---------------------------------
 

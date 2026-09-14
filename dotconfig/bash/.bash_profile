@@ -26,7 +26,7 @@ export QT_QPA_PLATFORM="wayland;xcb"
 export QT_QPA_PLATFORMTHEME="qt6ct"
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 export RADV_PERFTEST="video_decode,video_encode"
-export SDL_VIDEODRIVER="wayland"
+export SDL_VIDEODRIVER="wayland,x11"
 export XDG_SESSION_TYPE="wayland"
 
 export CHAT_WORKSPACE=1
