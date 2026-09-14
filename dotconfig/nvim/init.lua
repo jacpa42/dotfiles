@@ -377,7 +377,8 @@ map("v", "<c-k>", ":move-2<cr> gv", { noremap = true, silent = true, desc = "mov
 map("n", "<esc>", "<cmd>nohl<cr>", { noremap = true, silent = true })
 map("n", "<leader>d", function()
 	local num_windows = vim.fn.winnr("$")
-	vim.cmd(num_windows > 1 and "q" or "bd")
+	local num_tabs = vim.fn.tabpagenr("$")
+	vim.cmd((num_windows > 1 and "q") or (num_tabs > 1 and "tabclose") or "bd")
 end, { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
