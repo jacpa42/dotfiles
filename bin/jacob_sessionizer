@@ -1,5 +1,7 @@
 #!/usr/bin/dash
 
+TMUX_APP_ID="tmux"
+
 choose_a_project() {
     TARGET_DIR="$(fd --format="{//}" -Hgtd .git -C "$PROJDIR" | fuzzel --dmenu --placeholder="Choose project")"
     [ -z "$TARGET_DIR" ] && exit 0 || TARGET_DIR="$PROJDIR/$TARGET_DIR"
@@ -16,24 +18,25 @@ goto_project() {
 
     [ -d "$TARGET_DIR"   ] || exit 1
     [ -n "$SESSION_NAME" ] || exit 1
-    [ -n "$SESSION_CMD" ] || exit 1
-
-    TMUX_APP_ID=tmux
-    TERMCMD="foot --app-id $TMUX_APP_ID --working-directory $TARGET_DIR -T $SESSION_NAME"
-    TMUXCMD="tmux new-session -As $SESSION_NAME -c $TARGET_DIR $SHELL"
+    [ -n "$SESSION_CMD"  ] || exit 1
 
     #
     # Make sure there is a window attached to tmux. If there isn't one, we
     # create one and exit
     #
     jacob_focuswindowclass "$TMUX_APP_ID" || {
-        foot --app-id "$TMUX_APP_ID" --working-directory "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" -n bash "$SESSION_CMD" &
+        foot --app-id "$TMUX_APP_ID" -D "$TARGET_DIR" -T "$SESSION_NAME" tmux new-session -As "$SESSION_NAME" -c "$TARGET_DIR" -n bash "$SESSION_CMD" &
         for i in $(seq 100); do jacob_focuswindowclass "$TMUX_APP_ID" && exit; done
         exit
     }
 
-    tmux has-session -t "$SESSION_NAME" && tmux switch-client -t "$SESSION_NAME" && exit
-    tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR" -n bash "$SESSION_CMD" && tmux switch-client -t "$SESSION_NAME" && exit
+
+    if [ "$(tmux display-message -p '#S')" = "$SESSION_NAME" ]; then
+        tmux switch-client -p && exit
+    else
+        tmux has-session -t "$SESSION_NAME" && tmux switch-client -t "$SESSION_NAME" && exit
+        tmux new-session -ds "$SESSION_NAME" -c "$TARGET_DIR" -n bash "$SESSION_CMD" && tmux switch-client -t "$SESSION_NAME" && exit
+    fi
 
     exit 1
 }
@@ -58,8 +61,7 @@ projects)
     goto_project "$TARGET_DIR" "$(basename "$TARGET_DIR")" "nvim; $SHELL"
     ;;
 scratch)
-    SESSION_NAME="scratch"
-    tmux has-session -t "$SESSION_NAME" && tmux switch-client -p || goto_project "$HOME" "$SESSION_NAME" "$SHELL"
+    goto_project "$HOME" "scratch" "$SHELL"
     ;;
 *)
     echo "Provide a subcommand please"
