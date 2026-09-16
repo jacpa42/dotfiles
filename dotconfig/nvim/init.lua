@@ -144,9 +144,12 @@ autocmd({ "FileType" }, {
 })
 
 autocmd({ "FileType" }, {
-	pattern = "odin",
+	pattern = { "odin", "slang" },
 	callback = function()
-		vim.opt.errorformat = { "%f(%l:%c) %m" }
+		vim.opt.errorformat = {
+            "  --> %f:%l:%c" , -- the slang compiler
+            "%f(%l:%c) %m", -- the odin compiler
+        }
 	end,
 })
 

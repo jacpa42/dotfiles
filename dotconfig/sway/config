@@ -57,13 +57,15 @@ input "type:touchpad" dwt disabled
     bindsym $mod+y exec $term -T yazi --app-id yazi -e yazi
     bindsym $mod+b exec $term -T btop --app-id btop -e btop
     bindsym $mod+m exec $term -T rmpc --app-id rmpc -e rmpc
+
     bindsym $mod+Period exec jacob_sessionizer projects
-    bindsym $mod+h exec xdg-open $(jacob_firefox_history)
-    bindsym $mod+p exec jacob_passwords --type
+    bindsym $mod+Escape exec jacob_sessionizer scratch
+    bindsym $mod+h      exec xdg-open $(jacob_firefox_history)
+    bindsym $mod+p      exec jacob_passwords --type
 
     # Screenshot and colorpicker
     bindsym $mod+c exec jacob_color_picker
-    bindsym $mod+x exec jacob_screenshot region
+    bindsym $mod+x exec jacob_screenshot  region
     bindsym $mod+u exec jacob_sessionizer gitweb
 
     # Wallpaper stuff
