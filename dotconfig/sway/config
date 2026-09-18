@@ -51,18 +51,18 @@ input "type:touchpad" dwt disabled
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Backspace exec $term
+    bindsym $mod+Shift+Backspace exec $term
 
     # Mini programs
     bindsym $mod+y exec $term -T yazi --app-id yazi -e yazi
     bindsym $mod+b exec $term -T btop --app-id btop -e btop
     bindsym $mod+m exec $term -T rmpc --app-id rmpc -e rmpc
 
-    bindsym $mod+Period exec jacob_sessionizer projects
-    bindsym $mod+Escape exec jacob_sessionizer scratch
-    bindsym $mod+h      exec xdg-open $(jacob_firefox_history)
-    bindsym $mod+p      exec jacob_passwords --type
-    bindsym $mod+Shift+y exec jacob_ytdlp "$(wl-paste)"
+    bindsym $mod+Period    exec jacob_sessionizer projects
+    bindsym $mod+Backspace exec jacob_sessionizer scratch
+    bindsym $mod+h         exec xdg-open $(jacob_firefox_history)
+    bindsym $mod+p         exec jacob_passwords --type
+    bindsym $mod+Shift+y   exec jacob_ytdlp "$(wl-paste)"
 
     # Screenshot and colorpicker
     bindsym $mod+c exec jacob_color_picker
