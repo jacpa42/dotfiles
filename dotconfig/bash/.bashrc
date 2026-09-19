@@ -69,7 +69,7 @@ set_prompt() {
     local GREEN="\[\e[92m\]"
     local RESET="\[\e[0m\]"
     [[ $? -eq 0 ]] && ARROW_COLOR="$BLUE" || ARROW_COLOR="$RED"
-    PS1="${BLUE}\w${RESET} ${ARROW_COLOR}❯${RESET} "
+    PS1="${BLUE}\w${RESET} ${ARROW_COLOR}\n❯${RESET} "
 }
 export PROMPT_COMMAND="history -a; set_prompt"
 
