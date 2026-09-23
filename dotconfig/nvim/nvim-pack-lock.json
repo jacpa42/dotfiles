@@ -1,7 +1,11 @@
 {
   "plugins": {
+    "base16-nvim": {
+      "rev": "44fc7a0d7ad878f90b04ffe8fa58c99c19007509",
+      "src": "https://github.com/RRethy/base16-nvim"
+    },
     "black-metal-theme-neovim": {
-      "rev": "3a5522fbc7127c638ac8a98692cb83bbdf3594a9",
+      "rev": "5d61bbd0ec3471c27168431dd2986cc77e28c848",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"
     },
     "blink.cmp": {
@@ -38,11 +42,11 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
+      "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
-      "rev": "5f032a85be210cd1c6ac98861eb3b187ff3bd5eb",
+      "rev": "58447c1fca354bbf184425e4a8d01deecbd6f3c4",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -60,6 +64,10 @@
     "telescope.nvim": {
       "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tiny-cmdline.nvim": {
+      "rev": "d83700b48d8ff5625dbef4029af071db559544e5",
+      "src": "https://github.com/rachartier/tiny-cmdline.nvim"
     },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",

@@ -762,7 +762,7 @@ require("black-metal").setup({
 	cursorline_gutter = true,
 	-- If true, highlights the gutter darker than the bg
 	dark_gutter = false,
-	favor_treesitter_hl = true,
+	favor_treesitter_hl = false,
 	plain_float = true,
 	show_eob = false,
 	term_colors = true,
@@ -770,9 +770,9 @@ require("black-metal").setup({
 
 	-----DIAGNOSTICS and CODE STYLE-----
 	diagnostics = {
-		darker = false, -- Darker colors for diagnostic
-		undercurl = false, -- Use undercurl for diagnostics
+		darker = true, -- Darker colors for diagnostic
 		background = false, -- Use background color for virtual text
+		undercurl = false, -- Use undercurl for diagnostics
 	},
 
 	-- The following table accepts values the same as the `gui` option for normal
@@ -791,8 +791,7 @@ require("black-metal").setup({
 	plugin = { cmp = { plain = false, reverse = false } },
     colors = { fg = "#ffffff", property = "#ffffff" }
 })
--- require("black-metal").load()
-vim.cmd.colorscheme("habamax")
+require("black-metal").load()
 
 ----------------------------------greeter---------------------------------
 
