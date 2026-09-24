@@ -90,13 +90,6 @@ local function starts_with(str, prefix)
 end
 
 -- special commands for dapui buffers
-autocmd("FileType", {
-	callback = function(args)
-		pcall(vim.treesitter.start, args.buf)
-	end,
-})
-
--- special commands for dapui buffers
 autocmd({ "FileType" }, {
 	pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
 	callback = function(args)
@@ -147,7 +140,8 @@ autocmd({ "FileType" }, {
 
 autocmd({ "FileType" }, {
 	pattern = { "odin", "slang" },
-	callback = function()
+	callback = function(ev)
+        vim.treesitter.start(ev.buf)
 		vim.opt.errorformat = {
             "  --> %f:%l:%c" , -- the slang compiler
             "%f(%l:%c) %m", -- the odin compiler
@@ -461,6 +455,7 @@ vim.pack.add({
 })
 
 local PluginLoaderGroup = vim.api.nvim_create_augroup("Pack", { clear = true })
+
 
 -- init oil straight away
 require("oil").setup({
