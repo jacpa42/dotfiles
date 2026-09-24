@@ -3,6 +3,8 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 
 ----------------------------------opts---------------------------------
 
+vim.cmd.colorscheme("habamax")
+
 vim.o.background = "dark"
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
@@ -791,7 +793,7 @@ require("black-metal").setup({
 	plugin = { cmp = { plain = false, reverse = false } },
     colors = { fg = "#ffffff", property = "#ffffff" }
 })
-require("black-metal").load()
+-- require("black-metal").load()
 
 ----------------------------------greeter---------------------------------
 
