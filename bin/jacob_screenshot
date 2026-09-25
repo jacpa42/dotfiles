@@ -19,5 +19,9 @@ filename="$HOME/Pictures/screenshots/$(date +'%F-%N').png"
 
 [ "$mode" = "output" ] && grim -o "$(swaymsg -t get_outputs | jq -r '.. | select(.active?) | .name')" "$filename"
 
+[ -r "$filename" ] || exit 1
+
 notify-send -a screenshot -i "$filename" "screenshot taken" "Saved+copied screenshot."
 wl-copy <"$filename"
+
+exec imv "$filename"
