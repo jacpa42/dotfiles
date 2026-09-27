@@ -1,2 +1,2 @@
 #!/usr/bin/dash
-exec hyprpicker -nbar -f"${1:-hex}"
+exec hyprpicker -n -b -a -r -s 10 -u 200 -f"${1:-hex}"
