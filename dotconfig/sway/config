@@ -34,7 +34,7 @@ output DP-1  allow_tearing no
 output DP-5 resolution 3840x2160@30Hz position 2560 0
 
 # startup things
-exec jacob_hyprwall --force --set-last
+exec jacob_wallpaper --force --set-last
 exec mpd
 exec fcitx5 -d
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -71,10 +71,10 @@ input "type:touchpad" dwt disabled
     bindsym $mod+u exec jacob_sessionizer gitweb
 
     # Wallpaper stuff
-    bindsym $mod+v exec jacob_hyprwall
-    bindsym $mod+Shift+v exec jacob_hyprwall -r
-    bindsym $mod+Alt+v exec jacob_hyprwall -s "$DEFAULT_WALLPAPER"
-    bindsym $mod+Ctrl+v exec jacob_hyprwall -R
+    bindsym $mod+v exec jacob_wallpaper
+    bindsym $mod+Shift+v exec jacob_wallpaper -r
+    bindsym $mod+Alt+v exec jacob_wallpaper -s "$DEFAULT_WALLPAPER"
+    bindsym $mod+Ctrl+v exec jacob_wallpaper -R
 
     # Kill focused window
     bindsym $mod+w kill

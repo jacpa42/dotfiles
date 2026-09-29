@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=hyprwall
-TryExec=jacob_hyprwall
-Exec=jacob_hyprwall
+TryExec=jacob_wallpaper
+Exec=jacob_wallpaper
 Type=Application
 Categories=Utility;
 StartupNotify=false
