@@ -19,12 +19,12 @@ assign [app_id = "tmux"   ] 3
 assign [class  = "steam"  ] 4
 
 # colors
-client.focused          #5f7a95    #1a161e      #5f7a95   #7799bb     #5f7a95
-client.focused_inactive #c1c1c1    #1a161e      #c1c1c1   #7799bb     #5f7a95
-client.unfocused        #1a161e    #1a161e      #a1a1a1   #1a161e     #1a161e
-client.urgent           #7799bb    #7799bb      #1a161e   #7799bb     #7799bb
-client.placeholder      #1a161e    #1a161e      #888888   #1a161e     #1a161e
-client.background #1a161e
+client.focused          #5f7a95    #000000      #5f7a95   #7799bb     #5f7a95
+client.focused_inactive #c1c1c1    #000000      #c1c1c1   #7799bb     #5f7a95
+client.unfocused        #000000    #000000      #a1a1a1   #000000     #000000
+client.urgent           #7799bb    #7799bb      #000000   #7799bb     #7799bb
+client.placeholder      #000000    #000000      #888888   #000000     #000000
+client.background       #000000
 
 # display config
 output DP-1  resolution 2560x1440@240Hz position 0 0
@@ -207,14 +207,14 @@ bar {
     status_command i3status
 
     colors {
-        background #1a161e
+        background #000000
         statusline #a1a1a1
         separator  #333d47
 
-        focused_workspace  #5f7a95 #5f7a95 #1a161e
+        focused_workspace  #5f7a95 #5f7a95 #000000
         active_workspace   #44515f #44515f #c1c1c1
-        inactive_workspace #1a161e #1a161e #a1a1a1
-        urgent_workspace   #7799bb #7799bb #1a161e
+        inactive_workspace #000000 #000000 #a1a1a1
+        urgent_workspace   #7799bb #7799bb #000000
         binding_mode       #556677 #556677 #c1c1c1
     }
 }
