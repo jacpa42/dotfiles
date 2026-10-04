@@ -380,7 +380,6 @@ end, { noremap = true, silent = true })
 
 map("n", "<leader>h", "<cmd>split<cr>")
 map("n", "<leader>v", "<cmd>vsplit<cr>")
-map("n", "<leader>u", vim.pack.update)
 map("n", "<leader>r", vim.lsp.buf.rename, { noremap = true, silent = true })
 
 map("n", "<c-n>", "<cmd>silent cnext<cr>", { noremap = true, silent = true })
