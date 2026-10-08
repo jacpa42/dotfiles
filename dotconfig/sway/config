@@ -6,9 +6,10 @@ set $menu fuzzel
 # general config
 default_border none
 font pango:JetBrainsMono Nerd Font 14
-seat seat0 hide_cursor when-typing enable
+seat seat0 hide_cursor 3000
 workspace_layout tabbed
 hide_edge_borders --i3 smart
+xwayland enable
 
 # window rules
 assign [class  = "Spotify"] 1
