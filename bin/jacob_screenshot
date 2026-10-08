@@ -1,5 +1,7 @@
 #!/usr/bin/dash
 
+pidof -q slurp && exit 0
+
 mode="$1"
 [ -z "$mode" ] && mode="$(printf "region\nwindow\noutput" | fuzzel --lines=3 --dmenu --auto-select)"
 [ -z "$mode" ] && exit
