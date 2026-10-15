@@ -139,11 +139,11 @@ autocmd({ "FileType" }, {
 autocmd({ "FileType" }, {
 	pattern = { "odin", "slang" },
 	callback = function(ev)
-        vim.treesitter.start(ev.buf)
+		vim.treesitter.start(ev.buf)
 		vim.opt.errorformat = {
-            "  --> %f:%l:%c" , -- the slang compiler
-            "%f(%l:%c) %m", -- the odin compiler
-        }
+			"  --> %f:%l:%c", -- the slang compiler
+			"%f(%l:%c) %m", -- the odin compiler
+		}
 	end,
 })
 
@@ -272,6 +272,10 @@ local lsp_configs = {
 		enable = true,
 		cmd = { "ols" },
 		filetypes = { "odin" },
+		init_options = {
+			enable_snippets = false,
+			enable_procedure_snippet = true,
+		},
 	},
 
 	["zls"] = {
@@ -453,7 +457,6 @@ vim.pack.add({
 
 local PluginLoaderGroup = vim.api.nvim_create_augroup("Pack", { clear = true })
 
-
 -- init oil straight away
 require("oil").setup({
 	columns = { "icon", "size" },
@@ -512,7 +515,45 @@ autocmd("InsertEnter", {
 	callback = function()
 		require("blink.cmp").setup({
 			appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = false },
-			sources = { default = { "lsp", "path", "snippets", "buffer", "cmdline" } },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "cmdline" },
+				providers = {
+					lsp = {
+                        transform_items = function(_, items)
+                            if vim.bo.filetype ~= "odin" then return items end
+                            local line, sw = vim.api.nvim_get_current_line(), string.rep(" ", vim.bo.shiftwidth)
+                            local function esc(s) return (s:gsub("[%$}\\]", "\\%0")) end
+
+                            for _, item in ipairs(items) do
+                                local p = item.kind == 3 and item.detail and item.detail:match("^%b()") -- 3 = Function
+                                local params = p and p:sub(2, -2)
+                                if params then
+                                    item.insertTextFormat = 2 -- snippet
+                                    if #line + #item.label + #params < vim.bo.textwidth then
+                                        item.insertText = item.label .. "(${1:" .. esc(params) .. "})$0"
+                                    else
+                                        local lines, names, i = { item.label .. "(" }, {}, 0
+                                        for param in (params .. ","):gmatch("%s*(.-),") do
+                                            local name, typ = param:match("^%$?(.-)%s*:%s*(.*)$")
+                                            table.insert(names, name or param)
+                                            if typ then
+                                                for _, n in ipairs(names) do
+                                                    i = i + 1
+                                                    table.insert(lines, sw .. n .. " = $" .. i .. ", //: " .. esc(typ) .. ",")
+                                                end
+                                                names = {}
+                                            end
+                                        end
+                                        table.insert(lines, ")$0")
+                                        item.insertText = table.concat(lines, "\n")
+                                    end
+                                end
+                            end
+                            return items
+                        end,
+					},
+				},
+			},
 			fuzzy = { implementation = "rust" },
 			completion = {
 				menu = {
@@ -783,7 +824,7 @@ require("black-metal").setup({
 		variables = "none",
 	},
 	plugin = { cmp = { plain = false, reverse = false } },
-    colors = { fg = "#ffffff", property = "#ffffff" }
+	colors = { fg = "#ffffff", property = "#ffffff" },
 })
 require("black-metal").load()
 

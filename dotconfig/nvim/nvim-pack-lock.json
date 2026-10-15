@@ -1,7 +1,7 @@
 {
   "plugins": {
     "black-metal-theme-neovim": {
-      "rev": "5d61bbd0ec3471c27168431dd2986cc77e28c848",
+      "rev": "6194b3f2fd03f36443b9966ef44f16e0c5275c9a",
       "src": "https://github.com/metalelf0/black-metal-theme-neovim"
     },
     "blink.cmp": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "910fdf6f49e9dee7e7257c7d11a76b040fdfb9de",
+      "rev": "1a4f47b03dfe92d28de7d5654c67327ef008c9e6",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
