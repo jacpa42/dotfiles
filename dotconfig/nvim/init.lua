@@ -606,8 +606,20 @@ autocmd("InsertEnter", {
 			},
             keymap = {
                 ["<c-space>"] = { "select_and_accept" },
-                ["<c-n>"] = { "show", "select_next", "fallback" },
-                ["<c-p>"] = { "show", "select_prev", "fallback" },
+                ["<c-n>"] = {
+                    function(cmp)
+                        if cmp.is_menu_visible() then return cmp.select_next() end
+                        return cmp.show()
+                    end,
+                    "fallback",
+                },
+                ["<c-p>"] = {
+                    function(cmp)
+                        if cmp.is_menu_visible() then return cmp.select_prev() end
+                        return cmp.show()
+                    end,
+                    "fallback",
+                },
             },
 		})
 	end,
@@ -795,7 +807,7 @@ require("black-metal").setup({
 	cursorline_gutter = true,
 	-- If true, highlights the gutter darker than the bg
 	dark_gutter = false,
-	favor_treesitter_hl = false,
+	favor_treesitter_hl = true,
 	plain_float = true,
 	show_eob = false,
 	term_colors = true,
