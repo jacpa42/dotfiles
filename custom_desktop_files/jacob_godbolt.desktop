@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Compiler Explorer
+Keywords=godbolt;compiler;odin;c;compile
+TryExec=jacob_godbolt
+Exec=jacob_godbolt
+Type=Application
+Categories=Utility;
+StartupNotify=false

@@ -525,10 +525,10 @@ autocmd("InsertEnter", {
                             local function esc(s) return (s:gsub("[%$}\\]", "\\%0")) end
 
                             for _, item in ipairs(items) do
-                                local p = item.kind == 3 and item.detail and item.detail:match("^%b()") -- 3 = Function
+                                local p = item.kind == 3 and item.detail and item.detail:match("^%b()")
                                 local params = p and p:sub(2, -2)
                                 if params then
-                                    item.insertTextFormat = 2 -- snippet
+                                    item.insertTextFormat = 2
                                     if #line + #item.label + #params < vim.bo.textwidth then
                                         item.insertText = item.label .. "(${1:" .. esc(params) .. "})$0"
                                     else
@@ -556,7 +556,10 @@ autocmd("InsertEnter", {
 			},
 			fuzzy = { implementation = "rust" },
 			completion = {
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+				accept = { auto_brackets = { enabled = true } },
 				menu = {
+                    auto_show = false,
 					draw = {
 						treesitter = { "lsp" },
 						columns = {
@@ -600,17 +603,12 @@ autocmd("InsertEnter", {
 						},
 					},
 				},
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 500,
-				},
-				accept = { auto_brackets = { enabled = true } },
 			},
-			keymap = {
-				["<c-space>"] = { "select_and_accept" },
-				["<c-n>"] = { "select_next", "fallback" },
-				["<c-p>"] = { "select_prev", "fallback" },
-			},
+            keymap = {
+                ["<c-space>"] = { "select_and_accept" },
+                ["<c-n>"] = { "show", "select_next", "fallback" },
+                ["<c-p>"] = { "show", "select_prev", "fallback" },
+            },
 		})
 	end,
 })
