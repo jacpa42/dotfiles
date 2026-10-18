@@ -452,7 +452,8 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/brenoprata10/nvim-highlight-colors",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/metalelf0/black-metal-theme-neovim",
+	"https://github.com/zenbones-theme/zenbones.nvim",
+	"https://github.com/rktjmp/lush.nvim",
 })
 
 local PluginLoaderGroup = vim.api.nvim_create_augroup("Pack", { clear = true })
@@ -557,6 +558,7 @@ autocmd("InsertEnter", {
 			fuzzy = { implementation = "rust" },
 			completion = {
 				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+                list = { selection = { preselect = false } },
 				accept = { auto_brackets = { enabled = true } },
 				menu = {
                     auto_show = false,
@@ -777,6 +779,15 @@ autocmd("BufAdd", {
 	end,
 })
 
+vim.g.zenwritten_solid_line_nr = true
+vim.g.zenwritten_darkness = 'warm'
+vim.g.zenwritten_lighten_comments = 33
+vim.g.zenwritten_lighten_non_text = 33
+vim.g.zenwritten_lighten_line_nr = 33
+vim.g.zenwritten_lighten_cursor_line = 4
+vim.g.zenwritten_transparent_background = false
+vim.cmd.colorscheme("zenwritten") -- Zero hue and saturation version
+
 require("nvim-highlight-colors").setup({
 	render = "background",
 	enable_hex = true,
@@ -798,45 +809,6 @@ require("nvim-highlight-colors").setup({
 		return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 100 * 1024
 	end,
 })
-
-require("black-metal").setup({
-	theme = "immortal",
-	variant = "dark",
-	alt_bg = false,
-	colored_docstrings = true,
-	cursorline_gutter = true,
-	-- If true, highlights the gutter darker than the bg
-	dark_gutter = false,
-	favor_treesitter_hl = true,
-	plain_float = true,
-	show_eob = false,
-	term_colors = true,
-	transparent = true,
-
-	-----DIAGNOSTICS and CODE STYLE-----
-	diagnostics = {
-		darker = true, -- Darker colors for diagnostic
-		background = false, -- Use background color for virtual text
-		undercurl = false, -- Use undercurl for diagnostics
-	},
-
-	-- The following table accepts values the same as the `gui` option for normal
-	-- highlights. For example, `bold`, `italic`, `underline`, `none`.
-	code_style = {
-		comments = "italic",
-		conditionals = "bold",
-		functions = "none",
-		keywords = "bold",
-		headings = "bold",
-		operators = "none",
-		keyword_return = "bold",
-		strings = "none",
-		variables = "none",
-	},
-	plugin = { cmp = { plain = false, reverse = false } },
-	colors = { fg = "#ffffff", property = "#ffffff" },
-})
-require("black-metal").load()
 
 ----------------------------------greeter---------------------------------
 
