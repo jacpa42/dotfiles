@@ -4,6 +4,7 @@ require("vim._core.ui2").enable({ msg = { targets = "msg", msg = { timeout = 300
 ----------------------------------opts---------------------------------
 
 vim.o.background = "dark"
+vim.cmd.colorscheme("habamax")
 vim.o.shortmess = "aoOstTAIcCq"
 vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
 vim.g.loaded_netrw = 1
@@ -452,8 +453,6 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/brenoprata10/nvim-highlight-colors",
 	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/zenbones-theme/zenbones.nvim",
-	"https://github.com/rktjmp/lush.nvim",
 })
 
 local PluginLoaderGroup = vim.api.nvim_create_augroup("Pack", { clear = true })
@@ -779,15 +778,6 @@ autocmd("BufAdd", {
 	end,
 })
 
-vim.g.zenwritten_solid_line_nr = true
-vim.g.zenwritten_darkness = 'warm'
-vim.g.zenwritten_lighten_comments = 33
-vim.g.zenwritten_lighten_non_text = 33
-vim.g.zenwritten_lighten_line_nr = 33
-vim.g.zenwritten_lighten_cursor_line = 4
-vim.g.zenwritten_transparent_background = false
-vim.cmd.colorscheme("zenwritten") -- Zero hue and saturation version
-
 require("nvim-highlight-colors").setup({
 	render = "background",
 	enable_hex = true,
@@ -798,9 +788,9 @@ require("nvim-highlight-colors").setup({
 	enable_ansi = false,
 	enable_xterm256 = true,
 	enable_xtermTrueColor = true,
-	enable_hsl_without_function = true,
+	enable_hsl_without_function = false,
 	enable_var_usage = true,
-	enable_named_colors = true,
+	enable_named_colors = false,
 	enable_tailwind = false,
 
 	exclude_filetypes = {},
