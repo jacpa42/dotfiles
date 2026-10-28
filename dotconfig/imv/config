@@ -4,7 +4,7 @@ overlay = true
 overlay_background_alpha = 00
 background=1a161e
 background=1a161e
-upscaling=nearest_neighbour
+upscaling_method=nearest_neighbour
 
 [binds]
 w = exec jacob_wallpaper --set "$imv_current_file"
