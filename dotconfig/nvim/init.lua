@@ -148,6 +148,7 @@ autocmd({ "FileType" }, {
 	end,
 })
 
+
 vim.cmd("autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=100}")
 
 ----------------------------------lsp---------------------------------
@@ -778,6 +779,19 @@ autocmd("BufAdd", {
 	end,
 })
 
+vim.filetype.add({ extension = { manim = "dosini" } })
+vim.filetype.add({ extension = { slangh = "shaderslang" } })
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("manim", { clear = true }),
+  pattern = "dosini",
+  callback = function(ev)
+    if not vim.api.nvim_buf_get_name(ev.buf):match("%.manim$") then return end
+    vim.bo[ev.buf].commentstring = "# %s"
+    vim.bo[ev.buf].comments = ":#"
+  end, })
+
+
 require("nvim-highlight-colors").setup({
 	render = "background",
 	enable_hex = true,
@@ -870,7 +884,7 @@ autocmd("VimEnter", {
 		local function apply_highlights(buf, vertical_pad)
 			-- Apply highlight to each line of ASCII art
 			local ns = vim.api.nvim_create_namespace("my_ns")
-			vim.hl.range(buf, ns, "ErrorMsg", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
+			vim.hl.range(buf, ns, "Constant", { vertical_pad, 0 }, { vertical_pad + #ascii - 1, 0 })
 
 			-- Highlight version line
 

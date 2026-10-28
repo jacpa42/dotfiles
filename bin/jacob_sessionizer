@@ -52,6 +52,7 @@ gitweb)
         exit 0
     }
 
+    wl-copy "$url"
     default_browser="$(xdg-mime query default x-scheme-handler/https)"
     jacob_focuswindowclass "${default_browser%%.*}"
     exec xdg-open "$url"
