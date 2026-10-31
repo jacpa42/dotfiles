@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "black-metal-theme-neovim": {
-      "rev": "227a4cb11980928274c74cdc6e3f4b9b5e329512",
-      "src": "https://github.com/metalelf0/black-metal-theme-neovim"
-    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
@@ -20,10 +16,6 @@
     "friendly-snippets": {
       "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
       "src": "https://github.com/rafamadriz/friendly-snippets"
-    },
-    "lush.nvim": {
-      "rev": "9c60ec2279d62487d942ce095e49006af28eed6e",
-      "src": "https://github.com/rktjmp/lush.nvim"
     },
     "mason.nvim": {
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
@@ -72,10 +64,6 @@
     "vim-tpipeline": {
       "rev": "2b09c3d3e8f57660e8273083f119d7d3e59a2e1f",
       "src": "https://github.com/vimpostor/vim-tpipeline"
-    },
-    "zenbones.nvim": {
-      "rev": "8304d8df9b823ff11e103afa62f38c39f534abe6",
-      "src": "https://github.com/zenbones-theme/zenbones.nvim"
     }
   }
 }
