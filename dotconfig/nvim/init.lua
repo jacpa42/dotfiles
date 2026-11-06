@@ -244,12 +244,16 @@ local lsp_configs = {
 				runtime = { version = "LuaJIT" },
 				diagnostics = { globals = { "vim", "hl" } },
 				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
 					checkThirdParty = false, -- don't prompt about love2d/etc
 				},
 				telemetry = { enable = false },
 			},
 		},
+		-- Read the runtimepath when the server starts, not when this file is parsed:
+		-- vim.pack.add() runs further down, so plugins (dap etc.) weren't in the library yet.
+		before_init = function(_, config)
+			config.settings.Lua.workspace.library = vim.api.nvim_get_runtime_file("", true)
+		end,
 	},
 
 	["rust_analyzer"] = {
@@ -438,8 +442,6 @@ map("n", "<up>", "<cmd>DapStepOut<cr>", { desc = "dap step out" })
 
 ----------------------------------plugins---------------------------------
 vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
-	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/vimpostor/vim-tpipeline",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-lua/plenary.nvim",
@@ -509,123 +511,136 @@ autocmd("FileType", {
 	end,
 })
 
-autocmd("InsertEnter", {
-	desc = "blink setup",
-	group = PluginLoaderGroup,
-	once = true,
-	callback = function()
-		require("blink.cmp").setup({
-			appearance = { nerd_font_variant = "mono", use_nvim_cmp_as_default = false },
-			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "cmdline" },
-				providers = {
-					lsp = {
-                        transform_items = function(_, items)
-                            if vim.bo.filetype ~= "odin" then return items end
-                            local line, sw = vim.api.nvim_get_current_line(), string.rep(" ", vim.bo.shiftwidth)
-                            local function esc(s) return (s:gsub("[%$}\\]", "\\%0")) end
+----------------------------------completion---------------------------------
+vim.o.completeopt = "menuone,noselect,popup,fuzzy"
+vim.o.pumheight = 10
 
-                            for _, item in ipairs(items) do
-                                local p = item.kind == 3 and item.detail and item.detail:match("^%b()")
-                                local params = p and p:sub(2, -2)
-                                if params then
-                                    item.insertTextFormat = 2
-                                    if #line + #item.label + #params < vim.bo.textwidth then
-                                        item.insertText = item.label .. "(${1:" .. esc(params) .. "})$0"
-                                    else
-                                        local lines, names, i = { item.label .. "(" }, {}, 0
-                                        for param in (params .. ","):gmatch("%s*(.-),") do
-                                            local name, typ = param:match("^%$?(.-)%s*:%s*(.*)$")
-                                            table.insert(names, name or param)
-                                            if typ then
-                                                for _, n in ipairs(names) do
-                                                    i = i + 1
-                                                    table.insert(lines, sw .. n .. " = $" .. i .. ", //: " .. esc(typ) .. ",")
-                                                end
-                                                names = {}
-                                            end
-                                        end
-                                        table.insert(lines, ")$0")
-                                        item.insertText = table.concat(lines, "\n")
-                                    end
-                                end
-                            end
-                            return items
-                        end,
-					},
-				},
-			},
-			fuzzy = { implementation = "rust" },
-			completion = {
-				documentation = { auto_show = true, auto_show_delay_ms = 500 },
-                list = { selection = { preselect = false } },
-				accept = { auto_brackets = { enabled = true } },
-				menu = {
-                    auto_show = false,
-					draw = {
-						treesitter = { "lsp" },
-						columns = {
-							{ "label", "label_description", gap = 1 },
-							{ "kind_icon", "kind" },
-						},
-						components = {
-							-- customize the drawing of kind icons
-							kind_icon = {
-								text = function(ctx)
-									-- default kind icon
-									local icon = ctx.kind_icon
-									-- if LSP source, check for color derived from documentation
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr ~= "" then
-											icon = color_item.abbr
-										end
-									end
-									return icon .. ctx.icon_gap
-								end,
-								highlight = function(ctx)
-									-- default highlight group
-									local highlight = "BlinkCmpKind" .. ctx.kind
-									-- if LSP source, check for color derived from documentation
-									if ctx.item.source_name == "LSP" then
-										local color_item = require("nvim-highlight-colors").format(
-											ctx.item.documentation,
-											{ kind = ctx.kind }
-										)
-										if color_item and color_item.abbr_hl_group then
-											highlight = color_item.abbr_hl_group
-										end
-									end
-									return highlight
-								end,
-							},
-						},
-					},
-				},
-			},
-            keymap = {
-                ["<c-space>"] = { "select_and_accept" },
-                ["<c-n>"] = {
-                    function(cmp)
-                        if cmp.is_menu_visible() then return cmp.select_next() end
-                        return cmp.show()
-                    end,
-                    "fallback",
-                },
-                ["<c-p>"] = {
-                    function(cmp)
-                        if cmp.is_menu_visible() then return cmp.select_prev() end
-                        return cmp.show()
-                    end,
-                    "fallback",
-                },
-            },
-		})
+local kind_icons = {
+	Text = "󰉿", Method = "󰊕", Function = "󰊕", Constructor = "󰒓", Field = "󰜢",
+	Variable = "󰆦", Property = "󰖷", Class = "󱡠", Interface = "󱡠", Struct = "󱡠",
+	Module = "󰅩", Unit = "󰪚", Value = "󰦨", Enum = "󰦨", EnumMember = "󰦨",
+	Keyword = "󰻾", Constant = "󰏿", Snippet = "󱄽", Color = "󰏘", File = "󰈔",
+	Reference = "󰬲", Folder = "󰉋", Event = "󱐋", Operator = "󰪚", TypeParameter = "󰬛",
+}
+
+local kind_label_hl = {
+	Function = "@function", Method = "@function.method", Constructor = "@constructor",
+	Field = "@property", Property = "@property", Variable = "@variable",
+	Constant = "@constant", EnumMember = "@constant", Value = "@constant",
+	Class = "@type", Struct = "@type", Interface = "@type", Enum = "@type", TypeParameter = "@type",
+	Module = "@module", Keyword = "@keyword", Operator = "@operator",
+}
+
+
+local function odin_call_snippet(item)
+	local p = item.kind == 3 and item.detail and item.detail:match("^%b()")
+	local params = p and p:sub(2, -2)
+	if not params then return false end
+
+	local line, sw = vim.api.nvim_get_current_line(), string.rep(" ", vim.bo.shiftwidth)
+	local function esc(s) return (s:gsub("[%$}\\]", "\\%0")) end
+
+	local text
+	if #line + #item.label + #params < vim.bo.textwidth then
+		text = item.label .. "(${1:" .. esc(params) .. "})$0"
+	else
+		local lines, names, i = { item.label .. "(" }, {}, 0
+		for param in (params .. ","):gmatch("%s*(.-),") do
+			local name, typ = param:match("^%$?(.-)%s*:%s*(.*)$")
+			table.insert(names, name or param)
+			if typ then
+				for _, n in ipairs(names) do
+					i = i + 1
+					table.insert(lines, sw .. n .. " = $" .. i .. ", //: " .. esc(typ) .. ",")
+				end
+				names = {}
+			end
+		end
+		table.insert(lines, ")$0")
+		text = table.concat(lines, "\n")
+	end
+
+	item.insertTextFormat = 2
+	item.insertText = text
+	if item.textEdit then item.textEdit.newText = text end
+	return true
+end
+
+local function convert(item)
+	local out = {}
+	if vim.bo.filetype == "odin" and odin_call_snippet(item) then out.word = item.label end
+
+	local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Text"
+	out.kind = (kind_icons[kind] or "") .. " " .. kind
+
+	return out
+end
+
+local patched_clients = {}
+
+autocmd("LspAttach", {
+	desc = "builtin lsp completion",
+	group = vim.api.nvim_create_augroup("LspCompletion", { clear = true }),
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if not client or not client:supports_method("textDocument/completion") then return end
+
+		if not patched_clients[client.id] then
+			patched_clients[client.id] = true
+
+			local cp = (client.server_capabilities or {}).completionProvider
+			if cp then
+				local chars = vim.deepcopy(cp.triggerCharacters or {})
+				for c in ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"):gmatch(".") do
+					table.insert(chars, c)
+				end
+				cp.triggerCharacters = chars
+			end
+
+			local request = client.request
+			client.request = function(self, method, params, handler, bufnr)
+				if method == "textDocument/completion" and handler then
+					local inner = handler
+					handler = function(err, result, ctx, config)
+						if type(result) == "table" then
+							local items = result.items or result
+							local kept = {}
+							for _, it in ipairs(items) do
+								if it.kind ~= 1 then kept[#kept + 1] = it end
+							end
+							if result.items then result.items = kept else result = kept end
+						end
+						return inner(err, result, ctx, config)
+					end
+				end
+				return request(self, method, params, handler, bufnr)
+			end
+		end
+
+		vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true, convert = convert })
 	end,
 })
+
+local function open_or_move(key)
+	return function()
+		if vim.fn.pumvisible() == 1 then return key end
+		if #vim.lsp.get_clients({ bufnr = 0, method = "textDocument/completion" }) > 0 then
+			return "<Cmd>lua vim.lsp.completion.get()<CR>"
+		end
+		return key
+	end
+end
+map("i", "<c-n>", open_or_move("<c-n>"), { expr = true })
+map("i", "<c-p>", open_or_move("<c-p>"), { expr = true })
+
+map("i", "<c-space>", function()
+	if vim.fn.pumvisible() == 0 then return "" end
+	return vim.fn.complete_info({ "selected" }).selected == -1 and "<c-n><c-y>" or "<c-y>"
+end, { expr = true })
+
+vim.o.wildmode = "noselect:lastused,full"
+vim.o.wildoptions = "pum"
+autocmd("CmdlineChanged", { pattern = ":", callback = function() vim.fn.wildtrigger() end })
 
 -- treesitter
 autocmd("BufAdd", {
