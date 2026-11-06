@@ -31,6 +31,8 @@ client.background       #000000
 output DP-1 resolution 2560x1440@240Hz position 0 0
 output DP-1 allow_tearing no
 output DP-5 resolution 3840x2160@30Hz position 2560 0
+# 'Acer Technologies Acer 4K PJ JWL110015900'
+output DP-2 resolution 3840x2160@60Hz position 3840 0
 
 # startup things
 exec jacob_wallpaper --force --set-last
