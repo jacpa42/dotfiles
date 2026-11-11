@@ -13,6 +13,7 @@ xwayland enable
 
 # window rules
 assign [class  = "Spotify"] 1
+assign [app_id = "webcord"] 1
 assign [app_id = "discord"] 1
 assign [app_id = "firefox"] 2
 assign [app_id = "nvim"   ] 3
@@ -78,7 +79,7 @@ input "type:touchpad" dwt disabled
     bindsym $mod+Ctrl+v exec jacob_wallpaper -R
 
     # Kill focused window
-    bindsym $mod+w kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+Space exec pkill $menu || $menu

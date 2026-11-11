@@ -279,7 +279,7 @@ local lsp_configs = {
 		cmd = { "ols" },
 		filetypes = { "odin" },
 		init_options = {
-			enable_snippets = false,
+			enable_snippets = true,
 			enable_procedure_snippet = true,
 		},
 	},
@@ -511,138 +511,52 @@ autocmd("FileType", {
 	end,
 })
 
-----------------------------------completion---------------------------------
+---------------------------------- completion ---------------------------------
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 vim.o.pumheight = 10
 
-local kind_icons = {
-	Text = "󰉿", Method = "󰊕", Function = "󰊕", Constructor = "󰒓", Field = "󰜢",
-	Variable = "󰆦", Property = "󰖷", Class = "󱡠", Interface = "󱡠", Struct = "󱡠",
-	Module = "󰅩", Unit = "󰪚", Value = "󰦨", Enum = "󰦨", EnumMember = "󰦨",
-	Keyword = "󰻾", Constant = "󰏿", Snippet = "󱄽", Color = "󰏘", File = "󰈔",
-	Reference = "󰬲", Folder = "󰉋", Event = "󱐋", Operator = "󰪚", TypeParameter = "󰬛",
-}
-
-local kind_label_hl = {
-	Function = "@function", Method = "@function.method", Constructor = "@constructor",
-	Field = "@property", Property = "@property", Variable = "@variable",
-	Constant = "@constant", EnumMember = "@constant", Value = "@constant",
-	Class = "@type", Struct = "@type", Interface = "@type", Enum = "@type", TypeParameter = "@type",
-	Module = "@module", Keyword = "@keyword", Operator = "@operator",
-}
-
-
-local function odin_call_snippet(item)
-	local p = item.kind == 3 and item.detail and item.detail:match("^%b()")
-	local params = p and p:sub(2, -2)
-	if not params then return false end
-
-	local line, sw = vim.api.nvim_get_current_line(), string.rep(" ", vim.bo.shiftwidth)
-	local function esc(s) return (s:gsub("[%$}\\]", "\\%0")) end
-
-	local text
-	if #line + #item.label + #params < vim.bo.textwidth then
-		text = item.label .. "(${1:" .. esc(params) .. "})$0"
-	else
-		local lines, names, i = { item.label .. "(" }, {}, 0
-		for param in (params .. ","):gmatch("%s*(.-),") do
-			local name, typ = param:match("^%$?(.-)%s*:%s*(.*)$")
-			table.insert(names, name or param)
-			if typ then
-				for _, n in ipairs(names) do
-					i = i + 1
-					table.insert(lines, sw .. n .. " = $" .. i .. ", //: " .. esc(typ) .. ",")
-				end
-				names = {}
-			end
-		end
-		table.insert(lines, ")$0")
-		text = table.concat(lines, "\n")
-	end
-
-	item.insertTextFormat = 2
-	item.insertText = text
-	if item.textEdit then item.textEdit.newText = text end
-	return true
-end
-
 local function convert(item)
-	local out = {}
-	if vim.bo.filetype == "odin" and odin_call_snippet(item) then out.word = item.label end
-
-	local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or "Text"
-	out.kind = (kind_icons[kind] or "") .. " " .. kind
-
-	return out
+	if item.kind ~= 2 and item.kind ~= 3 then return {} end
+	local sig = (item.detail or ""):match("%b().*") -- ols, zls, rust-analyzer
+		or (vim.tbl_get(item, "labelDetails", "detail") or ""):match("%b().*") -- clangd
+	if not sig or sig == "(…)" then return {} end
+	-- plain text, and drop VS Code-only commands like triggerParameterHints
+	item.insertTextFormat, item.command, item.sig = 1, nil, sig
+	return { word = item.label:match("[%w_]+") }
 end
 
-local patched_clients = {}
+vim.api.nvim_create_autocmd("CompleteDone", {
+	callback = function()
+		local sig = vim.v.event.reason == "accept"
+			and vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item", "sig")
+		if not sig then return end
+		vim.schedule(function()
+			local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+			vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { sig })
+			vim.api.nvim_win_set_cursor(0, { row, col + 2 }) -- leaving insert steps back one
+			vim.cmd.stopinsert()
+		end)
+	end,
+})
 
-autocmd("LspAttach", {
-	desc = "builtin lsp completion",
-	group = vim.api.nvim_create_augroup("LspCompletion", { clear = true }),
+vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if not client or not client:supports_method("textDocument/completion") then return end
-
-		if not patched_clients[client.id] then
-			patched_clients[client.id] = true
-
-			local cp = (client.server_capabilities or {}).completionProvider
-			if cp then
-				local chars = vim.deepcopy(cp.triggerCharacters or {})
-				for c in ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"):gmatch(".") do
-					table.insert(chars, c)
-				end
-				cp.triggerCharacters = chars
-			end
-
-			local request = client.request
-			client.request = function(self, method, params, handler, bufnr)
-				if method == "textDocument/completion" and handler then
-					local inner = handler
-					handler = function(err, result, ctx, config)
-						if type(result) == "table" then
-							local items = result.items or result
-							local kept = {}
-							for _, it in ipairs(items) do
-								if it.kind ~= 1 then kept[#kept + 1] = it end
-							end
-							if result.items then result.items = kept else result = kept end
-						end
-						return inner(err, result, ctx, config)
-					end
-				end
-				return request(self, method, params, handler, bufnr)
-			end
+		local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+		local cp = client.server_capabilities.completionProvider
+		if not cp then return end
+		cp.triggerCharacters = cp.triggerCharacters or {}
+		if not vim.list_contains(cp.triggerCharacters, "a") then
+			vim.list_extend(cp.triggerCharacters, vim.split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.", ""))
 		end
-
 		vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true, convert = convert })
 	end,
 })
 
-local function open_or_move(key)
-	return function()
-		if vim.fn.pumvisible() == 1 then return key end
-		if #vim.lsp.get_clients({ bufnr = 0, method = "textDocument/completion" }) > 0 then
-			return "<Cmd>lua vim.lsp.completion.get()<CR>"
-		end
-		return key
-	end
-end
-map("i", "<c-n>", open_or_move("<c-n>"), { expr = true })
-map("i", "<c-p>", open_or_move("<c-p>"), { expr = true })
-
-map("i", "<c-space>", function()
-	if vim.fn.pumvisible() == 0 then return "" end
-	return vim.fn.complete_info({ "selected" }).selected == -1 and "<c-n><c-y>" or "<c-y>"
-end, { expr = true })
-
 vim.o.wildmode = "noselect:lastused,full"
 vim.o.wildoptions = "pum"
-autocmd("CmdlineChanged", { pattern = ":", callback = function() vim.fn.wildtrigger() end })
+vim.api.nvim_create_autocmd("CmdlineChanged", { pattern = ":", callback = function() vim.fn.wildtrigger() end })
 
--- treesitter
+--------------------------------- treesitter ---------------------------------
 autocmd("BufAdd", {
 	desc = "treesitter start",
 	group = PluginLoaderGroup,
