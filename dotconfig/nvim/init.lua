@@ -515,30 +515,6 @@ autocmd("FileType", {
 vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 vim.o.pumheight = 10
 
-local function convert(item)
-	if item.kind ~= 2 and item.kind ~= 3 then return {} end
-	local sig = (item.detail or ""):match("%b().*") -- ols, zls, rust-analyzer
-		or (vim.tbl_get(item, "labelDetails", "detail") or ""):match("%b().*") -- clangd
-	if not sig or sig == "(…)" then return {} end
-	-- plain text, and drop VS Code-only commands like triggerParameterHints
-	item.insertTextFormat, item.command, item.sig = 1, nil, sig
-	return { word = item.label:match("[%w_]+") }
-end
-
-vim.api.nvim_create_autocmd("CompleteDone", {
-	callback = function()
-		local sig = vim.v.event.reason == "accept"
-			and vim.tbl_get(vim.v.completed_item, "user_data", "nvim", "lsp", "completion_item", "sig")
-		if not sig then return end
-		vim.schedule(function()
-			local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-			vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { sig })
-			vim.api.nvim_win_set_cursor(0, { row, col + 2 }) -- leaving insert steps back one
-			vim.cmd.stopinsert()
-		end)
-	end,
-})
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
@@ -548,7 +524,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if not vim.list_contains(cp.triggerCharacters, "a") then
 			vim.list_extend(cp.triggerCharacters, vim.split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.", ""))
 		end
-		vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true, convert = convert })
+		vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
 	end,
 })
 
