@@ -1,0 +1,420 @@
+#!/usr/bin/env python3
+"""mine — sentence mining from videos with real Japanese subtitles.
+
+  mine get URL          download a YouTube video with its Japanese subs, make cards
+  mine extract VIDEO    make cards from a local video (embedded subtitle track, or --subs FILE)
+  mine push DIR         add the card folders still in DIR to Anki (needs AnkiConnect, Anki open)
+
+Output goes to /tmp/mine/<video>/. Each card is a folder with sentence.txt, english.txt, frame.jpg,
+audio.mp3. Delete the folders you don't want, then push.
+
+English translations come from an LLM when ANTHROPIC_API_KEY is set (model: $MINE_MODEL).
+For a local model through Ollama: ANTHROPIC_BASE_URL=http://localhost:11434 MINE_MODEL=<ollama model>.
+"""
+import argparse, hashlib, html, json, os, re, subprocess, sys, tempfile, time, urllib.error, urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+OUT = Path(tempfile.gettempdir()) / "mine"         # everything goes here, one folder per video
+ANKI_URL = "http://127.0.0.1:8765"
+LLM = os.environ.get("MINE_MODEL", "claude-sonnet-5-5")
+BATCH, CONTEXT = 40, 15                           # sentences translated per call, context lines either side
+DECK, MODEL = "sentence-mine", "Sentence Mine"
+FIELDS = ["Sentence", "Picture", "Audio", "Source", "Time", "Notes", "Reading", "FrontKana", "FrontFurigana", "AudioFront", "English"]
+JP = re.compile(r"[぀-ヿ㐀-鿿]")
+KANJI = re.compile(r"[㐀-鿿々]")
+ENDS = tuple("。！？!?」』")                      # a sentence is finished
+GOES_ON = ("、", "けど", "けれど", "ので", "のに", "ながら", "から")  # used when the subs have no 。
+MAX_GAP, MAX_DUR = 1.2, 20.0                      # seconds: pause inside a sentence, longest sentence
+
+
+def die(msg):
+    sys.exit(f"mine: {msg}")
+
+
+def ffmpeg(*args):
+    r = subprocess.run(["ffmpeg", "-v", "error", "-y", *map(str, args)], capture_output=True)
+    if r.returncode:
+        raise RuntimeError(r.stderr.decode(errors="replace").strip())
+    return r.stdout
+
+
+# ---- subtitles -> sentences
+
+def read_subs(src, track):
+    """Timed lines from a subtitle track of src (a video or a subtitle file), via ffmpeg -> SRT."""
+    if track is None:
+        out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "s", "-show_entries",
+                              "stream_tags=language,title", "-of", "json", str(src)], capture_output=True).stdout
+        tags = [s.get("tags", {}) for s in json.loads(out or "{}").get("streams", [])]
+        if not tags:
+            die(f"{src} has no subtitle track (use --subs FILE)")
+        japanese = re.compile(r"^(ja|jpn|jp|japanese)\b|日本語", re.I)    # language tag, or a title like "Japanese"
+        track = next((i for i, t in enumerate(tags)
+                      if japanese.search(t.get("language", "")) or japanese.search(t.get("title", ""))), 0)
+    try:
+        srt = ffmpeg("-i", src, "-map", f"0:s:{track}", "-f", "srt", "-").decode(errors="replace")
+    except RuntimeError as e:
+        die(f"can't read subtitle track {track} (image-based subtitles don't work): {e}")
+    for block in re.split(r"\n\s*\n", srt.replace("\r", "")):
+        head, _, text = block.strip().partition("\n")
+        if "-->" not in head:
+            head, _, text = text.partition("\n")
+        times = re.findall(r"(\d+):(\d\d):(\d\d)[,.](\d{3})", head)
+        if len(times) == 2:
+            a, b = (int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000 for h, m, s, ms in times)
+            yield a, b, text
+
+
+def join(a, b):
+    """Concatenate two subtitle pages, dropping text repeated across the break."""
+    for k in range(min(len(a), len(b)), 1, -1):
+        if a.endswith(b[:k]):
+            return a + b[k:]
+    return a + b
+
+
+def clean(text):
+    out = ""
+    for line in html.unescape(re.sub(r"\{[^}]*\}|<[^>]*>", "", text)).split("\n"):
+        out = join(out, re.sub(r"^[（(][^）)]{1,12}[）)]", "", line.strip(" 　")).strip(" 　"))  # （田中）
+    return out
+
+
+def noise(t):
+    """No Japanese, song lyrics, or only sound effects like ［拍手］."""
+    return (not JP.search(t) or "♪" in t
+            or not re.sub(r"[（(\[［【][^）)\]］】]*[）)\]］】]|[\s…。、！？!?～〜・]", "", t))
+
+
+def sentences(cues):
+    punctuated = sum(t.endswith(ENDS) for *_, t in cues) >= 0.3 * len(cues)
+    out = []
+    for s, e, t in cues:
+        c = out[-1] if out else None
+        if c and s - c["end"] <= MAX_GAP:
+            if t == c["last"]:                    # same page shown twice
+                c["end"] = e
+                continue
+            unfinished = not c["text"].endswith(ENDS) if punctuated else c["text"].endswith(GOES_ON)
+            if unfinished and e - c["start"] <= MAX_DUR:
+                c.update(text=join(c["text"], t), end=e, last=t)
+                continue
+        out.append({"start": s, "end": e, "text": t, "last": t})
+    return out
+
+
+# ---- extract
+
+def extract(video, dest, meta, a):
+    cues = []
+    for s, e, t in read_subs(getattr(a, "subs", None) or video, a.track):
+        s, e, t = s + a.offset, e + a.offset, clean(t)
+        if s >= 0 and e > s and not noise(t):
+            cues.append((s, e, t))
+    every = sentences(sorted(cues))                # the whole transcript; the short/long ones don't become cards
+    for x in every:
+        x["name"] = None
+        if len(JP.findall(x["text"])) >= a.min_chars and len(x["text"]) <= a.max_chars:
+            n = sum(1 for y in every if y.get("name")) + 1
+            x["name"] = f"{n:04d}_{int(x['start']) // 60:02d}m{int(x['start']) % 60:02d}s"
+    sents = [x for x in every if x["name"]]
+    if not sents:
+        die("no usable Japanese subtitle lines found")
+    dest.mkdir(parents=True, exist_ok=True)
+    if any(dest.glob("*/sentence.txt")):           # an earlier run got this far: only finish the translations
+        print(f"{dest} already has cards, not cutting them again (delete the folder to start over)")
+    else:
+        (dest / "source.json").write_text(json.dumps(meta, ensure_ascii=False))
+
+        (dest / "transcript.json").write_text(json.dumps([[x["name"], x["text"]] for x in every], ensure_ascii=False))
+
+        def make(x):
+            s, e, card = x["start"], x["end"], dest / x["name"]
+            card.mkdir()
+            (card / "sentence.txt").write_text(x["text"] + "\n")
+            ffmpeg("-ss", s + min(0.3, (e - s) / 2), "-i", video, "-frames:v", 1,
+                   "-vf", "scale='min(640,iw)':-2", "-q:v", 4, card / "frame.jpg")
+            a0 = max(0, s - a.pad)
+            ffmpeg("-ss", a0, "-i", video, "-t", e + a.pad - a0, "-vn", "-ac", 2, "-q:a", 4, card / "audio.mp3")
+
+        with ThreadPoolExecutor(max_workers=min(4, os.cpu_count() or 2)) as pool:
+            list(pool.map(make, sents))
+        print(f"{len(cues)} subtitle lines -> {len(sents)} cards in {dest}")
+    translate(dest)
+    rows = ""
+    for p in sorted(dest.glob("*/sentence.txt")):
+        c, en = p.parent, p.parent / "english.txt"
+        rows += (f'<div><img src="{c.name}/frame.jpg" width="320" loading="lazy" onerror="this.parentNode.remove()">'
+                 f'<p>{html.escape(p.read_text().strip())}</p><p style="font-size:16px;opacity:.7">'
+                 f'{html.escape(en.read_text().strip()) if en.exists() else ""}</p>'
+                 f'<audio controls preload="none" src="{c.name}/audio.mp3"></audio> <code>{c.name}</code><hr></div>')
+    (dest / "review.html").write_text('<meta charset="utf-8"><body style="font:20px sans-serif;max-width:700px;margin:auto">' + rows)
+    print(f"look through review.html, delete the folders you don't want, then: mine push '{dest}'")
+
+
+def cmd_extract(a):
+    video = Path(a.src).resolve()
+    if not video.exists():
+        die(f"{video}: no such file")
+    extract(video, OUT / slug(video.stem), {"title": video.stem}, a)
+
+
+def cmd_get(a):
+    r = subprocess.run(["yt-dlp", "-J", "--no-playlist", "--no-warnings", a.src], capture_output=True)
+    if r.returncode:
+        die(f"yt-dlp failed: {r.stderr.decode(errors='replace').strip()}")
+    info = json.loads(r.stdout)
+    langs = [k for k in info.get("subtitles") or {} if k.lower().startswith("ja")]   # human-made only
+    if not langs:
+        die("this video has no human-made Japanese subtitles (auto-captions are skipped on purpose)")
+    dest = OUT / slug(f"{info['title']}_{info['id']}")
+    if not (dest / "video.mkv").exists():
+        subprocess.run(["yt-dlp", "--no-playlist", "-f", "bv*[height<=720]+ba/b", "--remux-video", "mkv",
+                        "--write-subs", "--sub-langs", langs[0], "--embed-subs",
+                        "-o", str(dest / "video.%(ext)s"), a.src], check=True)
+    extract(dest / "video.mkv", dest, {"title": info["title"], "url": f"https://youtu.be/{info['id']}"}, a)
+
+
+def slug(s):
+    return re.sub(r'[\\/:*?"<>|\s]+', "_", s)[:70]
+
+
+# ---- English translations from an LLM (Anthropic Messages API; Ollama serves the same format)
+
+TRANSLATE = """You are translating Japanese video subtitles into English for a Japanese learner's flashcards.
+You get an excerpt of the transcript in order. Lines marked [n] need translating; lines marked - are context only.
+Translate each numbered line as natural English that stays close to the Japanese wording and structure, so the
+learner can map the words across. Use the context to work out omitted subjects and what things refer to, but
+translate only what the line itself says.
+Reply with only a JSON object mapping each number to its translation, like {"12": "...", "13": "..."}."""
+CHECK = """You are checking English translations of Japanese subtitle lines, made for a Japanese learner's flashcards.
+A translation is good if it is accurate, complete, natural English, and stays close to the Japanese.
+Reply with only a JSON object mapping the number of each line that needs fixing to a corrected translation.
+Reply {} if they are all good."""
+
+
+def llm(system, user, ids):
+    """One request; returns {id: text} for the ids the model answered properly."""
+    body = json.dumps({"model": LLM, "max_tokens": 4096, "system": system,
+                       "messages": [{"role": "user", "content": user}]}).encode()
+    req = urllib.request.Request(os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com").rstrip("/") + "/v1/messages",
+                                 body, {"x-api-key": os.environ.get("ANTHROPIC_API_KEY", "local"),
+                                        "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    for wait in (5, 20, 60, 180, None):            # busy or flaky server: wait and try again
+        try:
+            res = json.load(urllib.request.urlopen(req, timeout=900))
+            break
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503, 529) or wait is None:
+                die(f"LLM request failed ({e.code}): {e.read().decode(errors='replace')[:300]}")
+        except OSError as e:
+            if wait is None:
+                die(f"can't reach the LLM: {e}")
+        time.sleep(wait)
+    text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
+    try:
+        found = json.loads(re.search(r"\{.*\}", text, re.S)[0])
+    except (TypeError, ValueError):
+        return {}
+    return {k: v.strip() for k, v in found.items() if k in ids and isinstance(v, str) and v.strip()}
+
+
+def translate(root):
+    """Write english.txt into every card folder that lacks one. Safe to re-run: finished cards are skipped."""
+    if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_BASE_URL")):
+        print("mine: no English translations (set ANTHROPIC_API_KEY to get them)", file=sys.stderr)
+        return
+    tf = root / "transcript.json"
+    lines = json.loads(tf.read_text()) if tf.exists() else [[p.parent.name, ""] for p in sorted(root.glob("*/sentence.txt"))]
+    for line in lines:                             # use the card's current text; deleted cards stay as context
+        p = root / (line[0] or "-") / "sentence.txt"
+        line[0], line[1] = (line[0], p.read_text().strip()) if p.exists() else (None, line[1])
+    todo = [i for i, (name, _) in enumerate(lines) if name and not (root / name / "english.txt").exists()]
+    for k in range(0, len(todo), BATCH):
+        batch = todo[k:k + BATCH]
+        lo, hi = max(0, batch[0] - CONTEXT), batch[-1] + CONTEXT + 1
+        excerpt = "\n".join(f"[{i}] {t}" if i in batch else f"- {t}" for i, (_, t) in enumerate(lines[lo:hi], lo) if t)
+        got = {}
+        for _ in range(3):                         # ask again for any line the model skipped
+            missing = [str(i) for i in batch if str(i) not in got]
+            if not missing:
+                break
+            got.update(llm(TRANSLATE, f"{excerpt}\n\nTranslate the lines numbered: {', '.join(missing)}", missing))
+        if len(got) < len(batch):
+            die(f"the model didn't translate every line after 3 tries (model: {LLM}); run the command again to resume")
+        pairs = "\n".join(f"[{i}] {lines[i][1]}\n    {got[str(i)]}" for i in batch)
+        got.update(llm(CHECK, f"Transcript excerpt:\n{excerpt}\n\nTranslations to check:\n{pairs}", list(got)))
+        for i in batch:
+            (root / lines[i][0] / "english.txt").write_text(got[str(i)] + "\n")
+        print(f"\rtranslated {min(k + BATCH, len(todo))}/{len(todo)}", end="\n" if k + BATCH >= len(todo) else "", flush=True)
+
+
+# ---- furigana (optional: pip install fugashi unidic-lite)
+
+def hira(s):
+    return "".join(chr(ord(c) - 0x60) if "ァ" <= c <= "ヶ" else c for c in s)
+
+
+ROWS = {"ア": "アカサタナハマヤラワガザダバパァャ", "イ": "イキシチニヒミリギジヂビピィ", "ウ": "ウクスツヌフムユルグズヅブプゥュ",
+        "エ": "エケセテネヘメレゲゼデベペェ", "オ": "オコソトノホモヨロヲゴゾドボポォョ"}
+
+
+def reading_of(w):
+    """Katakana reading of a token as written in kana (コウシ, not the pronunciation コーシ)."""
+    f = w.feature
+    kana = getattr(f, "kana", None)               # full UniDic has this field
+    if kana and kana != "*":
+        return kana
+    pron, lemma = getattr(f, "pron", None), getattr(f, "lForm", None) or ""
+    if not pron or pron == "*":
+        return None
+    out = ""                                      # unidic-lite: only pron, so turn each ー back into a vowel
+    for i, ch in enumerate(pron):
+        if ch == "ー" and out:
+            if i < len(lemma) and lemma[i] in "アイウエオ":
+                ch = lemma[i]                     # the dictionary form says which: トーッ + トオル -> トオッ
+            else:
+                v = next((v for v, row in ROWS.items() if out[-1] in row), "ー")
+                ch = {"エ": "イ", "オ": "ウ"}.get(v, v)   # usual spelling: セー -> セイ, コー -> コウ
+        out += ch
+    return out
+
+
+def word_furigana(word, reading):
+    """取り引き + トリヒキ -> ' 取[と]り 引[ひ]き'  (Anki's furigana syntax; kana in the word anchors the split)"""
+    if not reading or not KANJI.search(word):
+        return word
+    r = hira(reading)
+    parts = re.findall(r"[\u3400-\u9fff々]+|[^\u3400-\u9fff々]+", word)
+    m = re.fullmatch("".join("(.+?)" if KANJI.match(p) else re.escape(hira(p)) for p in parts), r)
+    if not m:                                     # kana doesn't line up (3人, 一ヶ月): reading over the whole word
+        return f" {word}[{r}]"
+    groups = iter(m.groups())
+    return "".join(f" {p}[{next(groups)}]" if KANJI.match(p) else p for p in parts)
+
+
+def furigana(text, tagger):
+    out, pos = "", 0
+    for w in tagger(text):
+        k = text.find(w.surface, pos)
+        if k >= 0:
+            out += text[pos:k] + word_furigana(w.surface, reading_of(w))
+            pos = k + len(w.surface)
+    return (out + text[pos:]).strip()
+
+
+# ---- push to Anki
+
+CSS = """.card { font-family: "Noto Sans CJK JP", sans-serif; text-align: center; font-size: 20px; }
+.sentence { font-size: 34px; line-height: 1.9; margin: 24px 12px; }
+ruby rt { font-size: 45%; opacity: .8; }
+img { max-width: 100%; max-height: 360px; }
+.english { font-size: 22px; margin: 12px; }
+.src { font-size: 13px; opacity: .6; } .src a { color: inherit; }"""
+FRONT = ('<div class="sentence">{{#Reading}}{{#FrontKana}}{{kana:Reading}}{{/FrontKana}}{{^FrontKana}}'
+         '{{#FrontFurigana}}{{furigana:Reading}}{{/FrontFurigana}}{{^FrontFurigana}}{{Sentence}}{{/FrontFurigana}}'
+         '{{/FrontKana}}{{/Reading}}{{^Reading}}{{Sentence}}{{/Reading}}</div>{{#AudioFront}}{{Audio}}{{/AudioFront}}')
+BACK = ('<div class="sentence">{{#Reading}}{{furigana:Reading}}{{/Reading}}{{^Reading}}{{Sentence}}{{/Reading}}</div>'
+        '<div class="english">{{English}}</div><hr id="answer">{{Picture}}<br>{{Audio}}<div>{{Notes}}</div><div class="src">{{Source}} · {{Time}}</div>')
+
+
+def anki(action, **params):
+    req = urllib.request.Request(ANKI_URL, json.dumps({"action": action, "version": 6, "params": params}).encode())
+    try:
+        res = json.load(urllib.request.build_opener(urllib.request.ProxyHandler({})).open(req, timeout=60))
+    except OSError:
+        die("can't reach AnkiConnect — is Anki open with the add-on (2055492159) installed?")
+    if res["error"]:
+        raise RuntimeError(res["error"])
+    return res["result"]
+
+
+def cmd_push(a):
+    root = Path(a.dir).resolve()
+    cards = sorted(p.parent for p in root.glob("*/sentence.txt") if not (p.parent / ".pushed").exists())
+    if not cards:
+        die(f"no unpushed cards in {root}")
+    try:
+        import fugashi
+        tagger = fugashi.Tagger()
+    except Exception:
+        tagger = None
+        hint = "pip install --user --break-system-packages fugashi unidic-lite"
+        if a.front != "kanji":
+            die(f"--front {a.front} needs readings; install fugashi first:\n  {hint}")
+        print(f"mine: no furigana (to get it: {hint})", file=sys.stderr)
+
+    if not a.dry_run:
+        if MODEL not in anki("modelNames"):
+            anki("createModel", modelName=MODEL, inOrderFields=FIELDS, css=CSS,
+                 cardTemplates=[{"Name": "Sentence", "Front": FRONT, "Back": BACK}])
+        else:                                      # note type from an older version of this script: bring it up to date
+            for f in set(FIELDS) - set(anki("modelFieldNames", modelName=MODEL)):
+                anki("modelFieldAdd", modelName=MODEL, fieldName=f)
+            anki("updateModelTemplates", model={"name": MODEL, "templates": {"Sentence": {"Front": FRONT, "Back": BACK}}})
+            anki("updateModelStyling", model={"name": MODEL, "css": CSS})
+        anki("createDeck", deck=DECK)
+        translate(root)
+    meta = json.loads((root / "source.json").read_text()) if (root / "source.json").exists() else {}
+    title = meta.get("title", root.name)
+    key = hashlib.md5(title.encode()).hexdigest()[:8]
+    added = skipped = 0
+    for c in cards:
+        sentence = (c / "sentence.txt").read_text().strip()
+        reading = ((c / "reading.txt").read_text().strip() if (c / "reading.txt").exists()
+                   else furigana(sentence, tagger) if tagger else "")
+        english = (c / "english.txt").read_text().strip() if (c / "english.txt").exists() else ""
+        if a.dry_run:
+            print(c.name, sentence + (f"\n{'':{len(c.name)}} {reading}" if reading else ""))
+            continue
+        m = re.match(r"\d+_(\d+)m(\d+)s", c.name)
+        secs = int(m[1]) * 60 + int(m[2]) if m else 0
+        source = html.escape(title)
+        if meta.get("url"):
+            source = f'<a href="{meta["url"]}?t={secs}">{source}</a>'
+        note = {"deckName": DECK, "modelName": MODEL, "tags": ["sentence-mine"],
+                "fields": {"Sentence": html.escape(sentence), "Reading": html.escape(reading), "Source": source,
+                           "English": html.escape(english),
+                           "Time": f"{secs // 60}:{secs % 60:02d}",
+                           "FrontKana": "1" if a.front == "kana" else "",
+                           "FrontFurigana": "1" if a.front == "furigana" else "",
+                           "AudioFront": "1" if a.audio == "front" else ""},
+                "picture": [{"path": str(c / "frame.jpg"), "filename": f"mine_{key}_{c.name}.jpg", "fields": ["Picture"]}],
+                "audio": [{"path": str(c / "audio.mp3"), "filename": f"mine_{key}_{c.name}.mp3", "fields": ["Audio"]}]}
+        try:
+            anki("addNote", note=note)
+            added += 1
+        except RuntimeError as e:
+            if "duplicate" not in str(e):
+                die(f"{c.name}: {e}")
+            skipped += 1
+        (c / ".pushed").touch()
+    if not a.dry_run:
+        print(f"added {added} cards to '{DECK}'" + (f", {skipped} were already there" if skipped else ""))
+
+
+def main():
+    p = argparse.ArgumentParser(prog="mine", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd", required=True)
+    for name, what in (("get", "YouTube URL"), ("extract", "video file")):
+        sp = sub.add_parser(name)
+        sp.add_argument("src", help=what)
+        if name == "extract":
+            sp.add_argument("--subs", help="separate .srt/.ass/.vtt file")
+        sp.add_argument("--track", type=int, help="subtitle track number (default: the Japanese one)")
+        sp.add_argument("--offset", type=float, default=0, help="shift subtitle times by this many seconds")
+        sp.add_argument("--pad", type=float, default=0.25, help="extra audio on each side, seconds")
+        sp.add_argument("--min-chars", type=int, default=4)
+        sp.add_argument("--max-chars", type=int, default=80)
+    sp = sub.add_parser("push")
+    sp.add_argument("dir")
+    sp.add_argument("--front", choices=["kanji", "furigana", "kana"], default="kanji", help="what the front shows")
+    sp.add_argument("--audio", choices=["front", "back"], default="back", help="front = plays as soon as the card shows")
+    sp.add_argument("--dry-run", action="store_true", help="print the cards and readings, add nothing")
+    a = p.parse_args()
+    {"get": cmd_get, "extract": cmd_extract, "push": cmd_push}[a.cmd](a)
+
+
+if __name__ == "__main__":
+    main()
