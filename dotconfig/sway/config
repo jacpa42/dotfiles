@@ -12,13 +12,15 @@ hide_edge_borders --i3 smart
 xwayland enable
 
 # window rules
-assign [class  = "Spotify"] 1
-assign [app_id = "webcord"] 1
-assign [app_id = "discord"] 1
-assign [app_id = "firefox"] 2
-assign [app_id = "nvim"   ] 3
-assign [app_id = "tmux"   ] 3
-assign [class  = "steam"  ] 4
+assign [class  = "Spotify"                        ] 1
+assign [app_id = "webcord"                        ] 1
+assign [app_id = "discord"                        ] 1
+assign [app_id = "firefox"                        ] 2
+assign [app_id = "nvim"                           ] 3
+assign [app_id = "tmux"                           ] 3
+assign [class  = "steam"                          ] 4
+assign [app_id = "com.mojang.minecraft"           ] 4
+assign [app_id = "org.prismlauncher.PrismLauncher"] 4
 
 # colors
 client.focused          #5f7a95    #000000      #5f7a95   #7799bb     #5f7a95

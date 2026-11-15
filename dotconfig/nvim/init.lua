@@ -148,6 +148,14 @@ autocmd({ "FileType" }, {
 	end,
 })
 
+autocmd("FileType", {
+  pattern = { "go", "gomod", "gosum", "gowork" },
+  callback = function(ev)
+      vim.treesitter.start(ev.buf)
+      vim.opt_local.errorformat = { "%f:%l:%c: %m", "%f:%l: %m", "%-G#%.%#" }
+  end,
+})
+
 
 vim.cmd("autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=100}")
 
@@ -291,6 +299,17 @@ local lsp_configs = {
 		root_markers = { "zls.json", "build.zig", ".git" },
 		workspace_required = false,
 	},
+
+    ["gopls"] = {
+		enable = true,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        settings = {
+            analyses = { unusedparams = true, },
+            staticcheck = true,
+            gofumpt = true,
+        }
+    },
 }
 
 for l, c in pairs(lsp_configs) do
@@ -667,6 +686,7 @@ autocmd("BufAdd", {
 				bash = { "shfmt" },
 				-- c = { "clang-format-custom", lsp_format = "fallback" },
 				-- cpp = { "clang-format", lsp_format = "fallback" },
+				go = { "gofmt" },
 				html = { "superhtml" },
 				json = { "json" },
 				odin = { "odinfmt" },
