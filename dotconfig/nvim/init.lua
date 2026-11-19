@@ -152,7 +152,13 @@ autocmd("FileType", {
   pattern = { "go", "gomod", "gosum", "gowork" },
   callback = function(ev)
       vim.treesitter.start(ev.buf)
-      vim.opt_local.errorformat = { "%f:%l:%c: %m", "%f:%l: %m", "%-G#%.%#" }
+      vim.opt_local.errorformat = {
+          "vet: %f:%l:%c: %m",
+          "%f:%l:%c: %m",
+          "%f:%l: %m",
+          "%-G#%.%#",
+          "%-G#%.%#",
+      }
   end,
 })
 

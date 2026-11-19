@@ -1,0 +1,8 @@
+#!/usr/bin/dash
+
+DELAY="${1:-0.625}" # minecraft sword default
+
+while true; do
+    sleep "$DELAY"
+    ydotool click 0xC0 # left click
+done

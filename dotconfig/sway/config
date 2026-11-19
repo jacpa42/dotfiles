@@ -58,6 +58,9 @@ input "type:touchpad" dwt disabled
     # Start a terminal
     bindsym $mod+Shift+Backspace exec $term
 
+    # auto clicker
+    bindsym F6 exec pkill -f 'bin/jacob_autoclicker$' || jacob_autoclicker
+
     # Mini programs
     bindsym $mod+y exec $term -T yazi --app-id yazi -e yazi
     bindsym $mod+b exec $term -T btop --app-id btop -e btop
