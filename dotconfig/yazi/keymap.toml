@@ -1,5 +1,5 @@
 [[mgr.prepend_keymap]]
 on = "w"
-run = 'shell --orphan -- jacob_wallpaper --set "$@"'
+run = 'shell --orphan -- jacob_wallpaper -s %h'
 desc = "Change this image to the current wallpaper"
 for = "linux"

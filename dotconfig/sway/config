@@ -37,10 +37,8 @@ output DP-5 resolution 3840x2160@30Hz position 2560 0
 # 'Acer Technologies Acer 4K PJ JWL110015900'
 output DP-2 resolution 3840x2160@60Hz position 3840 0
 
-exec_always sh -c 'swaymsg output "*" bg "$(fd -1 "$DEFAULT_WALLPAPER" "$WALLPAPER_DIRECTORY")" fill'
-
 # startup things
-exec jacob_wallpaper --force --set-last
+exec jacob_wallpaper -S
 exec mpd
 exec fcitx5 -d
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP

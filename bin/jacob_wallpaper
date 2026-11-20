@@ -24,11 +24,12 @@ case $mode in
     "") i=$((cur % $# + 1)) ;;
     -r) i=$(((cur + $# - 2) % $# + 1)) ;;
     -R) i=$(($(od -An -N2 -tu2 /dev/urandom) % $# + 1)) ;;
-    -s) i=${def:-1} ;;
+    -s) [ -f "$want" ] && wp=$want || i=${def:-1} ;;
     -S) i=${cur#0}; i=${i:-${def:-1}} ;;
     *)  echo "usage: ${0##*/} [-r | -R | -s [name] | -S]" >&2; exit 1 ;;
 esac
 
-eval "wp=\${$i}"
+[ -n "$wp" ] || eval "wp=\${$i}"
+case $wp in /*) ;; *) wp=$PWD/$wp ;; esac
 printf '%s\n' "$wp" >"$state"
 swaymsg -q output '*' bg "$wp" fill
