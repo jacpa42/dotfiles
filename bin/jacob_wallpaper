@@ -1,124 +1,34 @@
 #!/usr/bin/dash
+# jacob_wallpaper [-r | -R | -s [name] | -S]    (no flag = next)
 
-#
-# Here are the basic operations I need to do for wallpapers:
-# 1. Set a specific wallpaper
-# 2. Get the path of the default wallpaper
-# 3. Get the path of the last wallpaper
-# 4. Go to the next wallpaper
-# 5. Go to the next wallpaper (random)
-# 6. Go to the prev wallpaper
-# 7. Go to the prev wallpaper (random)
-#
+dir=${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}
+state=${XDG_CACHE_HOME:-$HOME/.cache}/lastwallpaper
+read -r last 2>/dev/null <"$state"
 
-wallpaper_directory="${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}"
-requested_wallpaper="$DEFAULT_WALLPAPER"
-get_last=0
+mode=$1 want=${2:-$DEFAULT_WALLPAPER}
 
-while [ $# -gt 0 ]; do
-    case "$1" in
-    --get | -g)
-        get_last=1
-        requested_wallpaper="$2"
-        shift 2 || exit 1
-        ;;
-    --set | -s)
-        echo "requested_wallpaper=$2"
-        set_requested=true
-        requested_wallpaper="$2"
-        shift 2 || exit 1
-        ;;
-    --set-last | -S)
-        echo "set_last_used=true"
-        set_last_used=true
-        shift
-        ;;
-    --reverse | -r)
-        echo "reverse=true"
-        reverse=true
-        shift
-        ;;
-    --random | -R)
-        echo "random=true"
-        random=true
-        shift
-        ;;
-    --force | -f)
-        echo "force=true"
-        force=true
-        shift
-        ;;
-    *)
-        echo "Usage: $0 [--help|-h] [--set|-s <wallpaper>] [--reverse|-r] [--set-last|-S] [--random|-R] [--force|-f]"
-        echo
-        echo "	--help              -h | display this message."
-        echo "	--set               -s | Specify a wallpaper to set."
-        echo "	--set-last          -S | Tries to set the wallpaper to the last set wallpaper. On failure default behaviour occurs."
-        echo "	--reverse           -r | Reverse the order of the wallpaper cycling."
-        echo "	--random            -R | Choose a random wallpaper."
-        echo "	--force             -f | Set the wallpaper even if it is already loaded."
-        exit 0
-        ;;
-    esac
+set -f; IFS='
+'
+set -- $(find "$dir" -type f -name '*.jxl' | sort)
+[ $# -gt 0 ] || exit 1
+
+# cur = position of the last wallpaper, def = first match for $want
+n=0 cur=0
+for f; do
+    n=$((n + 1))
+    case $f in "$last")   cur=$n ;; esac
+    case $f in *"$want"*) def=${def:-$n} ;; esac
 done
 
-STATE_FILE=$XDG_CACHE_HOME/lastwallpaper
-[ -r "$STATE_FILE" ] && STATE="$(cat $STATE_FILE)" || STATE=
-current_image="${STATE#*::}"
-current_image_index="${STATE%%::*}"
+case $mode in
+    "") i=$((cur % $# + 1)) ;;
+    -r) i=$(((cur + $# - 2) % $# + 1)) ;;
+    -R) i=$(($(od -An -N2 -tu2 /dev/urandom) % $# + 1)) ;;
+    -s) i=${def:-1} ;;
+    -S) i=${cur#0}; i=${i:-${def:-1}} ;;
+    *)  echo "usage: ${0##*/} [-r | -R | -s [name] | -S]" >&2; exit 1 ;;
+esac
 
-set_requested() {
-    local req_wall="$1"
-    [ -f "$req_wall" ] && next_image="$req_wall" || next_image="$(fd -1atfile "$(basename "$req_wall")" "$wallpaper_directory")"
-    next_image_index="$(fd -atf -ejxl . "$wallpaper_directory" | rg -nFm1 "$next_image" | cut -d: -f1)"
-    next_image_index="${next_image_index%%:*}"
-    next_image_index="${next_image_index:-1}"
-    next_image_index="$((next_image_index - 1))"
-}
-
-set_random() {
-    local random="$1"
-    local reverse="$2"
-
-    local images="$(fd -atf -ejxl . "$wallpaper_directory")"
-    local num_images="$(echo "$images" | wc -l)"
-
-    [ $num_images -eq 0 ] && { echo "No images found." && exit 1; }
-
-    if [ -n "$random" ]; then
-        next_image_index=$(($(date +%N) % num_images))
-    elif [ -z "$current_image_index" ]; then
-        next_image_index=0
-    elif [ -n "$reverse" ]; then
-        next_image_index=$(((current_image_index + num_images - 1) % num_images))
-    else
-        next_image_index=$(((current_image_index + 1) % num_images))
-    fi
-
-    next_image="$(echo "$images" | sed -n "$((next_image_index + 1))"p)"
-}
-
-# Set last used if requested
-[ -z "$wallpaper_set" ] && [ -n "$current_image" ] && [ -n "$set_last_used" ] && {
-    wallpaper_set=true
-    requested_wallpaper="$current_image"
-    set_requested "$requested_wallpaper"
-}
-
-# Otherwise fallback to requested
-[ -z "$wallpaper_set" ] && [ -n "$set_requested" ] && {
-    wallpaper_set=true
-    set_requested "$requested_wallpaper"
-}
-
-# Otherwise fallback to random
-[ -z "$wallpaper_set" ] && {
-    wallpaper_set=true
-    set_random "$random" "$reverse"
-}
-
-[ -n "$force" ] || [ "$current_image" != "$next_image" ] && {
-    printf "$next_image_index::$next_image" >"$STATE_FILE"
-    pkill wbg
-    wbg -s $next_image &
-}
+eval "wp=\${$i}"
+printf '%s\n' "$wp" >"$state"
+swaymsg -q output '*' bg "$wp" fill
