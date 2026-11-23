@@ -45,7 +45,7 @@ set continuous-hist-save false
 # Defines the database backend to use for bookmarks and input history. Possible values are "sqlite" and "null". If "null" is used, book‐
 # marks and input history will not be stored.
 # • Value type: String
-set database null
+set database sqlite
 
 # Defines whether zathura's window should be raised when receiving certain commands via D-Bus.
 # • Value type: Boolean
