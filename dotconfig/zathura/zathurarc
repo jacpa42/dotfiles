@@ -15,7 +15,7 @@ set notification-warning-fg     "#5f7a95"
 set highlight-fg                "#c1c1c1"
 set highlight-color             rgba(136,136,136,0.7)
 set highlight-active-color      rgba(27,22,31,0.7)
-set completion-bg               "#000000"
+set completion-bg               "#000000"zathu
 set completion-fg               "#888888"
 set completion-highlight-fg     "#c1c1c1"
 set completion-highlight-bg     "#888888"
@@ -45,7 +45,7 @@ set continuous-hist-save false
 # Defines the database backend to use for bookmarks and input history. Possible values are "sqlite" and "null". If "null" is used, book‐
 # marks and input history will not be stored.
 # • Value type: String
-set database null
+set database sqlite
 
 # Defines whether zathura's window should be raised when receiving certain commands via D-Bus.
 # • Value type: Boolean

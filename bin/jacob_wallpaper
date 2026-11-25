@@ -1,4 +1,4 @@
-#!/usr/bin/dash
+#!/usr/bin/env /usr/bin/dash
 # jacob_wallpaper [-r | -R | -s [name] | -S]    (no flag = next)
 
 dir=${WALLPAPER_DIRECTORY:-$PROJDIR/muur_papier}
