@@ -1,8 +1,29 @@
 #!/usr/bin/dash
 
-DELAY="${1:-0.625}" # minecraft sword default
+DELAY="${1:-0.625}"
+EAT_EVERY="${2:-200}"
+TURN="${3:-600}"        # mouse units to turn sideways; tune for your sensitivity
 
+eat() {
+    ydotool mousemove -x "$TURN" -y 0    # turn away from the armour stand
+    sleep 0.2
+    ydotool click 0x41                   # right button down
+    sleep 1.8                            # eating takes 1.6s
+    ydotool click 0x81                   # right button up
+    sleep 0.2
+    ydotool mousemove -x "-$TURN" -y 0   # turn back
+    sleep 0.2
+}
+
+n=0
 while true; do
     sleep "$DELAY"
-    ydotool click 0xC0 # left click
+    ydotool click 0xC0  # left click
+    n=$((n + 1))
+    notify-send "$n/$EAT_EVERY" --replace-id "911236447"
+    if [ "$n" -ge "$EAT_EVERY" ]; then
+        notify-send "eating" --replace-id "911236447"
+        eat
+        n=0
+    fi
 done
