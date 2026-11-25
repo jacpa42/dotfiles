@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Webseach
+Name=Websearch
 TryExec=jacob_websearch
 Exec=jacob_websearch
 Type=Application
