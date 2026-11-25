@@ -1,4 +1,5 @@
 dotconfig/mpv/watch_later/
+**/nvim-pack-lock.json
 **/lazy-lock.json
 dotconfig/zsh/.zcompdump
 dotconfig/zsh/.zcompcache
